@@ -55,7 +55,7 @@ PODS:
     - PINRemoteImage/iOS (= 3.0.0-beta.13)
     - PINRemoteImage/PINCache
     - Texture/Core
-  - UMCCommon (1.5.3)
+  - UMCCommon (2.1.1)
   - UMCSecurityPlugins (1.0.6)
   - UMCShare/Core (6.9.5):
     - UMCCommon
@@ -95,7 +95,7 @@ DEPENDENCIES:
   - SDCycleScrollView (= 1.75)
   - SDWebImage (= 4.4.3)
   - Texture (= 2.7)
-  - UMCCommon (= 1.5.3)
+  - UMCCommon (= 2.1.1)
   - UMCSecurityPlugins (= 1.0.6)
   - UMCShare/Social/ReducedQQ
   - UMCShare/Social/ReducedSina
@@ -106,7 +106,7 @@ DEPENDENCIES:
   - ZLPhotoBrowser (= 2.7.6)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - BRPickerView
     - GPUImage
@@ -127,12 +127,13 @@ SPEC REPOS:
     - SDCycleScrollView
     - SDWebImage
     - Texture
-    - UMCCommon
     - UMCSecurityPlugins
     - UMCShare
     - YYImage
     - YYText
     - ZLPhotoBrowser
+  trunk:
+    - UMCCommon
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -155,13 +156,13 @@ SPEC CHECKSUMS:
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
-  UMCCommon: 016af43c0f769feb1ae1861d65aaf2b23b89c9c7
+  UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   UMCShare: 552b29753f1b4da87b51d96545ed19e6263df397
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLPhotoBrowser: 6dfadc4706429424f0a851fe40752aff076689ab
 
-PODFILE CHECKSUM: 44599f52656bc384ed9d0d841ac6ffadafb2ade5
+PODFILE CHECKSUM: b700a7518d59d08777fc5c7e70502147ec798744
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.10.1

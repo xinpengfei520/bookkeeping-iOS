@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -72,7 +72,6 @@
 		326EB88A21E57C05007CD5C6 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		326EB88B21E57C0D007CD5C6 /* NSObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A5800E21DF08BC008993B2 /* NSObject+NSCoding.m */; };
 		326EB88C21E57C15007CD5C6 /* UIColor+HEX.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983CB21C6460100311885 /* UIColor+HEX.m */; };
-		326EB89021E57C72007CD5C6 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 326EB88F21E57C72007CD5C6 /* UIView+Extension.m */; };
 		326EB89421E57D86007CD5C6 /* StartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 326EB89321E57D86007CD5C6 /* StartView.m */; };
 		326EB89721E57ED3007CD5C6 /* StartHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 326EB89621E57ED3007CD5C6 /* StartHeader.m */; };
 		326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 326F8F2321D4BFCA0030B329 /* TIModel.m */; };
@@ -504,8 +503,6 @@
 		3257AED921C877E500787A34 /* TITableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TITableCell.h; sourceTree = "<group>"; };
 		3257AEDA21C877E500787A34 /* TITableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TITableCell.m; sourceTree = "<group>"; };
 		3257AEDB21C877E500787A34 /* TITableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TITableCell.xib; sourceTree = "<group>"; };
-		326EB88E21E57C72007CD5C6 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		326EB88F21E57C72007CD5C6 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		326EB89221E57D86007CD5C6 /* StartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartView.h; sourceTree = "<group>"; };
 		326EB89321E57D86007CD5C6 /* StartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartView.m; sourceTree = "<group>"; };
 		326EB89521E57ED3007CD5C6 /* StartHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartHeader.h; sourceTree = "<group>"; };
@@ -1498,8 +1495,6 @@
 		326EB88D21E57C72007CD5C6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				326EB88E21E57C72007CD5C6 /* UIView+Extension.h */,
-				326EB88F21E57C72007CD5C6 /* UIView+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2949,7 +2944,7 @@
 		3219836921C642BB00311885 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = kk;
 				TargetAttributes = {
 					3219837021C642BB00311885 = {
@@ -3178,36 +3173,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources.sh",
-				"${PODS_ROOT}/BRPickerView/BRPickerView/AddressPickerView/BRPickerView.bundle",
-				"${PODS_ROOT}/GPUImage/framework/Resources/lookup.png",
-				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png",
-				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png",
-				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_1.png",
-				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_2.png",
-				"${PODS_CONFIGURATION_BUILD_DIR}/JGProgressHUD/JGProgressHUD.bundle",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoActionSheet.xib",
-				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoBrowserCell.xib",
-				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoBrowser.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BRPickerView.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_amatorka.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_miss_etikate.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_soft_elegance_1.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/lookup_soft_elegance_2.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/JGProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoActionSheet.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoBrowserCell.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoBrowser.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3482,7 +3452,6 @@
 				326EB88821E57BF7007CD5C6 /* UIFont+Extension.m in Sources */,
 				3213182021E5CDB7000ADA9A /* NSString+Calculation.m in Sources */,
 				3213181F21E5C913000ADA9A /* UIView+BorderLine.m in Sources */,
-				326EB89021E57C72007CD5C6 /* UIView+Extension.m in Sources */,
 				3213181621E59A83000ADA9A /* ACAListModel.m in Sources */,
 				32AF269A21ED6556004F46A2 /* NSMutableArray+Extension.m in Sources */,
 				4B47931721E9DF540062879D /* NSUserDefaults+Extension.m in Sources */,
@@ -3564,6 +3533,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3623,6 +3593,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3658,15 +3629,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = bookkeeping/bookkeeping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KVDKFLYG8;
+				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bookkeeping/KKPrefixHeader.pch";
 				INFOPLIST_FILE = bookkeeping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kk.bookkeeping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3680,15 +3651,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = bookkeeping/bookkeeping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KVDKFLYG8;
+				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bookkeeping/KKPrefixHeader.pch";
 				INFOPLIST_FILE = bookkeeping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kk.bookkeeping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3700,7 +3671,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BookMonth/BookMonth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KVDKFLYG8;
+				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BookMonth/KKPrefixHeader.pch";
 				INFOPLIST_FILE = BookMonth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3708,7 +3679,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kk.bookkeeping.BookMonth;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3721,7 +3693,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BookMonth/BookMonth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KVDKFLYG8;
+				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BookMonth/KKPrefixHeader.pch";
 				INFOPLIST_FILE = BookMonth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3729,7 +3701,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kk.bookkeeping.BookMonth;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3742,7 +3715,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BookStart/BookStart.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KVDKFLYG8;
+				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BookStart/KKPrefixHeader.pch";
 				INFOPLIST_FILE = BookStart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3750,7 +3723,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kk.bookkeeping.BookStart;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookStart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3763,7 +3737,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BookStart/BookStart.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5KVDKFLYG8;
+				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BookStart/KKPrefixHeader.pch";
 				INFOPLIST_FILE = BookStart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3771,7 +3745,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kk.bookkeeping.BookStart;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookStart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;

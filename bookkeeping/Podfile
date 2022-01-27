@@ -15,7 +15,7 @@ target ‘bookkeeping’ do
     pod 'MGSwipeTableCell', '1.6.8'
     pod 'ZLPhotoBrowser', '2.7.6'
     pod 'BRPickerView', '2.2.1'
-    pod 'UMCCommon', '1.5.3'
+    pod 'UMCCommon', '2.1.1'
     pod 'Texture', '2.7'
     pod 'YYText', '1.0.7'
     pod 'YYImage', '1.0.4'
