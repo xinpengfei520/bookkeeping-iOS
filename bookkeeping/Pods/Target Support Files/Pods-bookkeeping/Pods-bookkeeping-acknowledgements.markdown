@@ -1219,21 +1219,6 @@ Apache License
 
    END OF TERMS AND CONDITIONS
 
-## UMCCommon
-
-Copyright 2011 - 2019 umeng.com. All rights reserved.
-
-
-## UMCSecurityPlugins
-
-Copyright 2011 - 2018 umeng.com. All rights reserved.
-
-
-## UMCShare
-
-Copyright 2011 - 2021 umeng.com. All rights reserved.
-
-
 ## YYImage
 
 The MIT License (MIT)

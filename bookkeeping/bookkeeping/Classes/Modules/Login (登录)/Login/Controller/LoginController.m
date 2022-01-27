@@ -84,7 +84,7 @@
 
 #pragma mark - 请求
 // QQ登录
-- (void)getQQLoginRequest:(UMSocialUserInfoResponse *)resp {
+- (void)getQQLoginRequest {
 //    @weakify(self)
 //    // 下载图片
 //    NSURL *url = [NSURL URLWithString:resp.iconurl];

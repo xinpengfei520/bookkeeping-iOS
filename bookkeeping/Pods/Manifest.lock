@@ -54,22 +54,6 @@ PODS:
     - PINRemoteImage/iOS (= 3.0.0-beta.13)
     - PINRemoteImage/PINCache
     - Texture/Core
-  - UMCCommon (2.1.1)
-  - UMCSecurityPlugins (1.0.6)
-  - UMCShare/Core (6.10.2):
-    - UMCCommon
-  - UMCShare/Social/ReducedQQ (6.10.2):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/Social/ReducedSina (6.10.2):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/Social/ReducedWeChat (6.10.2):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/Social/SMS (6.10.2):
-    - UMCCommon
-    - UMCShare/Core
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
   - YYImage/Core (1.0.4)
@@ -93,12 +77,6 @@ DEPENDENCIES:
   - SDCycleScrollView (= 1.75)
   - SDWebImage (= 4.4.3)
   - Texture (= 2.7)
-  - UMCCommon (= 2.1.1)
-  - UMCSecurityPlugins (= 1.0.6)
-  - UMCShare/Social/ReducedQQ
-  - UMCShare/Social/ReducedSina
-  - UMCShare/Social/ReducedWeChat
-  - UMCShare/Social/SMS
   - YYImage (= 1.0.4)
   - YYText (= 1.0.7)
   - ZLPhotoBrowser (= 2.7.6)
@@ -124,9 +102,6 @@ SPEC REPOS:
     - SDCycleScrollView
     - SDWebImage
     - Texture
-    - UMCCommon
-    - UMCSecurityPlugins
-    - UMCShare
     - YYImage
     - YYText
     - ZLPhotoBrowser
@@ -151,13 +126,10 @@ SPEC CHECKSUMS:
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
-  UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
-  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
-  UMCShare: e14e1399673fa361cddbde3a05b3743e10f673f7
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLPhotoBrowser: 6dfadc4706429424f0a851fe40752aff076689ab
 
-PODFILE CHECKSUM: 6ff88ead9339b5ddda83a773e2a9f32493f904cb
+PODFILE CHECKSUM: 4d00d47e80242faf01e37bb95bbce7f88cd5507b
 
 COCOAPODS: 1.10.1

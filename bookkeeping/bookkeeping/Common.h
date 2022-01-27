@@ -20,8 +20,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIButton+WebCache.h>
 #import <pop/POP.h>
-#import <UMShare/UMShare.h>
-#import <UMCommon/UMCommon.h>
 #import <ZLPhotoBrowser/ZLPhotoActionSheet.h>
 #import <ZLPhotoBrowser/ZLCustomCamera.h>
 #import <BRPickerView/BRPickerView.h>
@@ -69,7 +67,6 @@
 #import "UIScrollView+Extension.h"
 #import "UITableView+Extension.h"
 #import "UITableViewCell+Extension.h"
-#import "UIViewController+UMengExtension.h"
 #import "UIView+JGProgressHUD.h"
 #import "UIWindow+JGProgressHUD.h"
 #import "UITableViewCell+Extension.h"

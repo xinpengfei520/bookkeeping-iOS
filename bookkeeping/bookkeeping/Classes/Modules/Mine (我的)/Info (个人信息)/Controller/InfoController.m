@@ -102,29 +102,29 @@
 }
 // 绑定第三方账号
 - (void)bindThirdRequest {
-    // QQ授权
-    @weakify(self)
-    [self umQQUserInfo:^(KKSocialUserInfoResponse *resp) {
-        @strongify(self)
-        UserModel *model = [UserInfo loadUserInfo];
-        NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:
-                               model.account, @"account",
-                               resp.openid, @"openid",
-                               resp.name, @"nickname",
-                               [resp.gender isEqualToString:@"男"] ? @"1" : @"0", @"sex", nil];
-        [AFNManager POST:BindThirdRequest params:param andImages:@[resp.icon] progress:nil complete:^(APPResult *result) {
-            [self hideHUD];
-            if (result.status == ServiceCodeSuccess) {
-                UserModel *model = [UserInfo loadUserInfo];
-                [model setOpenid:resp.openid];
-                [UserInfo saveUserModel:model];
-                [self setModel:model];
-            } else {
-                [self showTextHUD:result.message delay:1.f];
-            }
-        }];
-            
-    }];
+//    // QQ授权
+//    @weakify(self)
+//    [self umQQUserInfo:^( *) {
+//        @strongify(self)
+//        UserModel *model = [UserInfo loadUserInfo];
+//        NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:
+//                               model.account, @"account",
+//                               resp.openid, @"openid",
+//                               resp.name, @"nickname",
+//                               [resp.gender isEqualToString:@"男"] ? @"1" : @"0", @"sex", nil];
+//        [AFNManager POST:BindThirdRequest params:param andImages:@[resp.icon] progress:nil complete:^(APPResult *result) {
+//            [self hideHUD];
+//            if (result.status == ServiceCodeSuccess) {
+//                UserModel *model = [UserInfo loadUserInfo];
+//                [model setOpenid:resp.openid];
+//                [UserInfo saveUserModel:model];
+//                [self setModel:model];
+//            } else {
+//                [self showTextHUD:result.message delay:1.f];
+//            }
+//        }];
+//
+//    }];
 }
 // 更改性别
 - (void)changeSexRequest:(NSInteger)sex {

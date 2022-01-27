@@ -4,7 +4,6 @@
  */
 
 #import "AppDelegate.h"
-#import "AppDelegate+UMeng.h"
 
 
 #pragma mark - 声明
@@ -22,8 +21,6 @@
     [self makeRootController];
     // 系统配置
     [self systemConfig];
-    // 友盟
-    [self shareUMengConfig];
     
     
 //    // 注册通知
@@ -55,11 +52,7 @@
 
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url options:options];
-    // 分享
-    if (result) {
-        return result;
-    }
+
     // 记一笔
     if ([url.absoluteString isEqualToString:@"kbook://month"]) {
         BaseTabBarController *tab = (BaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
@@ -83,7 +76,7 @@
     else if ([url.absoluteString isEqualToString:@"kbook://book"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:nil];
     }
-    return result;
+    return YES;
 }
 
 
