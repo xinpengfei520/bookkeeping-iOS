@@ -360,6 +360,10 @@
 		4BFD381C21E4D84B00BAB0BB /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		AEA489C5440A548BEBD1304B /* libPods-BookMonth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2513416B4CCC355FFD281675 /* libPods-BookMonth.a */; };
 		EFBA7719833AD39F78BFEC4E /* libPods-BookStart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AD782884DC71E9F3EA4954 /* libPods-BookStart.a */; };
+		F30D7F0D27A25CD100B0580C /* UINavigationController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0427A25CD100B0580C /* UINavigationController+JZExtension.m */; };
+		F30D7F0E27A25CD100B0580C /* UIViewController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0527A25CD100B0580C /* UIViewController+JZExtension.m */; };
+		F30D7F0F27A25CD100B0580C /* _JZNavigationDelegating.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0727A25CD100B0580C /* _JZNavigationDelegating.m */; };
+		F30D7F1027A25CD100B0580C /* _JZ-objc-internal.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0A27A25CD100B0580C /* _JZ-objc-internal.m */; };
 		F5982707CC838EDD0692E0E0 /* libPods-bookkeeping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */; };
 /* End PBXBuildFile section */
 
@@ -945,6 +949,15 @@
 		B851B6FB04282545CD2CBDE7 /* Pods-BookStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookStart.release.xcconfig"; path = "Target Support Files/Pods-BookStart/Pods-BookStart.release.xcconfig"; sourceTree = "<group>"; };
 		E3AD782884DC71E9F3EA4954 /* libPods-BookStart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookStart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
+		F30D7F0327A25CD100B0580C /* UIViewController+JZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JZExtension.h"; sourceTree = "<group>"; };
+		F30D7F0427A25CD100B0580C /* UINavigationController+JZExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+JZExtension.m"; sourceTree = "<group>"; };
+		F30D7F0527A25CD100B0580C /* UIViewController+JZExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JZExtension.m"; sourceTree = "<group>"; };
+		F30D7F0727A25CD100B0580C /* _JZNavigationDelegating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _JZNavigationDelegating.m; sourceTree = "<group>"; };
+		F30D7F0827A25CD100B0580C /* _JZ-objc-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "_JZ-objc-internal.h"; sourceTree = "<group>"; };
+		F30D7F0927A25CD100B0580C /* _JZNavigationDelegating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _JZNavigationDelegating.h; sourceTree = "<group>"; };
+		F30D7F0A27A25CD100B0580C /* _JZ-objc-internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "_JZ-objc-internal.m"; sourceTree = "<group>"; };
+		F30D7F0B27A25CD100B0580C /* UINavigationController+JZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+JZExtension.h"; sourceTree = "<group>"; };
+		F30D7F0C27A25CD100B0580C /* JZNavigationExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZNavigationExtension.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1082,6 +1095,7 @@
 		3219838E21C6436A00311885 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				F30D7F0227A25CD100B0580C /* JZNavigationExtension */,
 				4B2214F821E9E4A7000F619F /* ScreenBlurry */,
 				321431D621D3675000D7D1F5 /* ZLPhotoActionSheet */,
 				32FADE5621D2297400DCD920 /* UMeng */,
@@ -2877,6 +2891,30 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F30D7F0227A25CD100B0580C /* JZNavigationExtension */ = {
+			isa = PBXGroup;
+			children = (
+				F30D7F0327A25CD100B0580C /* UIViewController+JZExtension.h */,
+				F30D7F0427A25CD100B0580C /* UINavigationController+JZExtension.m */,
+				F30D7F0527A25CD100B0580C /* UIViewController+JZExtension.m */,
+				F30D7F0627A25CD100B0580C /* Private */,
+				F30D7F0B27A25CD100B0580C /* UINavigationController+JZExtension.h */,
+				F30D7F0C27A25CD100B0580C /* JZNavigationExtension.h */,
+			);
+			path = JZNavigationExtension;
+			sourceTree = "<group>";
+		};
+		F30D7F0627A25CD100B0580C /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				F30D7F0727A25CD100B0580C /* _JZNavigationDelegating.m */,
+				F30D7F0827A25CD100B0580C /* _JZ-objc-internal.h */,
+				F30D7F0927A25CD100B0580C /* _JZNavigationDelegating.h */,
+				F30D7F0A27A25CD100B0580C /* _JZ-objc-internal.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3284,6 +3322,7 @@
 				321983BA21C6459B00311885 /* BaseView.m in Sources */,
 				3219840521C6460100311885 /* UICollectionView+Extension.m in Sources */,
 				4B35F1D021CCDA98007271BE /* ShareBadge.m in Sources */,
+				F30D7F0F27A25CD100B0580C /* _JZNavigationDelegating.m in Sources */,
 				4BAF977121CE6365006EEF93 /* RE1Controller.m in Sources */,
 				4B229A6421E6182000152030 /* FindController.m in Sources */,
 				32A4C24721CB7D5900DF4327 /* ShareOrder.m in Sources */,
@@ -3309,6 +3348,7 @@
 				321983B821C6459B00311885 /* BaseNavigationController.m in Sources */,
 				4B252CE121C6A288002CD83D /* MineView.m in Sources */,
 				32A4C24D21CB834100DF4327 /* BookPunch.m in Sources */,
+				F30D7F0D27A25CD100B0580C /* UINavigationController+JZExtension.m in Sources */,
 				4B2214FD21E9E4A8000F619F /* UIImage+BlurGlass.m in Sources */,
 				4BA68AC021C7E3960063A5C2 /* BadgeCollectionCell.m in Sources */,
 				4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */,
@@ -3337,6 +3377,7 @@
 				4BD1EE6C2208172F00758B41 /* CCController.m in Sources */,
 				4B48530821C69A2E00891096 /* MineTableHeader.m in Sources */,
 				32A4C23821CB445700DF4327 /* ShareBottom.m in Sources */,
+				F30D7F1027A25CD100B0580C /* _JZ-objc-internal.m in Sources */,
 				4B1893C521D67081005002E2 /* ChartHUDCell.m in Sources */,
 				4BFD381721E4D3CB00BAB0BB /* UIViewController+Extension.m in Sources */,
 				4B35F1A621CCC641007271BE /* AFNManager.m in Sources */,
@@ -3412,6 +3453,7 @@
 				32A4C24421CB75DD00DF4327 /* AboutController.m in Sources */,
 				4BF0649621E10FD2005F1665 /* HomeNavigation.m in Sources */,
 				4B35F1BF21CCC694007271BE /* KKGoodsEmpty.m in Sources */,
+				F30D7F0E27A25CD100B0580C /* UIViewController+JZExtension.m in Sources */,
 				4BE7846621C6799200B8EC46 /* BKCController.m in Sources */,
 				4B4852FD21C6974800891096 /* MineTableView.m in Sources */,
 				4B9798FD21CE744A0020B207 /* CountDown.m in Sources */,

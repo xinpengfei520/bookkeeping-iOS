@@ -13,7 +13,6 @@
 //================================= Third ===================================//
 #import <JGProgressHUD/JGProgressHUD.h>
 #import <MJExtension/MJExtension.h>
-#import <JZNavigationExtension/JZNavigationExtension.h>
 #import <SDCycleScrollView/SDCycleScrollView.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <MJRefresh/MJRefresh.h>
@@ -44,7 +43,7 @@
 #import "BaseNavigationController.h"
 #import "BaseTableCell.h"
 #import "ASBaseViewController.h"
-
+#import "JZNavigationExtension.h"
 
 //================================= Category =================================//
 #import "NSString+Extension.h"
