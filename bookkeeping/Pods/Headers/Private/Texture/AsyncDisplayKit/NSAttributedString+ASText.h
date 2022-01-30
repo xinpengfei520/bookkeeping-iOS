@@ -1,1 +1,1 @@
-../../../../Texture/Source/Private/TextExperiment/Utility/NSAttributedString+ASText.h
+../../../../Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h

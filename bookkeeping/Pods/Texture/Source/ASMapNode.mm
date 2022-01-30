@@ -2,30 +2,20 @@
 //  ASMapNode.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#import <Foundation/Foundation.h>
-
-#if TARGET_OS_IOS
 #import <AsyncDisplayKit/ASMapNode.h>
+
+#if TARGET_OS_IOS && AS_USE_MAPKIT
 
 #import <tgmath.h>
 
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
 #import <AsyncDisplayKit/ASDisplayNodeExtras.h>
 #import <AsyncDisplayKit/ASGraphicsContext.h>
-#import <AsyncDisplayKit/ASInsetLayoutSpec.h>
 #import <AsyncDisplayKit/ASInternalHelpers.h>
 #import <AsyncDisplayKit/ASLayout.h>
 #import <AsyncDisplayKit/ASThread.h>
@@ -231,39 +221,38 @@
                     
                     CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
                     
-                    ASGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
-                    [image drawAtPoint:CGPointZero];
-                    
-                    UIImage *pinImage;
-                    CGPoint pinCenterOffset = CGPointZero;
-                    
-                    // Get a standard annotation view pin if there is no custom annotation block.
-                    if (!strongSelf.imageForStaticMapAnnotationBlock) {
-                      pinImage = [strongSelf.class defaultPinImageWithCenterOffset:&pinCenterOffset];
-                    }
-                    
-                    for (id<MKAnnotation> annotation in annotations) {
-                      if (strongSelf.imageForStaticMapAnnotationBlock) {
-                        // Get custom annotation image from custom annotation block.
-                        pinImage = strongSelf.imageForStaticMapAnnotationBlock(annotation, &pinCenterOffset);
-                        if (!pinImage) {
-                          // just for case block returned nil, which can happen
-                          pinImage = [strongSelf.class defaultPinImageWithCenterOffset:&pinCenterOffset];
+                    image = ASGraphicsCreateImage(strongSelf.primitiveTraitCollection, image.size, YES, image.scale, image, nil, ^{
+                      [image drawAtPoint:CGPointZero];
+
+                      UIImage *pinImage;
+                      CGPoint pinCenterOffset = CGPointZero;
+
+                      // Get a standard annotation view pin if there is no custom annotation block.
+                      if (!strongSelf.imageForStaticMapAnnotationBlock) {
+                        pinImage = [strongSelf.class defaultPinImageWithCenterOffset:&pinCenterOffset];
+                      }
+
+                      for (id<MKAnnotation> annotation in annotations) {
+                        if (strongSelf.imageForStaticMapAnnotationBlock) {
+                          // Get custom annotation image from custom annotation block.
+                          pinImage = strongSelf.imageForStaticMapAnnotationBlock(annotation, &pinCenterOffset);
+                          if (!pinImage) {
+                            // just for case block returned nil, which can happen
+                            pinImage = [strongSelf.class defaultPinImageWithCenterOffset:&pinCenterOffset];
+                          }
+                        }
+
+                        CGPoint point = [snapshot pointForCoordinate:annotation.coordinate];
+                        if (CGRectContainsPoint(finalImageRect, point)) {
+                          CGSize pinSize = pinImage.size;
+                          point.x -= pinSize.width / 2.0;
+                          point.y -= pinSize.height / 2.0;
+                          point.x += pinCenterOffset.x;
+                          point.y += pinCenterOffset.y;
+                          [pinImage drawAtPoint:point];
                         }
                       }
-                      
-                      CGPoint point = [snapshot pointForCoordinate:annotation.coordinate];
-                      if (CGRectContainsPoint(finalImageRect, point)) {
-                        CGSize pinSize = pinImage.size;
-                        point.x -= pinSize.width / 2.0;
-                        point.y -= pinSize.height / 2.0;
-                        point.x += pinCenterOffset.x;
-                        point.y += pinCenterOffset.y;
-                        [pinImage drawAtPoint:point];
-                      }
-                    }
-                    
-                    image = ASGraphicsGetImageAndEndCurrentContext();
+                    });
                   }
                   
                   strongSelf.image = image;
@@ -448,4 +437,4 @@
 }
 
 @end
-#endif
+#endif // TARGET_OS_IOS && AS_USE_MAPKIT

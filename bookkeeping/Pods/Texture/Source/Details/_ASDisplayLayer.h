@@ -2,17 +2,9 @@
 //  _ASDisplayLayer.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <UIKit/UIKit.h>
@@ -120,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
  @summary Delegate override to provide new layer contents as a UIImage.
  @param parameters An object describing all of the properties you need to draw. Return this from -drawParametersForAsyncLayer:
  @param isCancelledBlock Execute this block to check whether the current drawing operation has been cancelled to avoid unnecessary work. A return value of YES means cancel drawing and return.
- @return A UIImage with contents that are ready to display on the main thread. Make sure that the image is already decoded before returning it here.
+ @return A UIImage (backed by a CGImage) with contents that are ready to display on the main thread. Make sure that the image is already decoded before returning it here.
  */
 + (UIImage *)displayWithParameters:(nullable id<NSObject>)parameters
                        isCancelled:(AS_NOESCAPE asdisplaynode_iscancelled_block_t)isCancelledBlock;

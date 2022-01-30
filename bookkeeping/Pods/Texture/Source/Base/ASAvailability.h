@@ -2,22 +2,41 @@
 //  ASAvailability.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <CoreFoundation/CFBase.h>
 
 #pragma once
+
+#ifdef __i386__
+  #define AS_TLS_AVAILABLE 0
+#else
+  #define AS_TLS_AVAILABLE 1
+#endif
+
+#ifndef AS_ENABLE_TEXTNODE
+  #define AS_ENABLE_TEXTNODE 1 // Enable old TextNode by default
+#endif
+
+// This needs to stay in sync with Weaver
+#ifndef AS_USE_VIDEO
+  #define AS_USE_VIDEO 0
+#endif
+
+#ifndef AS_USE_PHOTOS
+  #define AS_USE_PHOTOS 0
+#endif
+
+#ifndef AS_USE_MAPKIT
+  #define AS_USE_MAPKIT 0
+#endif
+
+#ifndef AS_USE_ASSETS_LIBRARY
+  #define AS_USE_ASSETS_LIBRARY 0
+#endif
 
 #ifndef kCFCoreFoundationVersionNumber_iOS_10_0
   #define kCFCoreFoundationVersionNumber_iOS_10_0 1348.00
@@ -31,8 +50,13 @@
   #define __IPHONE_11_0 110000
 #endif
 
+#ifndef __IPHONE_13_0
+  #define __IPHONE_13_0 130000
+#endif
+
 #define AS_AT_LEAST_IOS10  (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_10_0)
 #define AS_AT_LEAST_IOS11  (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_11_0)
+#define AS_AT_LEAST_IOS13  (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0)
 
 // Use __builtin_available if we're on Xcode >= 9, AS_AT_LEAST otherwise.
 #if __has_builtin(__builtin_available)
@@ -62,6 +86,7 @@
 
 #define AS_PIN_REMOTE_IMAGE __has_include(<PINRemoteImage/PINRemoteImage.h>)
 #define AS_IG_LIST_KIT __has_include(<IGListKit/IGListKit.h>)
+#define AS_IG_LIST_DIFF_KIT __has_include(<IGListDiffKit/IGListDiffKit.h>)
 
 /**
  * For IGListKit versions < 3.0, you have to use IGListCollectionView.

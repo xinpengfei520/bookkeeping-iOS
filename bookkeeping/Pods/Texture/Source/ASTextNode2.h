@@ -2,16 +2,15 @@
 //  ASTextNode2.h
 //  Texture
 //
-//  Copyright (c) 2017-present, Pinterest, Inc.  All rights reserved.
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASControlNode.h>
+#import <AsyncDisplayKit/ASDisplayNode+Beta.h>
 #import <AsyncDisplayKit/ASTextNodeCommon.h>
+
+@protocol ASTextLinePositionModifier;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract Draws interactive rich text.
  @discussion Backed by the code in TextExperiment folder, on top of CoreText.
  */
+#if AS_ENABLE_TEXTNODE
 @interface ASTextNode2 : ASControlNode
+#else
+@interface ASTextNode : ASControlNode
+#endif
 
 /**
  @abstract The styled text displayed by the node.
@@ -206,20 +209,47 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  @abstract if YES will not intercept touches for non-link areas of the text. Default is NO.
+ @discussion If you still want to handle tap truncation action when passthroughNonlinkTouches is YES,
+ you should set the alwaysHandleTruncationTokenTap to YES.
  */
 @property (nonatomic) BOOL passthroughNonlinkTouches;
 
+/**
+ @abstract Always handle tap truncationAction, even the passthroughNonlinkTouches is YES. Default is NO.
+ @discussion if this is set to YES, the [ASTextNodeDelegate textNodeTappedTruncationToken:] callback will be called.
+ */
+@property (nonatomic) BOOL alwaysHandleTruncationTokenTap;
+
+/**
+ @abstract if YES will use the value of `self.tintColor` if the foreground color of text is not defined.
+ @discussion This is mainly used from ASButtonNode since by default text nodes do not respect tintColor settings unless contained within a interactive control
+ */
+@property (nonatomic) BOOL textColorFollowsTintColor;
+
 + (void)enableDebugging;
+
+#pragma mark - Layout and Sizing
+
+@property (nullable, nonatomic) id<ASTextLinePositionModifier> textContainerLinePositionModifier;
 
 @end
 
+#if AS_ENABLE_TEXTNODE
 @interface ASTextNode2 (Unavailable)
+#else
+@interface ASTextNode (Unavailable)
+#endif
 
 - (instancetype)initWithLayerBlock:(ASDisplayNodeLayerBlock)viewBlock didLoadBlock:(nullable ASDisplayNodeDidLoadBlock)didLoadBlock NS_UNAVAILABLE;
 
 - (instancetype)initWithViewBlock:(ASDisplayNodeViewBlock)viewBlock didLoadBlock:(nullable ASDisplayNodeDidLoadBlock)didLoadBlock NS_UNAVAILABLE;
 
 @end
+
+#if (!AS_ENABLE_TEXTNODE)
+// For the time beeing remap ASTextNode2 to ASTextNode
+#define ASTextNode2 ASTextNode
+#endif
 
 NS_ASSUME_NONNULL_END
 

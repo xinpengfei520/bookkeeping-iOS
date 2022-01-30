@@ -1,1 +1,1 @@
-../../../../Texture/Source/Private/TextExperiment/String/ASTextRunDelegate.h
+../../../../Texture/Source/TextExperiment/String/ASTextRunDelegate.h

@@ -4,7 +4,7 @@
  */
 
 #import "AppDelegate.h"
-
+#import <Bugly/Bugly.h>
 
 #pragma mark - 声明
 @interface AppDelegate ()
@@ -21,7 +21,8 @@
     [self makeRootController];
     // 系统配置
     [self systemConfig];
-    
+    // Bugly
+    [Bugly startWithAppId:@"0025184dd7"];
     
 //    // 注册通知
 //    if (@available(iOS 10.0, *)) {
@@ -31,11 +32,9 @@
 //        }];
 //    }
     
-    
-    
-    
     return YES;
 }
+
 // 根控制器
 - (void)makeRootController {
     [self setWindow:[[UIWindow alloc] initWithFrame:SCREEN_BOUNDS]];

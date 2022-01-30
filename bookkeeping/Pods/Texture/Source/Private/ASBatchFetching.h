@@ -2,24 +2,14 @@
 //  ASBatchFetching.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <UIKit/UIKit.h>
 
 #import <AsyncDisplayKit/ASScrollDirection.h>
-
-ASDISPLAYNODE_EXTERN_C_BEGIN
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,13 +34,16 @@ NS_ASSUME_NONNULL_BEGIN
  @param scrollableDirections The possible scrolling directions of the scroll view.
  @param contentOffset The offset that the scrollview will scroll to.
  @param velocity The velocity of the scroll view (in points) at the moment the touch was released.
+ @param flipsHorizontallyInOppositeLayoutDirection Whether or not this scroll view flips its layout automatically in RTL.
+         See flipsHorizontallyInOppositeLayoutDirection in UICollectionViewLayout
  @return Whether or not the current state should proceed with batch fetching.
  */
-BOOL ASDisplayShouldFetchBatchForScrollView(UIScrollView<ASBatchFetchingScrollView> *scrollView,
+ASDK_EXTERN BOOL ASDisplayShouldFetchBatchForScrollView(UIScrollView<ASBatchFetchingScrollView> *scrollView,
                                             ASScrollDirection scrollDirection,
                                             ASScrollDirection scrollableDirections,
                                             CGPoint contentOffset,
-                                            CGPoint velocity);
+                                            CGPoint velocity,
+                                            BOOL flipsHorizontallyInOppositeLayoutDirection);
 
 
 /**
@@ -65,11 +58,13 @@ BOOL ASDisplayShouldFetchBatchForScrollView(UIScrollView<ASBatchFetchingScrollVi
  @param visible Whether the view is visible or not.
  @param velocity The velocity of the scroll view (in points) at the moment the touch was released.
  @param delegate The delegate to be consulted if needed.
+ @param flipsHorizontallyInOppositeLayoutDirection Whether or not this scroll view flips its layout automatically in RTL.
+         See flipsHorizontallyInOppositeLayoutDirection in UICollectionViewLayout
  @return Whether or not the current state should proceed with batch fetching.
  @discussion This method is broken into a category for unit testing purposes and should be used with the ASTableView and
  * ASCollectionView batch fetching API.
  */
-extern BOOL ASDisplayShouldFetchBatchForContext(ASBatchContext *context,
+ASDK_EXTERN BOOL ASDisplayShouldFetchBatchForContext(ASBatchContext *context,
                                                 ASScrollDirection scrollDirection,
                                                 ASScrollDirection scrollableDirections,
                                                 CGRect bounds,
@@ -77,8 +72,9 @@ extern BOOL ASDisplayShouldFetchBatchForContext(ASBatchContext *context,
                                                 CGPoint targetOffset,
                                                 CGFloat leadingScreens,
                                                 BOOL visible,
+                                                BOOL shouldRenderRTLLayout,
                                                 CGPoint velocity,
+                                                BOOL flipsHorizontallyInOppositeLayoutDirection,
                                                 _Nullable id<ASBatchFetchingDelegate> delegate);
 
 NS_ASSUME_NONNULL_END
-ASDISPLAYNODE_EXTERN_C_END

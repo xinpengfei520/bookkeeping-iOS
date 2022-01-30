@@ -2,22 +2,21 @@
 //  ASMultiplexImageNode.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASImageNode.h>
 #import <AsyncDisplayKit/ASImageProtocols.h>
+
+#if AS_USE_PHOTOS
 #import <Photos/Photos.h>
+#else
+@class PHAsset;
+@class PHImageManager;
+@class PHImageRequestOptions;
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef id<NSCopying, NSObject> ASImageIdentifier;
 
-extern NSString *const ASMultiplexImageNodeErrorDomain;
+ASDK_EXTERN NSString *const ASMultiplexImageNodeErrorDomain;
 
 /**
  * ASMultiplexImageNode error codes.
@@ -132,11 +131,18 @@ typedef NS_ENUM(NSUInteger, ASMultiplexImageNodeErrorCode) {
 @property (nonatomic) BOOL shouldRenderProgressImages;
 
 /**
+ * Specifies whether the underlying image downloader should attempt to retry downloading the image if the remote
+ * host is unreachable. It will have no effect if the downloader does not support retrying. The default is YES.
+ */
+@property BOOL shouldRetryImageDownload;
+
+/**
  * @abstract The image manager that this image node should use when requesting images from the Photos framework. If this is `nil` (the default), then `PHImageManager.defaultManager` is used.
- 
+
  * @see `+[NSURL URLWithAssetLocalIdentifier:targetSize:contentMode:options:]` below.
  */
 @property (nullable, nonatomic) PHImageManager *imageManager API_AVAILABLE(ios(8.0), tvos(10.0));
+
 @end
 
 
@@ -257,6 +263,9 @@ didFinishDownloadingImageWithIdentifier:(ASImageIdentifier)imageIdentifier
 @end
 
 #pragma mark -
+
+#if AS_USE_PHOTOS
+
 @interface NSURL (ASPhotosFrameworkURLs)
 
 /**
@@ -273,5 +282,7 @@ didFinishDownloadingImageWithIdentifier:(ASImageIdentifier)imageIdentifier
                                options:(PHImageRequestOptions *)options NS_RETURNS_RETAINED AS_WARN_UNUSED_RESULT API_AVAILABLE(ios(8.0), tvos(10.0));
 
 @end
+
+#endif
 
 NS_ASSUME_NONNULL_END

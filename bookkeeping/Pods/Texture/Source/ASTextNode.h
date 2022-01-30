@@ -2,22 +2,23 @@
 //  ASTextNode.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <AsyncDisplayKit/ASAvailability.h>
+
 #import <AsyncDisplayKit/ASControlNode.h>
+#import <AsyncDisplayKit/ASDisplayNode+Beta.h>
 #import <AsyncDisplayKit/ASTextNodeCommon.h>
+
+#if (!AS_ENABLE_TEXTNODE)
+
+// Pull in ASTextNode2 to replace ASTextNode with ASTextNode2
+#import <AsyncDisplayKit/ASTextNode2.h>
+
+#else
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -212,8 +213,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  @abstract if YES will not intercept touches for non-link areas of the text. Default is NO.
+ @discussion If you still want to handle tap truncation action when passthroughNonlinkTouches is YES,
+ you should set the alwaysHandleTruncationTokenTap to YES.
  */
 @property (nonatomic) BOOL passthroughNonlinkTouches;
+
+/**
+ @abstract Always handle tap truncationAction, even the passthroughNonlinkTouches is YES. Default is NO.
+ @discussion if this is set to YES, the [ASTextNodeDelegate textNodeTappedTruncationToken:] callback will be called.
+ */
+@property (nonatomic) BOOL alwaysHandleTruncationTokenTap;
+
+/**
+ @abstract if YES will use the value of `self.tintColor` if the foreground color of text is not defined. 
+ @discussion This is mainly used from ASButtonNode since by default text nodes do not respect tintColor settings unless contained within a interactive control
+ */
+@property (nonatomic) BOOL textColorFollowsTintColor;
 
 @end
 
@@ -222,6 +237,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLayerBlock:(ASDisplayNodeLayerBlock)viewBlock didLoadBlock:(nullable ASDisplayNodeDidLoadBlock)didLoadBlock NS_UNAVAILABLE;
 
 - (instancetype)initWithViewBlock:(ASDisplayNodeViewBlock)viewBlock didLoadBlock:(nullable ASDisplayNodeDidLoadBlock)didLoadBlock NS_UNAVAILABLE;
+
+@end
+
+/**
+ * @abstract Text node unsupported properties
+ */
+@interface ASTextNode (Unsupported)
+
+@property (nullable, nonatomic) id textContainerLinePositionModifier;
 
 @end
 
@@ -250,3 +274,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

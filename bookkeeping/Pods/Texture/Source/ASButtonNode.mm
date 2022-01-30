@@ -2,51 +2,18 @@
 //  ASButtonNode.mm
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#import <AsyncDisplayKit/ASButtonNode.h>
+#import <AsyncDisplayKit/ASButtonNode+Private.h>
+#import <AsyncDisplayKit/ASButtonNode+Yoga.h>
 #import <AsyncDisplayKit/ASStackLayoutSpec.h>
 #import <AsyncDisplayKit/ASThread.h>
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
 #import <AsyncDisplayKit/ASBackgroundLayoutSpec.h>
 #import <AsyncDisplayKit/ASInsetLayoutSpec.h>
-#import <AsyncDisplayKit/ASAbsoluteLayoutSpec.h>
-#import <AsyncDisplayKit/ASTextNode.h>
-#import <AsyncDisplayKit/ASImageNode.h>
-
-@interface ASButtonNode ()
-{
-  NSAttributedString *_normalAttributedTitle;
-  NSAttributedString *_highlightedAttributedTitle;
-  NSAttributedString *_selectedAttributedTitle;
-  NSAttributedString *_selectedHighlightedAttributedTitle;
-  NSAttributedString *_disabledAttributedTitle;
-  
-  UIImage *_normalImage;
-  UIImage *_highlightedImage;
-  UIImage *_selectedImage;
-  UIImage *_selectedHighlightedImage;
-  UIImage *_disabledImage;
-
-  UIImage *_normalBackgroundImage;
-  UIImage *_highlightedBackgroundImage;
-  UIImage *_selectedBackgroundImage;
-  UIImage *_selectedHighlightedBackgroundImage;
-  UIImage *_disabledBackgroundImage;
-}
-
-@end
 
 @implementation ASButtonNode
 
@@ -60,6 +27,8 @@
 @synthesize imageNode = _imageNode;
 @synthesize backgroundImageNode = _backgroundImageNode;
 
+#pragma mark - Lifecycle
+
 - (instancetype)init
 {
   if (self = [super init]) {
@@ -71,7 +40,9 @@
     _contentVerticalAlignment = ASVerticalAlignmentCenter;
     _contentEdgeInsets = UIEdgeInsetsZero;
     _imageAlignment = ASButtonNodeImageAlignmentBeginning;
-    self.accessibilityTraits = UIAccessibilityTraitButton;
+    self.accessibilityTraits = self.defaultAccessibilityTraits;
+    
+    [self updateYogaLayoutIfNeeded];
   }
   return self;
 }
@@ -81,15 +52,20 @@
   ASLockScopeSelf();
   if (!_titleNode) {
     _titleNode = [[ASTextNode alloc] init];
-#if TARGET_OS_IOS 
+    #if TARGET_OS_TV
       // tvOS needs access to the underlying view
       // of the button node to add a touch handler.
-    [_titleNode setLayerBacked:YES];
-#endif
+      [_titleNode setLayerBacked:NO];
+    #else
+      [_titleNode setLayerBacked:YES];
+    #endif
     _titleNode.style.flexShrink = 1.0;
+    _titleNode.textColorFollowsTintColor = YES;
   }
   return _titleNode;
 }
+
+#pragma mark - Public Getter
 
 - (ASImageNode *)imageNode
 {
@@ -122,11 +98,7 @@
 {
   if (self.enabled != enabled) {
     [super setEnabled:enabled];
-    if (enabled) {
-      self.accessibilityTraits = UIAccessibilityTraitButton;
-    } else {
-      self.accessibilityTraits = UIAccessibilityTraitButton | UIAccessibilityTraitNotEnabled;
-    }
+    self.accessibilityTraits = self.defaultAccessibilityTraits;
     [self updateButtonContent];
   }
 }
@@ -162,6 +134,20 @@
   [self.titleNode setDisplaysAsynchronously:displaysAsynchronously];
 }
 
+-(void)tintColorDidChange
+{
+  [super tintColorDidChange];
+  // UIButton documentation states that it tints the image and title of buttons when tintColor is set.
+  // | "The tint color to apply to the button title and image."
+  // | From: https://developer.apple.com/documentation/uikit/uibutton/1624025-tintcolor
+  [self lock];
+  UIColor *tintColor = self.tintColor;
+  self.imageNode.tintColor = tintColor;
+  self.titleNode.tintColor = tintColor;
+  [self unlock];
+  [self setNeedsDisplay];
+}
+
 - (void)updateImage
 {
   [self lock];
@@ -183,6 +169,7 @@
     _imageNode.image = newImage;
     [self unlock];
 
+    [self updateYogaLayoutIfNeeded];
     [self setNeedsLayout];
     return;
   }
@@ -207,12 +194,14 @@
     newTitle = _normalAttributedTitle;
   }
 
-  // Calling self.titleNode is essential here because _titleNode is lazily created by the getter.
-  if ((_titleNode != nil || newTitle.length > 0) && [self.titleNode.attributedText isEqualToAttributedString:newTitle] == NO) {
-    _titleNode.attributedText = newTitle;
+  NSAttributedString *attributedString = _titleNode.attributedText;
+  if ((attributedString.length > 0 || newTitle.length > 0) && [attributedString isEqualToAttributedString:newTitle] == NO) {
+    // Calling self.titleNode is essential here because _titleNode is lazily created by the getter.
+    self.titleNode.attributedText = newTitle;
     [self unlock];
     
-    self.accessibilityLabel = _titleNode.accessibilityLabel;
+    self.accessibilityLabel = self.defaultAccessibilityLabel;
+    [self updateYogaLayoutIfNeeded];
     [self setNeedsLayout];
     return;
   }
@@ -240,7 +229,8 @@
   if ((_backgroundImageNode != nil || newImage != nil) && newImage != self.backgroundImageNode.image) {
     _backgroundImageNode.image = newImage;
     [self unlock];
-    
+
+    [self updateYogaLayoutIfNeeded];
     [self setNeedsLayout];
     return;
   }
@@ -257,6 +247,7 @@
 - (void)setContentSpacing:(CGFloat)contentSpacing
 {
   if (ASLockedSelfCompareAssign(_contentSpacing, contentSpacing)) {
+    [self updateYogaLayoutIfNeeded];
     [self setNeedsLayout];
   }
 }
@@ -270,6 +261,7 @@
 - (void)setLaysOutHorizontally:(BOOL)laysOutHorizontally
 {
   if (ASLockedSelfCompareAssign(_laysOutHorizontally, laysOutHorizontally)) {
+    [self updateYogaLayoutIfNeeded];
     [self setNeedsLayout];
   }
 }
@@ -326,12 +318,14 @@
 #if TARGET_OS_IOS
 - (void)setTitle:(NSString *)title withFont:(UIFont *)font withColor:(UIColor *)color forState:(UIControlState)state
 {
-  NSDictionary *attributes = @{
-    NSFontAttributeName: font ? : [UIFont systemFontOfSize:[UIFont buttonFontSize]],
-    NSForegroundColorAttributeName : color ? : [UIColor blackColor]
-  };
-    
-  NSAttributedString *string = [[NSAttributedString alloc] initWithString:title attributes:attributes];
+  NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+  attributes[NSFontAttributeName] = font ? : [UIFont systemFontOfSize:[UIFont buttonFontSize]];
+  if (color != nil) {
+    // From apple's documentation: If color is not specified, NSForegroundColorAttributeName will fallback to black
+    // Only set if the color is nonnull
+    attributes[NSForegroundColorAttributeName] = color;
+  }
+  NSAttributedString *string = [[NSAttributedString alloc] initWithString:title attributes:[attributes copy]];
   [self setAttributedTitle:string forState:state];
 }
 #endif
@@ -507,50 +501,67 @@
   [self updateBackgroundImage];
 }
 
+
+- (NSString *)defaultAccessibilityLabel
+{
+  ASLockScopeSelf();
+  return _titleNode.defaultAccessibilityLabel;
+}
+
+- (UIAccessibilityTraits)defaultAccessibilityTraits
+{
+  return self.enabled ? UIAccessibilityTraitButton
+                      : (UIAccessibilityTraitButton | UIAccessibilityTraitNotEnabled);
+}
+
+#pragma mark - Layout
+
+#if !YOGA
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
 {
-  UIEdgeInsets contentEdgeInsets;
-  ASButtonNodeImageAlignment imageAlignment;
-  ASLayoutSpec *spec;
-  ASStackLayoutSpec *stack = [[ASStackLayoutSpec alloc] init];
-  {
-    ASLockScopeSelf();
-    stack.direction = _laysOutHorizontally ? ASStackLayoutDirectionHorizontal : ASStackLayoutDirectionVertical;
-    stack.spacing = _contentSpacing;
-    stack.horizontalAlignment = _contentHorizontalAlignment;
-    stack.verticalAlignment = _contentVerticalAlignment;
-    
-    contentEdgeInsets = _contentEdgeInsets;
-    imageAlignment = _imageAlignment;
-  }
-  
-  NSMutableArray *children = [[NSMutableArray alloc] initWithCapacity:2];
-  if (_imageNode.image) {
-    [children addObject:_imageNode];
-  }
-  
-  if (_titleNode.attributedText.length > 0) {
-    if (imageAlignment == ASButtonNodeImageAlignmentBeginning) {
-      [children addObject:_titleNode];
-    } else {
-      [children insertObject:_titleNode atIndex:0];
+    UIEdgeInsets contentEdgeInsets;
+    ASButtonNodeImageAlignment imageAlignment;
+    ASLayoutSpec *spec;
+    ASStackLayoutSpec *stack = [[ASStackLayoutSpec alloc] init];
+    {
+        ASLockScopeSelf();
+        stack.direction = _laysOutHorizontally ? ASStackLayoutDirectionHorizontal : ASStackLayoutDirectionVertical;
+        stack.spacing = _contentSpacing;
+        stack.horizontalAlignment = _contentHorizontalAlignment;
+        stack.verticalAlignment = _contentVerticalAlignment;
+        
+        contentEdgeInsets = _contentEdgeInsets;
+        imageAlignment = _imageAlignment;
     }
-  }
-  
-  stack.children = children;
-  
-  spec = stack;
-  
-  if (UIEdgeInsetsEqualToEdgeInsets(UIEdgeInsetsZero, contentEdgeInsets) == NO) {
-    spec = [ASInsetLayoutSpec insetLayoutSpecWithInsets:contentEdgeInsets child:spec];
-  }
-
-  if (_backgroundImageNode.image) {
-    spec = [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:spec background:_backgroundImageNode];
-  }
-  
-  return spec;
+    
+    NSMutableArray *children = [[NSMutableArray alloc] initWithCapacity:2];
+    if (_imageNode.image) {
+        [children addObject:_imageNode];
+    }
+    
+    if (_titleNode.attributedText.length > 0) {
+        if (imageAlignment == ASButtonNodeImageAlignmentBeginning) {
+            [children addObject:_titleNode];
+        } else {
+            [children insertObject:_titleNode atIndex:0];
+        }
+    }
+    
+    stack.children = children;
+    
+    spec = stack;
+    
+    if (UIEdgeInsetsEqualToEdgeInsets(UIEdgeInsetsZero, contentEdgeInsets) == NO) {
+        spec = [ASInsetLayoutSpec insetLayoutSpecWithInsets:contentEdgeInsets child:spec];
+    }
+    
+    if (_backgroundImageNode.image) {
+        spec = [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:spec background:_backgroundImageNode];
+    }
+    
+    return spec;
 }
+#endif
 
 - (void)layout
 {

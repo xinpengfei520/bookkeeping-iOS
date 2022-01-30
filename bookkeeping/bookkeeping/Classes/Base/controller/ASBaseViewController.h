@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ASBaseViewController : ASViewController
+@interface ASBaseViewController : ASDKViewController
 
 // 标题
 @property (nonatomic, strong) NSString *navTitle;

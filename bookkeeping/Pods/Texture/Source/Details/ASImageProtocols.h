@@ -2,17 +2,9 @@
 //  ASImageProtocols.h
 //  Texture
 //
-//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
-//  This source code is licensed under the BSD-style license found in the
-//  LICENSE file in the /ASDK-Licenses directory of this source tree. An additional
-//  grant of patent rights can be found in the PATENTS file in the same directory.
-//
-//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
-//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
+//  Copyright (c) Facebook, Inc. and its affiliates.  All rights reserved.
+//  Changes after 4/13/2017 are: Copyright (c) Pinterest, Inc.  All rights reserved.
+//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
 #import <UIKit/UIKit.h>
@@ -28,7 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-typedef void(^ASImageCacherCompletion)(id <ASImageContainerProtocol> _Nullable imageFromCache);
+typedef NS_ENUM(NSInteger, ASImageCacheType) {
+  ASImageCacheTypeAsynchronous = 0,
+  ASImageCacheTypeSynchronous,
+};
+
+typedef void(^ASImageCacherCompletion)(id <ASImageContainerProtocol> _Nullable imageFromCache, ASImageCacheType cacheType);
 
 @protocol ASImageCacheProtocol <NSObject>
 
@@ -95,6 +92,7 @@ typedef NS_ENUM(NSUInteger, ASImageDownloaderPriority) {
 /**
  @abstract Downloads an image with the given URL.
  @param URL The URL of the image to download.
+ @param shouldRetry Whether to attempt to retry downloading if the remote host is currently unreachable.
  @param callbackQueue The queue to call `downloadProgressBlock` and `completion` on.
  @param downloadProgress The block to be invoked when the download of `URL` progresses.
  @param completion The block to be invoked when the download has completed, or has failed.
@@ -103,6 +101,7 @@ typedef NS_ENUM(NSUInteger, ASImageDownloaderPriority) {
  retain the identifier if you wish to use it later.
  */
 - (nullable id)downloadImageWithURL:(NSURL *)URL
+                        shouldRetry:(BOOL)shouldRetry
                       callbackQueue:(dispatch_queue_t)callbackQueue
                    downloadProgress:(nullable ASImageDownloaderProgress)downloadProgress
                          completion:(ASImageDownloaderCompletion)completion;
@@ -110,7 +109,7 @@ typedef NS_ENUM(NSUInteger, ASImageDownloaderPriority) {
 /**
   @abstract Cancels an image download.
   @param downloadIdentifier The opaque download identifier object returned from 
-      `downloadImageWithURL:callbackQueue:downloadProgressBlock:completion:`.
+      `downloadImageWithURL:callbackQueue:downloadProgress:completion:`.
   @discussion This method has no effect if `downloadIdentifier` is nil.
  */
 - (void)cancelImageDownloadForIdentifier:(id)downloadIdentifier;
@@ -118,9 +117,29 @@ typedef NS_ENUM(NSUInteger, ASImageDownloaderPriority) {
 @optional
 
 /**
+ @abstract Downloads an image with the given URL.
+ @param URL The URL of the image to download.
+ @param shouldRetry Whether to attempt to retry downloading if the remote host is currently unreachable.
+ @param priority The priority at which the image should be downloaded.
+ @param callbackQueue The queue to call `downloadProgressBlock` and `completion` on.
+ @param downloadProgress The block to be invoked when the download of `URL` progresses.
+ @param completion The block to be invoked when the download has completed, or has failed.
+ @discussion This method is likely to be called on the main thread, so any custom implementations should make sure to background any expensive download operations.
+ @note If this method is implemented, it will be called instead of the required method (`downloadImageWithURL:callbackQueue:downloadProgress:completion:`).
+ @result An opaque identifier to be used in canceling the download, via `cancelImageDownloadForIdentifier:`. You must
+ retain the identifier if you wish to use it later.
+ */
+- (nullable id)downloadImageWithURL:(NSURL *)URL
+                        shouldRetry:(BOOL)shouldRetry
+                           priority:(ASImageDownloaderPriority)priority
+                      callbackQueue:(dispatch_queue_t)callbackQueue
+                   downloadProgress:(nullable ASImageDownloaderProgress)downloadProgress
+                         completion:(ASImageDownloaderCompletion)completion;
+
+/**
  @abstract Cancels an image download, however indicating resume data should be stored in case of redownload.
  @param downloadIdentifier The opaque download identifier object returned from
- `downloadImageWithURL:callbackQueue:downloadProgressBlock:completion:`.
+ `downloadImageWithURL:callbackQueue:downloadProgress:completion:`.
  @discussion This method has no effect if `downloadIdentifier` is nil. If implemented, this method
  may be called instead of `cancelImageDownloadForIdentifier:` in cases where ASDK believes there's a chance
  the image download will be resumed (currently when an image exits preload range). You can use this to store
@@ -138,7 +157,7 @@ typedef NS_ENUM(NSUInteger, ASImageDownloaderPriority) {
 /**
  @abstract Sets block to be called when a progress image is available.
  @param progressBlock The block to be invoked when the download has a progressive render of an image available.
- @param callbackQueue The queue to call `progressBlock` on.
+ @param callbackQueue The queue to call `progressImageBlock` on.
  @param downloadIdentifier The opaque download identifier object returned from
  `downloadImageWithURL:callbackQueue:downloadProgressBlock:completion:`.
  */
