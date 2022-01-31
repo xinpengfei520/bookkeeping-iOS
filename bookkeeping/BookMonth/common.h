@@ -13,8 +13,6 @@
 // 第三方
 #import <NotificationCenter/NotificationCenter.h>
 #import <MJExtension/MJExtension.h>
-#import <BRPickerView/BRPickerView.h>
-#import <BRPickerView/BRPickerView.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 
 

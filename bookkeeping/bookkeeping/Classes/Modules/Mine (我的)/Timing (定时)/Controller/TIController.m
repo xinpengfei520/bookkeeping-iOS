@@ -1,5 +1,5 @@
 /**
- * 定时
+ * 我的 - 定时提醒
  * @author 郑业强 2018-12-18 创建文件
  */
 
@@ -167,12 +167,11 @@
             [NSUserDefaults setObject:arrm_has_synced forKey:PIN_TIMING_HAS_SYNCED];
         }
         
-        
         [self setModels:arrm];
         [self.table reloadData];
-        
     }
 }
+
 // 删除定时
 - (void)deleteTimingRequest:(NSString *)time {
     NSMutableArray *arrm = [NSUserDefaults objectForKey:PIN_TIMING];
@@ -193,42 +192,49 @@
         
     [self setModels:arrm];
     [self.table reloadData];
-    
 }
-
 
 #pragma mark - 事件
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 添加定时
 - (void)bottomClick:(id)data {
     @weakify(self)
-    [BRDatePickerView showDatePickerWithTitle:@"每天" dateType:BRDatePickerModeHM defaultSelValue:nil resultBlock:^(NSString *selectValue) {
+    // 1.创建日期选择器
+    BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
+    // 2.设置属性
+    datePickerView.pickerMode = BRDatePickerModeHM;
+    datePickerView.title = @"每天";
+    datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
+        NSLog(@"选择的值：%@", selectValue);
         @strongify(self)
         [self addTimingRequest:selectValue];
-        //        [self addTimeRequest:selectValue];
-    }];
+    };
+
+    // 3.显示
+    [datePickerView show];
 }
+
 // 删除cell
 - (void)timeCellDelete:(TITableCell *)cell {
     //    [self deleteTimeRequest:cell];
     [self deleteTimingRequest:cell.time];
 }
 
-
 #pragma mark - set
 - (void)setModels:(NSMutableArray *)models {
     _models = models;
     _table.models = models;
 }
-
 
 #pragma mark - get
 - (TITableView *)table {
@@ -238,6 +244,7 @@
     }
     return _table;
 }
+
 - (BottomButton *)bottom {
     if (!_bottom) {
         _bottom = [BottomButton initWithFrame:({
@@ -250,6 +257,7 @@
     }
     return _bottom;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
@@ -259,6 +267,5 @@
     }
     return _eventStrategy;
 }
-
 
 @end

@@ -1,5 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources.sh
-${PODS_ROOT}/BRPickerView/BRPickerView/AddressPickerView/BRPickerView.bundle
+${PODS_ROOT}/BRPickerView/BRPickerView/Base/BRPickerView.bundle
 ${PODS_ROOT}/GPUImage/framework/Resources/lookup.png
 ${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png
 ${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png

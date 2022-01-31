@@ -60,10 +60,24 @@
     NSDate *date = [NSDate date];
     NSDate *min = [NSDate br_setYear:2000 month:1 day:1];
     NSDate *max = [NSDate br_setYear:date.year + 3 month:12 day:31];
-    [BRDatePickerView showDatePickerWithTitle:@"选择日期" dateType:BRDatePickerModeY defaultSelValue:[@(self.date.year) description] minDate:min maxDate:max isAutoSelect:false themeColor:nil resultBlock:^(NSString *selectValue) {
+    
+    // 1.创建日期选择器
+    BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
+    // 2.设置属性
+    datePickerView.pickerMode = BRDatePickerModeY;
+    datePickerView.title = @"选择日期";
+    datePickerView.selectDate = self.date;
+    datePickerView.minDate = min;
+    datePickerView.maxDate = max;
+    datePickerView.isAutoSelect = false;
+    datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
+        NSLog(@"选择的值：%@", selectValue);
         @strongify(self)
         [self changeVlaue:selectValue];
-    }];
+    };
+    
+    // 3.显示
+    [datePickerView show];
 }
 
 

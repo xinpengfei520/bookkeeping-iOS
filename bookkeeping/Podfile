@@ -13,7 +13,7 @@ target ‘bookkeeping’ do
     pod 'MJRefresh', '3.1.15.7'
     pod 'MGSwipeTableCell', '1.6.8'
     pod 'ZLPhotoBrowser', '2.7.6'
-    pod 'BRPickerView', '2.2.1'
+    pod 'BRPickerView', '2.7.6'
     pod 'Texture', '3.1.0'
     pod 'YYText', '1.0.7'
     pod 'YYImage', '1.0.4'
@@ -24,7 +24,6 @@ end
 
 target ‘BookMonth’ do
   pod 'MJExtension', '3.0.15'
-  
 end
 
 
@@ -32,5 +31,4 @@ target ‘BookStart’ do
   pod 'SDWebImage', '4.4.3'
   pod 'MJExtension', '3.0.15'
   pod 'ReactiveObjC', '3.1.0'
-  
 end

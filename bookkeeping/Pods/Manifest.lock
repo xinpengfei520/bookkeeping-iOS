@@ -14,7 +14,18 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - BRPickerView (2.2.1)
+  - BRPickerView (2.7.6):
+    - BRPickerView/AddressPickerView (= 2.7.6)
+    - BRPickerView/Base (= 2.7.6)
+    - BRPickerView/DatePickerView (= 2.7.6)
+    - BRPickerView/StringPickerView (= 2.7.6)
+  - BRPickerView/AddressPickerView (2.7.6):
+    - BRPickerView/Base
+  - BRPickerView/Base (2.7.6)
+  - BRPickerView/DatePickerView (2.7.6):
+    - BRPickerView/Base
+  - BRPickerView/StringPickerView (2.7.6):
+    - BRPickerView/Base
   - Bugly (2.5.91)
   - GPUImage (0.1.7)
   - JCore (1.2.6)
@@ -78,7 +89,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 3.2.1)
-  - BRPickerView (= 2.2.1)
+  - BRPickerView (= 2.7.6)
   - Bugly
   - JGProgressHUD (= 2.0.3)
   - JPush (= 3.1.1.1)
@@ -124,7 +135,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  BRPickerView: 0590a8c5de9bd98c6b4e4f117a3dff6de287d5b2
+  BRPickerView: 2a1620caf218e37a3aca9626732719a419928b15
   Bugly: afe841bba2ea6de6d432a3c125240a5e75949c55
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   JCore: cae516dd2bf1a73b578ce6e1065abd49e709e0f7
@@ -147,6 +158,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLPhotoBrowser: 6dfadc4706429424f0a851fe40752aff076689ab
 
-PODFILE CHECKSUM: fd6cee21ef7d7cb80ba79c44ce67f0eec6ddd42c
+PODFILE CHECKSUM: d91fbd4214f728d8bf562dd9dfddb5f86e7d84bc
 
 COCOAPODS: 1.10.1
