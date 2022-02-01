@@ -100,7 +100,6 @@
 		32A4C23B21CB6ABD00DF4327 /* ShareShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C23A21CB6ABD00DF4327 /* ShareShot.m */; };
 		32A4C23D21CB6AE400DF4327 /* ShareShot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A4C23C21CB6AE400DF4327 /* ShareShot.xib */; };
 		32A4C24121CB749B00DF4327 /* WebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C24021CB749B00DF4327 /* WebVC.m */; };
-		32A4C24421CB75DD00DF4327 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C24321CB75DD00DF4327 /* AboutController.m */; };
 		32A4C24721CB7D5900DF4327 /* ShareOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C24621CB7D5900DF4327 /* ShareOrder.m */; };
 		32A4C24921CB7D6000DF4327 /* ShareOrder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A4C24821CB7D6000DF4327 /* ShareOrder.xib */; };
 		32A4C24D21CB834100DF4327 /* BookPunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C24C21CB834100DF4327 /* BookPunch.m */; };
@@ -554,8 +553,6 @@
 		32A4C23C21CB6AE400DF4327 /* ShareShot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareShot.xib; sourceTree = "<group>"; };
 		32A4C23F21CB749B00DF4327 /* WebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebVC.h; sourceTree = "<group>"; };
 		32A4C24021CB749B00DF4327 /* WebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebVC.m; sourceTree = "<group>"; };
-		32A4C24221CB75DD00DF4327 /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
-		32A4C24321CB75DD00DF4327 /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		32A4C24521CB7D5900DF4327 /* ShareOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareOrder.h; sourceTree = "<group>"; };
 		32A4C24621CB7D5900DF4327 /* ShareOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareOrder.m; sourceTree = "<group>"; };
 		32A4C24821CB7D6000DF4327 /* ShareOrder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOrder.xib; sourceTree = "<group>"; };
@@ -2103,39 +2100,6 @@
 			path = CountDown;
 			sourceTree = "<group>";
 		};
-		4BA68ACE21C7EA930063A5C2 /* About (关于) */ = {
-			isa = PBXGroup;
-			children = (
-				4BA68ACF21C7EA930063A5C2 /* Controller */,
-				4BA68AD021C7EA930063A5C2 /* Model */,
-				4BA68AD121C7EA930063A5C2 /* View */,
-			);
-			path = "About (关于)";
-			sourceTree = "<group>";
-		};
-		4BA68ACF21C7EA930063A5C2 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				32A4C24221CB75DD00DF4327 /* AboutController.h */,
-				32A4C24321CB75DD00DF4327 /* AboutController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		4BA68AD021C7EA930063A5C2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		4BA68AD121C7EA930063A5C2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		4BA68AD221C7EA930063A5C2 /* CA (类别) */ = {
 			isa = PBXGroup;
 			children = (
@@ -2458,7 +2422,6 @@
 				4BA68AD221C7EA930063A5C2 /* CA (类别) */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
 				4BA68ADA21C7EA930063A5C2 /* Timing (定时) */,
-				4BA68ACE21C7EA930063A5C2 /* About (关于) */,
 			);
 			path = "Mine (我的)";
 			sourceTree = "<group>";
@@ -3424,7 +3387,6 @@
 				4B48530B21C69F2800891096 /* MineHeader.m in Sources */,
 				32E35B1E21D703BA003B3040 /* ChartSubModel.m in Sources */,
 				4B229A7921E622F900152030 /* BillHeader.m in Sources */,
-				32A4C24421CB75DD00DF4327 /* AboutController.m in Sources */,
 				4BF0649621E10FD2005F1665 /* HomeNavigation.m in Sources */,
 				4B35F1BF21CCC694007271BE /* KKGoodsEmpty.m in Sources */,
 				F30D7F0E27A25CD100B0580C /* UIViewController+JZExtension.m in Sources */,

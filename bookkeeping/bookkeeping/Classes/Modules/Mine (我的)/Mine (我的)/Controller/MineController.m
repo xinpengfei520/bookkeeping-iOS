@@ -9,7 +9,6 @@
 #import "WebVC.h"
 #import "TIController.h"
 #import "ShareController.h"
-#import "AboutController.h"
 #import "InfoController.h"
 #import "LoginController.h"
 #import "MINE_EVENT_MANAGER.h"
@@ -164,11 +163,6 @@
         else if ((indexPath.row == 3  && [UserInfo isLogin]) || (indexPath.row == 2  && [UserInfo isLogin])) {
             WebVC *vc = [[WebVC alloc] init];
             [vc setNavTitle:@"帮助"];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        // 关于
-        else if ((indexPath.row == 4  && [UserInfo isLogin]) || (indexPath.row == 3  && [UserInfo isLogin])) {
-            AboutController *vc = [[AboutController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
