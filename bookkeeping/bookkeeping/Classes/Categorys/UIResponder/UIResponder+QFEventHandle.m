@@ -15,7 +15,7 @@
  通过事件响应链条传递事件
 
  @param eventName 事件名
- @param userInfo 附加参数
+ @param data 附加参数
  */
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [[self nextResponder] routerEventWithName:eventName data:data];

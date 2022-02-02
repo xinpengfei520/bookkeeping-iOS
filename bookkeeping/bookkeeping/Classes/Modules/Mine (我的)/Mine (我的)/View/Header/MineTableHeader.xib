@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,22 +13,6 @@
             <rect key="frame" x="0.0" y="0.0" width="365" height="240"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moM-Fs-1ao">
-                    <rect key="frame" x="280" y="10" width="70" height="30"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="0IH-Iw-9MN"/>
-                        <constraint firstAttribute="width" constant="70" id="UdY-R7-QAo"/>
-                    </constraints>
-                    <state key="normal" title=" 打卡" image="mine_siginin">
-                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <state key="selected" title="已打卡"/>
-                    <state key="highlighted" image="mine_siginin"/>
-                    <connections>
-                        <action selector="punchClick:" destination="fWf-7J-Cys" eventType="touchUpInside" id="JvY-Pk-tAS"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azk-Cf-tFR">
                     <rect key="frame" x="152.5" y="40" width="60" height="88"/>
                     <subviews>
@@ -138,10 +120,8 @@
                 <constraint firstItem="qGE-mW-O2w" firstAttribute="height" secondItem="DVq-Rc-CFc" secondAttribute="height" id="FvP-Mn-cCG"/>
                 <constraint firstItem="qGE-mW-O2w" firstAttribute="width" secondItem="DVq-Rc-CFc" secondAttribute="width" id="HaA-pI-w9w"/>
                 <constraint firstItem="eDR-pj-vv7" firstAttribute="centerY" secondItem="QFo-7Z-E64" secondAttribute="centerY" id="Hzy-Gk-cFG"/>
-                <constraint firstAttribute="trailing" secondItem="moM-Fs-1ao" secondAttribute="trailing" constant="15" id="JJ0-rk-bdh"/>
                 <constraint firstItem="azk-Cf-tFR" firstAttribute="centerX" secondItem="fWf-7J-Cys" secondAttribute="centerX" id="X4k-fu-dow"/>
                 <constraint firstItem="cRP-zi-YAR" firstAttribute="centerY" secondItem="DVq-Rc-CFc" secondAttribute="centerY" id="adT-XY-q2P"/>
-                <constraint firstItem="moM-Fs-1ao" firstAttribute="top" secondItem="fWf-7J-Cys" secondAttribute="top" constant="10" id="fWv-1R-ePc"/>
                 <constraint firstItem="azk-Cf-tFR" firstAttribute="top" secondItem="fWf-7J-Cys" secondAttribute="top" constant="40" id="jtR-Ny-X8W"/>
                 <constraint firstItem="qGE-mW-O2w" firstAttribute="leading" secondItem="cRP-zi-YAR" secondAttribute="trailing" id="k52-4a-4Ze"/>
                 <constraint firstAttribute="trailing" secondItem="qGE-mW-O2w" secondAttribute="trailing" id="m6g-8m-DHv"/>
@@ -160,9 +140,6 @@
                 <outlet property="numberConstraintT" destination="2rd-up-D8T" id="KB8-rc-Nbl"/>
                 <outlet property="numberLab" destination="AOf-Gf-zop" id="3Ym-qD-IWV"/>
                 <outlet property="numberView" destination="qGE-mW-O2w" id="jcr-bd-CNt"/>
-                <outlet property="punchBtn" destination="moM-Fs-1ao" id="62u-WH-OXj"/>
-                <outlet property="punchConstraintT" destination="fWv-1R-ePc" id="TMt-Mh-OzK"/>
-                <outlet property="punchConstraintW" destination="UdY-R7-QAo" id="of7-e3-CsE"/>
                 <outlet property="punchLab" destination="yoq-UE-t2R" id="bVU-tS-iL7"/>
                 <outlet property="punchView" destination="DVq-Rc-CFc" id="eyZ-jC-Hr4"/>
             </connections>
@@ -170,7 +147,6 @@
         </view>
     </objects>
     <resources>
-        <image name="default_header" width="112" height="112"/>
-        <image name="mine_siginin" width="20" height="20"/>
+        <image name="default_header" width="112.5" height="112.5"/>
     </resources>
 </document>

@@ -121,38 +121,18 @@
     return _header;
 }
 - (NSArray<NSArray<NSArray *> *> *)datas {
-    UserModel *model = [UserInfo loadUserInfo];
-    if (model.token && model.token.length != 0) {
-        _datas = @[
-            @[
-                @[@"类别设置",@"定时提醒",@"声音开关",@"明细详情"],
-                @[@"同步数据"],
-            ],
-            @[
-                @[@"mine_tallytype",@"mine_remind",@"mine_sound",@"mine_detail"],
-                @[@"mine_merge"],
-            ],
-            @[
-                @[@(0),@(0),@(1),@(1)],
-                @[@(0)],
-            ]
-        ];
-    } else {
-        _datas = @[
-            @[
-                @[@"类别设置",@"定时提醒",@"声音开关",@"明细详情"],
-                @[],
-            ],
-            @[
-                @[@"mine_tallytype",@"mine_remind",@"mine_sound",@"mine_detail"],
-                @[],
-            ],
-            @[
-                @[@(0),@(0),@(1),@(1)],
-                @[],
-            ]
-        ];
-    }
+    _datas = @[
+        @[
+            @[@"类别设置",@"定时提醒",@"声音开关",@"明细详情"],
+        ],
+        @[
+            @[@"mine_tallytype",@"mine_remind",@"mine_sound",@"mine_detail"],
+        ],
+        @[
+            @[@(0),@(0),@(1),@(1)],
+        ]
+    ];
+    
     return _datas;
 }
 
