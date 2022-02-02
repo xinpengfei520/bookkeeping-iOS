@@ -58,8 +58,6 @@
 		3233D7C621E57A50009342D7 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983A321C6459B00311885 /* BaseView.m */; };
 		3233D7CC21E57A94009342D7 /* StartScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 3233D7CB21E57A94009342D7 /* StartScroll.m */; };
 		3233D7CF21E57A9E009342D7 /* StartKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3233D7CE21E57A9E009342D7 /* StartKeyboard.m */; };
-		324484AE21C728C00051B8B6 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 324484AC21C728C00051B8B6 /* LoginController.m */; };
-		324484AF21C728C00051B8B6 /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324484AD21C728C00051B8B6 /* LoginController.xib */; };
 		324484B621C74BDE0051B8B6 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 324484B421C74BDD0051B8B6 /* HomeListCell.m */; };
 		324484B721C74BDE0051B8B6 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324484B521C74BDD0051B8B6 /* HomeListCell.xib */; };
 		3257AED421C8750800787A34 /* TIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED321C8750800787A34 /* TIController.m */; };
@@ -465,9 +463,6 @@
 		3233D7CD21E57A9E009342D7 /* StartKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartKeyboard.h; sourceTree = "<group>"; };
 		3233D7CE21E57A9E009342D7 /* StartKeyboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartKeyboard.m; sourceTree = "<group>"; };
 		3244849B21C721B90051B8B6 /* MINE_EVENT_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MINE_EVENT_MANAGER.h; sourceTree = "<group>"; };
-		324484AB21C728C00051B8B6 /* LoginController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
-		324484AC21C728C00051B8B6 /* LoginController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
-		324484AD21C728C00051B8B6 /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
 		324484B321C74BDD0051B8B6 /* HomeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
 		324484B421C74BDD0051B8B6 /* HomeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
 		324484B521C74BDD0051B8B6 /* HomeListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
@@ -1344,35 +1339,10 @@
 			isa = PBXGroup;
 			children = (
 				4B7560B421D1225500E63744 /* Tool */,
-				4BAF976621CE6159006EEF93 /* Login */,
 				4BC41CF721CF92F800B397BD /* Phone */,
 				4BAF976721CE6182006EEF93 /* Register */,
 			);
 			path = "Login (登录)";
-			sourceTree = "<group>";
-		};
-		324484A521C727810051B8B6 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				324484AB21C728C00051B8B6 /* LoginController.h */,
-				324484AC21C728C00051B8B6 /* LoginController.m */,
-				324484AD21C728C00051B8B6 /* LoginController.xib */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		324484A621C727810051B8B6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		324484A721C727810051B8B6 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		3257AED521C8761200787A34 /* BottomButton */ = {
@@ -2051,16 +2021,6 @@
 				4BA68B0421C7F6FB0063A5C2 /* ACACollectionCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		4BAF976621CE6159006EEF93 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				324484A521C727810051B8B6 /* Controller */,
-				324484A621C727810051B8B6 /* Model */,
-				324484A721C727810051B8B6 /* View */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		4BAF976721CE6182006EEF93 /* Register */ = {
@@ -2835,7 +2795,6 @@
 				4BEB730C21CE033300BEF013 /* dropdown_anim__00054@2x.png in Resources */,
 				4BA68B0621C7F6FB0063A5C2 /* ACACollectionCell.xib in Resources */,
 				4BEB72DE21CE033300BEF013 /* dropdown_loading_02@2x.png in Resources */,
-				324484AF21C728C00051B8B6 /* LoginController.xib in Resources */,
 				4B97990221CE784F0020B207 /* RE3Controller.xib in Resources */,
 				4BEB731321CE033300BEF013 /* dropdown_anim__00050@2x.png in Resources */,
 				4BEB72E321CE033300BEF013 /* dropdown_anim__00034@2x.png in Resources */,
@@ -3160,7 +3119,6 @@
 				321431D921D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m in Sources */,
 				4BEB732A21CE380C00BEF013 /* InfoTableView.m in Sources */,
 				4BA68B0A21C7F75B0063A5C2 /* ACAReusableHeader.m in Sources */,
-				324484AE21C728C00051B8B6 /* LoginController.m in Sources */,
 				3219840621C6460100311885 /* NSAttributedString+Extension.m in Sources */,
 				4BA68AFC21C7F5DB0063A5C2 /* ACATextField.m in Sources */,
 				3257AED821C8774400787A34 /* TITableView.m in Sources */,

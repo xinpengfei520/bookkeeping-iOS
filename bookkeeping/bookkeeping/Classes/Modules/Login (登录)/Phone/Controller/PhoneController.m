@@ -18,17 +18,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 @property (weak, nonatomic) IBOutlet UITextField *passField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet UIButton *qqLoginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *findBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
-@property (weak, nonatomic) IBOutlet UIView *line;
-@property (weak, nonatomic) IBOutlet UILabel *otherLab;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintR;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginConstraintH;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *qqLogConstraintB;
 
 @end
 
@@ -50,13 +46,8 @@
     [self.passField setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
     [self.passField setTextColor:kColor_Text_Black];
     [self buttonCanTap:false btn:self.loginBtn];
-    [self buttonCanTap:true btn:self.qqLoginBtn];
     [self.findBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.registerBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
-    [self.line setBackgroundColor:kColor_Line_Color];
-    [self.otherLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.otherLab setTextColor:kColor_Text_Gary];
-    [self.otherLab setBackgroundColor:kColor_BG];
     [self.phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     [self.passField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     
@@ -64,14 +55,42 @@
     [self.phoneConstraintR setConstant:countcoordinatesX(15)];
     [self.phoneConstraintH setConstant:countcoordinatesX(45)];
     [self.loginConstraintH setConstant:countcoordinatesX(45)];
-    [self.qqLogConstraintB setConstant:countcoordinatesX(80) + SafeAreaBottomHeight];
+    
+    [self rac_notification_register];
 }
 
+// 监听通知
+- (void)rac_notification_register {
+    @weakify(self)
+    // 忘记密码完成
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_FORGET_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+        NSLog(@"忘记密码完成");
+    }];
+    // 注册完成
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_REGISTER_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+        @strongify(self)
+        // 回调
+        if (self.complete) {
+            self.complete();
+        }
+        // 关闭
+        [self.navigationController dismissViewControllerAnimated:true completion:nil];
+    }];
+    // 登录完成
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+        @strongify(self)
+        // 回调
+        if (self.complete) {
+            self.complete();
+        }
+        // 关闭
+        [self.navigationController dismissViewControllerAnimated:true completion:nil];
+    }];
+}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
 }
-
 
 // 按钮是否可以点击
 - (void)buttonCanTap:(BOOL)tap btn:(UIButton *)btn {
@@ -115,30 +134,30 @@
     }];
 }
 
-
 #pragma mark - 点击
 // 登录
 - (IBAction)loginClick:(UIButton *)sender {
     [self getLoginRequest];
 }
+
 // 关闭
 - (IBAction)closeBtnClick:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 // 注册
 - (IBAction)registerBtnClick:(UIButton *)sender {
     RE1Controller *vc = [[RE1Controller alloc] init];
     [vc setIndex:0];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 // 找回密码
 - (IBAction)forgetBtnClick:(UIButton *)sender {
     RE1Controller *vc = [[RE1Controller alloc] init];
     [vc setIndex:1];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
-
 
 // 文本编辑
 - (void)textFieldDidEditing:(UITextField *)textField {
@@ -173,7 +192,5 @@
     }
     
 }
-
-
 
 @end
