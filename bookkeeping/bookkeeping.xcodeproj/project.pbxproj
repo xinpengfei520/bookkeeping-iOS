@@ -222,8 +222,8 @@
 		4BA68B0B21C7F75B0063A5C2 /* ACAReusableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BA68B0921C7F75B0063A5C2 /* ACAReusableHeader.xib */; };
 		4BAF977121CE6365006EEF93 /* RE1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAF976F21CE6365006EEF93 /* RE1Controller.m */; };
 		4BAF977221CE6365006EEF93 /* RE1Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BAF977021CE6365006EEF93 /* RE1Controller.xib */; };
-		4BC41CFE21CF930600B397BD /* PhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC41CFC21CF930600B397BD /* PhoneController.m */; };
-		4BC41CFF21CF930600B397BD /* PhoneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC41CFD21CF930600B397BD /* PhoneController.xib */; };
+		4BC41CFE21CF930600B397BD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC41CFC21CF930600B397BD /* LoginController.m */; };
+		4BC41CFF21CF930600B397BD /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC41CFD21CF930600B397BD /* LoginController.xib */; };
 		4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */; };
 		4BC7820221C918F200760DF9 /* BKCKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC7820121C918F200760DF9 /* BKCKeyboard.xib */; };
 		4BD1EE6C2208172F00758B41 /* CCController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD1EE6B2208172F00758B41 /* CCController.m */; };
@@ -725,9 +725,9 @@
 		4BAF976E21CE6365006EEF93 /* RE1Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RE1Controller.h; sourceTree = "<group>"; };
 		4BAF976F21CE6365006EEF93 /* RE1Controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RE1Controller.m; sourceTree = "<group>"; };
 		4BAF977021CE6365006EEF93 /* RE1Controller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RE1Controller.xib; sourceTree = "<group>"; };
-		4BC41CFB21CF930600B397BD /* PhoneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneController.h; sourceTree = "<group>"; };
-		4BC41CFC21CF930600B397BD /* PhoneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneController.m; sourceTree = "<group>"; };
-		4BC41CFD21CF930600B397BD /* PhoneController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneController.xib; sourceTree = "<group>"; };
+		4BC41CFB21CF930600B397BD /* LoginController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
+		4BC41CFC21CF930600B397BD /* LoginController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
+		4BC41CFD21CF930600B397BD /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
 		4BC781FE21C917FA00760DF9 /* BKCKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCKeyboard.h; sourceTree = "<group>"; };
 		4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCKeyboard.m; sourceTree = "<group>"; };
 		4BC7820121C918F200760DF9 /* BKCKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BKCKeyboard.xib; sourceTree = "<group>"; };
@@ -1086,7 +1086,6 @@
 				4BE7845621C678FB00B8EC46 /* Book (记账) */,
 				4BE7845221C678FB00B8EC46 /* Find (发现) */,
 				4BE7844E21C678FB00B8EC46 /* Mine (我的) */,
-				32A4C22B21CB3F3700DF4327 /* Other (其他) */,
 				4B6D56992206D1F400BE6720 /* Third (第三方) */,
 			);
 			path = Modules;
@@ -1339,7 +1338,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7560B421D1225500E63744 /* Tool */,
-				4BC41CF721CF92F800B397BD /* Phone */,
+				4BC41CF721CF92F800B397BD /* Login */,
 				4BAF976721CE6182006EEF93 /* Register */,
 			);
 			path = "Login (登录)";
@@ -1433,13 +1432,6 @@
 				32A4C21F21CB15B000DF4327 /* JHCollectionViewLayoutAttributes.m */,
 			);
 			path = JHCollectionViewDelegateFlowLayout;
-			sourceTree = "<group>";
-		};
-		32A4C22B21CB3F3700DF4327 /* Other (其他) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Other (其他)";
 			sourceTree = "<group>";
 		};
 		32A5801021DF090B008993B2 /* NSObject */ = {
@@ -2063,22 +2055,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BC41CF721CF92F800B397BD /* Phone */ = {
+		4BC41CF721CF92F800B397BD /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				4BC41CF821CF92F800B397BD /* Controller */,
 				4BC41CF921CF92F800B397BD /* Model */,
 				4BC41CFA21CF92F800B397BD /* View */,
 			);
-			path = Phone;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		4BC41CF821CF92F800B397BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4BC41CFB21CF930600B397BD /* PhoneController.h */,
-				4BC41CFC21CF930600B397BD /* PhoneController.m */,
-				4BC41CFD21CF930600B397BD /* PhoneController.xib */,
+				4BC41CFB21CF930600B397BD /* LoginController.h */,
+				4BC41CFC21CF930600B397BD /* LoginController.m */,
+				4BC41CFD21CF930600B397BD /* LoginController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2805,7 +2797,7 @@
 				4BEB730D21CE033300BEF013 /* dropdown_anim__00029@2x.png in Resources */,
 				4BEB730121CE033300BEF013 /* dropdown_anim__00044@2x.png in Resources */,
 				32D0B2BF21C778FA0030F5B2 /* ChartNavigation.xib in Resources */,
-				4BC41CFF21CF930600B397BD /* PhoneController.xib in Resources */,
+				4BC41CFF21CF930600B397BD /* LoginController.xib in Resources */,
 				4BEB72ED21CE033300BEF013 /* dropdown_anim__00036@2x.png in Resources */,
 				4BEB72E421CE033300BEF013 /* dropdown_anim__00049@2x.png in Resources */,
 				4BEB731C21CE033300BEF013 /* dropdown_anim__00052@2x.png in Resources */,
@@ -3034,7 +3026,7 @@
 				4BF0649021E10BAD005F1665 /* BDHeader.m in Sources */,
 				32A5800F21DF08BC008993B2 /* NSObject+NSCoding.m in Sources */,
 				4BA68AEB21C7ED550063A5C2 /* BottomButton.m in Sources */,
-				4BC41CFE21CF930600B397BD /* PhoneController.m in Sources */,
+				4BC41CFE21CF930600B397BD /* LoginController.m in Sources */,
 				3219841421C6474600311885 /* UserInfo.m in Sources */,
 				4BD1EE7F22081E9B00758B41 /* CCActionCell.m in Sources */,
 				4BF0649B21E11283005F1665 /* BDTable.m in Sources */,

@@ -1,5 +1,5 @@
 /**
- * 手机登录
+ * 登录
  * @author 郑业强 2018-12-23 创建文件
  */
 
@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - type
 typedef void (^LoginComplete) (void);
 
-@interface PhoneController : BaseViewController
+@interface LoginController : BaseViewController
 
 @property (nonatomic, copy) LoginComplete complete;
 

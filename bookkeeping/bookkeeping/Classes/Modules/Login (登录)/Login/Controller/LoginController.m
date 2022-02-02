@@ -3,13 +3,13 @@
  * @author 郑业强 2018-12-23 创建文件
  */
 
-#import "PhoneController.h"
+#import "LoginController.h"
 #import "RE1Controller.h"
 #import "LOGIN_NOTIFICATION.h"
 
 
 #pragma mark - 声明
-@interface PhoneController() {
+@interface LoginController() {
     NSInteger index;
 }
 
@@ -30,7 +30,7 @@
 
 
 #pragma mark - 实现
-@implementation PhoneController
+@implementation LoginController
 
 
 - (void)viewDidLoad {

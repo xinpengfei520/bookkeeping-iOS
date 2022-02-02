@@ -7,7 +7,7 @@
 #import "CAController.h"
 #import "TIController.h"
 #import "InfoController.h"
-#import "PhoneController.h"
+#import "LoginController.h"
 #import "MINE_EVENT_MANAGER.h"
 
 
@@ -130,7 +130,7 @@
     // 没登录
     else {
         @weakify(self)
-        PhoneController *vc = [[PhoneController alloc] init];
+        LoginController *vc = [[LoginController alloc] init];
         [vc setComplete:^{
             @strongify(self)
             self.model = [UserInfo loadUserInfo];
