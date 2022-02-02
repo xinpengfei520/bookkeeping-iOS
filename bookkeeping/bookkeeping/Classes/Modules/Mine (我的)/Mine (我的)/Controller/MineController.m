@@ -7,7 +7,6 @@
 #import "CAController.h"
 #import "WebVC.h"
 #import "TIController.h"
-#import "ShareController.h"
 #import "InfoController.h"
 #import "LoginController.h"
 #import "MINE_EVENT_MANAGER.h"
