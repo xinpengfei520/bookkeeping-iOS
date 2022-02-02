@@ -93,7 +93,6 @@
 		32A4C22221CB15B100DF4327 /* JHCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C21E21CB15B000DF4327 /* JHCollectionReusableView.m */; };
 		32A4C22321CB15B100DF4327 /* JHCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C21F21CB15B000DF4327 /* JHCollectionViewLayoutAttributes.m */; };
 		32A4C22421CB15B100DF4327 /* JHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C22021CB15B000DF4327 /* JHCollectionViewFlowLayout.m */; };
-		32A4C24121CB749B00DF4327 /* WebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C24021CB749B00DF4327 /* WebVC.m */; };
 		32A4C25221CB84BA00DF4327 /* signin_gif@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 32A4C25021CB84BA00DF4327 /* signin_gif@2x.gif */; };
 		32A4C25321CB84BA00DF4327 /* signin_gif@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 32A4C25121CB84BA00DF4327 /* signin_gif@3x.gif */; };
 		32A5800F21DF08BC008993B2 /* NSObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A5800E21DF08BC008993B2 /* NSObject+NSCoding.m */; };
@@ -518,8 +517,6 @@
 		32A4C21F21CB15B000DF4327 /* JHCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
 		32A4C22021CB15B000DF4327 /* JHCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		32A4C22121CB15B000DF4327 /* JHCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHCollectionReusableView.h; sourceTree = "<group>"; };
-		32A4C23F21CB749B00DF4327 /* WebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebVC.h; sourceTree = "<group>"; };
-		32A4C24021CB749B00DF4327 /* WebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebVC.m; sourceTree = "<group>"; };
 		32A4C25021CB84BA00DF4327 /* signin_gif@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "signin_gif@2x.gif"; sourceTree = "<group>"; };
 		32A4C25121CB84BA00DF4327 /* signin_gif@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "signin_gif@3x.gif"; sourceTree = "<group>"; };
 		32A5800D21DF08BC008993B2 /* NSObject+NSCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+NSCoding.h"; sourceTree = "<group>"; };
@@ -1471,18 +1468,8 @@
 		32A4C22B21CB3F3700DF4327 /* Other (其他) */ = {
 			isa = PBXGroup;
 			children = (
-				32A4C23E21CB749B00DF4327 /* Web */,
 			);
 			path = "Other (其他)";
-			sourceTree = "<group>";
-		};
-		32A4C23E21CB749B00DF4327 /* Web */ = {
-			isa = PBXGroup;
-			children = (
-				32A4C23F21CB749B00DF4327 /* WebVC.h */,
-				32A4C24021CB749B00DF4327 /* WebVC.m */,
-			);
-			path = Web;
 			sourceTree = "<group>";
 		};
 		32A5801021DF090B008993B2 /* NSObject */ = {
@@ -3036,7 +3023,6 @@
 				32E2A27921EDBBF0009AD84C /* UIView+SyncedData.m in Sources */,
 				4B97990121CE784F0020B207 /* RE3Controller.m in Sources */,
 				4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */,
-				32A4C24121CB749B00DF4327 /* WebVC.m in Sources */,
 				4B6D569D2206D35100BE6720 /* FindBookCell.m in Sources */,
 				4B7560B321D1224A00E63744 /* BaseViewController+Extension.m in Sources */,
 				327CEC1D21C88A04001D0086 /* HomeListHeader.m in Sources */,

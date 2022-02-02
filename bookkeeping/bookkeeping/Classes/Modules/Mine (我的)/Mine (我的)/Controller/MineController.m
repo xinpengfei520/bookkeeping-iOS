@@ -5,7 +5,6 @@
 
 #import "MineController.h"
 #import "CAController.h"
-#import "WebVC.h"
 #import "TIController.h"
 #import "InfoController.h"
 #import "LoginController.h"
@@ -121,12 +120,6 @@
         // 同步数据
          if (indexPath.row == 0 && [UserInfo isLogin]) {
             [self.view syncedDataRequest];
-        }
-        // 帮助
-        else if ((indexPath.row == 1) || (indexPath.row == 0)) {
-            WebVC *vc = [[WebVC alloc] init];
-            [vc setNavTitle:@"帮助"];
-            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }
