@@ -4,7 +4,6 @@
  */
 
 #import "MineController.h"
-#import "BadgeController.h"
 #import "CAController.h"
 #import "WebVC.h"
 #import "TIController.h"
@@ -64,28 +63,7 @@
 }
 // 打卡
 - (void)createPunchRequest {
-    // CreatePunchRequest
-    @weakify(self)
-    [self showProgressHUD];
-    [AFNManager POST:CreatePunchRequest params:nil complete:^(APPResult *result) {
-        @strongify(self)
-        [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
-            UserModel *model = [UserInfo loadUserInfo];
-            model.isPunch = true;
-            model.punchCount = result.data;
-            [UserInfo saveUserModel:model];
-            [self.mine.table setModel:model];
-            
-            KKPopup *popup = [KKPopup initNib:@"BookPunch"];
-            [popup show];
-            [popup setClick:^(id data, KKPopup *popup) {
-                [popup hide];
-            }];
-        } else {
-            [self showWindowTextHUD:result.message delay:1.f];
-        }
-    }];
+    
 }
 // 声音
 - (void)soundChangeRequest:(NSNumber *)isOn {
@@ -125,16 +103,10 @@
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // Cell
 - (void)mineCellClick:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        // 徽章
-        if (indexPath.row == 0) {
-            BadgeController *vc = [[BadgeController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-    }
-    else if (indexPath.section == 1) {
         // 类别
         if (indexPath.row == 0) {
             CAController *vc = [[CAController alloc] init];
@@ -146,21 +118,13 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
-    else if (indexPath.section == 2) {
-        // 去App Store给鲨鱼记账评分
-        if (indexPath.row == 0) {
-            
-        }
-        // 意见反馈
-        else if (indexPath.row == 1) {
-            
-        }
+    else if (indexPath.section == 1) {
         // 同步数据
-        else if (indexPath.row == 2 && [UserInfo isLogin]) {
+         if (indexPath.row == 0 && [UserInfo isLogin]) {
             [self.view syncedDataRequest];
         }
         // 帮助
-        else if ((indexPath.row == 3  && [UserInfo isLogin]) || (indexPath.row == 2  && [UserInfo isLogin])) {
+        else if ((indexPath.row == 1) || (indexPath.row == 0)) {
             WebVC *vc = [[WebVC alloc] init];
             [vc setNavTitle:@"帮助"];
             [self.navigationController pushViewController:vc animated:YES];
@@ -206,9 +170,7 @@
 }
 // 连续打卡
 - (void)headerPunchClick:(id)data {
-    ShareController *vc = [[ShareController alloc] init];
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 // 记账总天数
 - (void)headerDayClick:(id)data {
