@@ -24,6 +24,7 @@
     [self.node setBackgroundColor:kColor_BG];
     [self initUI];
 }
+
 - (void)initUI {
     [self setLeftBtn];
     [self setRightBtn];
@@ -81,6 +82,7 @@
     self.rightButton.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
     self.rightButton.hidden = YES;
 }
+
 - (void)setNavTitle:(NSString *)navTitle {
     _navTitle = navTitle;
     UIFont *font = [UIFont systemFontOfSize:AdjustFont(16)];
@@ -96,7 +98,6 @@
     self.navigationItem.titleView = btn;
 }
 
-
 #pragma mark - 点击
 // 点击了返回按钮
 - (void)leftButtonClick {
@@ -104,6 +105,7 @@
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
 // 点击了右侧按钮
 - (void)rightButtonClick {
     

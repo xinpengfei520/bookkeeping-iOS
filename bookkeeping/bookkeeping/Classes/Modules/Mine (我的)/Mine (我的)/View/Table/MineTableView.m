@@ -123,13 +123,13 @@
 - (NSArray<NSArray<NSArray *> *> *)datas {
     _datas = @[
         @[
-            @[@"类别设置",@"定时提醒",@"声音开关",@"明细详情"],
+            @[@"我的账单",@"类别设置",@"定时提醒",@"声音开关",@"明细详情"],
         ],
         @[
-            @[@"mine_tallytype",@"mine_remind",@"mine_sound",@"mine_detail"],
+            @[@"mine_siginin",@"mine_tallytype",@"mine_remind",@"mine_sound",@"mine_detail"],
         ],
         @[
-            @[@(0),@(0),@(1),@(1)],
+            @[@(0),@(0),@(0),@(1),@(1)],
         ]
     ];
     

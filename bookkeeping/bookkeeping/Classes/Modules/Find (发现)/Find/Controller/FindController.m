@@ -32,9 +32,11 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 2;
 }
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return section == 0 ? 1 : 20;
 }
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         FindBookCell *cell = [FindBookCell loadItem:collectionView index:indexPath];
@@ -63,6 +65,7 @@
         }
     }
 }
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return CGSizeMake(SCREEN_WIDTH, countcoordinatesX(90));
@@ -71,6 +74,7 @@
     }
     return CGSizeZero;
 }
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     if (section == 0) {
         return UIEdgeInsetsMake(0, 0, countcoordinatesX(10), 0);
@@ -95,16 +99,14 @@
         [_collection registerNib:[UINib nibWithNibName:@"FindFeatureCell" bundle:nil] forCellWithReuseIdentifier:@"FindFeatureCell"];
         [self.view addSubview:_collection];
     }
+    
     return _collection;
 }
-
 
 #pragma mark - 系统
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.collection reloadData];
 }
-
-
 
 @end

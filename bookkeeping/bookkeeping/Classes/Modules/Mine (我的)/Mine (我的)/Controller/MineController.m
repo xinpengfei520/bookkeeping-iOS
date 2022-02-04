@@ -8,6 +8,7 @@
 #import "TIController.h"
 #import "InfoController.h"
 #import "LoginController.h"
+#import "FindController.h"
 #import "MINE_EVENT_MANAGER.h"
 
 
@@ -30,6 +31,7 @@
     [self mine];
     [self setupUI];
 }
+
 - (void)setupUI {
     // 登录了
     if ([UserInfo isLogin]) {
@@ -69,6 +71,7 @@
         [UserInfo saveUserModel:model];
     }];
 }
+
 // 详情
 - (void)detailChangeRequest:(NSNumber *)isOn {
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:isOn, @"detail", nil];;
@@ -92,6 +95,7 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
@@ -102,13 +106,18 @@
 // Cell
 - (void)mineCellClick:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        // 类别
+        // 我的账单
         if (indexPath.row == 0) {
+            FindController *vc = [[FindController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        // 类别设置
+        if (indexPath.row == 1) {
             CAController *vc = [[CAController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
-        // 定时
-        else if (indexPath.row == 1) {
+        // 定时提醒
+        else if (indexPath.row == 2) {
             TIController *vc = [[TIController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -120,6 +129,7 @@
         }
     }
 }
+
 // 头像
 - (void)headerIconClick:(id)data {
     // 登录了
@@ -166,6 +176,7 @@
     }
     
 }
+
 // 切换详情
 - (void)detailClick:(NSNumber *)isOn {
     NSNumber *detail = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL];
@@ -186,6 +197,7 @@
     }
     return _mine;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
@@ -201,12 +213,12 @@
     return _eventStrategy;
 }
 
-
 #pragma mark - 系统
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setModel:[UserInfo loadUserInfo]];
 }
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self setupUI];

@@ -27,18 +27,11 @@
     HomeController *home = [[HomeController alloc] init];
     [self addChildViewController:home title:@"明细" image:@"tabbar_detail_n" selImage:@"tabbar_detail_s"];
 
-    ChartController *sort = [[ChartController alloc] init];
-    [self addChildViewController:sort title:@"图表" image:@"tabbar_chart_n" selImage:@"tabbar_chart_s"];
-
     BaseViewController *message = [[BaseViewController alloc] init];
     [self addChildViewController:message title:@"记账" image:@"tabbar_add_n" selImage:@"tabbar_add_h"];
     
-    FindController *cart = [[FindController alloc] init];
-    [self addChildViewController:cart title:@"发现" image:@"tabbar_discover_n" selImage:@"tabbar_discover_s"];
-
-    MineController *mine = [[MineController alloc] init];
-    [self addChildViewController:mine title:@"我的" image:@"tabbar_mine_n" selImage:@"tabbar_mine_s"];
-    
+    ChartController *sort = [[ChartController alloc] init];
+    [self addChildViewController:sort title:@"图表" image:@"tabbar_chart_n" selImage:@"tabbar_chart_s"];
     
 //    [self setSelectedIndex:3];
 }
@@ -58,7 +51,6 @@
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childVc.tabBarItem.tag = index;
     childVc.navTitle = title;
-    
     
     index++;
     
@@ -87,7 +79,7 @@
         [_bar setClick:^(NSInteger index) {
             @strongify(self)
             // 记账
-            if (index == 2) {
+            if (index == 1) {
                 BKCController *vc = [[BKCController alloc] init];
                 BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
                 [self presentViewController:nav animated:YES completion:^{

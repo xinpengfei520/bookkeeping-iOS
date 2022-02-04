@@ -50,23 +50,18 @@
             [(UIView *)obj setUserInteractionEnabled:NO];
         }
     }
-    
 }
 
 - (void)click:(NSInteger)index {
     NSArray<NSArray *> *image = @[
-                                  @[@"明细",@"图表",@"记账",@"发现",@"我的"],
-                                  @[@"tabbar_detail_n",
-                                    @"tabbar_chart_n",
-                                    @"tabbar_add_n",
-                                    @"tabbar_discover_n",
-                                    @"tabbar_mine_n"],
-                                  @[@"tabbar_detail_s",
-                                    @"tabbar_chart_s",
-                                    @"tabbar_add_h",
-                                    @"tabbar_discover_s",
-                                    @"tabbar_mine_s"]
-                                  ];
+        @[@"明细",@"记账",@"图表"],
+        @[@"tabbar_detail_n",
+          @"tabbar_add_n",
+          @"tabbar_chart_n"],
+        @[@"tabbar_detail_s",
+          @"tabbar_add_h",
+          @"tabbar_chart_s"]
+    ];
     
     for (int y=0; y<self.views.count; y++) {
         UIView *subview = self.views[y];
@@ -76,7 +71,6 @@
         sublab.textColor = y == index ? kColor_Text_Gary : kColor_Text_Gary;
         sublab.text = image[0][y];
     }
-    
     
     UIImageView *icn = [_views[index] viewWithTag:10];
     [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -88,7 +82,6 @@
             
         }];
     }];
-    
 }
 
 
@@ -144,26 +137,25 @@
         _views = [[NSMutableArray alloc] init];
         
         NSArray<NSArray *> *image = @[
-                                      @[@"明细",@"图表",@"记账",@"发现",@"我的"],
-                                      @[@"tabbar_detail_n",
-                                        @"tabbar_chart_n",
-                                        @"tabbar_add_n",
-                                        @"tabbar_discover_n",
-                                        @"tabbar_mine_n"],
-                                      @[@"tabbar_detail_s",
-                                        @"tabbar_chart_s",
-                                        @"tabbar_add_h",
-                                        @"tabbar_discover_s",
-                                        @"tabbar_mine_s"]
-                                      ];
+            @[@"明细",@"记账",@"图表"],
+            @[@"tabbar_detail_n",
+              @"tabbar_add_n",
+              @"tabbar_chart_n"],
+            @[@"tabbar_detail_s",
+              @"tabbar_add_h",
+              @"tabbar_chart_s"]
+        ];
+        
         NSInteger current = 0;
         NSInteger count = [image[0] count];
+        
         for (int i=0; i<count; i++) {
             CGFloat width = SCREEN_WIDTH / count;
+            // tab 文字上面的 icon
             UIImageView *icon = ({
                 UIImageView *icon = [[UIImageView alloc] initWithFrame:({
                     CGRect frame;
-                    if (i != 2) {
+                    if (i != 1) {
                         frame = CGRectMake((width - 23) / 2, 7, 23, 23);
                     }
                     else {
@@ -177,6 +169,7 @@
                 icon;
             });
             
+            // tab icon 下面的文字
             UILabel *lab = ({
                 UILabel *lab = [[UILabel alloc] initWithFrame:({
                     CGRectMake(0, CGRectGetMaxY(icon.frame) + 1, width, 15);
@@ -193,7 +186,7 @@
                 UIView *item = [[UIView alloc] initWithFrame:({
                     CGFloat left = width * i;
                     CGRect frame;
-                    if (i != 2) {
+                    if (i != 1) {
                         frame = CGRectMake(left, 0, width, TabbarHeight);
                     }
                     else {
@@ -205,6 +198,7 @@
                 [item addSubview:lab];
                 item;
             });
+            
             [self addSubview:item];
             [_views addObject:item];
             
@@ -216,9 +210,9 @@
             }];
         }
     }
+    
     return _views;
 }
-
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
