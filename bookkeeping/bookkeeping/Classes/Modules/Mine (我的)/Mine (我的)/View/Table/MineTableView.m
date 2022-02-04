@@ -69,7 +69,7 @@
     cell.icon.image = [UIImage imageNamed:self.datas[1][indexPath.section][indexPath.row]];
     cell.status = [self.datas[2][indexPath.section][indexPath.row] integerValue];
     cell.detailLab.hidden = indexPath.section != 0;
-    cell.badgeCount = 12;
+
     if (indexPath.section == 1) {
         if (indexPath.row == 2) {
             NSNumber *sound = [NSUserDefaults objectForKey:PIN_SETTING_SOUND];

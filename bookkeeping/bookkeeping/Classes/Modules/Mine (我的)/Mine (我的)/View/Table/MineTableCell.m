@@ -51,22 +51,6 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 }
-// 个数
-- (void)setBadgeCount:(NSInteger)badgeCount {
-    _badgeCount = badgeCount;
-    [_detailLab setAttributedText:({
-        NSDictionary *param1 = @{NSFontAttributeName: [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight], NSForegroundColorAttributeName: kColor_Text_Gary};
-        NSDictionary *param2 = @{NSFontAttributeName: [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight], NSForegroundColorAttributeName: kColor_Red_Color};
-        NSAttributedString *attr1 = [[NSAttributedString alloc] initWithString:@"已获得" attributes:param1];
-        NSAttributedString *attr2 = [[NSAttributedString alloc] initWithString:[@(badgeCount) description] attributes:param2];
-        NSAttributedString *attr3 = [[NSAttributedString alloc] initWithString:@"枚" attributes:param1];
-        
-        NSMutableAttributedString *attrm = [[NSMutableAttributedString alloc] initWithAttributedString:attr1];
-        [attrm appendAttributedString:attr2];
-        [attrm appendAttributedString:attr3];
-        attrm;
-    })];
-}
 
 
 @end

@@ -1062,7 +1062,6 @@
 			isa = PBXGroup;
 			children = (
 				4B35F1A721CCC694007271BE /* Empty */,
-				4BE8CBD921C93960007935E2 /* Popup */,
 				3257AED521C8761200787A34 /* BottomButton */,
 			);
 			path = Common;
@@ -2318,13 +2317,6 @@
 				327CEC3221C89897001D0086 /* BookChart */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		4BE8CBD921C93960007935E2 /* Popup */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Popup;
 			sourceTree = "<group>";
 		};
 		4BE8CC1321C93F21007935E2 /* NSDate */ = {

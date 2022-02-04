@@ -42,12 +42,11 @@
     [self.window setRootViewController:[[BaseTabBarController alloc] init]];
     [self.window makeKeyAndVisible];
 }
+
 // 配置
 - (void)systemConfig {
     [[UITextField appearance] setTintColor:kColor_Main_Color];
 }
-
-
 
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
@@ -78,17 +77,14 @@
     return YES;
 }
 
-
 // 去后台
 - (void)applicationWillResignActive:(UIApplication *)application {
     [ScreenBlurry addBlurryScreenImage];
 }
+
 // 回前台
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [ScreenBlurry removeBlurryScreenImage];
 }
-
-
-
 
 @end

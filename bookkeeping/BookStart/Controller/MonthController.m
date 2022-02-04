@@ -43,17 +43,18 @@
     }
 }
 
-
 #pragma mark - 事件
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 记账完成
 - (void)startBook:(id)data {
     // 打开APP
@@ -61,8 +62,6 @@
         
     }];
 }
-
-
 
 #pragma mark - get
 - (StartView *)content {
@@ -72,6 +71,7 @@
     }
     return _content;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
@@ -80,6 +80,5 @@
     }
     return _eventStrategy;
 }
-
 
 @end
