@@ -7,18 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3213180921E594FF000ADA9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3219837D21C642BC00311885 /* Assets.xcassets */; };
-		3213180D21E59727000ADA9A /* StartScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3213180B21E59727000ADA9A /* StartScrollCell.m */; };
-		3213180E21E59727000ADA9A /* StartScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3213180C21E59727000ADA9A /* StartScrollCell.xib */; };
-		3213181221E597C0000ADA9A /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983AC21C6459B00311885 /* BaseCollectionCell.m */; };
-		3213181521E59A77000ADA9A /* BKCIncomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917AF21CD333000137215 /* BKCIncomeModel.m */; };
-		3213181621E59A83000ADA9A /* ACAListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B35F1D421CD0798007271BE /* ACAListModel.m */; };
-		3213181721E59A91000ADA9A /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983B421C6459B00311885 /* BaseModel.m */; };
-		3213181821E5BAF4000ADA9A /* UIResponder+QFEventHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983C821C6460100311885 /* UIResponder+QFEventHandle.m */; };
-		3213181E21E5C3E1000ADA9A /* StartKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3213181D21E5C3E1000ADA9A /* StartKeyboard.xib */; };
-		3213181F21E5C913000ADA9A /* UIView+BorderLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983D521C6460100311885 /* UIView+BorderLine.m */; };
-		3213182021E5CDB7000ADA9A /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32258E7D21CA29AC0017254D /* NSString+Calculation.m */; };
-		3213182421E5E43C000ADA9A /* BKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8547D21DA20AC00A203DE /* BKModel.m */; };
 		321431D921D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321431D821D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m */; };
 		3219837621C642BB00311885 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219837521C642BB00311885 /* AppDelegate.m */; };
 		3219837C21C642BB00311885 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3219837A21C642BB00311885 /* Main.storyboard */; };
@@ -55,22 +43,12 @@
 		3219841421C6474600311885 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219841021C6474500311885 /* UserInfo.m */; };
 		3219841521C6474600311885 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219841121C6474500311885 /* UserModel.m */; };
 		32258E7E21CA29AC0017254D /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32258E7D21CA29AC0017254D /* NSString+Calculation.m */; };
-		3233D7C621E57A50009342D7 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983A321C6459B00311885 /* BaseView.m */; };
-		3233D7CC21E57A94009342D7 /* StartScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 3233D7CB21E57A94009342D7 /* StartScroll.m */; };
-		3233D7CF21E57A9E009342D7 /* StartKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3233D7CE21E57A9E009342D7 /* StartKeyboard.m */; };
 		324484B621C74BDE0051B8B6 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 324484B421C74BDD0051B8B6 /* HomeListCell.m */; };
 		324484B721C74BDE0051B8B6 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324484B521C74BDD0051B8B6 /* HomeListCell.xib */; };
 		3257AED421C8750800787A34 /* TIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED321C8750800787A34 /* TIController.m */; };
 		3257AED821C8774400787A34 /* TITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED721C8774400787A34 /* TITableView.m */; };
 		3257AEDC21C877E500787A34 /* TITableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AEDA21C877E500787A34 /* TITableCell.m */; };
 		3257AEDD21C877E500787A34 /* TITableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3257AEDB21C877E500787A34 /* TITableCell.xib */; };
-		326EB88821E57BF7007CD5C6 /* UIFont+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983E021C6460100311885 /* UIFont+Extension.m */; };
-		326EB88921E57C00007CD5C6 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8CC1621C93F21007935E2 /* NSDate+Extension.m */; };
-		326EB88A21E57C05007CD5C6 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
-		326EB88B21E57C0D007CD5C6 /* NSObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A5800E21DF08BC008993B2 /* NSObject+NSCoding.m */; };
-		326EB88C21E57C15007CD5C6 /* UIColor+HEX.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983CB21C6460100311885 /* UIColor+HEX.m */; };
-		326EB89421E57D86007CD5C6 /* StartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 326EB89321E57D86007CD5C6 /* StartView.m */; };
-		326EB89721E57ED3007CD5C6 /* StartHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 326EB89621E57ED3007CD5C6 /* StartHeader.m */; };
 		326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 326F8F2321D4BFCA0030B329 /* TIModel.m */; };
 		32751F0921C8E93000D9F415 /* BKCNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32751F0821C8E93000D9F415 /* BKCNavigation.m */; };
 		32751F0B21C8E97300D9F415 /* BKCNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32751F0A21C8E97300D9F415 /* BKCNavigation.xib */; };
@@ -97,7 +75,6 @@
 		32A5801221DF33C4008993B2 /* ACA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32A5801121DF33C4008993B2 /* ACA.plist */; };
 		32AF269821ED63C1004F46A2 /* NSMutableArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF269721ED63C1004F46A2 /* NSMutableArray+Extension.m */; };
 		32AF269921ED6556004F46A2 /* NSMutableArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF269721ED63C1004F46A2 /* NSMutableArray+Extension.m */; };
-		32AF269A21ED6556004F46A2 /* NSMutableArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF269721ED63C1004F46A2 /* NSMutableArray+Extension.m */; };
 		32AF269E21ED72E6004F46A2 /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF269D21ED72E6004F46A2 /* UITableViewCell+Extension.m */; };
 		32BFA7E821E483F300B926F3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32BFA7E721E483F300B926F3 /* NotificationCenter.framework */; };
 		32BFA7F321E483F400B926F3 /* BookMonth.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32BFA7E621E483F300B926F3 /* BookMonth.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -170,11 +147,9 @@
 		4B38C07E21E4E6A800D28B34 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983B421C6459B00311885 /* BaseModel.m */; };
 		4B38C07F21E4E6CB00D28B34 /* ACAListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B35F1D421CD0798007271BE /* ACAListModel.m */; };
 		4B38C08021E4E6F000D28B34 /* BKCIncomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917AF21CD333000137215 /* BKCIncomeModel.m */; };
-		4B466EBF220574550069F38E /* CategoryListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917B221CD391000137215 /* CategoryListModel.m */; };
 		4B466EC02205750F0069F38E /* CategoryListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917B221CD391000137215 /* CategoryListModel.m */; };
 		4B47931221E9DB4D0062879D /* NSUserDefaults+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */; };
 		4B47931621E9DF540062879D /* NSUserDefaults+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */; };
-		4B47931721E9DF540062879D /* NSUserDefaults+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */; };
 		4B4852F921C6938D00891096 /* cc_entertainmente_climbing_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B4852F721C6938D00891096 /* cc_entertainmente_climbing_s@3x.png */; };
 		4B4852FA21C6938D00891096 /* cc_entertainmente_climbing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B4852F821C6938D00891096 /* cc_entertainmente_climbing@3x.png */; };
 		4B4852FD21C6974800891096 /* MineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4852FC21C6974800891096 /* MineTableView.m */; };
@@ -321,16 +296,12 @@
 		4BF53223220C82320042CB5A /* ASBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF53222220C82320042CB5A /* ASBaseTableCell.m */; };
 		4BF574A321C6A59A001890D1 /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF574A221C6A59A001890D1 /* HomeList.m */; };
 		4BF8547E21DA20AC00A203DE /* BKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8547D21DA20AC00A203DE /* BKModel.m */; };
-		4BFD37FA21E4BDD400BAB0BB /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32BFA7E721E483F300B926F3 /* NotificationCenter.framework */; };
-		4BFD380521E4BDD400BAB0BB /* BookStart.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4BFD37F921E4BDD400BAB0BB /* BookStart.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4BFD380B21E4BE0300BAB0BB /* MonthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD380A21E4BE0300BAB0BB /* MonthController.m */; };
 		4BFD380D21E4C5D500BAB0BB /* UIFont+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983E021C6460100311885 /* UIFont+Extension.m */; };
 		4BFD381021E4C6C700BAB0BB /* UIColor+HEX.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983CB21C6460100311885 /* UIColor+HEX.m */; };
 		4BFD381721E4D3CB00BAB0BB /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD381521E4D3CB00BAB0BB /* UIViewController+Extension.m */; };
 		4BFD381B21E4D7C000BAB0BB /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8CC1621C93F21007935E2 /* NSDate+Extension.m */; };
 		4BFD381C21E4D84B00BAB0BB /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		AEA489C5440A548BEBD1304B /* libPods-BookMonth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2513416B4CCC355FFD281675 /* libPods-BookMonth.a */; };
-		EFBA7719833AD39F78BFEC4E /* libPods-BookStart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AD782884DC71E9F3EA4954 /* libPods-BookStart.a */; };
 		F30D7F0D27A25CD100B0580C /* UINavigationController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0427A25CD100B0580C /* UINavigationController+JZExtension.m */; };
 		F30D7F0E27A25CD100B0580C /* UIViewController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0527A25CD100B0580C /* UIViewController+JZExtension.m */; };
 		F30D7F0F27A25CD100B0580C /* _JZNavigationDelegating.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0727A25CD100B0580C /* _JZNavigationDelegating.m */; };
@@ -346,13 +317,6 @@
 			remoteGlobalIDString = 32BFA7E521E483F300B926F3;
 			remoteInfo = BookMonth;
 		};
-		4BFD380321E4BDD400BAB0BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3219836921C642BB00311885 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4BFD37F821E4BDD400BAB0BB;
-			remoteInfo = BookStart;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -362,7 +326,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4BFD380521E4BDD400BAB0BB /* BookStart.appex in Embed App Extensions */,
 				32BFA7F321E483F400B926F3 /* BookMonth.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -375,11 +338,6 @@
 		1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.debug.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.debug.xcconfig"; sourceTree = "<group>"; };
 		2513416B4CCC355FFD281675 /* libPods-BookMonth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookMonth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
-		3213180A21E59727000ADA9A /* StartScrollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartScrollCell.h; sourceTree = "<group>"; };
-		3213180B21E59727000ADA9A /* StartScrollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartScrollCell.m; sourceTree = "<group>"; };
-		3213180C21E59727000ADA9A /* StartScrollCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartScrollCell.xib; sourceTree = "<group>"; };
-		3213181921E5BB8E000ADA9A /* START_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = START_EVENT.h; sourceTree = "<group>"; };
-		3213181D21E5C3E1000ADA9A /* StartKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartKeyboard.xib; sourceTree = "<group>"; };
 		321431D721D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLPhotoActionSheet+Extension.h"; sourceTree = "<group>"; };
 		321431D821D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZLPhotoActionSheet+Extension.m"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -455,13 +413,6 @@
 		3219841321C6474500311885 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		32258E7C21CA29AC0017254D /* NSString+Calculation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		32258E7D21CA29AC0017254D /* NSString+Calculation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
-		3233D7C021E57983009342D7 /* KKPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKPrefixHeader.pch; sourceTree = "<group>"; };
-		3233D7C121E57997009342D7 /* PINCache_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PINCache_Header.h; sourceTree = "<group>"; };
-		3233D7C221E579A9009342D7 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		3233D7CA21E57A94009342D7 /* StartScroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartScroll.h; sourceTree = "<group>"; };
-		3233D7CB21E57A94009342D7 /* StartScroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartScroll.m; sourceTree = "<group>"; };
-		3233D7CD21E57A9E009342D7 /* StartKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartKeyboard.h; sourceTree = "<group>"; };
-		3233D7CE21E57A9E009342D7 /* StartKeyboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartKeyboard.m; sourceTree = "<group>"; };
 		3244849B21C721B90051B8B6 /* MINE_EVENT_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MINE_EVENT_MANAGER.h; sourceTree = "<group>"; };
 		324484B321C74BDD0051B8B6 /* HomeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
 		324484B421C74BDD0051B8B6 /* HomeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
@@ -473,10 +424,6 @@
 		3257AED921C877E500787A34 /* TITableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TITableCell.h; sourceTree = "<group>"; };
 		3257AEDA21C877E500787A34 /* TITableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TITableCell.m; sourceTree = "<group>"; };
 		3257AEDB21C877E500787A34 /* TITableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TITableCell.xib; sourceTree = "<group>"; };
-		326EB89221E57D86007CD5C6 /* StartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartView.h; sourceTree = "<group>"; };
-		326EB89321E57D86007CD5C6 /* StartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartView.m; sourceTree = "<group>"; };
-		326EB89521E57ED3007CD5C6 /* StartHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartHeader.h; sourceTree = "<group>"; };
-		326EB89621E57ED3007CD5C6 /* StartHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartHeader.m; sourceTree = "<group>"; };
 		326F8F2221D4BFCA0030B329 /* TIModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TIModel.h; sourceTree = "<group>"; };
 		326F8F2321D4BFCA0030B329 /* TIModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TIModel.m; sourceTree = "<group>"; };
 		326F8F2521D4CA470030B329 /* TIMING_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TIMING_EVENT.h; sourceTree = "<group>"; };
@@ -855,16 +802,11 @@
 		4BF574A221C6A59A001890D1 /* HomeList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeList.m; sourceTree = "<group>"; };
 		4BF8547C21DA20AC00A203DE /* BKModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKModel.h; sourceTree = "<group>"; };
 		4BF8547D21DA20AC00A203DE /* BKModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKModel.m; sourceTree = "<group>"; };
-		4BFD37F921E4BDD400BAB0BB /* BookStart.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BookStart.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BFD380221E4BDD400BAB0BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4BFD380921E4BE0300BAB0BB /* MonthController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonthController.h; sourceTree = "<group>"; };
-		4BFD380A21E4BE0300BAB0BB /* MonthController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonthController.m; sourceTree = "<group>"; };
 		4BFD380C21E4C3E800BAB0BB /* KKPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKPrefixHeader.pch; sourceTree = "<group>"; };
 		4BFD380F21E4C61800BAB0BB /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		4BFD381521E4D3CB00BAB0BB /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		4BFD381621E4D3CB00BAB0BB /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
 		4BFD382121E4D98300BAB0BB /* BookMonth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonth.entitlements; sourceTree = "<group>"; };
-		4BFD382221E4DD4B00BAB0BB /* BookStart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookStart.entitlements; sourceTree = "<group>"; };
 		A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bookkeeping.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
 		B851B6FB04282545CD2CBDE7 /* Pods-BookStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookStart.release.xcconfig"; path = "Target Support Files/Pods-BookStart/Pods-BookStart.release.xcconfig"; sourceTree = "<group>"; };
@@ -899,49 +841,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4BFD37F621E4BDD400BAB0BB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4BFD37FA21E4BDD400BAB0BB /* NotificationCenter.framework in Frameworks */,
-				EFBA7719833AD39F78BFEC4E /* libPods-BookStart.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3213180F21E5978C000ADA9A /* scroll */ = {
-			isa = PBXGroup;
-			children = (
-				3233D7CA21E57A94009342D7 /* StartScroll.h */,
-				3233D7CB21E57A94009342D7 /* StartScroll.m */,
-				3213180A21E59727000ADA9A /* StartScrollCell.h */,
-				3213180B21E59727000ADA9A /* StartScrollCell.m */,
-				3213180C21E59727000ADA9A /* StartScrollCell.xib */,
-			);
-			path = scroll;
-			sourceTree = "<group>";
-		};
-		3213181021E5978C000ADA9A /* header */ = {
-			isa = PBXGroup;
-			children = (
-				326EB89521E57ED3007CD5C6 /* StartHeader.h */,
-				326EB89621E57ED3007CD5C6 /* StartHeader.m */,
-			);
-			path = header;
-			sourceTree = "<group>";
-		};
-		3213181121E5978C000ADA9A /* keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				3233D7CD21E57A9E009342D7 /* StartKeyboard.h */,
-				3233D7CE21E57A9E009342D7 /* StartKeyboard.m */,
-				3213181D21E5C3E1000ADA9A /* StartKeyboard.xib */,
-			);
-			path = keyboard;
-			sourceTree = "<group>";
-		};
 		321431D621D3675000D7D1F5 /* ZLPhotoActionSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -956,7 +858,6 @@
 			children = (
 				3219837321C642BB00311885 /* bookkeeping */,
 				32BFA7E921E483F300B926F3 /* BookMonth */,
-				4BFD37FB21E4BDD400BAB0BB /* BookStart */,
 				3219837221C642BB00311885 /* Products */,
 				A1D1082896A0BADABB09EB51 /* Pods */,
 				5BA81AE5E9A23B63357F8783 /* Frameworks */,
@@ -968,7 +869,6 @@
 			children = (
 				3219837121C642BB00311885 /* bookkeeping.app */,
 				32BFA7E621E483F300B926F3 /* BookMonth.appex */,
-				4BFD37F921E4BDD400BAB0BB /* BookStart.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1301,27 +1201,6 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
-		3233D7BE21E57977009342D7 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				4BFD380921E4BE0300BAB0BB /* MonthController.h */,
-				4BFD380A21E4BE0300BAB0BB /* MonthController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		3233D7BF21E57977009342D7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				326EB89221E57D86007CD5C6 /* StartView.h */,
-				326EB89321E57D86007CD5C6 /* StartView.m */,
-				3213181021E5978C000ADA9A /* header */,
-				3213180F21E5978C000ADA9A /* scroll */,
-				3213181121E5978C000ADA9A /* keyboard */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		3244849C21C726570051B8B6 /* Mine (我的) */ = {
 			isa = PBXGroup;
 			children = (
@@ -1350,13 +1229,6 @@
 				4BA68AEA21C7ED550063A5C2 /* BottomButton.m */,
 			);
 			path = BottomButton;
-			sourceTree = "<group>";
-		};
-		326EB88D21E57C72007CD5C6 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Category;
 			sourceTree = "<group>";
 		};
 		327CEC1921C88529001D0086 /* SubTable */ = {
@@ -2518,22 +2390,6 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		4BFD37FB21E4BDD400BAB0BB /* BookStart */ = {
-			isa = PBXGroup;
-			children = (
-				4BFD382221E4DD4B00BAB0BB /* BookStart.entitlements */,
-				3233D7C021E57983009342D7 /* KKPrefixHeader.pch */,
-				3233D7C121E57997009342D7 /* PINCache_Header.h */,
-				3233D7C221E579A9009342D7 /* common.h */,
-				3213181921E5BB8E000ADA9A /* START_EVENT.h */,
-				326EB88D21E57C72007CD5C6 /* Category */,
-				3233D7BE21E57977009342D7 /* Controller */,
-				3233D7BF21E57977009342D7 /* View */,
-				4BFD380221E4BDD400BAB0BB /* Info.plist */,
-			);
-			path = BookStart;
-			sourceTree = "<group>";
-		};
 		4BFD381421E4D3CB00BAB0BB /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2628,7 +2484,6 @@
 			);
 			dependencies = (
 				32BFA7F221E483F400B926F3 /* PBXTargetDependency */,
-				4BFD380421E4BDD400BAB0BB /* PBXTargetDependency */,
 			);
 			name = bookkeeping;
 			productName = bookkeeping;
@@ -2651,24 +2506,6 @@
 			name = BookMonth;
 			productName = BookMonth;
 			productReference = 32BFA7E621E483F300B926F3 /* BookMonth.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		4BFD37F821E4BDD400BAB0BB /* BookStart */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4BFD380821E4BDD400BAB0BB /* Build configuration list for PBXNativeTarget "BookStart" */;
-			buildPhases = (
-				7EF1C17F6E55AE743B440173 /* [CP] Check Pods Manifest.lock */,
-				4BFD37F521E4BDD400BAB0BB /* Sources */,
-				4BFD37F621E4BDD400BAB0BB /* Frameworks */,
-				4BFD37F721E4BDD400BAB0BB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BookStart;
-			productName = BookStart;
-			productReference = 4BFD37F921E4BDD400BAB0BB /* BookStart.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -2696,14 +2533,6 @@
 							};
 						};
 					};
-					4BFD37F821E4BDD400BAB0BB = {
-						CreatedOnToolsVersion = 10.0;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 				};
 			};
 			buildConfigurationList = 3219836C21C642BB00311885 /* Build configuration list for PBXProject "bookkeeping" */;
@@ -2721,7 +2550,6 @@
 			targets = (
 				3219837021C642BB00311885 /* bookkeeping */,
 				32BFA7E521E483F300B926F3 /* BookMonth */,
-				4BFD37F821E4BDD400BAB0BB /* BookStart */,
 			);
 		};
 /* End PBXProject section */
@@ -2857,16 +2685,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4BFD37F721E4BDD400BAB0BB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3213181E21E5C3E1000ADA9A /* StartKeyboard.xib in Resources */,
-				3213180921E594FF000ADA9A /* Assets.xcassets in Resources */,
-				3213180E21E59727000ADA9A /* StartScrollCell.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -2907,28 +2725,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7EF1C17F6E55AE743B440173 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BookStart-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7F286FD2C65DAA4732C74105 /* [CP] Check Pods Manifest.lock */ = {
@@ -3150,36 +2946,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4BFD37F521E4BDD400BAB0BB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3213181721E59A91000ADA9A /* BaseModel.m in Sources */,
-				4B466EBF220574550069F38E /* CategoryListModel.m in Sources */,
-				326EB88C21E57C15007CD5C6 /* UIColor+HEX.m in Sources */,
-				326EB88821E57BF7007CD5C6 /* UIFont+Extension.m in Sources */,
-				3213182021E5CDB7000ADA9A /* NSString+Calculation.m in Sources */,
-				3213181F21E5C913000ADA9A /* UIView+BorderLine.m in Sources */,
-				3213181621E59A83000ADA9A /* ACAListModel.m in Sources */,
-				32AF269A21ED6556004F46A2 /* NSMutableArray+Extension.m in Sources */,
-				4B47931721E9DF540062879D /* NSUserDefaults+Extension.m in Sources */,
-				3213180D21E59727000ADA9A /* StartScrollCell.m in Sources */,
-				3213181221E597C0000ADA9A /* BaseCollectionCell.m in Sources */,
-				326EB88921E57C00007CD5C6 /* NSDate+Extension.m in Sources */,
-				3213181821E5BAF4000ADA9A /* UIResponder+QFEventHandle.m in Sources */,
-				3213181521E59A77000ADA9A /* BKCIncomeModel.m in Sources */,
-				326EB88A21E57C05007CD5C6 /* NSString+Extension.m in Sources */,
-				3213182421E5E43C000ADA9A /* BKModel.m in Sources */,
-				326EB88B21E57C0D007CD5C6 /* NSObject+NSCoding.m in Sources */,
-				3233D7C621E57A50009342D7 /* BaseView.m in Sources */,
-				4BFD380B21E4BE0300BAB0BB /* MonthController.m in Sources */,
-				326EB89421E57D86007CD5C6 /* StartView.m in Sources */,
-				326EB89721E57ED3007CD5C6 /* StartHeader.m in Sources */,
-				3233D7CC21E57A94009342D7 /* StartScroll.m in Sources */,
-				3233D7CF21E57A9E009342D7 /* StartKeyboard.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3187,11 +2953,6 @@
 			isa = PBXTargetDependency;
 			target = 32BFA7E521E483F300B926F3 /* BookMonth */;
 			targetProxy = 32BFA7F121E483F400B926F3 /* PBXContainerItemProxy */;
-		};
-		4BFD380421E4BDD400BAB0BB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4BFD37F821E4BDD400BAB0BB /* BookStart */;
-			targetProxy = 4BFD380321E4BDD400BAB0BB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3423,52 +3184,6 @@
 			};
 			name = Release;
 		};
-		4BFD380621E4BDD400BAB0BB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 038BE0FA997ACBCDB88556ED /* Pods-BookStart.debug.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_ENTITLEMENTS = BookStart/BookStart.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZWU3TZ389;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/BookStart/KKPrefixHeader.pch";
-				INFOPLIST_FILE = BookStart/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookStart;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		4BFD380721E4BDD400BAB0BB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B851B6FB04282545CD2CBDE7 /* Pods-BookStart.release.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_ENTITLEMENTS = BookStart/BookStart.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZWU3TZ389;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/BookStart/KKPrefixHeader.pch";
-				INFOPLIST_FILE = BookStart/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookStart;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3495,15 +3210,6 @@
 			buildConfigurations = (
 				32BFA7F421E483F400B926F3 /* Debug */,
 				32BFA7F521E483F400B926F3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4BFD380821E4BDD400BAB0BB /* Build configuration list for PBXNativeTarget "BookStart" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4BFD380621E4BDD400BAB0BB /* Debug */,
-				4BFD380721E4BDD400BAB0BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
