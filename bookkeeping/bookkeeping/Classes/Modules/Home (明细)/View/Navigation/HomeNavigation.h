@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeNavigation : BaseView
+@property (weak, nonatomic) IBOutlet UIButton *mineButton;
 
 @end
 

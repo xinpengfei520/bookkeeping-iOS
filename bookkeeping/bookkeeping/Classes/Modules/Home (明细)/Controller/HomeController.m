@@ -11,6 +11,7 @@
 #import "HOME_EVENT.h"
 #import "BKModel.h"
 #import "BDController.h"
+#import "MineController.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "ACAListModel.h"
 
@@ -185,6 +186,10 @@
 - (HomeNavigation *)navigation {
     if (!_navigation) {
         _navigation = [HomeNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
+        [[_navigation.mineButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
+            MineController *vc = [[MineController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
         [self.view addSubview:_navigation];
     }
     return _navigation;

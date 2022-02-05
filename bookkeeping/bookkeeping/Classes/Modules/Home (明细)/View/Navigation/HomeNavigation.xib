@@ -13,9 +13,6 @@
             <rect key="frame" x="0.0" y="0.0" width="495" height="256"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_mine_n" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-O5-QBX">
-                    <rect key="frame" x="16" y="132.5" width="26" height="26"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="轻记" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XM-1u-3FX">
                     <rect key="frame" x="229" y="137" width="37" height="21.5"/>
                     <accessibility key="accessibilityConfiguration">
@@ -25,16 +22,24 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zf-4T-Wln">
+                    <rect key="frame" x="20" y="135" width="30" height="26"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="tabbar_mine_n"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="HeN-O5-QBX" firstAttribute="leading" secondItem="b6K-oi-AfA" secondAttribute="leading" constant="16" id="Kwb-2o-4XY"/>
+                <constraint firstItem="8zf-4T-Wln" firstAttribute="baseline" secondItem="9XM-1u-3FX" secondAttribute="baseline" id="AnY-u9-TQH"/>
                 <constraint firstItem="9XM-1u-3FX" firstAttribute="centerY" secondItem="b6K-oi-AfA" secondAttribute="centerY" constant="19.75" id="Quo-qy-mIz"/>
-                <constraint firstItem="HeN-O5-QBX" firstAttribute="bottom" secondItem="9XM-1u-3FX" secondAttribute="bottom" id="cdz-Cg-Maa"/>
                 <constraint firstItem="9XM-1u-3FX" firstAttribute="centerX" secondItem="b6K-oi-AfA" secondAttribute="centerX" id="eQL-cz-HXf"/>
+                <constraint firstItem="8zf-4T-Wln" firstAttribute="leading" secondItem="b6K-oi-AfA" secondAttribute="leadingMargin" id="fLR-wH-VFm"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="mineButton" destination="8zf-4T-Wln" id="TZc-Je-FFq"/>
+            </connections>
             <point key="canvasLocation" x="-90.400000000000006" y="-71.064467766116948"/>
         </view>
     </objects>
