@@ -8,7 +8,7 @@
 #import "TIController.h"
 #import "InfoController.h"
 #import "LoginController.h"
-#import "FindController.h"
+#import "BillController.h"
 #import "MINE_EVENT_MANAGER.h"
 
 
@@ -108,8 +108,8 @@
     if (indexPath.section == 0) {
         // 我的账单
         if (indexPath.row == 0) {
-            FindController *vc = [[FindController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            BillController *vc = [[BillController alloc] init];
+            [self.navigationController pushViewController:vc animated:true];
         }
         // 类别设置
         if (indexPath.row == 1) {

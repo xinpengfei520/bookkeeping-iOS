@@ -40,14 +40,17 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
         }
     }
 }
+
 - (void)initUI {
     [self setLeftBtn];
     [self setRightBtn];
 }
+
 - (void)setNavTitle:(NSString *)navTitle {
     _navTitle = navTitle;
     UIFont *font = [UIFont systemFontOfSize:AdjustFont(16)];
     CGSize maxSize = [navTitle sizeWithMaxSize:CGSizeMake(MAXFLOAT, 0) font:font];
+    
     UIButton *btn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn.titleLabel setFont:font];
@@ -56,6 +59,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
         [btn setTitle:navTitle forState:UIControlStateNormal];
         btn;
     });
+    
     self.navigationItem.titleView = btn;
 }
 
@@ -67,6 +71,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
 // 点击了右侧按钮
 - (void)rightButtonClick {
 
@@ -88,24 +93,21 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
         [btn setContentEdgeInsets:UIEdgeInsetsMake(8, -4, 8, 16)];
         btn;
     });
+    
     UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = barBtn;
     self.leftButton = btn;
 
-
-
-
     if ([self isKindOfClass:[HomeController class]] ||
         [self isKindOfClass:[ChartController class]] ||
         [self isKindOfClass:[BKCController class]] ||
-        [self isKindOfClass:[FindController class]] ||
         [self isKindOfClass:[MineController class]]) {
         self.leftButton.hidden = YES;
     } else {
         self.leftButton.hidden = NO;
     }
-
 }
+
 // 设置右侧按钮
 - (void)setRightBtn {
     UIButton *btn = ({
@@ -118,6 +120,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
         [btn sizeToFit];
         btn;
     });
+    
     UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = barBtn;
     self.rightButton = btn;
@@ -125,12 +128,11 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     self.rightButton.hidden = YES;
 }
 
-
-
 #pragma mark - 线条
 - (void)hideNavigationBarLine {
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
+
 - (void)showNavigationBarLine {
     [self.navigationController.navigationBar setShadowImage:nil];
 }
