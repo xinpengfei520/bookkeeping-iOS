@@ -77,7 +77,6 @@
         @strongify(self)
         [self setModels:[BKMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
-    
 }
 
 
@@ -91,6 +90,7 @@
         self.list.models = models;
     });
 }
+
 - (void)setDate:(NSDate *)date {
     _date = date;
     _header.date = date;
@@ -101,6 +101,7 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
@@ -135,16 +136,19 @@
     // 3.显示
     [datePickerView show];
 }
+
 // 下拉
 - (void)homeTablePull:(id)data {
     [self setDate:[self.date offsetMonths:1]];
     [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
 }
+
 // 上拉
 - (void)homeTableUp:(id)data {
     [self setDate:[self.date offsetMonths:-1]];
     [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
 }
+
 // 删除Cell
 - (void)homeTableCellRemove:(HomeListSubCell *)cell {
     // 删除
@@ -153,6 +157,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_DELETE object:nil];
     
 }
+
 // 点击Cell
 - (void)homeTableCellClick:(BKModel *)model {
     NSNumber *detail = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL];
@@ -184,6 +189,7 @@
     }
     return _navigation;
 }
+
 - (HomeHeader *)header {
     if (!_header) {
         _header = [HomeHeader loadFirstNib:CGRectMake(0, _navigation.bottom, SCREEN_WIDTH, countcoordinatesX(64))];
@@ -191,6 +197,7 @@
     }
     return _header;
 }
+
 - (HomeList *)list {
     if (!_list) {
         _list = [HomeList loadCode:({
@@ -202,6 +209,7 @@
     }
     return _list;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{

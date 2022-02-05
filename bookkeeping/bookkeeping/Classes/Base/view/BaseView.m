@@ -1,6 +1,6 @@
 //
 //  BaseView.m
-//  KKTest
+//  封装常用的加载 View 的方式：xib、代码
 //
 //  Created by RY on 17/6/12.
 //  Copyright © 2017年 OuDa. All rights reserved.

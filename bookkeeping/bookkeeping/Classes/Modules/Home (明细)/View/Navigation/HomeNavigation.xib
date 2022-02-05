@@ -13,25 +13,32 @@
             <rect key="frame" x="0.0" y="0.0" width="495" height="256"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="detail_share_shark" translatesAutoresizingMaskIntoConstraints="NO" id="EZQ-4G-GAD">
-                    <rect key="frame" x="211.5" y="20" width="72" height="236"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_mine_n" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-O5-QBX">
+                    <rect key="frame" x="16" y="132.5" width="26" height="26"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="轻记" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XM-1u-3FX">
+                    <rect key="frame" x="229" y="137" width="37" height="21.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="EZQ-4G-GAD" firstAttribute="centerX" secondItem="b6K-oi-AfA" secondAttribute="centerX" id="CIO-yk-aNP"/>
-                <constraint firstItem="EZQ-4G-GAD" firstAttribute="top" secondItem="b6K-oi-AfA" secondAttribute="top" constant="20" id="eDc-Vi-NP5"/>
-                <constraint firstAttribute="bottom" secondItem="EZQ-4G-GAD" secondAttribute="bottom" id="xce-7p-MfC"/>
+                <constraint firstItem="HeN-O5-QBX" firstAttribute="leading" secondItem="b6K-oi-AfA" secondAttribute="leading" constant="16" id="Kwb-2o-4XY"/>
+                <constraint firstItem="9XM-1u-3FX" firstAttribute="centerY" secondItem="b6K-oi-AfA" secondAttribute="centerY" constant="19.75" id="Quo-qy-mIz"/>
+                <constraint firstItem="HeN-O5-QBX" firstAttribute="bottom" secondItem="9XM-1u-3FX" secondAttribute="bottom" id="cdz-Cg-Maa"/>
+                <constraint firstItem="9XM-1u-3FX" firstAttribute="centerX" secondItem="b6K-oi-AfA" secondAttribute="centerX" id="eQL-cz-HXf"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="iconConstraintT" destination="eDc-Vi-NP5" id="1BK-au-7go"/>
-            </connections>
-            <point key="canvasLocation" x="-90" y="-71"/>
+            <point key="canvasLocation" x="-90.400000000000006" y="-71.064467766116948"/>
         </view>
     </objects>
     <resources>
-        <image name="detail_share_shark" width="72" height="22"/>
+        <image name="tabbar_mine_n" width="26" height="26"/>
     </resources>
 </document>
