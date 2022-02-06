@@ -35,6 +35,25 @@
 
 JZExtensionBarImplementation
 
+// 替代方案 2，遍历获取指定类型的属性
+- (UIView *)findViewWithClassName:(NSString *)className inView:(UIView *)view{
+    Class specificView = NSClassFromString(className);
+    if ([view isKindOfClass:specificView]) {
+        return view;
+    }
+
+    if (view.subviews.count > 0) {
+        for (UIView *subView in view.subviews) {
+            UIView *targetView = [self findViewWithClassName:className inView:subView];
+            if (targetView != nil) {
+                return targetView;
+            }
+        }
+    }
+
+    return nil;
+}
+
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     if ([[self jz_backgroundView] alpha] < 1.0f) {
         return CGRectContainsPoint(CGRectMake(0, self.bounds.size.height - 44.f, self.bounds.size.width, 44.f), point);
@@ -44,12 +63,11 @@ JZExtensionBarImplementation
 }
 
 - (UIView *)jz_backgroundView {
-//    if (@available(iOS 10, *)) {
-//        return [self valueForKeyPath:@"_backgroundView._backgroundEffectView"];
-//    }
-//    return [self valueForKeyPath:@"_backgroundView"];
     if (@available(iOS 13, *)) {
         return self.subviews.firstObject;
+    }
+    if (@available(iOS 10, *)) {
+        return [self valueForKeyPath:@"_backgroundView._backgroundEffectView"];
     }
     return [self valueForKeyPath:@"_backgroundView"];
 }

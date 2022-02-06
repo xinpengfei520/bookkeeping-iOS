@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"账单"];
+    [self setJz_navigationBarHidden:NO];
+    [self setJz_navigationBarTintColor:kColor_Main_Color];
     [self setDate:[NSDate date]];
     [self.rightButton setHidden:false];
     [self.rightButton addSubview:({
