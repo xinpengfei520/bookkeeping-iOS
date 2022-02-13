@@ -16,6 +16,7 @@
     obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
     return obj;
 }
+
 // 存值
 + (void)setObject:(id)obj forKey:(NSString *)key {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
@@ -23,7 +24,6 @@
     [sharedData setObject:data forKey:key];
     [sharedData synchronize];
 }
-
 
 // 删除记账
 + (void)removeBookModel:(BKModel *)model {
@@ -37,6 +37,7 @@
     [NSUserDefaults setObject:bookArrm forKey:PIN_BOOK];
     [NSUserDefaults setObject:bookArrm forKey:PIN_BOOK_SYNCED];
 }
+
 // 添加记账
 + (void)insertBookModel:(BKModel *)model {
     NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
@@ -46,6 +47,7 @@
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK];
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
 }
+
 // 修改记账
 + (void)replaceBookModel:(BKModel *)model {
     NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
@@ -59,10 +61,8 @@
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
 }
 
-
 // 添加分类
 + (void)insertCategoryModel:(BKCModel *)model is_income:(BOOL)is_income {
-    
     if (is_income == 0) {
         NSMutableArray *sysHasArr = [NSUserDefaults objectForKey:PIN_CATE_SYS_HAS_PAY];
         NSMutableArray *sysRemoveArr = [NSUserDefaults objectForKey:PIN_CATE_SYS_REMOVE_PAY];
@@ -101,6 +101,7 @@
         [NSUserDefaults setObject:sysRemoveSyncedArr forKey:PIN_CATE_SYS_REMOVE_INCOME_SYNCED];
     }
 }
+
 // 删除分类
 + (void)removeCategoryModel:(BKCModel *)model is_income:(BOOL)is_income {
     // 系统原有
@@ -222,6 +223,7 @@
     arrm = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:arrm];
     [NSUserDefaults setObject:arrm forKey:PIN_BOOK];
 }
+
 // 获取分类
 + (NSMutableArray *)getCategoryModel {
     NSMutableArray<BKCModel *> *sysHasPayArr = [NSUserDefaults objectForKey:PIN_CATE_SYS_HAS_PAY];
@@ -252,7 +254,6 @@
 
     return [NSMutableArray arrayWithArray:@[model1, model2]];
 }
-
 
 + (void)load {
     BOOL isFirst = [NSUserDefaults objectForKey:PIN_FIRST_RUN];
@@ -306,12 +307,9 @@
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING_HAS_SYNCED];
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING_REMOVE_SYNCED];
         
-        
         [NSUserDefaults setObject:@(1) forKey:PIN_FIRST_RUN];
     }
 }
-
-
 
 
 @end

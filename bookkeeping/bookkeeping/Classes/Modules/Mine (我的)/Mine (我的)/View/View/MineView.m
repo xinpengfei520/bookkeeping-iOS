@@ -39,12 +39,14 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // table滚动
 - (void)mineDidScroll:(UITableView *)table {
     _header.alpha = table.contentOffset.y / (_table.tableHeaderView.height - _header.height);
@@ -59,6 +61,7 @@
     }
     return _header;
 }
+
 - (MineTableView *)table {
     if (!_table) {
         _table = [MineTableView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TabbarHeight)];
@@ -67,11 +70,11 @@
     }
     return _table;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
                            MINE_DID_SCROLL: [self createInvocationWithSelector:@selector(mineDidScroll:)],
-                           
                            };
     }
     return _eventStrategy;

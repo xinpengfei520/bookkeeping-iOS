@@ -10,7 +10,9 @@
 #import "LoginController.h"
 #import "BillController.h"
 #import "MINE_EVENT_MANAGER.h"
+#import "LAContextManager.h"
 
+#define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #pragma mark - 声明
 @interface MineController()
@@ -188,6 +190,52 @@
     }
 }
 
+// FaceID 开关点击事件
+- (void)faceIdClick:(NSNumber *)isOn {
+    [self verifyFaceID];
+}
+
+- (void)verifyFaceID {
+    [LAContextManager callLAContextManagerWithController:self success:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"success========");
+            // 从缓存中取出 PIN_SETTING_FACE_ID 的值，如果没有则默认为 0
+            NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
+            NSNumber *faceId_synced = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID_SYNCED];
+            faceId = @(![faceId boolValue]);
+            [NSUserDefaults setObject:faceId forKey:PIN_SETTING_FACE_ID];
+            if (![faceId isEqual:faceId_synced]) {
+                [NSUserDefaults setObject:faceId forKey:PIN_SETTING_FACE_ID_SYNCED];
+            }
+        });
+    } failure:^(NSError *tyError, LAContextErrorType feedType) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // @TODO
+            if (tyError.code == -8) {
+                // 超出TouchID尝试次数或FaceID尝试次数，已被锁
+                NSLog(@"超出TouchID尝试次数或FaceID尝试次数，已被锁========");
+            }
+            else if (tyError.code == -7) {
+                // 未开启TouchID权限(没有可用的指纹)
+                NSLog(@"未开启TouchID权限(没有可用的指纹)========");
+            }
+            else if (tyError.code == -6) {
+                if (IS_IPHONE_X) {
+                    // iPhoneX 设置里面没有开启FaceID权限
+                    NSLog(@"iPhoneX 设置里面没有开启FaceID权限========");
+                }
+                else {
+                    // 非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)
+                    NSLog(@"非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)========");
+                }
+            }
+            else {
+                // 其他error情况 如用户主动取消等
+                NSLog(@"其他error情况 如用户主动取消等========");
+            }
+        });
+    }];
+}
 
 #pragma mark - get
 - (MineView *)mine {
@@ -198,6 +246,9 @@
     return _mine;
 }
 
+/**
+ * 创建点击事件策略
+ */
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
@@ -207,7 +258,8 @@
                            MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerDayClick:)],
                            MINE_HEADER_NUMBER_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
                            MINE_SOUND_CLICK: [self createInvocationWithSelector:@selector(soundClick:)],
-                           MINE_DETAIL_CLICK: [self createInvocationWithSelector:@selector(detailClick:)]
+                           MINE_DETAIL_CLICK: [self createInvocationWithSelector:@selector(detailClick:)],
+                           MINE_FACE_ID_CLICK: [self createInvocationWithSelector:@selector(faceIdClick:)]
                            };
     }
     return _eventStrategy;

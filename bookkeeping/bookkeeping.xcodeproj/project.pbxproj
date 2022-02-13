@@ -290,6 +290,7 @@
 		F30D7F0E27A25CD100B0580C /* UIViewController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0527A25CD100B0580C /* UIViewController+JZExtension.m */; };
 		F30D7F0F27A25CD100B0580C /* _JZNavigationDelegating.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0727A25CD100B0580C /* _JZNavigationDelegating.m */; };
 		F30D7F1027A25CD100B0580C /* _JZ-objc-internal.m in Sources */ = {isa = PBXBuildFile; fileRef = F30D7F0A27A25CD100B0580C /* _JZ-objc-internal.m */; };
+		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F5982707CC838EDD0692E0E0 /* libPods-bookkeeping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */; };
 /* End PBXBuildFile section */
 
@@ -774,6 +775,8 @@
 		F30D7F0A27A25CD100B0580C /* _JZ-objc-internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "_JZ-objc-internal.m"; sourceTree = "<group>"; };
 		F30D7F0B27A25CD100B0580C /* UINavigationController+JZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+JZExtension.h"; sourceTree = "<group>"; };
 		F30D7F0C27A25CD100B0580C /* JZNavigationExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZNavigationExtension.h; sourceTree = "<group>"; };
+		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
+		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -914,6 +917,7 @@
 		3219839121C6436A00311885 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F354830827B90D2200F2D6DE /* Manager */,
 				4B35F1A721CCC694007271BE /* Empty */,
 				3257AED521C8761200787A34 /* BottomButton */,
 			);
@@ -2260,6 +2264,15 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		F354830827B90D2200F2D6DE /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				F354830927B90D6A00F2D6DE /* LAContextManager.h */,
+				F354830A27B90D6A00F2D6DE /* LAContextManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2614,6 +2627,7 @@
 				4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */,
 				328FB41422110D0B00A61426 /* YYLabel+Extension.m in Sources */,
 				326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */,
+				F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */,
 				4B35F1C221CCC694007271BE /* KKEmptyLoading.m in Sources */,
 				321983FB21C6460100311885 /* UIColor+HEX.m in Sources */,
 				4B132AA921C68F4300D5B489 /* BKCCollectionCell.m in Sources */,

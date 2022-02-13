@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *punchCount;
 @property (nonatomic, assign) NSInteger sound;
 @property (nonatomic, assign) NSInteger detail;
+@property (nonatomic, assign) NSInteger faceId;
 
 @end
 

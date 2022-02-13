@@ -1,5 +1,5 @@
 /**
- * 我的事件管理
+ * 我的页面点击事件管理
  * @author 郑业强 2018-12-17 创建文件
  */
 
@@ -15,5 +15,6 @@
 
 #define MINE_SOUND_CLICK    @"MINE_SOUND_CLICK"  // 切换声音
 #define MINE_DETAIL_CLICK    @"MINE_DETAIL_CLICK"  // 切换详情
+#define MINE_FACE_ID_CLICK    @"MINE_FACE_ID_CLICK"  // FaceID 开关
 
 #endif
