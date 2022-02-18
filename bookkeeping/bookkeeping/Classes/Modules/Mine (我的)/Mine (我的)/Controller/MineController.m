@@ -64,16 +64,6 @@
     }];
 }
 
-// 声音
-- (void)soundChangeRequest:(NSNumber *)isOn {
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:isOn, @"sound", nil];;
-    [AFNManager POST:SoundRequest params:param complete:^(APPResult *result) {
-        UserModel *model = [UserInfo loadUserInfo];
-        model.sound = [isOn integerValue];
-        [UserInfo saveUserModel:model];
-    }];
-}
-
 // 详情
 - (void)detailChangeRequest:(NSNumber *)isOn {
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:isOn, @"detail", nil];;
@@ -167,18 +157,6 @@
     
 }
 
-// 切换声音
-- (void)soundClick:(NSNumber *)isOn {
-    NSNumber *sound = [NSUserDefaults objectForKey:PIN_SETTING_SOUND];
-    NSNumber *sound_synced = [NSUserDefaults objectForKey:PIN_SETTING_SOUND_SYNCED];
-    sound = @(![sound boolValue]);
-    [NSUserDefaults setObject:sound forKey:PIN_SETTING_SOUND];
-    if (![sound isEqual:sound_synced]) {
-        [NSUserDefaults setObject:sound forKey:PIN_SETTING_SOUND_SYNCED];
-    }
-    
-}
-
 // 切换详情
 - (void)detailClick:(NSNumber *)isOn {
     NSNumber *detail = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL];
@@ -257,7 +235,6 @@
             MINE_HEADER_PUNCH_CLICK: [self createInvocationWithSelector:@selector(headerPunchClick:)],
             MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerDayClick:)],
             MINE_HEADER_NUMBER_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
-            MINE_SOUND_CLICK: [self createInvocationWithSelector:@selector(soundClick:)],
             MINE_DETAIL_CLICK: [self createInvocationWithSelector:@selector(detailClick:)],
             MINE_FACE_ID_CLICK: [self createInvocationWithSelector:@selector(faceIdClick:)]
         };

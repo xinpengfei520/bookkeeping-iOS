@@ -44,11 +44,9 @@
 
 
 #pragma mark - 个人设置
-#define PIN_SETTING_SOUND     @"PIN_SETTING_SOUND"      // 声音开关
 #define PIN_SETTING_DETAIL    @"PIN_SETTING_DETAIL"     // 明细详情
 #define PIN_SETTING_FACE_ID    @"PIN_SETTING_FACE_ID"     // FaceID
 
-#define PIN_SETTING_SOUND_SYNCED     @"PIN_SETTING_SOUND_SYNCED"      // 声音开关 - 未同步
 #define PIN_SETTING_DETAIL_SYNCED    @"PIN_SETTING_DETAIL_SYNCED"     // 明细详情 - 未同步
 #define PIN_SETTING_FACE_ID_SYNCED    @"PIN_SETTING_FACE_ID_SYNCED"     // 明细详情 - 未同步
 
