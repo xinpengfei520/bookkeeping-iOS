@@ -198,7 +198,7 @@
 - (void)verifyFaceID {
     [LAContextManager callLAContextManagerWithController:self success:^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"success========");
+            NSLog(@"FaceID verify success~");
             // 从缓存中取出 PIN_SETTING_FACE_ID 的值，如果没有则默认为 0
             NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
             NSNumber *faceId_synced = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID_SYNCED];
@@ -252,15 +252,15 @@
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           MINE_CELL_CLICK: [self createInvocationWithSelector:@selector(mineCellClick:)],
-                           MINE_HEADER_ICON_CLICK: [self createInvocationWithSelector:@selector(headerIconClick:)],
-                           MINE_HEADER_PUNCH_CLICK: [self createInvocationWithSelector:@selector(headerPunchClick:)],
-                           MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerDayClick:)],
-                           MINE_HEADER_NUMBER_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
-                           MINE_SOUND_CLICK: [self createInvocationWithSelector:@selector(soundClick:)],
-                           MINE_DETAIL_CLICK: [self createInvocationWithSelector:@selector(detailClick:)],
-                           MINE_FACE_ID_CLICK: [self createInvocationWithSelector:@selector(faceIdClick:)]
-                           };
+            MINE_CELL_CLICK: [self createInvocationWithSelector:@selector(mineCellClick:)],
+            MINE_HEADER_ICON_CLICK: [self createInvocationWithSelector:@selector(headerIconClick:)],
+            MINE_HEADER_PUNCH_CLICK: [self createInvocationWithSelector:@selector(headerPunchClick:)],
+            MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerDayClick:)],
+            MINE_HEADER_NUMBER_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
+            MINE_SOUND_CLICK: [self createInvocationWithSelector:@selector(soundClick:)],
+            MINE_DETAIL_CLICK: [self createInvocationWithSelector:@selector(detailClick:)],
+            MINE_FACE_ID_CLICK: [self createInvocationWithSelector:@selector(faceIdClick:)]
+        };
     }
     return _eventStrategy;
 }

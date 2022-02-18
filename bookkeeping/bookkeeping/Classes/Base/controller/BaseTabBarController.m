@@ -8,6 +8,9 @@
 
 #import "BaseTabBarController.h"
 #import "BaseTabBar.h"
+#import "LAContextManager.h"
+
+#define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #pragma mark - 声明
 @interface BaseTabBarController ()
@@ -23,17 +26,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    // 明细页面
     HomeController *home = [[HomeController alloc] init];
     [self addChildViewController:home title:@"明细" image:@"tabbar_detail_n" selImage:@"tabbar_detail_s"];
-
+    // 记账页面
     BaseViewController *message = [[BaseViewController alloc] init];
     [self addChildViewController:message title:@"记账" image:@"tabbar_add_n" selImage:@"tabbar_add_h"];
-    
+    // 图表页面
     ChartController *sort = [[ChartController alloc] init];
     [self addChildViewController:sort title:@"图表" image:@"tabbar_chart_n" selImage:@"tabbar_chart_s"];
-    
-//    [self setSelectedIndex:3];
 }
 
 - (void)hideTabbar:(BOOL)hidden {
@@ -44,6 +45,9 @@
     }];
 }
 
+/**
+ * 添加子 ViewController
+ */
 - (void)addChildViewController:(BaseViewController *)childVc title:(NSString *)title image:(NSString *)image selImage:(NSString *)selImage {
     static NSInteger index = 0;
     childVc.tabBarItem.title = title;
@@ -109,7 +113,45 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self bar];
+    // 从缓存中取出 PIN_SETTING_FACE_ID 的值，如果没有则默认为 0
+    NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
+    if ([faceId boolValue] == true) {
+        [self verifyFaceID];
+    }
 }
 
+- (void)verifyFaceID {
+    [LAContextManager callLAContextManagerWithController:self success:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"FaceID verify success~");
+        });
+    } failure:^(NSError *tyError, LAContextErrorType feedType) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // @TODO
+            if (tyError.code == -8) {
+                // 超出TouchID尝试次数或FaceID尝试次数，已被锁
+                NSLog(@"超出TouchID尝试次数或FaceID尝试次数，已被锁========");
+            }
+            else if (tyError.code == -7) {
+                // 未开启TouchID权限(没有可用的指纹)
+                NSLog(@"未开启TouchID权限(没有可用的指纹)========");
+            }
+            else if (tyError.code == -6) {
+                if (IS_IPHONE_X) {
+                    // iPhoneX 设置里面没有开启FaceID权限
+                    NSLog(@"iPhoneX 设置里面没有开启FaceID权限========");
+                }
+                else {
+                    // 非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)
+                    NSLog(@"非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)========");
+                }
+            }
+            else {
+                // 其他error情况 如用户主动取消等
+                NSLog(@"其他error情况 如用户主动取消等========");
+            }
+        });
+    }];
+}
 
 @end

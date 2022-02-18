@@ -59,9 +59,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.datas[0].count;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.datas[0][section].count;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MineTableCell *cell = [MineTableCell loadFirstNib:tableView];
     cell.indexPath = indexPath;
@@ -70,13 +72,17 @@
     cell.status = [self.datas[2][indexPath.section][indexPath.row] integerValue];
     cell.detailLab.hidden = indexPath.section != 0;
 
-    if (indexPath.section == 1) {
-        if (indexPath.row == 2) {
+    // 给区块 0 里面的第 3、4、5 下标的 Item 开关赋值
+    if (indexPath.section == 0) {
+        if (indexPath.row == 3) {
             NSNumber *sound = [NSUserDefaults objectForKey:PIN_SETTING_SOUND];
             [cell.sw setOn:[sound boolValue]];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             NSNumber *detail = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL];
             [cell.sw setOn:[detail boolValue]];
+        }else if (indexPath.row == 5) {
+            NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
+            [cell.sw setOn:[faceId boolValue]];
         }
     }
     return cell;
@@ -120,6 +126,7 @@
     }
     return _header;
 }
+
 - (NSArray<NSArray<NSArray *> *> *)datas {
     _datas = @[
         @[
