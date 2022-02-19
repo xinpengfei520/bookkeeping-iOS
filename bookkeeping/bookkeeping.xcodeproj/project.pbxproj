@@ -45,7 +45,7 @@
 		32258E7E21CA29AC0017254D /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32258E7D21CA29AC0017254D /* NSString+Calculation.m */; };
 		324484B621C74BDE0051B8B6 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 324484B421C74BDD0051B8B6 /* HomeListCell.m */; };
 		324484B721C74BDE0051B8B6 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324484B521C74BDD0051B8B6 /* HomeListCell.xib */; };
-		3257AED421C8750800787A34 /* TIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED321C8750800787A34 /* TIController.m */; };
+		3257AED421C8750800787A34 /* TimeRemindController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED321C8750800787A34 /* TimeRemindController.m */; };
 		3257AED821C8774400787A34 /* TITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED721C8774400787A34 /* TITableView.m */; };
 		3257AEDC21C877E500787A34 /* TITableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AEDA21C877E500787A34 /* TITableCell.m */; };
 		3257AEDD21C877E500787A34 /* TITableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3257AEDB21C877E500787A34 /* TITableCell.xib */; };
@@ -402,8 +402,8 @@
 		324484B321C74BDD0051B8B6 /* HomeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
 		324484B421C74BDD0051B8B6 /* HomeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
 		324484B521C74BDD0051B8B6 /* HomeListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
-		3257AED221C8750800787A34 /* TIController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TIController.h; sourceTree = "<group>"; };
-		3257AED321C8750800787A34 /* TIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TIController.m; sourceTree = "<group>"; };
+		3257AED221C8750800787A34 /* TimeRemindController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeRemindController.h; sourceTree = "<group>"; };
+		3257AED321C8750800787A34 /* TimeRemindController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeRemindController.m; sourceTree = "<group>"; };
 		3257AED621C8774400787A34 /* TITableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TITableView.h; sourceTree = "<group>"; };
 		3257AED721C8774400787A34 /* TITableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TITableView.m; sourceTree = "<group>"; };
 		3257AED921C877E500787A34 /* TITableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TITableCell.h; sourceTree = "<group>"; };
@@ -1672,8 +1672,8 @@
 		4BA68ADB21C7EA930063A5C2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3257AED221C8750800787A34 /* TIController.h */,
-				3257AED321C8750800787A34 /* TIController.m */,
+				3257AED221C8750800787A34 /* TimeRemindController.h */,
+				3257AED321C8750800787A34 /* TimeRemindController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2582,7 +2582,7 @@
 				321983BC21C6459B00311885 /* BaseTableCell.m in Sources */,
 				321983C121C6459B00311885 /* BaseCollectionReusableView.m in Sources */,
 				4B1893C121D66F7E005002E2 /* ChartHUD.m in Sources */,
-				3257AED421C8750800787A34 /* TIController.m in Sources */,
+				3257AED421C8750800787A34 /* TimeRemindController.m in Sources */,
 				4B1E128621CA93C1001F5B36 /* CategorySectionHeader.m in Sources */,
 				4B35F1A221CCC641007271BE /* UIView+APPViewRequest.m in Sources */,
 				4BF53223220C82320042CB5A /* ASBaseTableCell.m in Sources */,

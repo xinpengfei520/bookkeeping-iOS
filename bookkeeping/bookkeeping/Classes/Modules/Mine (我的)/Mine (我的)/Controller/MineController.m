@@ -5,7 +5,7 @@
 
 #import "MineController.h"
 #import "CAController.h"
-#import "TIController.h"
+#import "TimeRemindController.h"
 #import "InfoController.h"
 #import "LoginController.h"
 #import "BillController.h"
@@ -98,7 +98,7 @@
         }
         // 定时提醒
         else if (indexPath.row == 2) {
-            TIController *vc = [[TIController alloc] init];
+            TimeRemindController *vc = [[TimeRemindController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

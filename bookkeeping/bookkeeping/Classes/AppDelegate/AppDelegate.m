@@ -24,13 +24,13 @@
     // Bugly
     [Bugly startWithAppId:@"0025184dd7"];
     
-//    // 注册通知
-//    if (@available(iOS 10.0, *)) {
-//        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-//        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//            
-//        }];
-//    }
+    // 注册通知
+    if (@available(iOS 10.0, *)) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            NSLog(@"completionHandler granted -> %d",granted);
+        }];
+    }
     
     return YES;
 }

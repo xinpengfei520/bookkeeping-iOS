@@ -1,5 +1,5 @@
 /**
- * 定时
+ * 定时提醒
  * @author 郑业强 2018-12-18 创建文件
  */
 
@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TIController : BaseViewController
+@interface TimeRemindController : BaseViewController
 
 @end
 

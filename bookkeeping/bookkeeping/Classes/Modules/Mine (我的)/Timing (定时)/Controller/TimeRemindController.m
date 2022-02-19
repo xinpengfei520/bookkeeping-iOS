@@ -3,7 +3,7 @@
  * @author 郑业强 2018-12-18 创建文件
  */
 
-#import "TIController.h"
+#import "TimeRemindController.h"
 #import "TITableView.h"
 #import "BottomButton.h"
 #import "TIModel.h"
@@ -13,7 +13,7 @@
 
 
 #pragma mark - 声明
-@interface TIController()<UNUserNotificationCenterDelegate>
+@interface TimeRemindController()<UNUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) TITableView *table;
 @property (nonatomic, strong) BottomButton *bottom;
@@ -23,7 +23,7 @@
 @end
 
 #pragma mark - 实现
-@implementation TIController
+@implementation TimeRemindController
 
 
 #pragma mark - UNUserNotificationCenterDelegate
@@ -51,16 +51,18 @@
     }
 }
 
+/**
+ * 添加通知
+ * @param time 时间戳
+ */
 - (void)addNotification:(NSString *)time {
     if (@available(iOS 10.0, *)) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-        content.title = [NSString localizedUserNotificationStringForKey:@"" arguments:nil];
+        content.title = [NSString localizedUserNotificationStringForKey:@"温馨提示" arguments:nil];
         content.sound = [UNNotificationSound defaultSound];
         content.body  = [NSString localizedUserNotificationStringForKey:@"记账时间到了，赶紧记一笔吧！" arguments:nil];
-        
-        
         
         // 周一早上 8：00 上班
         NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -68,18 +70,14 @@
         components.minute = [[time componentsSeparatedByString:@":"][1] integerValue];
         UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
         
-        
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"TestRequest" content:content trigger:trigger];
         [center addNotificationRequest:request withCompletionHandler:^(NSError *_Nullable error) {
-            NSLog(@"成功添加推送");
+            NSLog(@"成功添加本地推送通知提醒");
         }];
-        
-       
         
         [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
             NSLog(@"123");
         }];
-        
     }
 }
 
@@ -169,6 +167,7 @@
         
         [self setModels:arrm];
         [self.table reloadData];
+        [self addNotification:time];
     }
 }
 
@@ -215,7 +214,7 @@
     datePickerView.pickerMode = BRDatePickerModeHM;
     datePickerView.title = @"每天";
     datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
-        NSLog(@"选择的值：%@", selectValue);
+        NSLog(@"选择提醒的时间为每天的：%@", selectValue);
         @strongify(self)
         [self addTimingRequest:selectValue];
     };
@@ -261,9 +260,9 @@
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           CATEGORY_BTN_CLICK: [self createInvocationWithSelector:@selector(bottomClick:)],
-                           TIMING_CELL_DELETE: [self createInvocationWithSelector:@selector(timeCellDelete:)],
-                           };
+            CATEGORY_BTN_CLICK: [self createInvocationWithSelector:@selector(bottomClick:)],
+            TIMING_CELL_DELETE: [self createInvocationWithSelector:@selector(timeCellDelete:)],
+        };
     }
     return _eventStrategy;
 }
