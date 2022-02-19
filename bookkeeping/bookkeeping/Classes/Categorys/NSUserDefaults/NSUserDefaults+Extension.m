@@ -297,8 +297,8 @@
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
         
         // 个人设置
-        [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_DETAIL];
-        [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_DETAIL_SYNCED];
+        [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_FACE_ID];
+        [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_FACE_ID_SYNCED];
         
         // 定时
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING];

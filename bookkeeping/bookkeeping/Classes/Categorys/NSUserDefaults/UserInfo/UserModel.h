@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL sex;
 @property (nonatomic, assign) BOOL isPunch;
 @property (nonatomic, strong) NSString *punchCount;
-@property (nonatomic, assign) NSInteger detail;
 @property (nonatomic, assign) NSInteger faceId;
 
 @end

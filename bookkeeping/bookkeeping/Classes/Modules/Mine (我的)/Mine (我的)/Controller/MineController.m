@@ -64,24 +64,12 @@
     }];
 }
 
-// 详情
-- (void)detailChangeRequest:(NSNumber *)isOn {
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:isOn, @"detail", nil];;
-    [AFNManager POST:DetailRequest params:param complete:^(APPResult *result) {
-        UserModel *model = [UserInfo loadUserInfo];
-        model.detail = [isOn integerValue];
-        [UserInfo saveUserModel:model];
-    }];
-}
-
-
 #pragma mark - set
 // 数据
 - (void)setModel:(UserModel *)model {
     _model = model;
     _mine.model = model;
 }
-
 
 #pragma mark - 事件
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
@@ -157,17 +145,6 @@
     
 }
 
-// 切换详情
-- (void)detailClick:(NSNumber *)isOn {
-    NSNumber *detail = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL];
-    NSNumber *detail_synced = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL_SYNCED];
-    detail = @(![detail boolValue]);
-    [NSUserDefaults setObject:detail forKey:PIN_SETTING_DETAIL];
-    if (![detail isEqual:detail_synced]) {
-        [NSUserDefaults setObject:detail forKey:PIN_SETTING_DETAIL_SYNCED];
-    }
-}
-
 // FaceID 开关点击事件
 - (void)faceIdClick:(NSNumber *)isOn {
     [self verifyFaceID];
@@ -235,7 +212,6 @@
             MINE_HEADER_PUNCH_CLICK: [self createInvocationWithSelector:@selector(headerPunchClick:)],
             MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerDayClick:)],
             MINE_HEADER_NUMBER_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
-            MINE_DETAIL_CLICK: [self createInvocationWithSelector:@selector(detailClick:)],
             MINE_FACE_ID_CLICK: [self createInvocationWithSelector:@selector(faceIdClick:)]
         };
     }

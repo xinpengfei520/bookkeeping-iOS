@@ -46,14 +46,12 @@
     return table;
 }
 
-
 #pragma mark - set
 - (void)setModel:(UserModel *)model {
     _model = model;
     _header.model = model;
     [self reloadData];
 }
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -72,12 +70,9 @@
     cell.status = [self.datas[2][indexPath.section][indexPath.row] integerValue];
     cell.detailLab.hidden = indexPath.section != 0;
 
-    // 给区块 0 里面的第 3、4 下标的 Item 开关赋值
+    // 给区块 0 里面的第 3 下标的 Item 开关赋值
     if (indexPath.section == 0) {
         if (indexPath.row == 3) {
-            NSNumber *detail = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL];
-            [cell.sw setOn:[detail boolValue]];
-        }else if (indexPath.row == 4) {
             NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
             [cell.sw setOn:[faceId boolValue]];
         }
@@ -127,13 +122,13 @@
 - (NSArray<NSArray<NSArray *> *> *)datas {
     _datas = @[
         @[
-            @[@"我的账单",@"类别设置",@"定时提醒",@"明细详情",@"面容解锁"],
+            @[@"我的账单",@"类别设置",@"定时提醒",@"面容解锁"],
         ],
         @[
-            @[@"mine_siginin",@"mine_tallytype",@"mine_remind",@"mine_detail",@"mine_badge"],
+            @[@"mine_siginin",@"mine_tallytype",@"mine_remind",@"mine_badge"],
         ],
         @[
-            @[@(0),@(0),@(0),@(1),@(1)],
+            @[@(0),@(0),@(0),@(1)],
         ]
     ];
     

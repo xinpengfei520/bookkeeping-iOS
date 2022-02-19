@@ -29,8 +29,6 @@
 - (void)swValueChange:(UISwitch *)sw {
     NSLog(@"我的页面的第%ld行被点击了",_indexPath.row);
     if (_indexPath.row == 3) {
-        [self routerEventWithName:MINE_DETAIL_CLICK data:@(sw.on)];
-    }else if (_indexPath.row == 4) {
         [self routerEventWithName:MINE_FACE_ID_CLICK data:@(sw.on)];
     }
 }

@@ -32,8 +32,8 @@
     // 记账信息
     NSMutableArray<BKModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     
-    // 明细详情
-    NSNumber *detail = [NSUserDefaults objectForKey:PIN_SETTING_DETAIL_SYNCED];
+    // FaceID
+    NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID_SYNCED];
     
     // 定时
     NSMutableArray *timing_has = [NSUserDefaults objectForKey:PIN_TIMING_HAS_SYNCED];
@@ -52,7 +52,7 @@
                                   [[BKCModel mj_keyValuesArrayWithObjectArray:cateCusHasIncomeArr] mj_JSONString], @"cateCusHasIncomeArr",
                                   
                                   [[BKModel mj_keyValuesArrayWithObjectArray:bookArr] mj_JSONString], @"book",
-                                  detail, @"detail",
+                                  faceId, @"faceId",
                                   [timing_has mj_JSONString], @"timing_has",
                                   [timing_remove mj_JSONString], @"timing_remove",
                                   nil];
@@ -139,10 +139,8 @@
             [NSUserDefaults setObject:insertIncomeModel forKey:PIN_CATE_CUS_HAS_INCOME];
             
             NSArray *setting = result.data[@"setting"][0];
-            NSNumber *detail = setting[0];
-            NSNumber *faceId = setting[1];
+            NSNumber *faceId = setting[0];
             
-            [NSUserDefaults setObject:detail forKey:PIN_SETTING_DETAIL];
             [NSUserDefaults setObject:faceId forKey:PIN_SETTING_FACE_ID];
             
             NSArray<NSArray *> *bookarr = result.data[@"book"];
@@ -174,7 +172,6 @@
             [NSUserDefaults setObject:bookModels forKey:PIN_BOOK];
             
             UserModel *model = [UserInfo loadUserInfo];
-            model.detail = [detail integerValue];
             model.faceId = [faceId integerValue];
             [UserInfo saveUserModel:model];
             
