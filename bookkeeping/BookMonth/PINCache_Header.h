@@ -42,10 +42,6 @@
 
 #pragma mark - 个人设置
 #define PIN_SETTING_FACE_ID           @"PIN_SETTING_FACE_ID"            // FaceID
-#define PIN_SETTING_FACE_ID_SYNCED    @"PIN_SETTING_FACE_ID_SYNCED"     // 明细详情 - 未同步
-#define PIN_TIMING                    @"PIN_TIMING"                     // 定时通知b
-#define PIN_TIMING_HAS_SYNCED         @"PIN_TIMING_HAS_SYNCED"          // 定时添加通知 - 未同步
-#define PIN_TIMING_REMOVE_SYNCED      @"PIN_TIMING_REMOVE_SYNCED"       // 定时删除通知 - 未同步
-
+#define PIN_TIMING                    @"PIN_TIMING"                     // 定时通知
 
 #endif

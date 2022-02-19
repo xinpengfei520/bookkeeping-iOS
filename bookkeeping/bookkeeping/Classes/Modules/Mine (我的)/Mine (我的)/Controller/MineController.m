@@ -156,12 +156,8 @@
             NSLog(@"FaceID verify success~");
             // 从缓存中取出 PIN_SETTING_FACE_ID 的值，如果没有则默认为 0
             NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
-            NSNumber *faceId_synced = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID_SYNCED];
             faceId = @(![faceId boolValue]);
             [NSUserDefaults setObject:faceId forKey:PIN_SETTING_FACE_ID];
-            if (![faceId isEqual:faceId_synced]) {
-                [NSUserDefaults setObject:faceId forKey:PIN_SETTING_FACE_ID_SYNCED];
-            }
         });
     } failure:^(NSError *tyError, LAContextErrorType feedType) {
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -32,13 +32,6 @@
     // 记账信息
     NSMutableArray<BKModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     
-    // FaceID
-    NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID_SYNCED];
-    
-    // 定时
-    NSMutableArray *timing_has = [NSUserDefaults objectForKey:PIN_TIMING_HAS_SYNCED];
-    NSMutableArray *timing_remove = [NSUserDefaults objectForKey:PIN_TIMING_REMOVE_SYNCED];
-    
     // 参数
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [[BKCModel mj_keyValuesArrayWithObjectArray:cateSysRemovePayArr] mj_JSONString], @"cateSysRemovePayArr",
@@ -52,9 +45,6 @@
                                   [[BKCModel mj_keyValuesArrayWithObjectArray:cateCusHasIncomeArr] mj_JSONString], @"cateCusHasIncomeArr",
                                   
                                   [[BKModel mj_keyValuesArrayWithObjectArray:bookArr] mj_JSONString], @"book",
-                                  faceId, @"faceId",
-                                  [timing_has mj_JSONString], @"timing_has",
-                                  [timing_remove mj_JSONString], @"timing_remove",
                                   nil];
     
     @weakify(self)
@@ -69,17 +59,11 @@
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_Has_PAY_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_REMOVE_PAY_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_HAS_PAY_SYNCED];
-            
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_Has_INCOME_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_REMOVE_INCOME_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
-            
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
-            
-            [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING_HAS_SYNCED];
-            [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING_REMOVE_SYNCED];
-            
             
             NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
             NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];

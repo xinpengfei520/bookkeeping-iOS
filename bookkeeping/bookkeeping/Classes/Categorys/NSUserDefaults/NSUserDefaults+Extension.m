@@ -259,7 +259,6 @@
     BOOL isFirst = [NSUserDefaults objectForKey:PIN_FIRST_RUN];
     // 第一次运行
     if (!isFirst) {
-        
         // 分类
         NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
         NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];
@@ -296,15 +295,11 @@
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK];
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
         
-        // 个人设置
+        // FaceID
         [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_FACE_ID];
-        [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_FACE_ID_SYNCED];
-        
-        // 定时
+        // 定时提醒
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING];
-        [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING_HAS_SYNCED];
-        [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_TIMING_REMOVE_SYNCED];
-        
+        // 第一次运行
         [NSUserDefaults setObject:@(1) forKey:PIN_FIRST_RUN];
     }
 }

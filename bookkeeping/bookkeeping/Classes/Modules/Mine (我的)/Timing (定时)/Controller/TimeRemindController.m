@@ -81,6 +81,13 @@
     }
 }
 
+/**
+ * 移除通知
+ * @param time 时间戳
+ */
+- (void)removeNotification:(NSString *)time {
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,107 +97,45 @@
     [self table];
     [self bottom];
     [self.view bringSubviewToFront:self.bottom];
-    //    [self timeListRequest];
-
-
     [self setModels:[NSUserDefaults objectForKey:PIN_TIMING]];
-    
 }
 
 
 #pragma mark - 请求
-// 定时列表
-- (void)timeListRequest {
-    @weakify(self)
-    [self createRequest:TimeListRequest params:nil complete:^(APPResult *result) {
-        @strongify(self)
-        [self setModels:[TIModel mj_objectArrayWithKeyValuesArray:result.data]];
-    }];
-}
-// 添加定时
-- (void)addTimeRequest:(NSString *)time {
-    @weakify(self)
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:time, @"time", nil];
-    [self showProgressHUD];
-    [AFNManager POST:AddTimeRequest params:param complete:^(APPResult *result) {
-        @strongify(self)
-        [self hideHUD];
-        TIModel *model = [[TIModel alloc] init];
-        [model setTime:time];
-        [self.models addObject:model];
-        [self setModels:self.models];
-    }];
-}
-// 删除定时
-- (void)deleteTimeRequest:(TITableCell *)cell {
-    //    @weakify(self)
-    //    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:@(cell.model.Id), @"id", nil];
-    //    [self showProgressHUD];
-    //    [AFNManager POST:RemoveTimeRequest params:param complete:^(APPResult *result) {
-    //        @strongify(self)
-    //        [self hideHUD];
-    //        [self.models removeObject:cell.model];
-    //        [self.table deleteRowsAtIndexPaths:@[cell.indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    //    }];
-}
-
 
 // 添加定时
 - (void)addTimingRequest:(NSString *)time {
     NSMutableArray *arrm = [NSUserDefaults objectForKey:PIN_TIMING];
-    NSMutableArray *arrm_has_synced = [NSUserDefaults objectForKey:PIN_TIMING_HAS_SYNCED];
-    NSMutableArray *arrm_remove_synced = [NSUserDefaults objectForKey:PIN_TIMING_REMOVE_SYNCED];
-    // 时间已存在
+    // 判断设置的时间是否已存在
     if ([arrm containsObject:time]) {
         [self showTextHUD:@"已经添加过该时间的提醒" delay:2.f];
+        return;
     }
-    // 时间不存在
-    else {
-        [arrm addObject:time];
-        [arrm sortUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-            return [obj1 compare:obj2];
-        }];
-        [NSUserDefaults setObject:arrm forKey:PIN_TIMING];
-        
-        
-        if ([arrm_remove_synced containsObject:time]) {
-            [arrm_remove_synced removeObject:time];
-            [NSUserDefaults setObject:arrm_remove_synced forKey:PIN_TIMING_REMOVE_SYNCED];
-        }
-        else {
-            [arrm_has_synced addObject:time];
-            [arrm_has_synced sortUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-                return [obj1 compare:obj2];
-            }];
-            [NSUserDefaults setObject:arrm_has_synced forKey:PIN_TIMING_HAS_SYNCED];
-        }
-        
-        [self setModels:arrm];
-        [self.table reloadData];
-        [self addNotification:time];
-    }
+
+    // 添加到数组
+    [arrm addObject:time];
+    // 排序
+    [arrm sortUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        return [obj1 compare:obj2];
+    }];
+    // 缓存起来
+    [NSUserDefaults setObject:arrm forKey:PIN_TIMING];
+    
+    [self setModels:arrm];
+    [self.table reloadData];
+    [self addNotification:time];
 }
 
 // 删除定时
 - (void)deleteTimingRequest:(NSString *)time {
     NSMutableArray *arrm = [NSUserDefaults objectForKey:PIN_TIMING];
-    NSMutableArray *arrm_has_synced = [NSUserDefaults objectForKey:PIN_TIMING_HAS_SYNCED];
-    NSMutableArray *arrm_remove_synced = [NSUserDefaults objectForKey:PIN_TIMING_REMOVE_SYNCED];
     
     [arrm removeObject:time];
     [NSUserDefaults setObject:arrm forKey:PIN_TIMING];
-    
-    if ([arrm_has_synced containsObject:time]) {
-        [arrm_has_synced removeObject:time];
-        [NSUserDefaults setObject:arrm_has_synced forKey:PIN_TIMING_HAS_SYNCED];
-    }
-    else {
-        [arrm_remove_synced addObject:time];
-        [NSUserDefaults setObject:arrm_remove_synced forKey:PIN_TIMING_REMOVE_SYNCED];
-    }
         
     [self setModels:arrm];
     [self.table reloadData];
+    [self removeNotification:time];
 }
 
 #pragma mark - 事件
@@ -225,7 +170,6 @@
 
 // 删除cell
 - (void)timeCellDelete:(TITableCell *)cell {
-    //    [self deleteTimeRequest:cell];
     [self deleteTimingRequest:cell.time];
 }
 
