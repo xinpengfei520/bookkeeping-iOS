@@ -58,7 +58,10 @@
 - (void)setModel:(BKModel *)model {
     _model = model;
     [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
-    [_nameLab setText:model.cmodel.name];
+    // 显示类别名称
+//    [_nameLab setText:model.cmodel.name];
+    // 显示备注
+    [_nameLab setText:model.mark];
     [_detailLab setText:model.cmodel.is_income == 0 ? [@(-model.price) description] : [@(model.price) description]];
 }
 

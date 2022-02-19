@@ -156,7 +156,6 @@
     [NSUserDefaults removeBookModel:cell.model];
     // 更新
     [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_DELETE object:nil];
-    
 }
 
 // 点击Cell
@@ -207,13 +206,12 @@
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           HOME_MONTH_CLICK: [self createInvocationWithSelector:@selector(homeMonthClick:)],
-                           HOME_TABLE_PULL: [self createInvocationWithSelector:@selector(homeTablePull:)],
-                           HOME_TABLE_UP: [self createInvocationWithSelector:@selector(homeTableUp:)],
-                           HOME_CELL_REMOVE: [self createInvocationWithSelector:@selector(homeTableCellRemove:)],
-                           HOME_CELL_CLICK: [self createInvocationWithSelector:@selector(homeTableCellClick:)],
-                           
-                           };
+            HOME_MONTH_CLICK: [self createInvocationWithSelector:@selector(homeMonthClick:)],
+            HOME_TABLE_PULL: [self createInvocationWithSelector:@selector(homeTablePull:)],
+            HOME_TABLE_UP: [self createInvocationWithSelector:@selector(homeTableUp:)],
+            HOME_CELL_REMOVE: [self createInvocationWithSelector:@selector(homeTableCellRemove:)],
+            HOME_CELL_CLICK: [self createInvocationWithSelector:@selector(homeTableCellClick:)],
+        };
     }
     return _eventStrategy;
 }
