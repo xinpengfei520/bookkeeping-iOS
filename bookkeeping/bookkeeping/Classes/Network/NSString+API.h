@@ -17,9 +17,6 @@
 
 // 同步数据
 #define SyncedDataRequest Request(@"/shayu/syncedDataRequest.action")
-
-// 我的徽章列表
-#define BadgeListRequest Request(@"/shayu/getBadgeListRequest.action")
 // 类别设置列表
 #define CategorySetListRequest Request(@"/shayu/getCategorySetRequest.action")
 // 全部类别
@@ -34,10 +31,6 @@
 #define AddInsertCategoryListRequest Request(@"/shayu/addInsertCategoryRequest.action")
 // 删除用户类别
 #define RemoveInsertCategoryListRequest Request(@"/shayu/removeInsertCategoryRequest.action")
-
-
-// QQ第三方登录
-#define QQLoginRequest Request(@"/shayu/getQQLoginRequest.action")
 // 账号登录
 #define PhoneLoginRequest Request(@"/shayu/getLoginRequest.action")
 // 注册
@@ -62,7 +55,6 @@
 #define NicknameRequest Request(@"/shayu/changeNameRequest.action")
 // 修改头像
 #define ChangeIconRequest Request(@"/shayu/changeIconRequest.action")
-
 // 打卡
 #define CreatePunchRequest Request(@"/shayu/createPunchRequest.action")
 // 声音
@@ -75,7 +67,6 @@
 #define AddTimeRequest Request(@"/shayu/addTimeRequest.action")
 // 删除定时
 #define RemoveTimeRequest Request(@"/shayu/removeTimeRequest.action")
-
 // 记账
 #define CreateBookRequest Request(@"/shayu/createBookRequest.action")
 // 查账(条)

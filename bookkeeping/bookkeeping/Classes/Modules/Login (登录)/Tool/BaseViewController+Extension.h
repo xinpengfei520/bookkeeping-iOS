@@ -14,8 +14,6 @@ typedef void (^LoginComplete)(void);
 #pragma mark - 声明
 @interface BaseViewController (Extension)
 
-- (void)startQQLogin:(LoginComplete)complete;
-
 @end
 
 

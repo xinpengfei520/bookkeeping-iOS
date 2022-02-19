@@ -69,6 +69,7 @@
         }
     }];
 }
+
 // 更改昵称
 - (void)changeNickRequest:(NSString *)nickName {
     @weakify(self)
@@ -100,6 +101,7 @@
         }
     }];
 }
+
 // 绑定第三方账号
 - (void)bindThirdRequest {
 //    // QQ授权
@@ -126,6 +128,7 @@
 //
 //    }];
 }
+
 // 更改性别
 - (void)changeSexRequest:(NSInteger)sex {
     @weakify(self)
@@ -172,12 +175,14 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 点击cell
 - (void)cellClick:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
@@ -222,6 +227,7 @@
         [self.navigationController pushViewController:vc animated:true];
     }
 }
+
 // 退出登录
 - (void)footerClick:(id)data {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"退出后不会删除任何历史数据，下次登录依然可以使用本账号" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles: nil];
@@ -237,6 +243,7 @@
         }
     }];
 }
+
 // 拍照
 - (void)takePhoto {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
@@ -323,17 +330,16 @@
     }
     return _table;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           INFO_CELL_CLICK: [self createInvocationWithSelector:@selector(cellClick:)],
-                           INFO_FOOTER_CLICK: [self createInvocationWithSelector:@selector(footerClick:)],
-                           };
+            INFO_CELL_CLICK: [self createInvocationWithSelector:@selector(cellClick:)],
+            INFO_FOOTER_CLICK: [self createInvocationWithSelector:@selector(footerClick:)],
+        };
     }
     return _eventStrategy;
 }
-
-
 
 
 @end

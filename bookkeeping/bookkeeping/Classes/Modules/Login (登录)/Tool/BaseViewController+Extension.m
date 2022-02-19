@@ -7,17 +7,4 @@
 
 @implementation BaseViewController (Extension)
 
-
-- (void)startQQLogin:(LoginComplete)complete {
-
-}
-
-#pragma mark - 请求
-// QQ登录
-- (void)getQQLoginRequest {
-
-}
-
-
-
 @end
