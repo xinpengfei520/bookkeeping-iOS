@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,37 +38,24 @@
                         <action selector="backClick:" destination="cQz-av-4oc" eventType="touchUpInside" id="etp-6Y-cNP"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5j-rZ-wL1">
-                    <rect key="frame" x="276" y="5" width="70" height="35"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="70" id="eWG-yK-iQY"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="pfC-W6-Oyz"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="y5j-rZ-wL1" firstAttribute="trailing" secondItem="pfC-W6-Oyz" secondAttribute="trailing" constant="-15" id="0Ug-59-8xh"/>
                 <constraint firstItem="Fvy-8i-ola" firstAttribute="top" secondItem="3db-b8-Iqi" secondAttribute="bottom" constant="10" id="3MV-qU-s5C"/>
                 <constraint firstItem="3db-b8-Iqi" firstAttribute="centerX" secondItem="cQz-av-4oc" secondAttribute="centerX" id="52V-ba-eBR"/>
                 <constraint firstItem="Fvy-8i-ola" firstAttribute="trailing" secondItem="pfC-W6-Oyz" secondAttribute="trailing" id="VeF-23-Eom"/>
                 <constraint firstItem="Rof-Jn-eli" firstAttribute="top" secondItem="pfC-W6-Oyz" secondAttribute="top" constant="5" id="ZmN-MQ-ZoD"/>
                 <constraint firstItem="Rof-Jn-eli" firstAttribute="leading" secondItem="pfC-W6-Oyz" secondAttribute="leading" id="eVF-FB-eIt"/>
-                <constraint firstItem="y5j-rZ-wL1" firstAttribute="height" secondItem="Rof-Jn-eli" secondAttribute="height" id="jQI-Lq-nrl"/>
-                <constraint firstItem="y5j-rZ-wL1" firstAttribute="centerY" secondItem="Rof-Jn-eli" secondAttribute="centerY" id="n5f-Yq-z8O"/>
                 <constraint firstItem="3db-b8-Iqi" firstAttribute="top" secondItem="Rof-Jn-eli" secondAttribute="top" constant="10" id="tPY-MZ-9Pw"/>
                 <constraint firstItem="Fvy-8i-ola" firstAttribute="leading" secondItem="pfC-W6-Oyz" secondAttribute="leading" id="zOP-0U-wMi"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="pfC-W6-Oyz"/>
             <connections>
                 <outlet property="icon" destination="3db-b8-Iqi" id="6fk-A8-Qn3"/>
                 <outlet property="iconConstraintW" destination="Wdk-qF-3ES" id="nQt-6k-dwH"/>
                 <outlet property="nameLab" destination="Fvy-8i-ola" id="fyS-ze-ytS"/>
-                <outlet property="shareLab" destination="y5j-rZ-wL1" id="irQ-01-ICm"/>
             </connections>
             <point key="canvasLocation" x="18" y="-682"/>
         </view>

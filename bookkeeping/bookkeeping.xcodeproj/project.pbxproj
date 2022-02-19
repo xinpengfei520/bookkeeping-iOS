@@ -269,7 +269,7 @@
 		4BEB732F21CE381D00BEF013 /* InfoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB732D21CE381D00BEF013 /* InfoTableCell.xib */; };
 		4BEB733221CE3F9C00BEF013 /* InfoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB733121CE3F9C00BEF013 /* InfoFooter.m */; };
 		4BEB733421CE3FC800BEF013 /* InfoFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB733321CE3FC800BEF013 /* InfoFooter.xib */; };
-		4BF0648D21E10A80005F1665 /* BDController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0648C21E10A80005F1665 /* BDController.m */; };
+		4BF0648D21E10A80005F1665 /* BookDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0648C21E10A80005F1665 /* BookDetailController.m */; };
 		4BF0649021E10BAD005F1665 /* BDHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0648F21E10BAD005F1665 /* BDHeader.m */; };
 		4BF0649221E10BD3005F1665 /* BDHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BF0649121E10BD3005F1665 /* BDHeader.xib */; };
 		4BF0649621E10FD2005F1665 /* HomeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0649521E10FD2005F1665 /* HomeNavigation.m */; };
@@ -737,8 +737,8 @@
 		4BEB733121CE3F9C00BEF013 /* InfoFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoFooter.m; sourceTree = "<group>"; };
 		4BEB733321CE3FC800BEF013 /* InfoFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoFooter.xib; sourceTree = "<group>"; };
 		4BEB733521CE428F00BEF013 /* INFO_EVENT_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFO_EVENT_MANAGER.h; sourceTree = "<group>"; };
-		4BF0648B21E10A80005F1665 /* BDController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDController.h; sourceTree = "<group>"; };
-		4BF0648C21E10A80005F1665 /* BDController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDController.m; sourceTree = "<group>"; };
+		4BF0648B21E10A80005F1665 /* BookDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailController.h; sourceTree = "<group>"; };
+		4BF0648C21E10A80005F1665 /* BookDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookDetailController.m; sourceTree = "<group>"; };
 		4BF0648E21E10BAD005F1665 /* BDHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDHeader.h; sourceTree = "<group>"; };
 		4BF0648F21E10BAD005F1665 /* BDHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDHeader.m; sourceTree = "<group>"; };
 		4BF0649121E10BD3005F1665 /* BDHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BDHeader.xib; sourceTree = "<group>"; };
@@ -2147,8 +2147,8 @@
 		4BF0648821E10A50005F1665 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4BF0648B21E10A80005F1665 /* BDController.h */,
-				4BF0648C21E10A80005F1665 /* BDController.m */,
+				4BF0648B21E10A80005F1665 /* BookDetailController.h */,
+				4BF0648C21E10A80005F1665 /* BookDetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2575,7 +2575,7 @@
 				321983C221C6459B00311885 /* BaseModel.m in Sources */,
 				4B8D635F21D8D215002AEB4A /* BookChartHUD.m in Sources */,
 				4B68DC3D21E1C0BF00CBF20C /* BDTableCell.m in Sources */,
-				4BF0648D21E10A80005F1665 /* BDController.m in Sources */,
+				4BF0648D21E10A80005F1665 /* BookDetailController.m in Sources */,
 				4BA68AE021C7EAAA0063A5C2 /* CAController.m in Sources */,
 				4BA68AFF21C7F61E0063A5C2 /* ACACollection.m in Sources */,
 				321983BB21C6459B00311885 /* BaseService.m in Sources */,

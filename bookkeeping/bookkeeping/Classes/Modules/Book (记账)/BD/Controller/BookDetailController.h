@@ -14,7 +14,7 @@ typedef void (^BDComplete)(void);
 
 
 #pragma mark - 声明
-@interface BDController : BaseViewController
+@interface BookDetailController : BaseViewController
 
 @property (nonatomic, strong) BKModel *model;
 @property (nonatomic, copy  ) BDComplete complete;

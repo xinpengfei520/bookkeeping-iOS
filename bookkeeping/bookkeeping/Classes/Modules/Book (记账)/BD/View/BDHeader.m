@@ -13,7 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *icon;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
-@property (weak, nonatomic) IBOutlet UILabel *shareLab;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconConstraintW;
 
 @end
@@ -27,12 +26,7 @@
     [self setBackgroundColor:kColor_Main_Color];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
     [self.nameLab setTextColor:kColor_Text_Black];
-    [self.shareLab setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
-    [self.shareLab setTextColor:kColor_Text_Black];
     [self.iconConstraintW setConstant:countcoordinatesX(60)];
-    [self.shareLab addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-        
-    }];
 }
 
 #pragma mark - 点击

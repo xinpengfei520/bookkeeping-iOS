@@ -12,7 +12,7 @@
 #import "ChartTableCell.h"
 #import "CHART_EVENT.h"
 #import "LOGIN_NOTIFICATION.h"
-#import "BDController.h"
+#import "BookDetailController.h"
 
 
 #pragma mark - 声明
@@ -149,7 +149,7 @@
         vc.cmodel = model;
         [self.navigationController pushViewController:vc animated:true];
     } else {
-        BDController *vc = [[BDController alloc] init];
+        BookDetailController *vc = [[BookDetailController alloc] init];
         vc.model = model;
         [self.navigationController pushViewController:vc animated:true];
     }

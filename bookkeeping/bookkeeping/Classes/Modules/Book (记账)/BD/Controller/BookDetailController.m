@@ -3,14 +3,14 @@
  * @author 郑业强 2019-01-05 创建
  */
 
-#import "BDController.h"
+#import "BookDetailController.h"
 #import "BDHeader.h"
 #import "BDTable.h"
 #import "BDBottom.h"
 #import "BD_EVENT.h"
 
 #pragma mark - 声明
-@interface BDController()
+@interface BookDetailController()
 
 @property (nonatomic, strong) BDHeader *header;
 @property (nonatomic, strong) BDTable *table;
@@ -21,17 +21,13 @@
 
 
 #pragma mark - 实现
-@implementation BDController
+@implementation BookDetailController
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setJz_navigationBarHidden:true];
-    [self.rightButton setTitle:@"分享" forState:UIControlStateNormal];
-    [self.rightButton setTitle:@"分享" forState:UIControlStateHighlighted];
-    [self.rightButton setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-    [self.rightButton setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
-    [self.rightButton setHidden:NO];
+    [self.rightButton setHidden:YES];
     [self header];
     [self bottom];
     [self table];
@@ -46,7 +42,6 @@
         BKModel *model = x.object;
         [self setModel:model];
     }];
-    
 }
 
 
@@ -62,6 +57,7 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
@@ -103,6 +99,7 @@
     }
     return _header;
 }
+
 - (BDTable *)table {
     if (!_table) {
         _table = [[BDTable alloc] initWithFrame:CGRectMake(0, _header.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - _bottom.height - _header.height) style:UITableViewStylePlain];
@@ -110,6 +107,7 @@
     }
     return _table;
 }
+
 - (BDBottom *)bottom {
     if (!_bottom) {
         _bottom = [BDBottom loadFirstNib:({
@@ -120,12 +118,12 @@
     }
     return _bottom;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           BD_BOTTOM_CLICK: [self createInvocationWithSelector:@selector(bdBottomClick:)],
-                           
-                           };
+            BD_BOTTOM_CLICK: [self createInvocationWithSelector:@selector(bdBottomClick:)],
+        };
     }
     return _eventStrategy;
 }

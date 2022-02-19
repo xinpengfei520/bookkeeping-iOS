@@ -10,7 +10,7 @@
 #import "HomeListSubCell.h"
 #import "HOME_EVENT.h"
 #import "BKModel.h"
-#import "BDController.h"
+#import "BookDetailController.h"
 #import "MineController.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "ACAListModel.h"
@@ -162,7 +162,7 @@
 // 点击Cell
 - (void)homeTableCellClick:(BKModel *)model {
     @weakify(self)
-    BDController *vc = [[BDController alloc] init];
+    BookDetailController *vc = [[BookDetailController alloc] init];
     vc.model = model;
     vc.complete = ^{
         @strongify(self)
