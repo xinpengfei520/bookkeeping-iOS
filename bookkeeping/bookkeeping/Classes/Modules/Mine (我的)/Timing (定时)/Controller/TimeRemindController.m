@@ -70,13 +70,13 @@
         components.minute = [[time componentsSeparatedByString:@":"][1] integerValue];
         UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
         
-        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"TestRequest" content:content trigger:trigger];
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:time content:content trigger:trigger];
         [center addNotificationRequest:request withCompletionHandler:^(NSError *_Nullable error) {
             NSLog(@"成功添加本地推送通知提醒");
         }];
         
         [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
-            NSLog(@"123");
+            NSLog(@"getPendingNotification: %@", requests);
         }];
     }
 }
@@ -86,7 +86,21 @@
  * @param time 时间戳
  */
 - (void)removeNotification:(NSString *)time {
-    
+    // 获取所有本地通知数组
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        NSLog(@"getPendingNotification: %@", requests);
+        for (UNNotificationRequest *request in requests) {
+            NSString *identifier = request.identifier;
+            // 如果找到需要取消的通知，则取消
+            if ([identifier isEqualToString:time]) {
+                [center removePendingNotificationRequestsWithIdentifiers:@[identifier]];
+                NSLog(@"定时提醒通知取消成功");
+                break;
+            }
+        }
+    }];
 }
 
 - (void)viewDidLoad {

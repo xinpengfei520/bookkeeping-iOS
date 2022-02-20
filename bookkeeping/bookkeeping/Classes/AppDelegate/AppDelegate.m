@@ -30,6 +30,9 @@
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             NSLog(@"completionHandler granted -> %d",granted);
         }];
+        [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+            NSLog(@"getNotificationSettings: %@", settings);
+        }];
     }
     
     return YES;
