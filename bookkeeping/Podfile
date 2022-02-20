@@ -3,7 +3,6 @@ platform :ios, '9.0'
 target ‘bookkeeping’ do
     pod 'pop', '1.0.12'
     pod 'SDWebImage', '4.4.3'
-    pod 'JPush', '3.1.1.1'
     pod 'Masonry', '1.1.0'
     pod 'MJExtension', '3.0.15'
     pod 'AFNetworking', '3.2.1'
@@ -21,14 +20,6 @@ target ‘bookkeeping’ do
     pod 'Bugly'
 end
 
-
 target ‘BookMonth’ do
   pod 'MJExtension', '3.0.15'
-end
-
-
-target ‘BookStart’ do
-  pod 'SDWebImage', '4.4.3'
-  pod 'MJExtension', '3.0.15'
-  pod 'ReactiveObjC', '3.1.0'
 end
