@@ -936,6 +936,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4BF0648721E10A50005F1665 /* Detail (详情) */,
 				324484A421C727810051B8B6 /* Login (登录) */,
 				4BE7844A21C678FB00B8EC46 /* Home (明细) */,
 				4BE7845A21C678FB00B8EC46 /* Chart (图表) */,
@@ -1903,8 +1904,10 @@
 		4BE7845621C678FB00B8EC46 /* Book (记账) */ = {
 			isa = PBXGroup;
 			children = (
-				4BF0648621E10A1E005F1665 /* Book */,
-				4BF0648721E10A50005F1665 /* BD */,
+				32D0B2BA21C772EB0030F5B2 /* BOOK_EVENT.h */,
+				4BE7845721C678FB00B8EC46 /* Controller */,
+				4BE7845821C678FB00B8EC46 /* Model */,
+				4BE7845921C678FB00B8EC46 /* View */,
 			);
 			path = "Book (记账)";
 			sourceTree = "<group>";
@@ -2122,18 +2125,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BF0648621E10A1E005F1665 /* Book */ = {
-			isa = PBXGroup;
-			children = (
-				32D0B2BA21C772EB0030F5B2 /* BOOK_EVENT.h */,
-				4BE7845721C678FB00B8EC46 /* Controller */,
-				4BE7845821C678FB00B8EC46 /* Model */,
-				4BE7845921C678FB00B8EC46 /* View */,
-			);
-			path = Book;
-			sourceTree = "<group>";
-		};
-		4BF0648721E10A50005F1665 /* BD */ = {
+		4BF0648721E10A50005F1665 /* Detail (详情) */ = {
 			isa = PBXGroup;
 			children = (
 				4B68DC3F21E1C90100CBF20C /* BD_EVENT.h */,
@@ -2141,7 +2133,7 @@
 				4BF0648921E10A50005F1665 /* Model */,
 				4BF0648A21E10A50005F1665 /* View */,
 			);
-			path = BD;
+			path = "Detail (详情)";
 			sourceTree = "<group>";
 		};
 		4BF0648821E10A50005F1665 /* Controller */ = {
@@ -2915,6 +2907,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = bookkeeping/bookkeeping.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bookkeeping/KKPrefixHeader.pch";
@@ -2926,6 +2919,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
