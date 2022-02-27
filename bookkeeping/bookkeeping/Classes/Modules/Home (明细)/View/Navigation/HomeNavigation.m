@@ -22,6 +22,7 @@
 
 - (void)initUI {
     [self setBackgroundColor:kColor_Main_Color];
+    //CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     [self.iconConstraintT setConstant:StatusBarHeight];
 }
 
