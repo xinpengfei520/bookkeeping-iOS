@@ -14,6 +14,7 @@
 #import "MineController.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "ACAListModel.h"
+#import "UIViewController+HBD.h"
 
 
 #pragma mark - 声明
@@ -35,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:true];
+    self.hbd_barHidden = YES;
     [self navigation];
     [self header];
     [self list];

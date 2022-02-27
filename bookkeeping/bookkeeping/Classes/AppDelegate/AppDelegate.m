@@ -49,6 +49,8 @@
 // 配置
 - (void)systemConfig {
     [[UITextField appearance] setTintColor:kColor_Main_Color];
+    // 设置导航栏按钮颜色
+    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 }
 
 // 支持所有iOS系统

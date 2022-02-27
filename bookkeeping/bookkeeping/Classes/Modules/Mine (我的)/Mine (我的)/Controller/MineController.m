@@ -11,6 +11,7 @@
 #import "BillController.h"
 #import "MINE_EVENT_MANAGER.h"
 #import "LAContextManager.h"
+#import "UIViewController+HBD.h"
 
 #define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
@@ -29,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:YES];
+    self.hbd_barHidden = YES;
     [self mine];
     [self setupUI];
 }

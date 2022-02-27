@@ -4,6 +4,7 @@
  */
 
 #import "CPAController.h"
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface CPAController()
@@ -26,8 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"修改密码"];
-    [self setJz_navigationBarHidden:false];
-    [self setJz_navigationBarTintColor:kColor_Main_Color];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab1 setTextColor:kColor_Text_Black];
     [self.nameLab2 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];

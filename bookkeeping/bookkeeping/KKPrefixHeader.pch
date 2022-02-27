@@ -80,7 +80,8 @@
 #define StatusBarHeight ((IS_IPHONEX || IS_IPHONEXR) ? 44.f : 20.f)
 #define SafeAreaBottomHeight (IS_IPHONEX || IS_IPHONEXR ? 34 : 0)
 #define TabbarHeight    (49.f + SafeAreaBottomHeight)
-#define NavigationBarHeight (44.f + StatusBarHeight)
+// old: 44.f
+#define NavigationBarHeight (72.f + StatusBarHeight)
 
 
 // 颜色

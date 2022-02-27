@@ -41,7 +41,6 @@
 #import "BaseNavigationController.h"
 #import "BaseTableCell.h"
 #import "ASBaseViewController.h"
-#import "JZNavigationExtension.h"
 
 //================================= Category =================================//
 #import "NSString+Extension.h"
@@ -73,7 +72,6 @@
 #import "UIViewController+Extension.h"
 #import "ZLPhotoActionSheet+Extension.h"
 #import "CALayer+Extension.h"
-#import "BaseNavigationController+Extension.h"
 #import "UIView+SyncedData.h"
 
 

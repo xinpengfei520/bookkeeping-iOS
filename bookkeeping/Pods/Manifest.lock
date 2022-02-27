@@ -28,6 +28,7 @@ PODS:
     - BRPickerView/Base
   - Bugly (2.5.91)
   - GPUImage (0.1.7)
+  - HBDNavigationBar (1.9.5)
   - JGProgressHUD (2.0.3)
   - KMNavigationBarTransition (1.1.5)
   - Masonry (1.1.0)
@@ -88,6 +89,7 @@ DEPENDENCIES:
   - AFNetworking (= 3.2.1)
   - BRPickerView (= 2.7.6)
   - Bugly
+  - HBDNavigationBar (~> 1.9.5)
   - JGProgressHUD (= 2.0.3)
   - KMNavigationBarTransition (= 1.1.5)
   - Masonry (= 1.1.0)
@@ -109,6 +111,7 @@ SPEC REPOS:
     - BRPickerView
     - Bugly
     - GPUImage
+    - HBDNavigationBar
     - JGProgressHUD
     - KMNavigationBarTransition
     - Masonry
@@ -132,6 +135,7 @@ SPEC CHECKSUMS:
   BRPickerView: 2a1620caf218e37a3aca9626732719a419928b15
   Bugly: afe841bba2ea6de6d432a3c125240a5e75949c55
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  HBDNavigationBar: 5e8e93c1dfaf4195c54b6fcf55090cb3ea597e06
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   KMNavigationBarTransition: 7a52c9bc25b39b6e3343e980b453facee1591b82
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -150,6 +154,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLPhotoBrowser: 6dfadc4706429424f0a851fe40752aff076689ab
 
-PODFILE CHECKSUM: fc02df17118110b032bacda258c0db7ce7a53796
+PODFILE CHECKSUM: 3781f6bde57fc18d073ea2cf9add9b3b38e17ff8
 
 COCOAPODS: 1.10.1

@@ -6,7 +6,7 @@
 #import "RE1Controller.h"
 #import "RE2Controller.h"
 #import "LOGIN_NOTIFICATION.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface RE1Controller() {
@@ -42,8 +42,8 @@
         }
         str;
     })];
-    [self setJz_navigationBarHidden:NO];
-    [self setJz_navigationBarTintColor:kColor_Main_Color];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
     [self.view setBackgroundColor:kColor_BG];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];

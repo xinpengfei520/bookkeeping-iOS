@@ -12,7 +12,7 @@
 #import "KKRefreshGifHeader.h"
 #import "BOOK_EVENT.h"
 #import "BKModel.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface BKCController()<UIScrollViewDelegate>
@@ -33,18 +33,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:YES];
-    [self setTitle:@"记账"];
+    self.hbd_barHidden = YES;
     [self navigation];
     [self scroll];
     [self collections];
     [self keyboard];
 //    [self getCategoryListRequest];
-    
-    
-    
     [self bendiData];
-    
     
     if (_model) {
         dispatch_async(dispatch_get_main_queue(), ^{        

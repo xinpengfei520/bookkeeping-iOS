@@ -8,6 +8,7 @@
 #import "BDTable.h"
 #import "BDBottom.h"
 #import "BD_EVENT.h"
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface BookDetailController()
@@ -26,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:true];
+    self.hbd_barHidden = YES;
     [self.rightButton setHidden:YES];
     [self header];
     [self bottom];

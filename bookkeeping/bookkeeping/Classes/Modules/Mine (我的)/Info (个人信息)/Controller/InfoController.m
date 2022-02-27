@@ -9,7 +9,7 @@
 #import "RE1Controller.h"
 #import "INFO_EVENT_MANAGER.h"
 #import "LOGIN_NOTIFICATION.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface InfoController()
@@ -28,8 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"个人信息"];
-    [self setJz_navigationBarTintColor:kColor_Main_Color];
-    [self setJz_navigationBarHidden:NO];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
     [self.view setBackgroundColor:kColor_Line_Color];
     [self table];
     [self setModel:[UserInfo loadUserInfo]];

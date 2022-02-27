@@ -10,7 +10,7 @@
 #import "ACAListModel.h"
 #import "BKCIncomeModel.h"
 #import "ACA_EVENT_MANAGER.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface ACAController()
@@ -31,8 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:_is_income == true ? @"添加收入类别" : @"添加支出类别"];
-    [self setJz_navigationBarHidden:NO];
-    [self setJz_navigationBarTintColor:kColor_Main_Color];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
     [self.rightButton setTitle:@"完成" forState:UIControlStateNormal];
     [self.rightButton setTitle:@"完成" forState:UIControlStateHighlighted];
     [self.rightButton setHidden:NO];

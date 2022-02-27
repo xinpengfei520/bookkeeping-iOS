@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "HBDNavigationController.h"
 #import "BaseView.h"
 
 #pragma mark - enum
@@ -29,16 +30,10 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
 #pragma mark - 初始化
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController setJz_navigationBarTransitionStyle:JZNavigationBarTransitionStyleSystem];
+//    [self.navigationController setJz_navigationBarTransitionStyle:JZNavigationBarTransitionStyleSystem];
     [self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
     [self.view setBackgroundColor:kColor_BG];
     [self initUI];
-    for (id obj in self.navigationController.navigationBar.subviews) {
-        if ([obj isKindOfClass:NSClassFromString(@"_UINavigationBarContentView")]) {
-            UIView *hook = [(BaseNavigationController *)self.navigationController hook_background];
-            [self.navigationController.navigationBar insertSubview:hook belowSubview:obj];
-        }
-    }
 }
 
 - (void)initUI {
@@ -98,10 +93,10 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     self.navigationItem.leftBarButtonItem = barBtn;
     self.leftButton = btn;
 
+    // 主页、图表、记账页面隐藏左边返回按钮
     if ([self isKindOfClass:[HomeController class]] ||
         [self isKindOfClass:[ChartController class]] ||
-        [self isKindOfClass:[BKCController class]] ||
-        [self isKindOfClass:[MineController class]]) {
+        [self isKindOfClass:[BKCController class]]) {
         self.leftButton.hidden = YES;
     } else {
         self.leftButton.hidden = NO;
@@ -128,11 +123,17 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     self.rightButton.hidden = YES;
 }
 
-#pragma mark - 线条
+#pragma mark - NavigationBar线条
+/**
+ * hide
+ */
 - (void)hideNavigationBarLine {
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
+/**
+ * show
+ */
 - (void)showNavigationBarLine {
     [self.navigationController.navigationBar setShadowImage:nil];
 }

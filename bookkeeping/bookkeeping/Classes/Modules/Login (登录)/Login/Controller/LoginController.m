@@ -6,7 +6,7 @@
 #import "LoginController.h"
 #import "RE1Controller.h"
 #import "LOGIN_NOTIFICATION.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface LoginController() {
@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:YES];
+    self.hbd_barHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab1 setTextColor:kColor_Text_Black];

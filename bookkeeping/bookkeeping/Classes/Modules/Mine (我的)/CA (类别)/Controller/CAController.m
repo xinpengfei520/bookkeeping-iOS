@@ -12,7 +12,7 @@
 #import "CategoryCell.h"
 #import "CategoryListModel.h"
 #import "CA_EVENT.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface CAController()
@@ -33,8 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"类别设置"];
-    [self setJz_navigationBarHidden:NO];
-    [self setJz_navigationBarTintColor:kColor_Main_Color];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
     [self header];
     [self table];
     [self bootom];

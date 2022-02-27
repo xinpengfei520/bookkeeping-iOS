@@ -13,7 +13,7 @@
 #import "CHART_EVENT.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "BookDetailController.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface ChartController()
@@ -43,7 +43,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:true];
+    self.hbd_barHidden = YES;
     [self setDate:[NSDate date]];
     [self navigation];
     [self seg];

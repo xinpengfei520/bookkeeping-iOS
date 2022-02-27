@@ -10,7 +10,7 @@
 #import "TITableCell.h"
 #import "CA_EVENT.h"
 #import "TIMING_EVENT.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface TimeRemindController()<UNUserNotificationCenterDelegate>
@@ -106,8 +106,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"定时提醒"];
-    [self setJz_navigationBarHidden:NO];
-    [self setJz_navigationBarTintColor:kColor_Main_Color];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
     [self table];
     [self bottom];
     [self.view bringSubviewToFront:self.bottom];
