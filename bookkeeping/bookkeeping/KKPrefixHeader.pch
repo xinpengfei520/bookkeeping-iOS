@@ -6,12 +6,8 @@
 #ifndef KKPrefixHeader_pch
 #define KKPrefixHeader_pch
 
-// 友盟分享
-#define kUMengAppKey @"5c1dfcc9b465f5828200050f"
-
 // 外部间距
 #define OUT_PADDING countcoordinatesX(15)
-
 
 // 单色
 #define kColor_White               HexColor(@"#FFFFFF")     // 白色
@@ -39,7 +35,7 @@
 
 // 线条
 #define kColor_Line_Night          HexColor(@"27262A")       // Cell 线条
-#define kColor_Main_Color          RGBA(255,217,68,1)
+#define kColor_Main_Color          RGBA(30,177,138,1)
 #define kColor_Main_Dark_Color     RGBA(241,206,65,1)
 #define kColor_Red_Color           HexColor(@"FF4500")
 #define kColor_Red_Dark_Color      HexColor(@"f24302")
