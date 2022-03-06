@@ -11,7 +11,7 @@
 
 // 取值
 + (id)objectForKey:(NSString *)key {
-    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.book.widget"];
+    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     id obj = [sharedData objectForKey:key];
     obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
     return obj;
@@ -20,7 +20,7 @@
 // 存值
 + (void)setObject:(id)obj forKey:(NSString *)key {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.book.widget"];
+    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData setObject:data forKey:key];
     [sharedData synchronize];
 }

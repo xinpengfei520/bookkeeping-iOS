@@ -38,7 +38,7 @@
 
 // 清除登录信息
 + (void)clearUserInfo {
-    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.book.widget"];
+    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData removeObjectForKey:kUser];
     
 //    [[PINCacheManager sharedManager] removeObjectForKey:kUser];

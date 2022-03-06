@@ -761,6 +761,8 @@
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
+		F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bookkeepingRelease.entitlements; sourceTree = "<group>"; };
+		F375540E27D3CB8B00C22EB3 /* BookMonthRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonthRelease.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -816,6 +818,7 @@
 		3219837321C642BB00311885 /* bookkeeping */ = {
 			isa = PBXGroup;
 			children = (
+				F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */,
 				32BFA7F821E4847E00B926F3 /* bookkeeping.entitlements */,
 				3219838A21C642F400311885 /* KKPrefixHeader.pch */,
 				3219839521C6446300311885 /* Common.h */,
@@ -1273,6 +1276,7 @@
 		32BFA7E921E483F300B926F3 /* BookMonth */ = {
 			isa = PBXGroup;
 			children = (
+				F375540E27D3CB8B00C22EB3 /* BookMonthRelease.entitlements */,
 				4BFD382121E4D98300BAB0BB /* BookMonth.entitlements */,
 				4BFD380C21E4C3E800BAB0BB /* KKPrefixHeader.pch */,
 				4B38C07C21E4E5D400D28B34 /* PINCache_Header.h */,
@@ -2850,7 +2854,7 @@
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
-				CODE_SIGN_ENTITLEMENTS = bookkeeping/bookkeeping.entitlements;
+				CODE_SIGN_ENTITLEMENTS = bookkeeping/bookkeepingRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XZWU3TZ389;
@@ -2896,7 +2900,7 @@
 			baseConfigurationReference = 2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_ENTITLEMENTS = BookMonth/BookMonth.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BookMonth/BookMonthRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BookMonth/KKPrefixHeader.pch";

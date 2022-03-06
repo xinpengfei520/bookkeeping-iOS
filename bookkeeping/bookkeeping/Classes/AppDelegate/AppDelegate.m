@@ -68,6 +68,8 @@
                 [current.navigationController pushViewController:vc animated:true];
             } else {
                 BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+                // Modal Presentation Styles（弹出风格）
+                nav.modalPresentationStyle = UIModalPresentationCurrentContext;
                 [tab presentViewController:nav animated:true completion:^{
                     
                 }];

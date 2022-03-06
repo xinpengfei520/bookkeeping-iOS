@@ -33,12 +33,14 @@
     [self.monthLab setTextColor:kColor_Text_Black];
     [self.monthDescLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.monthDescLab setTextColor:kColor_Text_Black];
+    
     [self.descLab1 setFont:[UIFont systemFontOfSize:AdjustFont(8) weight:UIFontWeightLight]];
     [self.descLab1 setTextColor:kColor_Text_Black];
     [self.descLab2 setFont:[UIFont systemFontOfSize:AdjustFont(8) weight:UIFontWeightLight]];
     [self.descLab2 setTextColor:kColor_Text_Black];
     [self.descLab3 setFont:[UIFont systemFontOfSize:AdjustFont(8) weight:UIFontWeightLight]];
     [self.descLab3 setTextColor:kColor_Text_Black];
+    
     [self.bookBtn setTitle:@"记一笔" forState:UIControlStateNormal];
     [self.bookBtn.layer setCornerRadius:3];
     [self.bookBtn.layer setMasksToBounds:true];
@@ -47,6 +49,7 @@
     [self.bookBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
     [self.bookBtn setBackgroundImage:[UIColor createImageWithColor:kColor_Main_Dark_Color] forState:UIControlStateHighlighted];
     [self.bookBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
+    
     [self.icon setBackgroundColor:kColor_Text_Gary];
     
     [self.valueLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
@@ -56,13 +59,11 @@
     [self.valueLab3 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.valueLab3 setTextColor:kColor_Text_Black];
     
-    
     // 月份
     NSDate *date = [NSDate date];
     NSString *month = [@(date.month) description];
     [_monthLab setText:month];
     [_monthConstraintW setConstant:[month sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:_monthLab.font].width];
-    
     
     // 数据
     NSMutableArray<BKMonthModel *> *monthModels = [BKMonthModel statisticalMonthWithYear:date.year month:date.month];
@@ -85,7 +86,6 @@
     [_valueLab1 setText:[NSString stringWithFormat:@"%.2f", incomePrice]];
     [_valueLab2 setText:[NSString stringWithFormat:@"%.2f", payPrice]];
     [_valueLab3 setText:[NSString stringWithFormat:@"%.2f", incomePrice - payPrice]];
-    
     
 }
 

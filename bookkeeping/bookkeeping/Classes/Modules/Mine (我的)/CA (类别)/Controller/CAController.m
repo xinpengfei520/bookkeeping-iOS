@@ -234,7 +234,8 @@
 #pragma mark - get
 - (CAHeader *)header {
     if (!_header) {
-        _header = [CAHeader loadFirstNib:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(50))];
+        // old: NavigationBarHeight
+        _header = [CAHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(50))];
         [self.view addSubview:_header];
     }
     return _header;
