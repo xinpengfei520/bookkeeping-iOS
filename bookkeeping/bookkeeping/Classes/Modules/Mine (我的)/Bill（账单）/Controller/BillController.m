@@ -44,7 +44,6 @@
     [self.rightButton setFrame:CGRectMake(0, 0, [self.rightButton viewWithTag:10].width + 15, 44)];
     [self.rightButton addSubview:({
         CGFloat width = 15;
-        
         UIImageView *image = [[UIImageView alloc] init];
         image.frame = CGRectMake(self.rightButton.width - width, 0, width, self.rightButton.height);
         image.image = [UIImage imageNamed:@"time_down"];
@@ -152,10 +151,11 @@
 }
 
 
-#pragma mark - get
+#pragma mark - get BillTable View
 - (BillTable *)table {
     if (!_table) {
-        _table = [[BillTable alloc] initWithFrame:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight) style:UITableViewStyleGrouped];
+        // x = 0, y= 0, width = SCREEN_WIDTH, height = SCREEN_HEIGHT - NavigationBarHeight
+        _table = [[BillTable alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight) style:UITableViewStyleGrouped];
         [_table setBackgroundView:({
             UIView *back = [[UIView alloc] initWithFrame:self.table.bounds];
             [back setBackgroundColor:kColor_BG];
