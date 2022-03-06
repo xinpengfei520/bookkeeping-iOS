@@ -6,7 +6,6 @@
 #import "InfoController.h"
 #import "InfoTableView.h"
 #import "CPAController.h"
-#import "RE1Controller.h"
 #import "INFO_EVENT_MANAGER.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "UIViewController+HBD.h"
@@ -202,17 +201,7 @@
         else if (indexPath.row == 4) {
             UserModel *model = [UserInfo loadUserInfo];
             if (!model.account) {
-                RE1Controller *vc = [[RE1Controller alloc] init];
-                vc.index = 2;
-                vc.openid = model.openid;
-                vc.complete = ^{
-                    [self.navigationController popToViewController:self animated:true];
-                    UserModel *model = [UserInfo loadUserInfo];
-                    [model setAccount:[UserInfo loadUserInfo].account];
-                    [UserInfo saveUserModel:model];
-                    [self setModel:model];
-                };
-                [self.navigationController pushViewController:vc animated:true];
+                
             }
         }
         // 绑定QQ

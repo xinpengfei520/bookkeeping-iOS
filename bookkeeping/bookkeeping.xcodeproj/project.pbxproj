@@ -167,8 +167,6 @@
 		4B9798F821CE69DB0020B207 /* RE2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798F621CE69DB0020B207 /* RE2Controller.m */; };
 		4B9798F921CE69DB0020B207 /* RE2Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B9798F721CE69DB0020B207 /* RE2Controller.xib */; };
 		4B9798FD21CE744A0020B207 /* CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798FC21CE744A0020B207 /* CountDown.m */; };
-		4B97990121CE784F0020B207 /* RE3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798FF21CE784F0020B207 /* RE3Controller.m */; };
-		4B97990221CE784F0020B207 /* RE3Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B97990021CE784F0020B207 /* RE3Controller.xib */; };
 		4BA68AC421C7E5690063A5C2 /* 1_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BA68AC221C7E5690063A5C2 /* 1_s@3x.png */; };
 		4BA68AC521C7E5690063A5C2 /* 1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BA68AC321C7E5690063A5C2 /* 1@3x.png */; };
 		4BA68AE021C7EAAA0063A5C2 /* CAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA68ADF21C7EAAA0063A5C2 /* CAController.m */; };
@@ -186,8 +184,6 @@
 		4BA68B0621C7F6FB0063A5C2 /* ACACollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BA68B0421C7F6FB0063A5C2 /* ACACollectionCell.xib */; };
 		4BA68B0A21C7F75B0063A5C2 /* ACAReusableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA68B0821C7F75B0063A5C2 /* ACAReusableHeader.m */; };
 		4BA68B0B21C7F75B0063A5C2 /* ACAReusableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BA68B0921C7F75B0063A5C2 /* ACAReusableHeader.xib */; };
-		4BAF977121CE6365006EEF93 /* RE1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAF976F21CE6365006EEF93 /* RE1Controller.m */; };
-		4BAF977221CE6365006EEF93 /* RE1Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BAF977021CE6365006EEF93 /* RE1Controller.xib */; };
 		4BC41CFE21CF930600B397BD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC41CFC21CF930600B397BD /* LoginController.m */; };
 		4BC41CFF21CF930600B397BD /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC41CFD21CF930600B397BD /* LoginController.xib */; };
 		4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */; };
@@ -602,9 +598,6 @@
 		4B9798F721CE69DB0020B207 /* RE2Controller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RE2Controller.xib; sourceTree = "<group>"; };
 		4B9798FB21CE744A0020B207 /* CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDown.h; sourceTree = "<group>"; };
 		4B9798FC21CE744A0020B207 /* CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDown.m; sourceTree = "<group>"; };
-		4B9798FE21CE784F0020B207 /* RE3Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RE3Controller.h; sourceTree = "<group>"; };
-		4B9798FF21CE784F0020B207 /* RE3Controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RE3Controller.m; sourceTree = "<group>"; };
-		4B97990021CE784F0020B207 /* RE3Controller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RE3Controller.xib; sourceTree = "<group>"; };
 		4BA68AC221C7E5690063A5C2 /* 1_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1_s@3x.png"; sourceTree = "<group>"; };
 		4BA68AC321C7E5690063A5C2 /* 1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1@3x.png"; sourceTree = "<group>"; };
 		4BA68ADE21C7EAAA0063A5C2 /* CAController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAController.h; sourceTree = "<group>"; };
@@ -633,9 +626,6 @@
 		4BA68B0721C7F75B0063A5C2 /* ACAReusableHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACAReusableHeader.h; sourceTree = "<group>"; };
 		4BA68B0821C7F75B0063A5C2 /* ACAReusableHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACAReusableHeader.m; sourceTree = "<group>"; };
 		4BA68B0921C7F75B0063A5C2 /* ACAReusableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ACAReusableHeader.xib; sourceTree = "<group>"; };
-		4BAF976E21CE6365006EEF93 /* RE1Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RE1Controller.h; sourceTree = "<group>"; };
-		4BAF976F21CE6365006EEF93 /* RE1Controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RE1Controller.m; sourceTree = "<group>"; };
-		4BAF977021CE6365006EEF93 /* RE1Controller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RE1Controller.xib; sourceTree = "<group>"; };
 		4BC41CFB21CF930600B397BD /* LoginController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		4BC41CFC21CF930600B397BD /* LoginController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		4BC41CFD21CF930600B397BD /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
@@ -1737,15 +1727,9 @@
 		4BAF976821CE6182006EEF93 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4BAF976E21CE6365006EEF93 /* RE1Controller.h */,
-				4BAF976F21CE6365006EEF93 /* RE1Controller.m */,
-				4BAF977021CE6365006EEF93 /* RE1Controller.xib */,
 				4B9798F521CE69DB0020B207 /* RE2Controller.h */,
 				4B9798F621CE69DB0020B207 /* RE2Controller.m */,
 				4B9798F721CE69DB0020B207 /* RE2Controller.xib */,
-				4B9798FE21CE784F0020B207 /* RE3Controller.h */,
-				4B9798FF21CE784F0020B207 /* RE3Controller.m */,
-				4B97990021CE784F0020B207 /* RE3Controller.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2358,7 +2342,6 @@
 				4BEB730C21CE033300BEF013 /* dropdown_anim__00054@2x.png in Resources */,
 				4BA68B0621C7F6FB0063A5C2 /* ACACollectionCell.xib in Resources */,
 				4BEB72DE21CE033300BEF013 /* dropdown_loading_02@2x.png in Resources */,
-				4B97990221CE784F0020B207 /* RE3Controller.xib in Resources */,
 				4BEB731321CE033300BEF013 /* dropdown_anim__00050@2x.png in Resources */,
 				4BEB72E321CE033300BEF013 /* dropdown_anim__00034@2x.png in Resources */,
 				4B132AAA21C68F4300D5B489 /* BKCCollectionCell.xib in Resources */,
@@ -2398,7 +2381,6 @@
 				4BEB72F421CE033300BEF013 /* dropdown_anim__0003@2x.png in Resources */,
 				4BEB730B21CE033300BEF013 /* dropdown_anim__00025@2x.png in Resources */,
 				32D0B2C721C77B240030F5B2 /* ChartSegmentControl.xib in Resources */,
-				4BAF977221CE6365006EEF93 /* RE1Controller.xib in Resources */,
 				4BEB733421CE3FC800BEF013 /* InfoFooter.xib in Resources */,
 				32FA228E21D62AEC0000BC0E /* HomeListEmpty.xib in Resources */,
 				4B4852FA21C6938D00891096 /* cc_entertainmente_climbing@3x.png in Resources */,
@@ -2509,7 +2491,6 @@
 				4B48530121C6984400891096 /* MineTableCell.m in Sources */,
 				327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */,
 				32E2A27921EDBBF0009AD84C /* UIView+SyncedData.m in Sources */,
-				4B97990121CE784F0020B207 /* RE3Controller.m in Sources */,
 				4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */,
 				4B7560B321D1224A00E63744 /* BaseViewController+Extension.m in Sources */,
 				327CEC1D21C88A04001D0086 /* HomeListHeader.m in Sources */,
@@ -2546,7 +2527,6 @@
 				3219840D21C6460100311885 /* CALayer+Extension.m in Sources */,
 				321983BA21C6459B00311885 /* BaseView.m in Sources */,
 				3219840521C6460100311885 /* UICollectionView+Extension.m in Sources */,
-				4BAF977121CE6365006EEF93 /* RE1Controller.m in Sources */,
 				4BA68AF721C7F1D10063A5C2 /* ACAController.m in Sources */,
 				3219841521C6474600311885 /* UserModel.m in Sources */,
 				4B1917CE21CD45C900137215 /* UIViewController+JGProgressHUD.m in Sources */,

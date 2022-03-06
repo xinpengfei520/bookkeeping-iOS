@@ -4,7 +4,6 @@
  */
 
 #import "RE2Controller.h"
-#import "RE3Controller.h"
 #import "UIViewController+HBD.h"
 
 #pragma mark - 声明
@@ -116,11 +115,7 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == ServiceCodeSuccess) {
-            RE3Controller *vc = [[RE3Controller alloc] init];
-            vc.index = self.index;
-            vc.phone = [self.phone stringByReplacingOccurrencesOfString:@"-" withString:@""];
-            vc.openid = self.openid;
-            [self.navigationController pushViewController:vc animated:YES];
+            
         } else {
             [self showTextHUD:result.message delay:1.f];
         }
