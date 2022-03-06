@@ -49,9 +49,6 @@
         if (_model.account) {
             return self.arr.count;
         }
-        else if (_model.openid) {
-            return 1;
-        }
     }
     return 0;
 }
@@ -87,13 +84,6 @@
             else {
                 return [self footerv];
             }
-        } else if (_model.openid) {
-            if (section == 0) {
-                return [self footerv];
-            }
-            else {
-                return [UIView new];
-            }
         }
     }
     return [UIView new];
@@ -107,13 +97,6 @@
             }
             else {
                 return countcoordinatesX(60);
-            }
-        } else if (_model.openid) {
-            if (section == 0) {
-                return countcoordinatesX(60);
-            }
-            else {
-                return countcoordinatesX(10);
             }
         }
     }

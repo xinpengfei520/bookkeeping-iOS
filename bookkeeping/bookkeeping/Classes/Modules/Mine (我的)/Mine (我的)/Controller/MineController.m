@@ -51,8 +51,8 @@
 // 获取个人信息
 - (void)getInfoRequest {
     UserModel *model = [UserInfo loadUserInfo];
-    NSString *key = model.openid ? @"openid" : @"account";
-    NSString *value = model.openid ? model.openid : model.account;
+    NSString *key = @"account";
+    NSString *value = model.account;
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:value, key, nil];
     @weakify(self)
     [self.afn_request setAfn_useCache:false];

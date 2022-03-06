@@ -115,17 +115,6 @@
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Red_Color];
             }
-        } else if (_indexPath.row == 5) {
-            if (model.openid) {
-                [self setDetail:model.openid];
-                [self setStatus:InfoTableCellStatusName];
-                [self.detailLab setTextColor:kColor_Text_Gary];
-            }
-            else {
-                [self setDetail:@"未绑定"];
-                [self setStatus:InfoTableCellStatusNext];
-                [self.detailLab setTextColor:kColor_Red_Color];
-            }
         }
     }
 }
