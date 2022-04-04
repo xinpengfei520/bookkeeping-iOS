@@ -196,7 +196,8 @@
 #pragma mark - get
 - (TITableView *)table {
     if (!_table) {
-        _table = [TITableView initWithFrame:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight - self.bottom.height)];
+        // old: y=NavigationBarHeight
+        _table = [TITableView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight - self.bottom.height)];
         [self.view addSubview:_table];
     }
     return _table;
@@ -204,14 +205,17 @@
 
 - (BottomButton *)bottom {
     if (!_bottom) {
+        NSLog(@"SCREEN_HEIGHT:%f,SCREEN_WIDTH:%f,SafeAreaBottomHeight:%f",SCREEN_HEIGHT,SCREEN_WIDTH,SafeAreaBottomHeight);
         _bottom = [BottomButton initWithFrame:({
             CGFloat height = countcoordinatesX(50) + SafeAreaBottomHeight;
-            CGFloat top = SCREEN_HEIGHT - height;
+            // old: top = SCREEN_HEIGHT - height
+            CGFloat top = SCREEN_HEIGHT - height - NavigationBarHeight;
             CGRectMake(0, top, SCREEN_WIDTH, height);
         })];
         [_bottom setName:@"添加提醒"];
         [self.view addSubview:_bottom];
     }
+    _bottom.layer.shadowPath = [UIBezierPath bezierPathWithRect:_bottom.bounds].CGPath;
     return _bottom;
 }
 

@@ -59,11 +59,20 @@
 #define iOS10Later ([UIDevice currentDevice].systemVersion.floatValue >= 10.0f)
 #define iOS11Later ([UIDevice currentDevice].systemVersion.floatValue >= 11.0f)
 #define iOS12Later ([UIDevice currentDevice].systemVersion.floatValue >= 12.0f)
+#define iOS13Later ([UIDevice currentDevice].systemVersion.floatValue >= 13.0f)
+#define iOS14Later ([UIDevice currentDevice].systemVersion.floatValue >= 14.0f)
+#define iOS15Later ([UIDevice currentDevice].systemVersion.floatValue >= 15.0f)
+#define iOS16Later ([UIDevice currentDevice].systemVersion.floatValue >= 16.0f)
+
 #define iOS7 (iOS7Later) && !(iOS8Later)
 #define iOS8 (iOS8Later) && !(iOS9Later)
 #define iOS9 (iOS9Later) && !(iOS10Later)
 #define iOS10 (iOS10Later) && !(iOS11Later)
 #define iOS11 (iOS11Later) && !(iOS12Later)
+#define iOS12 (iOS12Later) && !(iOS13Later)
+#define iOS13 (iOS13Later) && !(iOS14Later)
+#define iOS14 (iOS14Later) && !(iOS15Later)
+#define iOS15 (iOS14Later) && !(iOS16Later)
 
 
 // 手机型号
@@ -78,7 +87,9 @@
 
 // 尺寸
 #define StatusBarHeight ((IS_IPHONEX || IS_IPHONEXR) ? 44.f : 20.f)
-#define SafeAreaBottomHeight (IS_IPHONEX || IS_IPHONEXR ? 34 : 0)
+//#define SafeAreaBottomHeight (IS_IPHONEX || IS_IPHONEXR ? 34 : 0)
+// 底部的安全距离
+#define SafeAreaBottomHeight [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom
 #define TabbarHeight    (49.f + SafeAreaBottomHeight)
 // old: 44.f
 #define NavigationBarHeight (72.f + StatusBarHeight)
