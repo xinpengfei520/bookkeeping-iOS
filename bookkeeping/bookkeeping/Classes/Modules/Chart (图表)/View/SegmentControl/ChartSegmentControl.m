@@ -26,18 +26,18 @@
                         forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.seg setBackgroundImage:[UIColor createImageWithColor:kColor_Main_Dark_Color size:CGSizeMake(1, height)]
                         forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [self.seg setBackgroundImage:[UIColor createImageWithColor:kColor_Text_Black size:CGSizeMake(1, height)]
+    [self.seg setBackgroundImage:[UIColor createImageWithColor:kColor_Text_White size:CGSizeMake(1, height)]
                         forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     
-    NSDictionary *dic1 = @{NSForegroundColorAttributeName: kColor_Text_Black};
+    NSDictionary *dic1 = @{NSForegroundColorAttributeName: kColor_Text_White};
     [self.seg setTitleTextAttributes:dic1 forState:UIControlStateNormal];
     NSDictionary *dic2 = @{NSForegroundColorAttributeName: kColor_Main_Color};
     [self.seg setTitleTextAttributes:dic2 forState:UIControlStateSelected];
     [self.seg.layer setCornerRadius:4];
     [self.seg.layer setMasksToBounds:YES];
     [self.seg.layer setBorderWidth:1];
-    [self.seg.layer setBorderColor:kColor_Text_Black.CGColor];
-    [self.seg setTintColor:kColor_Text_Black];
+    [self.seg.layer setBorderColor:kColor_Text_White.CGColor];
+    [self.seg setTintColor:kColor_Text_White];
     
     [self.segConstraintL setConstant:countcoordinatesX(10)];
 }

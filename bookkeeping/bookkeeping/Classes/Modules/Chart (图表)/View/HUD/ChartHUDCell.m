@@ -8,7 +8,6 @@
 #pragma mark - 声明
 @interface ChartHUDCell()
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 @property (weak, nonatomic) IBOutlet UIImageView *done;
 
@@ -31,18 +30,16 @@
 - (void)setIndexPath:(NSIndexPath *)indexPath {
     _indexPath = indexPath;
     if (indexPath.row == 0) {
-        [self.icon setImage:[UIImage imageNamed:@"tally_select_expenditure"]];
         [self.nameLab setText:@"支出"];
     } else {
-        [self.icon setImage:[UIImage imageNamed:@"tally_select_income"]];
         [self.nameLab setText:@"收入"];
     }
 }
+
 - (void)setChoose:(BOOL)choose {
     _choose = choose;
     _done.hidden = !choose;
 }
-
 
 
 @end

@@ -164,7 +164,6 @@
         [self.models replaceObjectAtIndex:index withObject:model];
         [self.table reloadData];
         
-        
         if (self.complete) {
             self.complete();
         }
@@ -240,18 +239,20 @@
     }
     return _header;
 }
+
 - (CategoryTable *)table {
     if (!_table) {
-        _table = [CategoryTable initWithFrame:CGRectMake(0, _header.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - self.header.bottom - self.bootom.height)];
+        _table = [CategoryTable initWithFrame:CGRectMake(0, _header.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - self.header.bottom - self.bootom.height - NavigationBarHeight)];
         [self.view addSubview:_table];
     }
     return _table;
 }
+
 - (BottomButton *)bootom {
     if (!_bootom) {
         _bootom = [BottomButton initWithFrame:({
             CGFloat height = countcoordinatesX(50) + SafeAreaBottomHeight;
-            CGFloat top = SCREEN_HEIGHT - height;
+            CGFloat top = SCREEN_HEIGHT - height - NavigationBarHeight;
             CGRectMake(0, top, SCREEN_WIDTH, height);
         })];
         [_bootom setName:@"添加类别"];

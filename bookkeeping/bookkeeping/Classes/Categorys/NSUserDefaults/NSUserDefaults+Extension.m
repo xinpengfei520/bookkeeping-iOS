@@ -259,11 +259,14 @@
     BOOL isFirst = [NSUserDefaults objectForKey:PIN_FIRST_RUN];
     // 第一次运行
     if (!isFirst) {
-        // 分类
+        // 分类：从 SC.plist 文件中读取默认的分类数据
         NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
         NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];
+        // 支出分类
         NSMutableArray *pay = [NSMutableArray arrayWithArray:systemCateDic[@"pay"]];
+        // 收入分类
         NSMutableArray *income = [NSMutableArray arrayWithArray:systemCateDic[@"income"]];
+        
         pay = [BKCModel mj_objectArrayWithKeyValuesArray:pay];
         income = [BKCModel mj_objectArrayWithKeyValuesArray:income];
         
@@ -285,7 +288,7 @@
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
         
-        // 添加类别
+        // 添加类别 从 ACA.plist 文件中读取默认的分类数据
         NSString *acaPath = [[NSBundle mainBundle] pathForResource:@"ACA" ofType:@"plist"];
         NSMutableArray *acaArr = [NSMutableArray arrayWithContentsOfFile:acaPath];
         acaArr = [ACAListModel mj_objectArrayWithKeyValuesArray:acaArr];

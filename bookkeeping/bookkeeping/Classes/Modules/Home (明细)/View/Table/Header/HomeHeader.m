@@ -31,24 +31,28 @@
 
 - (void)initUI {
     [self setBackgroundColor:kColor_Main_Color];
-    [self.yearLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.yearLab setTextColor:kColor_Text_Black];
-    [self.monthLab setFont:[UIFont systemFontOfSize:AdjustFont(16) weight:UIFontWeightLight]];
-    [self.monthLab setTextColor:kColor_Text_Black];
-    [self.payDescLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.payDescLab setTextColor:kColor_Text_Black];
-    [self.incomeDescLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.incomeDescLab setTextColor:kColor_Text_Black];
-    [self.monthDescLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.monthDescLab setTextColor:kColor_Text_Black];
-    [self.line setBackgroundColor:kColor_Text_Gary];
+    [self.yearLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
+    [self.yearLab setTextColor:kColor_Text_White];
+    [self.monthLab setFont:[UIFont systemFontOfSize:AdjustFont(20) weight:UIFontWeightLight]];
+    [self.monthLab setTextColor:kColor_Text_White];
+    
+    [self.payDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
+    [self.payDescLab setTextColor:kColor_Text_White];
+    [self.incomeDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
+    [self.incomeDescLab setTextColor:kColor_Text_White];
+    [self.monthDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
+    [self.monthDescLab setTextColor:kColor_Text_White];
+    
+    [self.line setBackgroundColor:kColor_Text_White];
     [self.lineConstraintL setConstant:SCREEN_WIDTH / 4];
-    [self.incomeLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.incomeLab setTextColor:kColor_Text_Black];
-    [self.payLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.payLab setTextColor:kColor_Text_Black];
-    [self.payLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(14)] decimal:[UIFont systemFontOfSize:AdjustFont(12)]]];
-    [self.incomeLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(14)] decimal:[UIFont systemFontOfSize:AdjustFont(12)]]];
+    
+//    [self.incomeLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
+//    [self.incomeLab setTextColor:kColor_Text_White];
+//    [self.payLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
+//    [self.payLab setTextColor:kColor_Text_White];
+    
+    [self.payLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(20)] decimal:[UIFont systemFontOfSize:AdjustFont(10)] color:kColor_Text_White]];
+    [self.incomeLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(20)] decimal:[UIFont systemFontOfSize:AdjustFont(10)] color:kColor_Text_White]];
     [self.monthView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self routerEventWithName:HOME_MONTH_CLICK data:nil];
     }];
@@ -61,14 +65,18 @@
     _yearLab.text = [@(date.year) description];
     _monthLab.text = [@(date.month) description];
 }
+
 - (void)setModels:(NSMutableArray<BKMonthModel *> *)models {
     _models = models;
-    UIFont *integer = [UIFont systemFontOfSize:AdjustFont(14)];
-    UIFont *decimal = [UIFont systemFontOfSize:AdjustFont(12)];
+    
+    UIFont *integer = [UIFont systemFontOfSize:AdjustFont(20)];
+    UIFont *decimal = [UIFont systemFontOfSize:AdjustFont(10)];
+
     NSString *pay = [NSString stringWithFormat:@"%.2f", [[models valueForKeyPath:@"@sum.pay.floatValue"] floatValue]];
     NSString *income = [NSString stringWithFormat:@"%.2f", [[models valueForKeyPath:@"@sum.income.floatValue"] floatValue]];
-    [_payLab setAttributedText:[NSAttributedString createMath:pay integer:integer decimal:decimal]];
-    [_incomeLab setAttributedText:[NSAttributedString createMath:income integer:integer decimal:decimal]];
+
+    [_payLab setAttributedText:[NSAttributedString createMath:pay integer:integer decimal:decimal color:kColor_Text_White]];
+    [_incomeLab setAttributedText:[NSAttributedString createMath:income integer:integer decimal:decimal color:kColor_Text_White]];
 }
 
 //- (void)setModel:(BKModel *)model {

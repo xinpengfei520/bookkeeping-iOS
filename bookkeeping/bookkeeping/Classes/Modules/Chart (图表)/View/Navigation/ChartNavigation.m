@@ -24,7 +24,8 @@
 - (void)initUI {
     [self setBackgroundColor:kColor_Main_Color];
     [self.titleLab setFont:[UIFont systemFontOfSize:AdjustFont(16)]];
-    [self.titleLab setTextColor:kColor_Text_Black];
+    [self.titleLab setTextColor:kColor_Text_White];
+    [self.nameLab setTextColor:kColor_Text_White];
 }
 
 

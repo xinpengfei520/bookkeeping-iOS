@@ -85,7 +85,6 @@
         
         [cateCusHasPaySyncedArr addObject:model];
         [NSUserDefaults setObject:cateCusHasPaySyncedArr forKey:PIN_CATE_CUS_HAS_PAY_SYNCED];
-        
     }
     // 收入
     else {
@@ -96,7 +95,6 @@
         [NSUserDefaults setObject:cateCusHasIncomeSyncedArr forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
     }
     
-    
     [self showTextHUD:@"添加中..." delay:1.f];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self hideHUD];
@@ -105,7 +103,6 @@
         }
         [self.navigationController popViewControllerAnimated:true];
     });
-    
 }
 
 
@@ -113,12 +110,14 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 点击item
 - (void)itemClick:(ACAModel *)model {
     _selectModel = model;
@@ -135,6 +134,7 @@
         [self setModels:[ACAListModel mj_objectArrayWithKeyValuesArray:result.data]];
     }];
 }
+
 // 添加自定义类别
 - (void)addCategoryRequest {
     if (_textField.textField.text.length == 0) {
@@ -177,18 +177,22 @@
 #pragma mark - get
 - (ACATextField *)textField {
     if (!_textField) {
-        _textField = [ACATextField loadFirstNib:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(60))];
+        _textField = [ACATextField loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(60))];
         [self.view addSubview:_textField];
     }
     return _textField;
 }
+
 - (ACACollection *)collection {
     if (!_collection) {
-        _collection = [ACACollection initWithFrame:CGRectMake(0, _textField.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - _textField.bottom)];
+        NSLog(@"SCREEN_HEIGHT:%f,SCREEN_WIDTH:%f,SafeAreaBottomHeight:%f",SCREEN_HEIGHT,SCREEN_WIDTH,SafeAreaBottomHeight);
+        NSLog(@"bottom:%f,top:%f,left:%f,right:%f",_textField.bottom,_textField.top,_textField.left,_textField.right);
+        _collection = [ACACollection initWithFrame:CGRectMake(0, _textField.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - _textField.bottom - SafeAreaBottomHeight - NavigationBarHeight)];
         [self.view addSubview:_collection];
     }
     return _collection;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
