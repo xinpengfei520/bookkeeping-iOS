@@ -36,13 +36,14 @@
     [self.rightButton setTitle:@"完成" forState:UIControlStateNormal];
     [self.rightButton setTitle:@"完成" forState:UIControlStateHighlighted];
     [self.rightButton setHidden:NO];
+    [self.rightButton setTitleColor:kColor_Text_White forState:UIControlStateNormal];
+    [self.rightButton setTitleColor:kColor_Text_Gary forState:UIControlStateHighlighted];
     [self textField];
     [self collection];
 //    [self getCategoryListRequest];
 
     NSMutableArray<ACAListModel *> *arrm = [NSUserDefaults objectForKey:PIN_ACA_CATE];
     [self setModels:arrm];
-    
 }
 
 - (void)rightButtonClick {

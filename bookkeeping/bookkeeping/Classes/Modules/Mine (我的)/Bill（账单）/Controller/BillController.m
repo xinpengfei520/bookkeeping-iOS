@@ -36,14 +36,14 @@
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 44)];
         lab.text = year;
         lab.font = font;
-        lab.textColor = kColor_Text_Black;
+        lab.textColor = kColor_Text_White;
         lab.textAlignment = NSTextAlignmentRight;
         lab.tag = 10;
         lab;
     })];
-    [self.rightButton setFrame:CGRectMake(0, 0, [self.rightButton viewWithTag:10].width + 15, 44)];
+    [self.rightButton setFrame:CGRectMake(0, 0, [self.rightButton viewWithTag:10].width + 10, 44)];
     [self.rightButton addSubview:({
-        CGFloat width = 15;
+        CGFloat width = 10;
         UIImageView *image = [[UIImageView alloc] init];
         image.frame = CGRectMake(self.rightButton.width - width, 0, width, self.rightButton.height);
         image.image = [UIImage imageNamed:@"time_down"];
