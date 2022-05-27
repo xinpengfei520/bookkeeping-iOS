@@ -14,9 +14,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_down" translatesAutoresizingMaskIntoConstraints="NO" id="JEL-2G-tpD">
-                    <rect key="frame" x="215" y="-14" width="15" height="100"/>
+                    <rect key="frame" x="215" y="-28" width="10" height="128"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="15" id="jeD-0j-bGd"/>
+                        <constraint firstAttribute="width" constant="10" id="jeD-0j-bGd"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2U-eq-6bW">
@@ -29,7 +29,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfQ-al-wNH">
-                    <rect key="frame" x="157" y="0.0" width="93" height="58"/>
+                    <rect key="frame" x="157" y="0.0" width="88" height="58"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpk-Xb-u7I">
                     <rect key="frame" x="175" y="14" width="39.5" height="44"/>
@@ -81,6 +81,6 @@
     </objects>
     <resources>
         <image name="nav_back_n" width="23" height="23"/>
-        <image name="time_down" width="100" height="100"/>
+        <image name="time_down" width="128" height="128"/>
     </resources>
 </document>

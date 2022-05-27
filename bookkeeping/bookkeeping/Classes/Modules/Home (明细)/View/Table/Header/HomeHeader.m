@@ -46,13 +46,9 @@
     [self.line setBackgroundColor:kColor_Text_White];
     [self.lineConstraintL setConstant:SCREEN_WIDTH / 4];
     
-//    [self.incomeLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
-//    [self.incomeLab setTextColor:kColor_Text_White];
-//    [self.payLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
-//    [self.payLab setTextColor:kColor_Text_White];
-    
     [self.payLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(20)] decimal:[UIFont systemFontOfSize:AdjustFont(10)] color:kColor_Text_White]];
     [self.incomeLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(20)] decimal:[UIFont systemFontOfSize:AdjustFont(10)] color:kColor_Text_White]];
+    
     [self.monthView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self routerEventWithName:HOME_MONTH_CLICK data:nil];
     }];
