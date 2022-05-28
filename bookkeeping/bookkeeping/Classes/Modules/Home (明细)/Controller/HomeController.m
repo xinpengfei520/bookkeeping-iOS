@@ -12,6 +12,7 @@
 #import "BKModel.h"
 #import "BookDetailController.h"
 #import "MineController.h"
+#import "ChartController.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "ACAListModel.h"
 #import "UIViewController+HBD.h"
@@ -175,8 +176,17 @@
 - (HomeNavigation *)navigation {
     if (!_navigation) {
         _navigation = [HomeNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
+        
+        // push 到 MineController
         [[_navigation.mineButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
             MineController *vc = [[MineController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+        [self.view addSubview:_navigation];
+        
+        // push 到 ChartController
+        [[_navigation.statisticsBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
+            ChartController *vc = [[ChartController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }];
         [self.view addSubview:_navigation];
