@@ -13,17 +13,10 @@
             <rect key="frame" x="0.0" y="0.0" width="365" height="240"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azk-Cf-tFR">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="azk-Cf-tFR">
                     <rect key="frame" x="152.5" y="40" width="60" height="87"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_header" translatesAutoresizingMaskIntoConstraints="NO" id="P9z-3f-H5f">
-                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="P9z-3f-H5f" secondAttribute="height" multiplier="1:1" id="3Q8-ey-GbL"/>
-                                <constraint firstAttribute="width" constant="60" id="ajw-nA-fze"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JET-CQ-ZGh">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="未登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JET-CQ-ZGh">
                             <rect key="frame" x="8.5" y="65" width="43" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -31,15 +24,10 @@
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="P9z-3f-H5f" firstAttribute="leading" secondItem="azk-Cf-tFR" secondAttribute="leading" id="1pY-bJ-Hnt"/>
                         <constraint firstAttribute="bottom" secondItem="JET-CQ-ZGh" secondAttribute="bottom" constant="5" id="Oan-vT-Kx0"/>
-                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="top" secondItem="P9z-3f-H5f" secondAttribute="bottom" constant="5" id="eaW-Fl-n57"/>
-                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerX" secondItem="P9z-3f-H5f" secondAttribute="centerX" id="i1F-iM-Ru0"/>
-                        <constraint firstAttribute="trailing" secondItem="P9z-3f-H5f" secondAttribute="trailing" id="iLN-8T-RS8"/>
-                        <constraint firstItem="P9z-3f-H5f" firstAttribute="top" secondItem="azk-Cf-tFR" secondAttribute="top" id="sG0-k3-tdP"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGE-mW-O2w">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qGE-mW-O2w">
                     <rect key="frame" x="183" y="147" width="182" height="62"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记账总笔数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-Rf-tPb">
@@ -63,7 +51,7 @@
                         <constraint firstItem="ePk-Rf-tPb" firstAttribute="bottom" secondItem="qGE-mW-O2w" secondAttribute="bottomMargin" id="vc0-w1-siu"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRP-zi-YAR">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRP-zi-YAR">
                     <rect key="frame" x="0.0" y="147" width="183" height="62"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记账总天数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDR-pj-vv7">
@@ -106,8 +94,6 @@
             <connections>
                 <outlet property="dayLab" destination="KGi-vq-An4" id="ZQa-Kk-2zv"/>
                 <outlet property="dayView" destination="cRP-zi-YAR" id="oNM-1k-oNf"/>
-                <outlet property="icon" destination="P9z-3f-H5f" id="p5u-MD-MaO"/>
-                <outlet property="iconConstraintW" destination="ajw-nA-fze" id="GVl-Ex-Kva"/>
                 <outlet property="infoConstraintT" destination="jtR-Ny-X8W" id="gkw-rR-HKP"/>
                 <outlet property="infoView" destination="azk-Cf-tFR" id="QMl-WW-m7p"/>
                 <outlet property="nameLab" destination="JET-CQ-ZGh" id="r8k-q9-5nI"/>
@@ -117,7 +103,4 @@
             <point key="canvasLocation" x="-1143.2" y="-219.49025487256372"/>
         </view>
     </objects>
-    <resources>
-        <image name="default_header" width="112.5" height="112.5"/>
-    </resources>
 </document>

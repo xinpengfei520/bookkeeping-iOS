@@ -130,7 +130,7 @@
             @[@"我的账单",@"类别设置",@"定时提醒",@"面容解锁"],
         ],
         @[
-            @[@"mine_siginin",@"mine_tallytype",@"mine_remind",@"mine_badge"],
+            @[@"mine_bill",@"mine_category",@"mine_remind",@"mine_face_id"],
         ],
         @[
             @[@(0),@(0),@(0),@(1)],
