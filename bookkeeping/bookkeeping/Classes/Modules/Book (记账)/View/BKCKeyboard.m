@@ -4,6 +4,7 @@
  */
 
 #import "BKCKeyboard.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define DATE_TAG 13         // 日期
 #define PLUS_TAG 17         // 加
@@ -43,6 +44,7 @@
     [view initUI];
     return view;
 }
+
 - (void)initUI {
     [self borderForColor:kColor_BG borderWidth:1.f borderType:UIBorderSideTypeTop];
     [self setAnimation:NO];
@@ -69,6 +71,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
 }
+
 - (void)createBtn {
     for (id obj in self.subviews) {
         if ([obj isKindOfClass:[UIButton class]] && [obj tag] >= 10) {
@@ -168,6 +171,8 @@
 
 #pragma mark - 点击
 - (void)btnClick:(UIButton *)btn {
+    // 按键音效
+    AudioServicesPlaySystemSound(1104);
     // 数字
     [self mathBtnClick:btn];
     // 点
@@ -320,6 +325,12 @@
         [self calculationMath];
     }
     if ([btn.titleLabel.text isEqualToString:@"完成"]) {
+        CGFloat moneyValue = [_moneyLab.text floatValue];
+        if (moneyValue == .0f) {
+            [self showTextHUD:@"请输入金额" delay:1];
+            return;
+        }
+        
         if (self.complete) {
             self.complete(_moneyLab.text, _markField.text, self.currentDate);
         }
