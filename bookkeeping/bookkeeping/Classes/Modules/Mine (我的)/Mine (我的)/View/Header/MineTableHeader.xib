@@ -14,20 +14,29 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="azk-Cf-tFR">
-                    <rect key="frame" x="152.5" y="40" width="60" height="87"/>
+                    <rect key="frame" x="152.5" y="40" width="80" height="87"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="未登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JET-CQ-ZGh">
-                            <rect key="frame" x="8.5" y="65" width="43" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="未登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JET-CQ-ZGh">
+                            <rect key="frame" x="8.5" y="5" width="80" height="77"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerX" secondItem="azk-Cf-tFR" secondAttribute="centerX" id="7w0-n4-Z9b"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerX" secondItem="azk-Cf-tFR" secondAttribute="centerX" id="Bam-Oq-Bji"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerY" secondItem="azk-Cf-tFR" secondAttribute="centerY" id="Bgy-71-9u4"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerX" secondItem="azk-Cf-tFR" secondAttribute="centerX" id="Gbn-ap-vnE"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerX" secondItem="azk-Cf-tFR" secondAttribute="centerX" id="Hvq-bz-D5d"/>
                         <constraint firstAttribute="bottom" secondItem="JET-CQ-ZGh" secondAttribute="bottom" constant="5" id="Oan-vT-Kx0"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerY" secondItem="azk-Cf-tFR" secondAttribute="centerY" id="Z8v-G9-c5E"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerX" secondItem="azk-Cf-tFR" secondAttribute="centerX" id="b5g-Bu-KAk"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerY" secondItem="azk-Cf-tFR" secondAttribute="centerY" id="qjD-cr-4HB"/>
+                        <constraint firstItem="JET-CQ-ZGh" firstAttribute="centerY" secondItem="azk-Cf-tFR" secondAttribute="centerY" id="uX9-6M-HUj"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qGE-mW-O2w">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGE-mW-O2w">
                     <rect key="frame" x="183" y="147" width="182" height="62"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记账总笔数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-Rf-tPb">
@@ -47,11 +56,10 @@
                         <constraint firstItem="AOf-Gf-zop" firstAttribute="top" secondItem="qGE-mW-O2w" secondAttribute="topMargin" id="2RK-Ri-7p0"/>
                         <constraint firstItem="AOf-Gf-zop" firstAttribute="centerX" secondItem="qGE-mW-O2w" secondAttribute="centerX" id="7CT-AF-VKX"/>
                         <constraint firstItem="ePk-Rf-tPb" firstAttribute="centerX" secondItem="AOf-Gf-zop" secondAttribute="centerX" id="7ve-cl-DUc"/>
-                        <constraint firstItem="ePk-Rf-tPb" firstAttribute="leading" secondItem="qGE-mW-O2w" secondAttribute="leading" constant="53" id="Z0u-vI-f3E"/>
                         <constraint firstItem="ePk-Rf-tPb" firstAttribute="bottom" secondItem="qGE-mW-O2w" secondAttribute="bottomMargin" id="vc0-w1-siu"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRP-zi-YAR">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRP-zi-YAR">
                     <rect key="frame" x="0.0" y="147" width="183" height="62"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记账总天数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDR-pj-vv7">
@@ -61,7 +69,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGi-vq-An4">
-                            <rect key="frame" x="87" y="8" width="9" height="21"/>
+                            <rect key="frame" x="87.5" y="8" width="8" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -69,12 +77,11 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="eDR-pj-vv7" firstAttribute="centerX" secondItem="KGi-vq-An4" secondAttribute="centerX" id="5FU-xt-CSY"/>
-                        <constraint firstItem="KGi-vq-An4" firstAttribute="leading" secondItem="cRP-zi-YAR" secondAttribute="leading" constant="87" id="7im-01-RrS"/>
                         <constraint firstItem="eDR-pj-vv7" firstAttribute="top" secondItem="KGi-vq-An4" secondAttribute="bottom" constant="7" id="8ec-TD-AFn"/>
+                        <constraint firstItem="KGi-vq-An4" firstAttribute="centerX" secondItem="cRP-zi-YAR" secondAttribute="centerX" id="DC9-ai-TOb"/>
                         <constraint firstItem="KGi-vq-An4" firstAttribute="centerX" secondItem="cRP-zi-YAR" secondAttribute="centerX" id="KHD-rH-Hfk"/>
                         <constraint firstItem="eDR-pj-vv7" firstAttribute="bottom" secondItem="cRP-zi-YAR" secondAttribute="bottomMargin" id="Wf3-AE-kU5"/>
                         <constraint firstItem="KGi-vq-An4" firstAttribute="top" secondItem="cRP-zi-YAR" secondAttribute="topMargin" id="o9m-we-GYw"/>
-                        <constraint firstItem="eDR-pj-vv7" firstAttribute="leading" secondItem="cRP-zi-YAR" secondAttribute="leading" constant="53" id="uJF-QA-1r1"/>
                     </constraints>
                 </view>
             </subviews>
@@ -83,10 +90,14 @@
                 <constraint firstItem="cRP-zi-YAR" firstAttribute="top" secondItem="azk-Cf-tFR" secondAttribute="bottom" constant="20" id="CST-Gi-IRZ"/>
                 <constraint firstItem="cRP-zi-YAR" firstAttribute="leading" secondItem="fWf-7J-Cys" secondAttribute="leading" id="Euo-vh-iNE"/>
                 <constraint firstItem="qGE-mW-O2w" firstAttribute="leading" secondItem="fWf-7J-Cys" secondAttribute="leading" constant="183" id="L4O-Sq-SB3"/>
+                <constraint firstAttribute="bottom" secondItem="azk-Cf-tFR" secondAttribute="bottom" constant="113" id="P2z-hL-MrQ"/>
+                <constraint firstItem="azk-Cf-tFR" firstAttribute="centerX" secondItem="fWf-7J-Cys" secondAttribute="centerX" id="RyM-72-pnS"/>
                 <constraint firstItem="qGE-mW-O2w" firstAttribute="leading" secondItem="cRP-zi-YAR" secondAttribute="trailing" id="VHT-6N-igL"/>
                 <constraint firstItem="azk-Cf-tFR" firstAttribute="centerX" secondItem="fWf-7J-Cys" secondAttribute="centerX" id="X4k-fu-dow"/>
                 <constraint firstItem="cRP-zi-YAR" firstAttribute="top" secondItem="qGE-mW-O2w" secondAttribute="top" id="aL8-Is-XBQ"/>
                 <constraint firstItem="cRP-zi-YAR" firstAttribute="bottom" secondItem="qGE-mW-O2w" secondAttribute="bottom" id="h84-A8-M2c"/>
+                <constraint firstItem="azk-Cf-tFR" firstAttribute="centerX" secondItem="fWf-7J-Cys" secondAttribute="centerX" id="iIr-Qb-7yr"/>
+                <constraint firstItem="azk-Cf-tFR" firstAttribute="centerX" secondItem="fWf-7J-Cys" secondAttribute="centerX" id="iOJ-S6-9aK"/>
                 <constraint firstItem="azk-Cf-tFR" firstAttribute="top" secondItem="fWf-7J-Cys" secondAttribute="top" constant="40" id="jtR-Ny-X8W"/>
                 <constraint firstAttribute="trailing" secondItem="qGE-mW-O2w" secondAttribute="trailing" id="m6g-8m-DHv"/>
             </constraints>
