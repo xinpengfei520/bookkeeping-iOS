@@ -27,7 +27,6 @@ PODS:
   - BRPickerView/StringPickerView (2.7.6):
     - BRPickerView/Base
   - Bugly (2.5.91)
-  - GPUImage (0.1.7)
   - HBDNavigationBar (1.9.5)
   - JGProgressHUD (2.0.3)
   - KMNavigationBarTransition (1.1.5)
@@ -81,9 +80,6 @@ PODS:
     - YYImage/Core (= 1.0.4)
   - YYImage/Core (1.0.4)
   - YYText (1.0.7)
-  - ZLPhotoBrowser (2.7.6):
-    - GPUImage
-    - SDWebImage
 
 DEPENDENCIES:
   - AFNetworking (= 3.2.1)
@@ -103,14 +99,12 @@ DEPENDENCIES:
   - Texture (= 3.1.0)
   - YYImage (= 1.0.4)
   - YYText (= 1.0.7)
-  - ZLPhotoBrowser (= 2.7.6)
 
 SPEC REPOS:
   trunk:
     - AFNetworking
     - BRPickerView
     - Bugly
-    - GPUImage
     - HBDNavigationBar
     - JGProgressHUD
     - KMNavigationBarTransition
@@ -128,13 +122,11 @@ SPEC REPOS:
     - Texture
     - YYImage
     - YYText
-    - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BRPickerView: 2a1620caf218e37a3aca9626732719a419928b15
   Bugly: afe841bba2ea6de6d432a3c125240a5e75949c55
-  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HBDNavigationBar: 5e8e93c1dfaf4195c54b6fcf55090cb3ea597e06
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   KMNavigationBarTransition: 7a52c9bc25b39b6e3343e980b453facee1591b82
@@ -152,8 +144,7 @@ SPEC CHECKSUMS:
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
-  ZLPhotoBrowser: 6dfadc4706429424f0a851fe40752aff076689ab
 
-PODFILE CHECKSUM: 3781f6bde57fc18d073ea2cf9add9b3b38e17ff8
+PODFILE CHECKSUM: 8b46285c0f2ec01080166a87c100d1ee356a3af9
 
 COCOAPODS: 1.10.1

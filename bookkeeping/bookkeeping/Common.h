@@ -20,8 +20,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIButton+WebCache.h>
 #import <pop/POP.h>
-#import <ZLPhotoBrowser/ZLPhotoActionSheet.h>
-#import <ZLPhotoBrowser/ZLCustomCamera.h>
 #import <BRPickerView/BRPickerView.h>
 
 
@@ -70,7 +68,6 @@
 #import "UIWindow+JGProgressHUD.h"
 #import "UITableViewCell+Extension.h"
 #import "UIViewController+Extension.h"
-#import "ZLPhotoActionSheet+Extension.h"
 #import "CALayer+Extension.h"
 #import "UIView+SyncedData.h"
 

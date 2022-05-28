@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		321431D921D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321431D821D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m */; };
 		3219837621C642BB00311885 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219837521C642BB00311885 /* AppDelegate.m */; };
 		3219837C21C642BB00311885 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3219837A21C642BB00311885 /* Main.storyboard */; };
 		3219837E21C642BC00311885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3219837D21C642BC00311885 /* Assets.xcassets */; };
@@ -314,8 +313,6 @@
 		1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.debug.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.debug.xcconfig"; sourceTree = "<group>"; };
 		2513416B4CCC355FFD281675 /* libPods-BookMonth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookMonth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
-		321431D721D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLPhotoActionSheet+Extension.h"; sourceTree = "<group>"; };
-		321431D821D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZLPhotoActionSheet+Extension.m"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3219837521C642BB00311885 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -776,15 +773,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		321431D621D3675000D7D1F5 /* ZLPhotoActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				321431D721D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.h */,
-				321431D821D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m */,
-			);
-			path = ZLPhotoActionSheet;
-			sourceTree = "<group>";
-		};
 		3219836821C642BB00311885 = {
 			isa = PBXGroup;
 			children = (
@@ -850,7 +838,6 @@
 			isa = PBXGroup;
 			children = (
 				4B2214F821E9E4A7000F619F /* ScreenBlurry */,
-				321431D621D3675000D7D1F5 /* ZLPhotoActionSheet */,
 				4B9798FA21CE744A0020B207 /* CountDown */,
 				4BEB729821CE033300BEF013 /* MJRefresh */,
 				4B1917C421CD45C900137215 /* JGProgressHUD */,
@@ -2609,7 +2596,6 @@
 				327CEC2821C88E45001D0086 /* ChartTableCell.m in Sources */,
 				327CEC1721C882A6001D0086 /* HomeListSubCell.m in Sources */,
 				3219837621C642BB00311885 /* AppDelegate.m in Sources */,
-				321431D921D3675B00D7D1F5 /* ZLPhotoActionSheet+Extension.m in Sources */,
 				4BEB732A21CE380C00BEF013 /* InfoTableView.m in Sources */,
 				4BA68B0A21C7F75B0063A5C2 /* ACAReusableHeader.m in Sources */,
 				3219840621C6460100311885 /* NSAttributedString+Extension.m in Sources */,

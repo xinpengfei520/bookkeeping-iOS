@@ -198,26 +198,11 @@
         NSInteger index = [number integerValue];
         // 拍照
         if (index == 0) {
-            @weakify(self)
-            ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
-            [camera setAllowTakePhoto:true];
-            [camera setAllowRecordVideo:false];
-            [camera setSessionPreset:ZLCaptureSessionPreset640x480];
-            [camera setDoneBlock:^(UIImage *image, NSURL *videoUrl) {
-                @strongify(self)
-                [self changeIconRequest:image];
-            }];
+            
         }
         // 从相册选择
         else if (index == 1) {
-            @weakify(self)
-            ZLPhotoActionSheet *actionSheet = [ZLPhotoActionSheet getNormalDefault];
-            [actionSheet setSender:self];
-            [actionSheet showPhotoLibrary];
-            [actionSheet setSelectImageBlock:^(NSArray<UIImage *> *images, NSArray<PHAsset *> *assets, BOOL isOriginal) {
-                @strongify(self)
-                [self changeIconRequest:images[0]];
-            }];
+            
         }
     }];
 }
