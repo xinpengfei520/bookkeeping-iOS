@@ -28,9 +28,9 @@
 - (void)initUI {
     [self setBackgroundColor:kColor_Main_Color];
     [self.btn1.titleLabel setFont:BTN_FONT];
-    [self.btn1 setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+    [self.btn1 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
     [self.btn2.titleLabel setFont:BTN_FONT];
-    [self.btn2 setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+    [self.btn2 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
     [self line];
     @weakify(self)
     [[self.btn1 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -41,8 +41,8 @@
         @strongify(self)
         [self routerEventWithName:BOOK_CLICK_NAVIGATION data:@(1)];
     }];
-    [self.cancleBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-    [self.cancleBtn setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
+    [self.cancleBtn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
+    [self.cancleBtn setTitleColor:kColor_Text_Gary forState:UIControlStateHighlighted];
     [self.cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
     [[self.cancleBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
@@ -97,7 +97,7 @@
     if (!_line) {
         CGFloat width = [@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
         _line = [[UIView alloc] initWithFrame:CGRectMake(0, self.bottom - 2, width, 2)];
-        _line.backgroundColor = kColor_Text_Black;
+        _line.backgroundColor = kColor_Text_White;
         _line.left = (SCREEN_WIDTH - countcoordinatesX(60) * 2) / 2 + (countcoordinatesX(60) - [@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width) / 2;
         [self addSubview:_line];
     }

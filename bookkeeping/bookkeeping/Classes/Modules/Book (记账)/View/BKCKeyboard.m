@@ -110,9 +110,17 @@
                 [btn setTitle:@"完成" forState:UIControlStateNormal];
                 [btn setTitle:@"完成" forState:UIControlStateHighlighted];
             }
+            else if (btn.tag == DELETE_TAG) {
+                [btn setImage:[UIImage imageNamed:@"keyboard_delete.png"] forState:UIControlStateNormal];
+                btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            }
             
-            [btn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-            [btn setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
+            if (btn.tag == FINISH_TAG) {
+                [btn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
+            } else {
+                [btn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+            }
+            [btn setTitleColor:kColor_Text_Gary forState:UIControlStateHighlighted];
             
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -127,7 +135,6 @@
     }
     _animation = YES;
     
-    
     [self setHidden:NO];
     [UIView animateWithDuration:.3f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self setTop:SCREEN_HEIGHT - self.height];
@@ -135,6 +142,7 @@
         [self setAnimation:NO];
     }];
 }
+
 - (void)hide {
     if (_animation == YES) {
         return;
@@ -179,6 +187,7 @@
     // 计算
     [self calculationMath];
 }
+
 // 数字
 - (void)mathBtnClick:(UIButton *)btn {
     // 数字
@@ -195,8 +204,6 @@
             str;
         });
         
-        
-        
         // 是否可以输入
         if ([self isAllowMath:str]) {
             if (_money.length == 0 || [_money isEqualToString:@"0"]) {
@@ -206,9 +213,9 @@
             }
             [self setMoney:_money];
         }
-        
     }
 }
+
 // 点
 - (void)pointBtnClick:(UIButton *)btn {
     // 点
@@ -223,6 +230,7 @@
         }
     }
 }
+
 // 加
 - (void)plusBtnClick:(UIButton *)btn {
     // 加
@@ -237,6 +245,7 @@
         }
     }
 }
+
 // 减
 - (void)lessBtnClick:(UIButton *)btn {
     // 减
@@ -289,6 +298,7 @@
         [datePickerView show];
     }
 }
+
 // 删除
 - (void)deleteBtnClick:(UIButton *)btn {
     if (btn.tag == DELETE_TAG) {
@@ -301,6 +311,7 @@
         }
     }
 }
+
 // 计算
 - (void)calculationClick:(UIButton *)btn {
     if (btn.tag == FINISH_TAG) {
@@ -314,7 +325,6 @@
         }
     }
 }
-
 
 // 根据btn.tag 返回数字
 - (CGFloat)getMath:(NSInteger)tag {
@@ -332,6 +342,7 @@
     }
     return 0;
 }
+
 // 刷新完成按钮
 - (void)reloadCompleteButton {
     if (_money.length == 0) {
@@ -359,7 +370,6 @@
     if (_money.length == 0) {
         return;
     }
-    
     
     BOOL condition1 = [_money hasSuffix:@"="];
     BOOL condition2 = [_money componentsSeparatedByString:@"+"].count == 3;
@@ -391,7 +401,6 @@
     }
 }
 
-
 // 两数加减
 - (NSString *)calculation:(NSString *)str1 math:(NSString *)str2 isPlus:(BOOL)isPlus {
     CGFloat number1 = [str1 floatValue];
@@ -402,6 +411,7 @@
     }
     return newNumber;
 }
+
 // 是否有小数
 - (BOOL)hasDecimal:(NSString *)number {
     NSArray<NSString *> *arr = [number componentsSeparatedByString:@"."];
@@ -411,6 +421,7 @@
     }
     return true;
 }
+
 // 获取字符串中的数字
 - (NSArray<NSString *> *)getNumberWithString:(NSString *)string {
     // 第一个数是负数
@@ -423,7 +434,6 @@
     if ([lastStr isEqualToString:@"+"] || [lastStr isEqualToString:@"-"]) {
         string = [string substringToIndex:string.length - 1];
     }
-    
     
     NSMutableArray *arrm;
     // 加法
@@ -442,7 +452,6 @@
     NSLog(@"%@", arrm);
     NSLog(@"123");
     return @[];
-    
 }
 
 // 是否可以输入数字
@@ -451,7 +460,6 @@
     if (_money.length >= 15) {
         return false;
     }
-    
     
     if (!str || str.length == 0) {
         return true;
@@ -476,13 +484,13 @@
         return false;
     }
 }
+
 // 是否可以输入点
 - (BOOL)isAllowPoint:(NSString *)str {
     // 超过10位
     if (_money.length >= 15) {
         return false;
     }
-    
     
     // 是否可以输入
     for (int i=0; i<3; i++) {
@@ -494,6 +502,7 @@
     }
     return false;
 }
+
 // 是否可以输入加号减号
 - (BOOL)isAllowPlusOrLess:(NSString *)str {
     NSString *lastStr = [str substringWithRange:NSMakeRange(_money.length - 1, 1)];
@@ -509,6 +518,7 @@
     _money = money;
     _moneyLab.text = money;
 }
+
 - (void)setModel:(BKModel *)model {
     _model = model;
     NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
@@ -535,6 +545,7 @@
         
     }];
 }
+
 - (void)hideKeyboard:(NSNotification *)not {
     NSTimeInterval time = [not.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -549,7 +560,6 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 
 
