@@ -40,9 +40,6 @@
     // 记账页面
     BaseViewController *message = [[BaseViewController alloc] init];
     [self addChildViewController:message title:@"记账" image:@"tabbar_add_n" selImage:@"tabbar_add_h"];
-    // 图表页面
-    ChartController *sort = [[ChartController alloc] init];
-    [self addChildViewController:sort title:@"图表" image:@"tabbar_chart_n" selImage:@"tabbar_chart_s"];
 }
 
 - (void)hideTabbar:(BOOL)hidden {
@@ -103,13 +100,13 @@
             }
             else {
                 // 我的
-                if (index == 4) {
-                    BaseNavigationController *nav = self.viewControllers[index];
-                    MineController *vc = nav.viewControllers[0];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [vc.mine.table setContentOffset:CGPointZero animated:true];
-                    });
-                }
+//                if (index == 4) {
+//                    BaseNavigationController *nav = self.viewControllers[index];
+//                    MineController *vc = nav.viewControllers[0];
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [vc.mine.table setContentOffset:CGPointZero animated:true];
+//                    });
+//                }
                 [self setSelectedIndex:index];
                 [self.bar setIndex:index];
             }

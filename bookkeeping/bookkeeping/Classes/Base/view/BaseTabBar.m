@@ -54,13 +54,15 @@
 
 - (void)click:(NSInteger)index {
     NSArray<NSArray *> *image = @[
-        @[@"明细",@"记账",@"图表"],
+        @[@"明细",
+          @"记账"
+        ],
         @[@"tabbar_detail_n",
-          @"tabbar_add_n",
-          @"tabbar_chart_n"],
+          @"tabbar_add_n"
+        ],
         @[@"tabbar_detail_s",
-          @"tabbar_add_h",
-          @"tabbar_chart_s"]
+          @"tabbar_add_h"
+        ]
     ];
     
     for (int y=0; y<self.views.count; y++) {
@@ -84,13 +86,13 @@
     }];
 }
 
-
+// 此方法的作用是增大记账按钮的点击区域，因为记账按钮更大一些，记账按钮的下标为1，所以使用 self.views[1]
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *view = [super hitTest:point withEvent:event];
     
-    CGPoint newPoint = [self convertPoint:point toView:self.views[2]];
-    UIImageView *image = [self.views[2] viewWithTag:10];
-    // 点击到世界
+    CGPoint newPoint = [self convertPoint:point toView:self.views[1]];
+    UIImageView *image = [self.views[1] viewWithTag:10];
+
     if (CGRectContainsPoint(image.frame, newPoint)) {
         // tabbar 显示中
         id obj = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -98,7 +100,7 @@
             BaseTabBarController *tab = (BaseTabBarController *)obj;
             BaseNavigationController *nav = tab.viewControllers[tab.selectedIndex];
             if (nav.viewControllers.count == 1) {
-                return self.views[2];
+                return self.views[1];
             }
         }
     }
@@ -137,13 +139,15 @@
         _views = [[NSMutableArray alloc] init];
         
         NSArray<NSArray *> *image = @[
-            @[@"明细",@"记账",@"图表"],
+            @[@"明细",
+              @"记账"
+            ],
             @[@"tabbar_detail_n",
-              @"tabbar_add_n",
-              @"tabbar_chart_n"],
+              @"tabbar_add_n"
+            ],
             @[@"tabbar_detail_s",
-              @"tabbar_add_h",
-              @"tabbar_chart_s"]
+              @"tabbar_add_h"
+            ]
         ];
         
         NSInteger current = 0;
