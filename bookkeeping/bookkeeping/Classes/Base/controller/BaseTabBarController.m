@@ -99,14 +99,6 @@
                 }];
             }
             else {
-                // 我的
-//                if (index == 4) {
-//                    BaseNavigationController *nav = self.viewControllers[index];
-//                    MineController *vc = nav.viewControllers[0];
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        [vc.mine.table setContentOffset:CGPointZero animated:true];
-//                    });
-//                }
                 [self setSelectedIndex:index];
                 [self.bar setIndex:index];
             }

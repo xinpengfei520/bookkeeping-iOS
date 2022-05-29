@@ -21,9 +21,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *getConstraintL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *setConstraintL;
 @property (weak, nonatomic) IBOutlet UIView *monthView;
-
+@property (weak, nonatomic) IBOutlet UIButton *moneyShow;
 @end
 
+static BOOL moneyVisible = YES;
 
 #pragma mark - 实现
 @implementation HomeHeader
@@ -52,6 +53,27 @@
     [self.monthView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self routerEventWithName:HOME_MONTH_CLICK data:nil];
     }];
+    [self.moneyShow addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [self setMoneyVisble:moneyVisible];
+        
+    }];
+}
+
+- (void) setMoneyVisble:(BOOL)visible {
+    if (visible) {
+        _payLab.text = @"***";
+        _incomeLab.text = @"***";
+        _payLab.textColor = kColor_Text_White;
+        _incomeLab.textColor = kColor_Text_White;
+        
+        [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_hide"] forState:UIControlStateNormal];
+        moneyVisible = NO;
+    }else {
+        [self setModels:_models];
+        
+        [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_show"] forState:UIControlStateNormal];
+        moneyVisible = YES;
+    }
 }
 
 

@@ -75,6 +75,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9aH-m1-gTG">
                     <rect key="frame" x="0.0" y="0.0" width="101" height="67"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFR-kv-dGt">
+                    <rect key="frame" x="253.5" y="10.5" width="16.5" height="22"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="icon_pwd_show"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -86,9 +91,11 @@
                 <constraint firstItem="nFR-eb-KXA" firstAttribute="leading" secondItem="sk0-0w-Vfz" secondAttribute="leading" id="C9p-Gt-bOn"/>
                 <constraint firstItem="9aH-m1-gTG" firstAttribute="top" secondItem="UW6-Mj-UUe" secondAttribute="top" id="LTy-B6-3Fr"/>
                 <constraint firstItem="9aH-m1-gTG" firstAttribute="leading" secondItem="UW6-Mj-UUe" secondAttribute="leading" id="Lno-WK-U88"/>
+                <constraint firstAttribute="trailing" secondItem="kFR-kv-dGt" secondAttribute="trailing" constant="20" id="QPJ-Jg-M5l"/>
                 <constraint firstItem="zNL-Pc-CEq" firstAttribute="top" secondItem="UW6-Mj-UUe" secondAttribute="top" constant="8" id="VZG-2P-pfB"/>
                 <constraint firstItem="StM-uY-6Ig" firstAttribute="leading" secondItem="sk0-0w-Vfz" secondAttribute="trailing" constant="50" id="WsL-Tb-3h6"/>
                 <constraint firstItem="dJd-JJ-JrV" firstAttribute="centerY" secondItem="Ouv-cH-3tl" secondAttribute="centerY" id="Xx5-zS-nHm"/>
+                <constraint firstItem="kFR-kv-dGt" firstAttribute="centerY" secondItem="UW6-Mj-UUe" secondAttribute="centerY" constant="-12" id="Y8e-KI-sTR"/>
                 <constraint firstItem="36b-6B-ZJA" firstAttribute="leading" secondItem="UW6-Mj-UUe" secondAttribute="leading" constant="100" id="YLR-pm-fBK"/>
                 <constraint firstItem="Ouv-cH-3tl" firstAttribute="bottom" secondItem="PEa-1e-m21" secondAttribute="bottom" constant="-2" id="Zlw-Da-t7Z"/>
                 <constraint firstAttribute="bottom" secondItem="9aH-m1-gTG" secondAttribute="bottom" id="auC-xx-G5Y"/>
@@ -109,6 +116,7 @@
                 <outlet property="incomeLab" destination="nFR-eb-KXA" id="2vT-mQ-f86"/>
                 <outlet property="line" destination="36b-6B-ZJA" id="cMa-5R-00o"/>
                 <outlet property="lineConstraintL" destination="YLR-pm-fBK" id="l5t-hH-jDn"/>
+                <outlet property="moneyShow" destination="kFR-kv-dGt" id="h9K-gx-2er"/>
                 <outlet property="monthDescLab" destination="Ouv-cH-3tl" id="a8k-ng-zug"/>
                 <outlet property="monthLab" destination="PEa-1e-m21" id="nhi-HY-fkI"/>
                 <outlet property="monthView" destination="9aH-m1-gTG" id="dlt-0e-3X0"/>
@@ -121,7 +129,8 @@
         </view>
     </objects>
     <resources>
-        <image name="time_down" width="100" height="100"/>
+        <image name="icon_pwd_show" width="16.666666030883789" height="16.666666030883789"/>
+        <image name="time_down" width="128" height="128"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

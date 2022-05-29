@@ -189,6 +189,13 @@
             ChartController *vc = [[ChartController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }];
+        
+        // push 到 ChartController
+        [_navigation.dateButton setEnabled:TRUE];
+        [_navigation.dateButton addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+            [self homeMonthClick:HOME_MONTH_CLICK];
+        }];
+        
         [self.view addSubview:_navigation];
     }
     return _navigation;
