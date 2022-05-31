@@ -42,8 +42,10 @@
 + (void)insertBookModel:(BKModel *)model {
     NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
     NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    
     [bookArr addObject:model];
     [bookSyncedArr addObject:model];
+    
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK];
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
 }

@@ -42,7 +42,10 @@
 - (void)makeRootController {
     [self setWindow:[[UIWindow alloc] initWithFrame:SCREEN_BOUNDS]];
     [self.window setBackgroundColor:[UIColor whiteColor]];
-    [self.window setRootViewController:[[BaseTabBarController alloc] init]];
+    
+    HomeController *homeController = [[HomeController alloc] init];
+    BaseNavigationController *navigationController = [[BaseNavigationController alloc] initWithRootViewController:homeController];
+    [self.window setRootViewController:navigationController];
     [self.window makeKeyAndVisible];
 }
 
