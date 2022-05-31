@@ -16,7 +16,7 @@
 #import "LOGIN_NOTIFICATION.h"
 #import "ACAListModel.h"
 #import "UIViewController+HBD.h"
-
+#import "UIButton+EnlargeTouchArea.h"
 
 #pragma mark - 声明
 @interface HomeController()
@@ -185,6 +185,8 @@
         }];
         [self.view addSubview:_navigation];
         
+        // 增大可点击区域，上下左右各 10
+        [_navigation.statisticsBtn setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
         // push 到 ChartController
         [[_navigation.statisticsBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
             ChartController *vc = [[ChartController alloc] init];
