@@ -41,6 +41,7 @@
     [self navigation];
     [self header];
     [self list];
+    [self addButton];
     [self setDate:[NSDate date]];
     [self monitorNotification];
     [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
@@ -213,12 +214,44 @@
     if (!_list) {
         _list = [HomeList loadCode:({
             CGFloat top = CGRectGetMaxY(_header.frame);
-            CGFloat height = SCREEN_HEIGHT - top - TabbarHeight;
+            CGFloat height = SCREEN_HEIGHT - top;
             CGRectMake(0, top, SCREEN_WIDTH, height);
         })];
         [self.view addSubview:_list];
     }
     return _list;
+}
+
+- (void) addButton {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height-120, 80, 80);
+    [button setImage:[UIImage imageNamed:@"tabbar_add_n.png"] forState:0];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    
+    // 设置阴影
+    button.layer.shadowColor = [UIColor grayColor].CGColor;
+    // 阴影的大小，x 往右和 y 往下是正
+    button.layer.shadowOffset = CGSizeMake(5, 5);
+    // 阴影的扩散范围，相当于 blur radius，也是 shadow 的渐变距离，从外围开始，往里渐变 shadowRadius 距离
+    button.layer.shadowRadius = 5;
+    // 阴影的不透明度
+    button.layer.shadowOpacity = 0.5;
+    
+    [self.view addSubview:button];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushController)];
+    [button addGestureRecognizer:tapGesture];
+}
+
+- (void)pushController{
+    BKCController *vc = [[BKCController alloc] init];
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    // Modal Presentation Styles（弹出风格）
+    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+    self.navigationController.definesPresentationContext = NO;
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
