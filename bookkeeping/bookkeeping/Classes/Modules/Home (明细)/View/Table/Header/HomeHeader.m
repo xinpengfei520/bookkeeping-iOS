@@ -5,7 +5,7 @@
 
 #import "HomeHeader.h"
 #import "HOME_EVENT.h"
-
+#import "UIButton+EnlargeTouchArea.h"
 
 #pragma mark - 声明
 @interface HomeHeader()
@@ -53,6 +53,9 @@ static BOOL moneyVisible = YES;
     [self.monthView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self routerEventWithName:HOME_MONTH_CLICK data:nil];
     }];
+    
+    // 增大可点击区域，上下左右各 10
+    [self.moneyShow setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [self.moneyShow addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self setMoneyVisble:moneyVisible];
         
