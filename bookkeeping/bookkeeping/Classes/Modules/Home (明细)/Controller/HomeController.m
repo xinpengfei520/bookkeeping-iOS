@@ -191,12 +191,6 @@
             [self.navigationController pushViewController:vc animated:YES];
         }];
         
-        // push 到 ChartController
-        [_navigation.dateButton setEnabled:TRUE];
-        [_navigation.dateButton addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-            [self homeMonthClick:HOME_MONTH_CLICK];
-        }];
-        
         [self.view addSubview:_navigation];
     }
     return _navigation;
@@ -254,6 +248,11 @@
     }];
 }
 
+- (void)pushToChartController:(id)data {
+    ChartController *vc = [[ChartController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
@@ -262,6 +261,8 @@
             HOME_TABLE_UP: [self createInvocationWithSelector:@selector(homeTableUp:)],
             HOME_CELL_REMOVE: [self createInvocationWithSelector:@selector(homeTableCellRemove:)],
             HOME_CELL_CLICK: [self createInvocationWithSelector:@selector(homeTableCellClick:)],
+            HOME_PAY_CLICK: [self createInvocationWithSelector:@selector(pushToChartController:)],
+            HOME_INCOME_CLICK: [self createInvocationWithSelector:@selector(pushToChartController:)],
         };
     }
     return _eventStrategy;

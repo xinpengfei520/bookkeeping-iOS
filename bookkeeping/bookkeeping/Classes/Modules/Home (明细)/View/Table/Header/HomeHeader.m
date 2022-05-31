@@ -60,6 +60,22 @@ static BOOL moneyVisible = YES;
         [self setMoneyVisble:moneyVisible];
         
     }];
+    
+    UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(payLabelClick)];
+    [_payLab addGestureRecognizer:tapGestureRecognizer1];
+    _payLab.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tapGestureRecognizer2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(incomeLabelClick)];
+    [_incomeLab addGestureRecognizer:tapGestureRecognizer2];
+    _incomeLab.userInteractionEnabled = YES;
+}
+
+- (void)payLabelClick {
+    [self routerEventWithName:HOME_PAY_CLICK data:nil];
+}
+
+- (void)incomeLabelClick {
+    [self routerEventWithName:HOME_INCOME_CLICK data:nil];
 }
 
 - (void) setMoneyVisble:(BOOL)visible {

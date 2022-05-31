@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HomeNavigation : BaseView
 @property (weak, nonatomic) IBOutlet UIButton *mineButton;
 @property (weak, nonatomic) IBOutlet UIButton *statisticsBtn;
-@property (weak, nonatomic) IBOutlet UILabel *dateButton;
 
 @end
 
