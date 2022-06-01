@@ -13,6 +13,7 @@
 #import "BOOK_EVENT.h"
 #import "BKModel.h"
 #import "UIViewController+HBD.h"
+#define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
 #pragma mark - 声明
 @interface BKCController()<UIScrollViewDelegate>
@@ -112,14 +113,15 @@
     NSInteger index = self.scroll.contentOffset.x / SCREEN_WIDTH;
     BKCCollection *collection = self.collections[index];
     BKCModel *cmodel = collection.model.list[collection.selectIndex.row];
-    BKModel *model = [[BKModel alloc] init];
     
+    BKModel *model = [[BKModel alloc] init];
     model.Id = [[BKModel getId] integerValue];
     model.price = [[NSDecimalNumber decimalNumberWithString:price] doubleValue];
     model.year = date.year;
     model.month = date.month;
     model.day = date.day;
-    model.mark = mark;
+    // 去掉备注中的空格并判空，如果为空则使用类别名作为备注
+    model.mark = ([allTrim(mark)length] == 0)?cmodel.name:mark;
     model.category_id = cmodel.Id;
     model.cmodel = cmodel;
     
