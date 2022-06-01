@@ -545,10 +545,13 @@
 }
 
 
-#pragma mark - 通知
+#pragma mark - 系统键盘通知
 - (void)showKeyboard:(NSNotification *)not {
     NSTimeInterval time = [not.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGFloat keyHeight = [not.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    // UIKeyboardFrameBeginUserInfoKey,UIKeyboardFrameEndUserInfoKey
+    // 对应的 Value 是个 NSValue 对象，内部包含 CGRect 结构，分别为键盘起始时和终止时的位置信息
+    // 此处应该使用终止时的位置，因为弹起软键盘的时候位置有变化
+    CGFloat keyHeight = [not.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     
     [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.textContent setTop:(self.height - keyHeight) - countcoordinatesX(60)];
