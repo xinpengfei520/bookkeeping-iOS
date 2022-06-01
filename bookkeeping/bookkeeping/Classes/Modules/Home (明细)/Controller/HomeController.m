@@ -11,6 +11,7 @@
 #import "HOME_EVENT.h"
 #import "BKModel.h"
 #import "BookDetailController.h"
+#import "SearchViewController.h"
 #import "MineController.h"
 #import "ChartController.h"
 #import "LOGIN_NOTIFICATION.h"
@@ -187,9 +188,9 @@
         
         // 增大可点击区域，上下左右各 10
         [_navigation.statisticsBtn setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
-        // push 到 ChartController
+        // push 到 SearchViewController
         [[_navigation.statisticsBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
-            ChartController *vc = [[ChartController alloc] init];
+            SearchViewController *vc = [[SearchViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }];
         

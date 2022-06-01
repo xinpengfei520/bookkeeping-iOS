@@ -278,6 +278,9 @@
 		AEA489C5440A548BEBD1304B /* libPods-BookMonth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2513416B4CCC355FFD281675 /* libPods-BookMonth.a */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F3AE5FCB28466EAD00E95086 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FCA28466EAD00E95086 /* UIButton+EnlargeTouchArea.m */; };
+		F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FD72847C9D100E95086 /* SearchViewController.m */; };
+		F3AE5FDC2847CCFF00E95086 /* SearchNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3AE5FDB2847CCFF00E95086 /* SearchNavigation.xib */; };
+		F3AE5FDF2847CDBB00E95086 /* SearchNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FDE2847CDBB00E95086 /* SearchNavigation.m */; };
 		F5982707CC838EDD0692E0E0 /* libPods-bookkeeping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */; };
 /* End PBXBuildFile section */
 
@@ -745,6 +748,11 @@
 		F375540E27D3CB8B00C22EB3 /* BookMonthRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonthRelease.entitlements; sourceTree = "<group>"; };
 		F3AE5FC928466E0D00E95086 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		F3AE5FCA28466EAD00E95086 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		F3AE5FD62847C9D100E95086 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		F3AE5FD72847C9D100E95086 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		F3AE5FDB2847CCFF00E95086 /* SearchNavigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchNavigation.xib; sourceTree = "<group>"; };
+		F3AE5FDD2847CDBB00E95086 /* SearchNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchNavigation.h; sourceTree = "<group>"; };
+		F3AE5FDE2847CDBB00E95086 /* SearchNavigation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchNavigation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -890,6 +898,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F3AE5FD22847C95900E95086 /* Search (搜索) */,
 				4BE7844A21C678FB00B8EC46 /* Home (明细) */,
 				4BE7845621C678FB00B8EC46 /* Book (记账) */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
@@ -2175,6 +2184,42 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		F3AE5FD22847C95900E95086 /* Search (搜索) */ = {
+			isa = PBXGroup;
+			children = (
+				F3AE5FD52847C9AE00E95086 /* View */,
+				F3AE5FD42847C99B00E95086 /* Model */,
+				F3AE5FD32847C98D00E95086 /* Controller */,
+			);
+			path = "Search (搜索)";
+			sourceTree = "<group>";
+		};
+		F3AE5FD32847C98D00E95086 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F3AE5FD62847C9D100E95086 /* SearchViewController.h */,
+				F3AE5FD72847C9D100E95086 /* SearchViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F3AE5FD42847C99B00E95086 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3AE5FD52847C9AE00E95086 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F3AE5FDB2847CCFF00E95086 /* SearchNavigation.xib */,
+				F3AE5FDD2847CDBB00E95086 /* SearchNavigation.h */,
+				F3AE5FDE2847CDBB00E95086 /* SearchNavigation.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2283,6 +2328,7 @@
 				4BF0649821E10FE4005F1665 /* HomeNavigation.xib in Resources */,
 				32A04B2921DE04D8002B0766 /* SC.plist in Resources */,
 				4BEB731A21CE033300BEF013 /* dropdown_anim__00040@2x.png in Resources */,
+				F3AE5FDC2847CCFF00E95086 /* SearchNavigation.xib in Resources */,
 				4B8D636B21D8D507002AEB4A /* BCHUDContentCell.xib in Resources */,
 				4BEB730721CE033300BEF013 /* dropdown_loading_03@2x.png in Resources */,
 				4BEB730221CE033300BEF013 /* dropdown_anim__00039@2x.png in Resources */,
@@ -2459,6 +2505,7 @@
 			files = (
 				4B48530121C6984400891096 /* MineTableCell.m in Sources */,
 				327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */,
+				F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */,
 				32E2A27921EDBBF0009AD84C /* UIView+SyncedData.m in Sources */,
 				4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */,
 				4B7560B321D1224A00E63744 /* BaseViewController+Extension.m in Sources */,
@@ -2515,6 +2562,7 @@
 				4B252CE121C6A288002CD83D /* MineView.m in Sources */,
 				4B2214FD21E9E4A8000F619F /* UIImage+BlurGlass.m in Sources */,
 				4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */,
+				F3AE5FDF2847CDBB00E95086 /* SearchNavigation.m in Sources */,
 				32AF269821ED63C1004F46A2 /* NSMutableArray+Extension.m in Sources */,
 				4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */,
 				328FB41422110D0B00A61426 /* YYLabel+Extension.m in Sources */,
