@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *moneyShow;
 @end
 
-static BOOL moneyVisible = YES;
 
 #pragma mark - 实现
 @implementation HomeHeader
@@ -57,8 +56,7 @@ static BOOL moneyVisible = YES;
     // 增大可点击区域，上下左右各 10
     [self.moneyShow setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [self.moneyShow addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-        [self setMoneyVisble:moneyVisible];
-        
+        [self setMoneyDesensitization];
     }];
     
     UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(payLabelClick)];
@@ -78,21 +76,17 @@ static BOOL moneyVisible = YES;
     [self routerEventWithName:HOME_INCOME_CLICK data:nil];
 }
 
-- (void) setMoneyVisble:(BOOL)visible {
-    if (visible) {
-        _payLab.text = @"***";
-        _incomeLab.text = @"***";
-        _payLab.textColor = kColor_Text_White;
-        _incomeLab.textColor = kColor_Text_White;
-        
-        [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_hide"] forState:UIControlStateNormal];
-        moneyVisible = NO;
-    }else {
-        [self setModels:_models];
-        
-        [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_show"] forState:UIControlStateNormal];
-        moneyVisible = YES;
-    }
+/**
+ * 设置金额是否可见
+ */
+- (void) setMoneyDesensitization {
+    // 从缓存中取出 PIN_DESENSITIZATION 的值，如果没有则默认为 0
+    NSNumber *desensitization = [NSUserDefaults objectForKey:PIN_DESENSITIZATION];
+    // 当点击后，取反并重新保存
+    desensitization = @(![desensitization boolValue]);
+    [NSUserDefaults setObject:desensitization forKey:PIN_DESENSITIZATION];
+    
+    [self setModels:_models];
 }
 
 
@@ -106,14 +100,28 @@ static BOOL moneyVisible = YES;
 - (void)setModels:(NSMutableArray<BKMonthModel *> *)models {
     _models = models;
     
-    UIFont *integer = [UIFont systemFontOfSize:AdjustFont(20)];
-    UIFont *decimal = [UIFont systemFontOfSize:AdjustFont(10)];
+    // 从缓存中取出 PIN_DESENSITIZATION 的值，如果没有则默认为 0 (false)
+    NSNumber *desensitization = [NSUserDefaults objectForKey:PIN_DESENSITIZATION];
+    
+    // 脱敏显示
+    if ([desensitization boolValue]) {
+        _payLab.text = @"***";
+        _incomeLab.text = @"***";
+        _payLab.textColor = kColor_Text_White;
+        _incomeLab.textColor = kColor_Text_White;
+        [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_hide"] forState:UIControlStateNormal];
+        
+    // 不脱敏显示
+    }else{
+        UIFont *integer = [UIFont systemFontOfSize:AdjustFont(20)];
+        UIFont *decimal = [UIFont systemFontOfSize:AdjustFont(10)];
 
-    NSString *pay = [NSString stringWithFormat:@"%.2f", [[models valueForKeyPath:@"@sum.pay.floatValue"] floatValue]];
-    NSString *income = [NSString stringWithFormat:@"%.2f", [[models valueForKeyPath:@"@sum.income.floatValue"] floatValue]];
+        NSString *pay = [NSString stringWithFormat:@"%.2f", [[models valueForKeyPath:@"@sum.pay.floatValue"] floatValue]];
+        NSString *income = [NSString stringWithFormat:@"%.2f", [[models valueForKeyPath:@"@sum.income.floatValue"] floatValue]];
 
-    [_payLab setAttributedText:[NSAttributedString createMath:pay integer:integer decimal:decimal color:kColor_Text_White]];
-    [_incomeLab setAttributedText:[NSAttributedString createMath:income integer:integer decimal:decimal color:kColor_Text_White]];
+        [_payLab setAttributedText:[NSAttributedString createMath:pay integer:integer decimal:decimal color:kColor_Text_White]];
+        [_incomeLab setAttributedText:[NSAttributedString createMath:income integer:integer decimal:decimal color:kColor_Text_White]];
+    }
 }
 
 //- (void)setModel:(BKModel *)model {
