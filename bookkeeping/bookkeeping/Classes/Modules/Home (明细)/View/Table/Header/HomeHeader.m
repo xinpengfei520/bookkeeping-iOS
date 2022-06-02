@@ -121,6 +121,7 @@
 
         [_payLab setAttributedText:[NSAttributedString createMath:pay integer:integer decimal:decimal color:kColor_Text_White]];
         [_incomeLab setAttributedText:[NSAttributedString createMath:income integer:integer decimal:decimal color:kColor_Text_White]];
+        [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_show"] forState:UIControlStateNormal];
     }
 }
 
