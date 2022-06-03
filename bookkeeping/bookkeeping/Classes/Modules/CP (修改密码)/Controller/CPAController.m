@@ -64,7 +64,7 @@
     [AFNManager POST:ChangePassRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [self showWindowTextHUD:result.msg delay:1.f];
             [self.navigationController popViewControllerAnimated:true];
         } else {

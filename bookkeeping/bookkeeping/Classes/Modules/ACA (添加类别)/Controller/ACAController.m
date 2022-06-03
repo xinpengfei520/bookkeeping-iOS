@@ -153,7 +153,7 @@
     [AFNManager POST:AddInsertCategoryListRequest params:param complete:^(APPResult * _Nonnull result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [self showTextHUD:result.msg delay:1.5f];
 //            if (self.complete) {
 //                self.complete();

@@ -52,7 +52,7 @@
     [AFNManager POST:ChangeIconRequest params:param andImages:@[image] progress:nil complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             // 更新数据
             UserModel *model = [UserInfo loadUserInfo];
             [model setIcon:result.data];
@@ -83,7 +83,7 @@
     [AFNManager POST:NicknameRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             // 更新数据
             UserModel *model = [UserInfo loadUserInfo];
             [model setNickname:nickName];
@@ -112,7 +112,7 @@
     [AFNManager POST:ChangeSexRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             // 更新数据
             UserModel *model = [UserInfo loadUserInfo];
             [model setSex:sex];

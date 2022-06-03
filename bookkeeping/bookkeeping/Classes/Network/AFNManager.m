@@ -58,7 +58,8 @@ static AFHTTPSessionManager *_manager;
         if (complete) {
             // 解析
             APPResult *result = [APPResult mj_objectWithKeyValues:responseObject];
-            result.code = ServiceCodeSuccess;
+            result.status = HttpStatusSuccess;
+            result.cache = CacheStatusSuccess;
             complete(result);
 //            // 存储Token
 //            if (result.data &&
@@ -72,8 +73,8 @@ static AFHTTPSessionManager *_manager;
         if (complete) {
             APPResult *result = [[APPResult alloc] init];
             result.data = nil;
-            result.code = ServiceCodeFail;
-            result.status = ServiceStatusFail;
+            result.cache = CacheStatusFail;
+            result.status = HttpStatusFail;
             result.msg = @"请求失败";
             complete(result);
         }
@@ -109,7 +110,8 @@ static AFHTTPSessionManager *_manager;
         // 回调
         if (complete) {
             APPResult *result = [APPResult mj_objectWithKeyValues:responseObject];
-            result.code = ServiceCodeSuccess;
+            result.status = HttpStatusSuccess;
+            result.cache = CacheStatusSuccess;
             complete(result);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -117,8 +119,8 @@ static AFHTTPSessionManager *_manager;
         if (complete) {
             APPResult *result = [[APPResult alloc] init];
             result.data = nil;
-            result.code = ServiceCodeFail;
-            result.status = ServiceStatusFail;
+            result.cache = CacheStatusFail;
+            result.status = HttpStatusFail;
             result.msg = @"请求失败";
             complete(result);
         }

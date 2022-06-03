@@ -109,7 +109,7 @@
     [self showProgressHUD:@"同步中..."];
     [AFNManager POST:bookDetailSaveRequest params:param complete:^(APPResult *result) {
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"记账成功" delay:1.f];
         } else {
             [self showTextHUD:result.msg delay:1.f];

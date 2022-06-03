@@ -106,7 +106,7 @@
     [self.view endEditing:true];
     [AFNManager POST:PhoneLoginRequest params:param complete:^(APPResult *result) {
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [UserInfo saveUserInfo:result.data];
             [[NSNotificationCenter defaultCenter] postNotificationName:LOPGIN_LOGIN_COMPLETE object:nil];
         } else {

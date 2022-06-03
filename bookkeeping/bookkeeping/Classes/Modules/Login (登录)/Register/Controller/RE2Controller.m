@@ -86,7 +86,7 @@
     [AFNManager POST:CreateCoderequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [self countDownBegin];
         } else {
             [self showWindowTextHUD:result.msg delay:1.f];
@@ -114,7 +114,7 @@
     [AFNManager POST:ValidateCoderequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             
         } else {
             [self showTextHUD:result.msg delay:1.f];

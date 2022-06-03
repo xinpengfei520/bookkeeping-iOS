@@ -101,7 +101,7 @@
     [AFNManager POST:RemoveSystemCategoryRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [self showTextHUD:result.msg delay:1.f];
             
             NSInteger index = self.header.seg.selectedSegmentIndex;
@@ -123,7 +123,7 @@
     [AFNManager POST:RemoveInsertCategoryListRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [self showTextHUD:result.msg delay:1.5f];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.models[self.header.seg.selectedSegmentIndex].insert removeObject:cell.model];

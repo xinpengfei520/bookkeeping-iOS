@@ -58,7 +58,7 @@
     [self.afn_request setAfn_useCache:false];
     [AFNManager POST:InfoRequest params:param complete:^(APPResult *result) {
         @strongify(self)
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [UserInfo saveUserInfo:result.data];
             [self.mine.table setModel:[UserInfo loadUserInfo]];
         }
