@@ -26,8 +26,7 @@
     [self.nameLab setTextColor:kColor_Text_Gary];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]];
     [self.detailLab setTextColor:kColor_Text_Gary];
-    [self.line setBackgroundColor:kColor_BG];
-    
+    [self.line setBackgroundColor:kColor_Line_Color];
     
     [self.nameConstraintL setConstant:countcoordinatesX(15)];
     [self.detaileConstraintR setConstant:countcoordinatesX(15)];

@@ -97,7 +97,6 @@
 }
 
 - (void) addBookRequest: (BKModel *)model {
-    
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];
     [param setValue:@(model.month) forKey:@"month"];
@@ -111,6 +110,23 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"记账成功" delay:1.f];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
+        }
+    }];
+}
+
+- (void) getMonthBookRequest:(NSInteger)year month:(NSInteger)month {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:@(year) forKey:@"year"];
+    [param setValue:@(month) forKey:@"month"];
+    
+    [self showProgressHUD:@"同步中..."];
+    [AFNManager POST:monthBookListRequest params:param complete:^(APPResult *result) {
+        [self hideHUD];
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            [self showTextHUD:@"请求成功" delay:1.f];
+            [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
@@ -167,12 +183,14 @@
 - (void)homeTablePull:(id)data {
     [self setDate:[self.date offsetMonths:1]];
     [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    //[self getMonthBookRequest:_date.year month:_date.month];
 }
 
 // 上拉
 - (void)homeTableUp:(id)data {
     [self setDate:[self.date offsetMonths:-1]];
     [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    //[self getMonthBookRequest:_date.year month:_date.month];
 }
 
 // 删除Cell
@@ -257,11 +275,11 @@
     
     [self.view addSubview:button];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushController)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushToBookController)];
     [button addGestureRecognizer:tapGesture];
 }
 
-- (void)pushController{
+- (void)pushToBookController{
     BKCController *bookController = [[BKCController alloc] init];
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:bookController];
     // Modal Presentation Styles（弹出风格）
