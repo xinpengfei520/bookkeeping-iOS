@@ -65,10 +65,10 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == ServiceCodeSuccess) {
-            [self showWindowTextHUD:result.message delay:1.f];
+            [self showWindowTextHUD:result.msg delay:1.f];
             [self.navigationController popViewControllerAnimated:true];
         } else {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }

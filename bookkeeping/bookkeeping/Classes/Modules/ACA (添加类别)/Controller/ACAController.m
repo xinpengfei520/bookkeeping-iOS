@@ -154,7 +154,7 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == ServiceCodeSuccess) {
-            [self showTextHUD:result.message delay:1.5f];
+            [self showTextHUD:result.msg delay:1.5f];
 //            if (self.complete) {
 //                self.complete();
 //            }
@@ -162,7 +162,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             });
         } else {
-            [self showTextHUD:result.message delay:1.5f];
+            [self showTextHUD:result.msg delay:1.5f];
         }
     }];
 }

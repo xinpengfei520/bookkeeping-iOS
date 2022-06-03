@@ -28,6 +28,8 @@ static AFHTTPSessionManager *_manager;
         _manager = [AFHTTPSessionManager manager];
         _manager.responseSerializer = [AFJSONResponseSerializer serializer];
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
+        // post json 格式数据的时候加上这两句
+        _manager.requestSerializer = [AFJSONRequestSerializer serializer];
     });
     return _manager;
 }
@@ -72,7 +74,7 @@ static AFHTTPSessionManager *_manager;
             result.data = nil;
             result.code = ServiceCodeFail;
             result.status = ServiceStatusFail;
-            result.message = @"请求失败";
+            result.msg = @"请求失败";
             complete(result);
         }
     }];
@@ -117,7 +119,7 @@ static AFHTTPSessionManager *_manager;
             result.data = nil;
             result.code = ServiceCodeFail;
             result.status = ServiceStatusFail;
-            result.message = @"请求失败";
+            result.msg = @"请求失败";
             complete(result);
         }
     }];

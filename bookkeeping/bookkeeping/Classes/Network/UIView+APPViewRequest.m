@@ -48,7 +48,7 @@ static void *kUIView_APPViewRequest;
         result.code = ServiceCodeMemoryCache;
         result.status = ServiceCodeSuccess;
         result.data = responseObject;
-        result.message = @"读取缓存成功";
+        result.msg = @"读取缓存成功";
         complete(result);
     }
 }
@@ -60,7 +60,7 @@ static void *kUIView_APPViewRequest;
         result.code = ServiceCodeMemoryCache;
         result.status = ServiceCodeSuccess;
         result.data = responseObject;
-        result.message = @"读取缓存成功";
+        result.msg = @"读取缓存成功";
         complete(result);
     }
 }
@@ -72,7 +72,7 @@ static void *kUIView_APPViewRequest;
         result.data = nil;
         result.code = ServiceCodeFail;
         result.status = ServiceStatusFail;
-        result.message = @"请求失败";
+        result.msg = @"请求失败";
         complete(result);
     }
 }

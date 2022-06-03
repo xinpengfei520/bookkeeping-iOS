@@ -110,7 +110,7 @@
             [UserInfo saveUserInfo:result.data];
             [[NSNotificationCenter defaultCenter] postNotificationName:LOPGIN_LOGIN_COMPLETE object:nil];
         } else {
-            [self showTextHUD:result.message delay:1.5f];
+            [self showTextHUD:result.msg delay:1.5f];
         }
     }];
 }

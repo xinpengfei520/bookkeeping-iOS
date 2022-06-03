@@ -23,6 +23,6 @@ typedef NS_ENUM(NSInteger, ServiceStatus) {
 @property (nonatomic, assign) ServiceCode code;     // 错误码
 @property (nonatomic, assign) ServiceStatus status; // 样式
 @property (nonatomic, strong) id data;              // 数据
-@property (nonatomic, strong) id message;           // 描述
+@property (nonatomic, strong) id msg;           // 描述
 
 @end

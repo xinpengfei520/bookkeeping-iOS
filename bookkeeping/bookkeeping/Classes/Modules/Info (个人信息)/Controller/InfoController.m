@@ -61,7 +61,7 @@
             // 刷新
             [self.table reloadData];
         } else {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }
@@ -90,7 +90,7 @@
             [UserInfo saveUserModel:model];
             [self setModel:model];
         } else {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }
@@ -121,7 +121,7 @@
             // 刷新
             [self.table reloadData];
         } else {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }

@@ -96,6 +96,27 @@
     });
 }
 
+- (void) addBookRequest: (BKModel *)model {
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:@(model.year) forKey:@"year"];
+    [param setValue:@(model.month) forKey:@"month"];
+    [param setValue:@(model.day) forKey:@"day"];
+    [param setValue:@(model.price) forKey:@"price"];
+    [param setValue:model.mark forKey:@"mark"];
+    [param setValue:@(model.category_id) forKey:@"categoryId"];
+    
+    [self showProgressHUD:@"同步中..."];
+    [AFNManager POST:bookDetailSaveRequest params:param complete:^(APPResult *result) {
+        [self hideHUD];
+        if (result.status == ServiceCodeSuccess) {
+            [self showTextHUD:@"记账成功" delay:1.f];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
+        }
+    }];
+}
+
 - (void)setDate:(NSDate *)date {
     _date = date;
     _header.date = date;
@@ -241,14 +262,17 @@
 }
 
 - (void)pushController{
-    BKCController *vc = [[BKCController alloc] init];
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    BKCController *bookController = [[BKCController alloc] init];
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:bookController];
     // Modal Presentation Styles（弹出风格）
     nav.modalPresentationStyle = UIModalPresentationCurrentContext;
     self.navigationController.definesPresentationContext = NO;
     [self presentViewController:nav animated:YES completion:^{
         
     }];
+    bookController.bookModelBlock = ^(BKModel *model){
+        [self addBookRequest:model];
+    };
 }
 
 - (void)pushToChartController:(id)data {

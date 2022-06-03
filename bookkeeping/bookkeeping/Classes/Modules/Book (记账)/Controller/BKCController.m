@@ -108,6 +108,7 @@
         [self setModels:[BKCIncomeModel mj_objectArrayWithKeyValuesArray:result.data]];
     }];
 }
+
 // 记账
 - (void)createBookRequest:(NSString *)price mark:(NSString *)mark date:(NSDate *)date {
     NSInteger index = self.scroll.contentOffset.x / SCREEN_WIDTH;
@@ -151,6 +152,7 @@
     } else {
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:model];
+            self.bookModelBlock(model);
         }];
     }
 }

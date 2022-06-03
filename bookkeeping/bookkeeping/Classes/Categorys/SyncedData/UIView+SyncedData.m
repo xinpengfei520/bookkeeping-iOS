@@ -163,7 +163,7 @@
         }
         // 失败
         else {
-            [self showWindowTextHUD:result.message delay:1.5f];
+            [self showWindowTextHUD:result.msg delay:1.5f];
         }
     }];
 }

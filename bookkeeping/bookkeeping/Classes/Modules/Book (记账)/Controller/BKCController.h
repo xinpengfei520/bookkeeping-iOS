@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BKCController : BaseViewController
 
 @property (nonatomic, strong) BKModel *model;
+@property (copy, nonatomic) void(^bookModelBlock)(BKModel *model);
 
 @end
 

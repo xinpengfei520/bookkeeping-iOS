@@ -89,7 +89,7 @@
         if (result.status == ServiceCodeSuccess) {
             [self countDownBegin];
         } else {
-            [self showWindowTextHUD:result.message delay:1.f];
+            [self showWindowTextHUD:result.msg delay:1.f];
             [self.navigationController popViewControllerAnimated:true];
         }
     }];
@@ -117,7 +117,7 @@
         if (result.status == ServiceCodeSuccess) {
             
         } else {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }

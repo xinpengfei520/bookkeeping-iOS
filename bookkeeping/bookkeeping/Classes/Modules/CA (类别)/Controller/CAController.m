@@ -102,7 +102,7 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == ServiceCodeSuccess) {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
             
             NSInteger index = self.header.seg.selectedSegmentIndex;
             BKCModel *model = cell.model;
@@ -110,7 +110,7 @@
             [self.models[index].remove addObject:model];
             [self setModels:self.models];
         } else {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }
@@ -124,13 +124,13 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == ServiceCodeSuccess) {
-            [self showTextHUD:result.message delay:1.5f];
+            [self showTextHUD:result.msg delay:1.5f];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.models[self.header.seg.selectedSegmentIndex].insert removeObject:cell.model];
                 [self setModels:self.models];
             });
         } else {
-            [self showTextHUD:result.message delay:1.5f];
+            [self showTextHUD:result.msg delay:1.5f];
         }
     }];
 }

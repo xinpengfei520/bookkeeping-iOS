@@ -123,6 +123,11 @@
     return strm;
 }
 
+/**
+ * 统计数据
+ * @param year 年份
+ * @param month 月份
+ */
 + (NSMutableArray<BKMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month {
     // 根据时间过滤
     NSMutableArray<BKModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
