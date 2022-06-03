@@ -312,7 +312,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		038BE0FA997ACBCDB88556ED /* Pods-BookStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookStart.debug.xcconfig"; path = "Target Support Files/Pods-BookStart/Pods-BookStart.debug.xcconfig"; sourceTree = "<group>"; };
 		1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.debug.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.debug.xcconfig"; sourceTree = "<group>"; };
 		2513416B4CCC355FFD281675 /* libPods-BookMonth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookMonth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
@@ -740,8 +739,6 @@
 		4BFD382121E4D98300BAB0BB /* BookMonth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonth.entitlements; sourceTree = "<group>"; };
 		A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bookkeeping.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
-		B851B6FB04282545CD2CBDE7 /* Pods-BookStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookStart.release.xcconfig"; path = "Target Support Files/Pods-BookStart/Pods-BookStart.release.xcconfig"; sourceTree = "<group>"; };
-		E3AD782884DC71E9F3EA4954 /* libPods-BookStart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookStart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
@@ -2168,7 +2165,6 @@
 				A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */,
 				32BFA7E721E483F300B926F3 /* NotificationCenter.framework */,
 				2513416B4CCC355FFD281675 /* libPods-BookMonth.a */,
-				E3AD782884DC71E9F3EA4954 /* libPods-BookStart.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2180,8 +2176,6 @@
 				E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */,
 				1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */,
 				2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */,
-				038BE0FA997ACBCDB88556ED /* Pods-BookStart.debug.xcconfig */,
-				B851B6FB04282545CD2CBDE7 /* Pods-BookStart.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
