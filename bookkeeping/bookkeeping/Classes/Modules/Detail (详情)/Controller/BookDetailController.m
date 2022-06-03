@@ -40,14 +40,14 @@
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOT_BOOK_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        BKModel *model = x.object;
+        BookDetailModel *model = x.object;
         [self setModel:model];
     }];
 }
 
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     self.header.model = model;
     self.table.model = model;

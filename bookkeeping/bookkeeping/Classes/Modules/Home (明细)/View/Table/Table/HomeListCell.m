@@ -40,7 +40,7 @@
 
 
 #pragma mark - set
-- (void)setModels:(NSMutableArray<BKMonthModel *> *)models {
+- (void)setModels:(NSMutableArray<BookMonthModel *> *)models {
     _models = models;
     [self.table reloadData];
     [self.emptyView setHidden:models.count != 0];
@@ -82,7 +82,7 @@
     return countcoordinatesX(5);
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BKModel *model = self.models[indexPath.section].list[indexPath.row];
+    BookDetailModel *model = self.models[indexPath.section].list[indexPath.row];
     [self routerEventWithName:HOME_CELL_CLICK data:model];
 }
 

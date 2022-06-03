@@ -5,6 +5,7 @@
 
 #import "ChartDate.h"
 #import "ChartDateCell.h"
+#import "BookDetailModel.h"
 
 #pragma mark - 声明
 @interface ChartDate()<UICollectionViewDelegate, UICollectionViewDataSource>
@@ -150,11 +151,11 @@
 
 
 #pragma mark - set
-- (void)setMinModel:(BKModel *)minModel {
+- (void)setMinModel:(BookDetailModel *)minModel {
     _minModel = minModel;
     [self updateDateRange];
 }
-- (void)setMaxModel:(BKModel *)maxModel {
+- (void)setMaxModel:(BookDetailModel *)maxModel {
     _maxModel = maxModel;
     [self updateDateRange];
 }

@@ -11,7 +11,7 @@
 #import "CAController.h"
 #import "KKRefreshGifHeader.h"
 #import "BOOK_EVENT.h"
-#import "BKModel.h"
+#import "BookDetailModel.h"
 #import "UIViewController+HBD.h"
 #define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
@@ -115,8 +115,8 @@
     BKCCollection *collection = self.collections[index];
     BKCModel *cmodel = collection.model.list[collection.selectIndex.row];
     
-    BKModel *model = [[BKModel alloc] init];
-    model.Id = [[BKModel getId] integerValue];
+    BookDetailModel *model = [[BookDetailModel alloc] init];
+    model.Id = [[BookDetailModel getId] integerValue];
     model.price = [[NSDecimalNumber decimalNumberWithString:price] doubleValue];
     model.year = date.year;
     model.month = date.month;

@@ -34,7 +34,7 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKMonthModel *)model {
+- (void)setModel:(BookMonthModel *)model {
     _model = model;
     [_nameLab setText:model.dateStr];
     [_detailLab setText:model.moneyStr];

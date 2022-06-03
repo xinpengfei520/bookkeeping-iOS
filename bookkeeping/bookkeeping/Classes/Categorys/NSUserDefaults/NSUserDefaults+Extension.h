@@ -4,7 +4,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "BKModel.h"
+#import "BookDetailModel.h"
 #import "CategoryListModel.h"
 #import "ACAListModel.h"
 
@@ -20,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // 删除记账
-+ (void)removeBookModel:(BKModel *)model;
++ (void)removeBookModel:(BookDetailModel *)model;
 // 添加记账
-+ (void)insertBookModel:(BKModel *)model;
++ (void)insertBookModel:(BookDetailModel *)model;
 // 修改记账
-+ (void)replaceBookModel:(BKModel *)model;
++ (void)replaceBookModel:(BookDetailModel *)model;
 
 
 // 添加分类

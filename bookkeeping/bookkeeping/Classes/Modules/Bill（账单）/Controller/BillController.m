@@ -6,6 +6,7 @@
 #import "BillController.h"
 #import "BillTable.h"
 #import "UIViewController+HBD.h"
+#import "BookDetailModel.h"
 
 #pragma mark - 声明
 @interface BillController()
@@ -88,7 +89,7 @@
     [(UILabel *)[self.rightButton viewWithTag:10] setText:[NSString stringWithFormat:@"%ld年", self.date.year]];
     
     // 过滤
-    NSMutableArray<BKModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
     NSString *str = [NSString stringWithFormat:@"year == %@", selectValue];
 //    NSPredicate *pre = [NSPredicate predicateWithFormat:str];
 //    bookArr = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
@@ -97,13 +98,13 @@
     
     str = [NSString stringWithFormat:@"cmodel.is_income == 1"];
 //    pre = [NSPredicate predicateWithFormat:str];
-//    NSMutableArray<BKModel *> *arrm1 = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
-    NSMutableArray<BKModel *> *arrm1 = [NSMutableArray kk_filteredArrayUsingPredicate:str array:bookArr];
+//    NSMutableArray<BookDetailModel *> *arrm1 = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
+    NSMutableArray<BookDetailModel *> *arrm1 = [NSMutableArray kk_filteredArrayUsingPredicate:str array:bookArr];
     
     str = [NSString stringWithFormat:@"cmodel.is_income == 0"];
 //    pre = [NSPredicate predicateWithFormat:str];
-//    NSMutableArray<BKModel *> *arrm2 = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
-    NSMutableArray<BKModel *> *arrm2 = [NSMutableArray kk_filteredArrayUsingPredicate:str array:bookArr];
+//    NSMutableArray<BookDetailModel *> *arrm2 = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
+    NSMutableArray<BookDetailModel *> *arrm2 = [NSMutableArray kk_filteredArrayUsingPredicate:str array:bookArr];
     
             
             
@@ -117,13 +118,13 @@
     for (NSInteger i=1; i<=12; i++) {
         NSString *str1 = [NSString stringWithFormat:@"month == %ld AND cmodel.is_income == 1", i];
 //        NSPredicate *pre = [NSPredicate predicateWithFormat:str1];
-//        NSMutableArray<BKModel *> *incomeModels = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
-        NSMutableArray<BKModel *> *incomeModels = [NSMutableArray kk_filteredArrayUsingPredicate:str1 array:bookArr];
+//        NSMutableArray<BookDetailModel *> *incomeModels = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
+        NSMutableArray<BookDetailModel *> *incomeModels = [NSMutableArray kk_filteredArrayUsingPredicate:str1 array:bookArr];
         
         NSString *str2 = [NSString stringWithFormat:@"month == %ld AND cmodel.is_income == 0", i];
 //        pre = [NSPredicate predicateWithFormat:str2];
-//        NSMutableArray<BKModel *> *payModels = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
-        NSMutableArray<BKModel *> *payModels = [NSMutableArray kk_filteredArrayUsingPredicate:str2 array:bookArr];
+//        NSMutableArray<BookDetailModel *> *payModels = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
+        NSMutableArray<BookDetailModel *> *payModels = [NSMutableArray kk_filteredArrayUsingPredicate:str2 array:bookArr];
         
         
         CGFloat income = [[incomeModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];

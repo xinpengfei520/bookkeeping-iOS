@@ -55,7 +55,7 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
     // 显示类别名称

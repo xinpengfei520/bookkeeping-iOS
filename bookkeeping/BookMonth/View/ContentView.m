@@ -66,21 +66,21 @@
     [_monthConstraintW setConstant:[month sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:_monthLab.font].width];
     
     // 数据
-    NSMutableArray<BKMonthModel *> *monthModels = [BKMonthModel statisticalMonthWithYear:date.year month:date.month];
-    NSMutableArray<BKModel *> *arrm = [NSMutableArray array];
-    for (BKMonthModel *month in monthModels) {
+    NSMutableArray<BookMonthModel *> *monthModels = [BookMonthModel statisticalMonthWithYear:date.year month:date.month];
+    NSMutableArray<BookDetailModel *> *arrm = [NSMutableArray array];
+    for (BookMonthModel *month in monthModels) {
         [arrm addObjectsFromArray:month.list];
     }
     // 支出
 //    NSPredicate *pre = [NSPredicate predicateWithFormat:@"cmodel.is_income == 0"];
-//    NSMutableArray<BKModel *> *pay = [NSMutableArray arrayWithArray:[arrm filteredArrayUsingPredicate:pre]];
-    NSMutableArray<BKModel *> *pay = [NSMutableArray kk_filteredArrayUsingPredicate:@"cmodel.is_income == 0" array:arrm];
+//    NSMutableArray<BookDetailModel *> *pay = [NSMutableArray arrayWithArray:[arrm filteredArrayUsingPredicate:pre]];
+    NSMutableArray<BookDetailModel *> *pay = [NSMutableArray kk_filteredArrayUsingPredicate:@"cmodel.is_income == 0" array:arrm];
     
     CGFloat payPrice = [[pay valueForKeyPath:@"@sum.price.floatValue"] floatValue];
     // 收入
 //    pre = [NSPredicate predicateWithFormat:@"cmodel.is_income == 1"];
-//    NSMutableArray<BKModel *> *income = [NSMutableArray arrayWithArray:[arrm filteredArrayUsingPredicate:pre]];
-    NSMutableArray<BKModel *> *income = [NSMutableArray kk_filteredArrayUsingPredicate:@"cmodel.is_income == 1" array:arrm];
+//    NSMutableArray<BookDetailModel *> *income = [NSMutableArray arrayWithArray:[arrm filteredArrayUsingPredicate:pre]];
+    NSMutableArray<BookDetailModel *> *income = [NSMutableArray kk_filteredArrayUsingPredicate:@"cmodel.is_income == 1" array:arrm];
     CGFloat incomePrice = [[income valueForKeyPath:@"@sum.price.floatValue"] floatValue];
     
     [_valueLab1 setText:[NSString stringWithFormat:@"%.2f", incomePrice]];

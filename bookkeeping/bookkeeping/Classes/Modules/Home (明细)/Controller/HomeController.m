@@ -9,7 +9,8 @@
 #import "HomeList.h"
 #import "HomeListSubCell.h"
 #import "HOME_EVENT.h"
-#import "BKModel.h"
+#import "BookDetailModel.h"
+#import "BookMonthModel.h"
 #import "BookDetailController.h"
 #import "SearchViewController.h"
 #import "MineController.h"
@@ -26,7 +27,7 @@
 @property (nonatomic, strong) HomeHeader *header;
 @property (nonatomic, strong) HomeList *list;
 @property (nonatomic, strong) NSDate *date;
-@property (nonatomic, strong) NSMutableArray<BKMonthModel *> *models;
+@property (nonatomic, strong) NSMutableArray<BookMonthModel *> *models;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
 
 @end
@@ -45,7 +46,7 @@
     [self addButton];
     [self setDate:[NSDate date]];
     [self monitorNotification];
-    [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
 
     // 已经登录
     UserModel *model = [UserInfo loadUserInfo];
@@ -60,12 +61,12 @@
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOT_BOOK_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        [self setModels:[BKMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 删除记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOT_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        [self setModels:[BKMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 登录成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
@@ -75,18 +76,18 @@
     // 退出登录
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_LOGOUT_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        [self setModels:[BKMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 同步数据成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:SYNCED_DATA_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        [self setModels:[BKMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
 }
 
 
 #pragma mark - set
-- (void)setModels:(NSMutableArray<BKMonthModel *> *)models {
+- (void)setModels:(NSMutableArray<BookMonthModel *> *)models {
     _models = models;
     @weakify(self)
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -96,7 +97,7 @@
     });
 }
 
-- (void) addBookRequest: (BKModel *)model {
+- (void) addBookRequest: (BookDetailModel *)model {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];
     [param setValue:@(model.month) forKey:@"month"];
@@ -126,7 +127,7 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"请求成功" delay:1.f];
-            [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+            [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
@@ -171,7 +172,7 @@
         NSLog(@"选择的值：%@", selectValue);
         @strongify(self)
         [self setDate:[NSDate dateWithYM:selectValue]];
-        [self setModels:[BKMonthModel
+        [self setModels:[BookMonthModel
                          statisticalMonthWithYear:self.date.year month:self.date.month]];
     };
 
@@ -182,14 +183,14 @@
 // 下拉
 - (void)homeTablePull:(id)data {
     [self setDate:[self.date offsetMonths:1]];
-    [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
     //[self getMonthBookRequest:_date.year month:_date.month];
 }
 
 // 上拉
 - (void)homeTableUp:(id)data {
     [self setDate:[self.date offsetMonths:-1]];
-    [self setModels:[BKMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
     //[self getMonthBookRequest:_date.year month:_date.month];
 }
 
@@ -202,13 +203,13 @@
 }
 
 // 点击Cell
-- (void)homeTableCellClick:(BKModel *)model {
+- (void)homeTableCellClick:(BookDetailModel *)model {
     @weakify(self)
     BookDetailController *vc = [[BookDetailController alloc] init];
     vc.model = model;
     vc.complete = ^{
         @strongify(self)
-        [self setModels:[BKMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     };
     [self.navigationController pushViewController:vc animated:true];
 }
@@ -288,7 +289,7 @@
     [self presentViewController:nav animated:YES completion:^{
         
     }];
-    bookController.bookModelBlock = ^(BKModel *model){
+    bookController.bookModelBlock = ^(BookDetailModel *model){
         [self addBookRequest:model];
     };
 }

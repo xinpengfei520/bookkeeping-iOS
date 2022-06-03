@@ -4,7 +4,7 @@
  */
 
 #import "BaseView.h"
-#import "BKModel.h"
+#import "BookDetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger navigationIndex;
 @property (weak, nonatomic) IBOutlet UIButton *button;
-@property (nonatomic, strong) BKModel *cmodel;
+@property (nonatomic, strong) BookDetailModel *cmodel;
 
 @end
 

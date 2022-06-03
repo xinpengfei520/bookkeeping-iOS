@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BCHUDContent : BaseView
 
-@property (nonatomic, strong) NSMutableArray<BKModel *> *models;
+@property (nonatomic, strong) NSMutableArray<BookDetailModel *> *models;
 
 @end
 

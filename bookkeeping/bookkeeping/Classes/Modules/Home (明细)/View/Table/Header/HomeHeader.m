@@ -6,6 +6,7 @@
 #import "HomeHeader.h"
 #import "HOME_EVENT.h"
 #import "UIButton+EnlargeTouchArea.h"
+#import "BookMonthModel.h"
 
 #pragma mark - 声明
 @interface HomeHeader()
@@ -97,7 +98,7 @@
     _monthLab.text = [@(date.month) description];
 }
 
-- (void)setModels:(NSMutableArray<BKMonthModel *> *)models {
+- (void)setModels:(NSMutableArray<BookMonthModel *> *)models {
     _models = models;
     
     // 从缓存中取出 PIN_DESENSITIZATION 的值，如果没有则默认为 0 (false)

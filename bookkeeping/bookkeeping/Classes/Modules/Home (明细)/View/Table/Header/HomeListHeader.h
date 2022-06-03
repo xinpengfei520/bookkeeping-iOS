@@ -4,14 +4,14 @@
  */
 
 #import "BaseView.h"
-#import "BKModel.h"
+#import "BookMonthModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeListHeader : BaseView
 
-@property (nonatomic, strong) BKMonthModel *model;
+@property (nonatomic, strong) BookMonthModel *model;
 //@property (nonatomic, strong) NSMutableArray<BookListModel *> *listSorts;
 
 @end

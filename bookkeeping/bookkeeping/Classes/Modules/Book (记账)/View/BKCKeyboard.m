@@ -530,7 +530,7 @@
     _moneyLab.text = money;
 }
 
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
     [self.markField setText:model.mark];

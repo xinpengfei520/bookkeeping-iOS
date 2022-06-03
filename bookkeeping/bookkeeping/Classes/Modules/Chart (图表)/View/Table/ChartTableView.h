@@ -5,8 +5,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ChartSubModel.h"
-//#import "BKModel.h"
-#import "BKModel.h"
+#import "BookChartModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger segmentIndex;
 //@property (nonatomic, strong) ChartSubModel *subModel;
 //@property (nonatomic, strong) BKModel *model;
-@property (nonatomic, strong) BKChartModel *model;
+@property (nonatomic, strong) BookChartModel *model;
 
 + (instancetype)initWithFrame:(CGRect)frame;
 

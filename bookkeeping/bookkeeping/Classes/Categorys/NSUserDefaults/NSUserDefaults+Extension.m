@@ -26,10 +26,10 @@
 }
 
 // 删除记账
-+ (void)removeBookModel:(BKModel *)model {
++ (void)removeBookModel:(BookDetailModel *)model {
     // 删除
-    NSMutableArray<BKModel *> *bookArrm = [NSUserDefaults objectForKey:PIN_BOOK];
-    NSMutableArray<BKModel *> *bookSyncedArrm = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    NSMutableArray<BookDetailModel *> *bookArrm = [NSUserDefaults objectForKey:PIN_BOOK];
+    NSMutableArray<BookDetailModel *> *bookSyncedArrm = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     if ([bookSyncedArrm containsObject:model]) {
         [bookSyncedArrm removeObject:model];
     }
@@ -39,7 +39,7 @@
 }
 
 // 添加记账
-+ (void)insertBookModel:(BKModel *)model {
++ (void)insertBookModel:(BookDetailModel *)model {
     NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
     NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     
@@ -51,7 +51,7 @@
 }
 
 // 修改记账
-+ (void)replaceBookModel:(BKModel *)model {
++ (void)replaceBookModel:(BookDetailModel *)model {
     NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
     NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     NSInteger index = [bookArr indexOfObject:model];
@@ -129,8 +129,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -158,8 +158,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -184,8 +184,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -209,8 +209,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -220,7 +220,7 @@
     
     
     // 删除同类别信息
-    NSMutableArray<BKModel *> *arrm = [NSUserDefaults objectForKey:PIN_BOOK];
+    NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults objectForKey:PIN_BOOK];
     NSString *preStr = [NSString stringWithFormat:@"cmodel.Id == %ld", model.Id];
     arrm = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:arrm];
     [NSUserDefaults setObject:arrm forKey:PIN_BOOK];

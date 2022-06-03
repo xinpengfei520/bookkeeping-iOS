@@ -28,7 +28,9 @@
 
 // model
 #import "BaseModel.h"
-#import "BKModel.h"
+#import "BookDetailModel.h"
+#import "BookMonthModel.h"
+#import "BookChartModel.h"
 #import "ACAListModel.h"
 #import "BKCIncomeModel.h"
 

@@ -4,14 +4,14 @@
  */
 
 #import "BaseView.h"
-#import "BKModel.h"
+#import "BookChartModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChartTableHeader : BaseView
 
-@property (nonatomic, strong) BKChartModel *model;
+@property (nonatomic, strong) BookChartModel *model;
 
 @end
 

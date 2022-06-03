@@ -36,7 +36,7 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
     [_nameLab setText:model.cmodel.name];
