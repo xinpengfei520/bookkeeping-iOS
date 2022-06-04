@@ -20,7 +20,6 @@
 #pragma mark - 实现
 @implementation HomeListHeader
 
-
 - (void)initUI {
     [self.nameLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]];
     [self.nameLab setTextColor:kColor_Text_Gary];
@@ -36,9 +35,10 @@
 #pragma mark - set
 - (void)setModel:(BookMonthModel *)model {
     _model = model;
-    [_nameLab setText:model.dateStr];
-    [_detailLab setText:model.moneyStr];
+    [_nameLab setText:[model getDateDescribe]];
+    [_detailLab setText:[model getMoneyDescribe]];
 }
+
 //- (void)setListSorts:(NSMutableArray<BookListModel *> *)listSorts {
 //    _listSorts = listSorts;
 //    if (listSorts.count != 0) {

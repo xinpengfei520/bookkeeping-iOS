@@ -24,11 +24,13 @@
     [NSObject encodeClass:self encoder:aCoder];
 }
 
-- (NSString *)dateStr {
-    return [NSString stringWithFormat:@"%02ld月%02ld日   %@", [_date month], [_date day], [_date dayFromWeekday]];
+- (NSString *)getDateDescribe {
+    NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
+    NSDate *date = [NSDate dateWithYMD:dateStr];
+    return [NSString stringWithFormat:@"%02ld月%02ld日   %@", _month, _day, [date dayFromWeekday]];
 }
 
-- (NSString *)moneyStr {
+- (NSString *)getMoneyDescribe {
     NSMutableString *strm = [NSMutableString string];
     if (_income != 0) {
         [strm appendFormat:@"收入: %@", [@(_income) description]];
@@ -57,36 +59,39 @@
     
     // 统计数据
     NSMutableDictionary *dictm = [NSMutableDictionary dictionary];
-    for (BookDetailModel *model in models) {
-        NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
+    for (BookDetailModel *detailModel in models) {
+        NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", detailModel.year, detailModel.month, detailModel.day];
         // 初始化
         if (![[dictm allKeys] containsObject:key]) {
-            BookMonthModel *submodel = [[BookMonthModel alloc] init];
-            submodel.list = [NSMutableArray array];
-            submodel.income = 0;
-            submodel.pay = 0;
-            submodel.date = [NSDate dateWithYMD:key];
-            [dictm setObject:submodel forKey:key];
+            BookMonthModel *monthModel = [[BookMonthModel alloc] init];
+            monthModel.year = detailModel.year;
+            monthModel.month = detailModel.month;
+            monthModel.day = detailModel.day;
+            monthModel.list = [NSMutableArray array];
+            monthModel.income = 0;
+            monthModel.pay = 0;
+            [dictm setObject:monthModel forKey:key];
         }
         // 添加数据
         BookMonthModel *submodel = dictm[key];
-        [submodel.list addObject:model];
+        [submodel.list addObject:detailModel];
         // 收入
-        if (model.cmodel.is_income == true) {
-            [submodel setIncome:submodel.income + model.price];
+        if (detailModel.cmodel.is_income == true) {
+            [submodel setIncome:submodel.income + detailModel.price];
         }
         // 支出
         else {
-            [submodel setPay:submodel.pay + model.price];
+            [submodel setPay:submodel.pay + detailModel.price];
         }
         [dictm setObject:submodel forKey:key];
     }
     
-    // 排序
+    // 排序，按照 day 的倒序排
     NSMutableArray<BookMonthModel *> *arrm = [NSMutableArray arrayWithArray:[dictm allValues]];
     arrm = [NSMutableArray arrayWithArray:[arrm sortedArrayUsingComparator:^NSComparisonResult(BookMonthModel *obj1, BookMonthModel *obj2) {
-        return [obj1.dateStr compare:obj2.dateStr];
+        return obj2.day - obj1.day;
     }]];
+    
     return arrm;
 }
 
