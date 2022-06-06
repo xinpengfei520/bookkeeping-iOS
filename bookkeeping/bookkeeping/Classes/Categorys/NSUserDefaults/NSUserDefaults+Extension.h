@@ -33,7 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)removeCategoryModel:(BKCModel *)model is_income:(BOOL)is_income;
 // 获取分类
 + (NSMutableArray *)getCategoryModel;
-
+// 获取分类 Model 列表
++ (NSMutableArray *) getCategoryModelList;
 
 @end
 

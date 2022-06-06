@@ -34,7 +34,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     BookDetailModel *model = [[[self class] allocWithZone:zone] init];
     model.Id = self.Id;
-    model.category_id = self.category_id;
+    model.categoryId = self.categoryId;
     model.price = self.price;
     model.year = self.year;
     model.month = self.month;

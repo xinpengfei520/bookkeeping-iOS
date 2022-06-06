@@ -123,7 +123,7 @@
     model.day = date.day;
     // 去掉备注中的空格并判空，如果为空则使用类别名作为备注
     model.mark = ([allTrim(mark)length] == 0)?cmodel.name:mark;
-    model.category_id = cmodel.Id;
+    model.categoryId = cmodel.Id;
     model.cmodel = cmodel;
     
     // 新增
@@ -138,7 +138,7 @@
         _model.month = date.month;
         _model.day = date.day;
         _model.mark = mark;
-        _model.category_id = cmodel.Id;
+        _model.categoryId = cmodel.Id;
         _model.cmodel = cmodel;
         model = _model;
         // 修改记账

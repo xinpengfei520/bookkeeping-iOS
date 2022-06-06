@@ -31,7 +31,7 @@
     
     [self.iconConstraintL setConstant:countcoordinatesX(15)];
     [self.detailConstraintR setConstant:countcoordinatesX(15)];
-    
+    _categoryList = [NSUserDefaults getCategoryModelList];
     
     @weakify(self)
     MGSwipeButton *btn = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
@@ -57,15 +57,26 @@
 #pragma mark - set
 - (void)setModel:(BookDetailModel *)model {
     _model = model;
-    [_icon setImage:[UIImage imageNamed:@"e_books_l"]];
-    //[_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
+    BKCModel *cmodel = [self getCategoryModel:model.categoryId];
+    // 显示类别图表
+    [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     // 显示类别名称
-//    [_nameLab setText:model.cmodel.name];
+    [_nameLab setText:cmodel.name];
     // 显示备注
     [_nameLab setText:model.mark];
-    [_detailLab setText:[@(-model.price) description]];
-    //[_detailLab setText:model.cmodel.is_income == 0 ? [@(-model.price) description] : [@(model.price) description]];
+    // 显示记账信息
+    [_detailLab setText:cmodel.is_income == 0 ? [@(-model.price) description] : [@(model.price) description]];
 }
 
+- (BKCModel *) getCategoryModel:(NSInteger)categoryId{
+    BKCModel *findModel;
+    for (BKCModel *model in _categoryList) {
+        if (model.Id == categoryId) {
+            findModel = model;
+            break;
+        }
+    }
+    return findModel;
+}
 
 @end

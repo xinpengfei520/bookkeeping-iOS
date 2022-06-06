@@ -126,7 +126,7 @@
             NSInteger index = -1;
             for (NSInteger i=0; i<groupArr.count; i++) {
                 BookDetailModel *submodel = groupArr[i];
-                if (submodel.category_id == model.category_id) {
+                if (submodel.categoryId == model.categoryId) {
                     index = i;
                 }
             }

@@ -257,6 +257,22 @@
     return [NSMutableArray arrayWithArray:@[model1, model2]];
 }
 
++ (NSMutableArray<BKCModel *> *) getCategoryModelList{
+    // 分类：从 SC.plist 文件中读取默认的分类数据
+    NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
+    NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];
+    // 支出分类
+    NSMutableArray *pay = [NSMutableArray arrayWithArray:systemCateDic[@"pay"]];
+    // 收入分类
+    NSMutableArray *income = [NSMutableArray arrayWithArray:systemCateDic[@"income"]];
+    // 合并
+    [pay addObjectsFromArray:income];
+    // 字典数组转模型数组
+    NSMutableArray<BKCModel *> *categoryModelList = [BKCModel mj_objectArrayWithKeyValuesArray:pay];
+    
+    return categoryModelList;
+}
+
 + (void)load {
     BOOL isFirst = [NSUserDefaults objectForKey:PIN_FIRST_RUN];
     // 第一次运行

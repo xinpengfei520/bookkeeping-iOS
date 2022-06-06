@@ -104,7 +104,7 @@
     [param setValue:@(model.day) forKey:@"day"];
     [param setValue:@(model.price) forKey:@"price"];
     [param setValue:model.mark forKey:@"mark"];
-    [param setValue:@(model.category_id) forKey:@"categoryId"];
+    [param setValue:@(model.categoryId) forKey:@"categoryId"];
     
     [self showProgressHUD:@"同步中..."];
     [AFNManager POST:bookDetailSaveRequest params:param complete:^(APPResult *result) {

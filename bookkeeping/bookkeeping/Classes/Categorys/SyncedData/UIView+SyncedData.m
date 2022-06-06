@@ -134,7 +134,7 @@
                 BookDetailModel *model = [[BookDetailModel alloc] init];
                 model.Id = [[BookDetailModel getId] integerValue];
                 model.price = [subarr[0] floatValue];
-                model.category_id = [subarr[1] integerValue];
+                model.categoryId = [subarr[1] integerValue];
                 model.year = [subarr[2] integerValue];
                 model.month = [subarr[3] integerValue];
                 model.day = [subarr[4] integerValue];
