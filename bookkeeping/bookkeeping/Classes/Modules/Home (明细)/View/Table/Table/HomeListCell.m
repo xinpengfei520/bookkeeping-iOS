@@ -52,11 +52,11 @@
     return self.models ? self.models.count : 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.models[section].list.count;
+    return self.models[section].array.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeListSubCell *cell = [HomeListSubCell loadFirstNib:tableView];
-    cell.model = self.models[indexPath.section].list[indexPath.row];
+    cell.model = self.models[indexPath.section].array[indexPath.row];
     return cell;
 }
 
@@ -82,7 +82,7 @@
     return countcoordinatesX(5);
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BookDetailModel *model = self.models[indexPath.section].list[indexPath.row];
+    BookDetailModel *model = self.models[indexPath.section].array[indexPath.row];
     [self routerEventWithName:HOME_CELL_CLICK data:model];
 }
 

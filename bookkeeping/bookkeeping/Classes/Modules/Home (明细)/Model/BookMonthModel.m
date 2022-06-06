@@ -44,6 +44,11 @@
     return strm;
 }
 
+- (NSMutableArray<BookDetailModel *> *)array{
+    NSMutableArray *bookArray = [BookDetailModel mj_objectArrayWithKeyValuesArray:_list];
+    return bookArray;
+}
+
 /**
  * 统计数据
  * @param year 年份
@@ -67,14 +72,14 @@
             monthModel.year = detailModel.year;
             monthModel.month = detailModel.month;
             monthModel.day = detailModel.day;
-            monthModel.list = [NSMutableArray array];
+            monthModel.array = [NSMutableArray array];
             monthModel.income = 0;
             monthModel.pay = 0;
             [dictm setObject:monthModel forKey:key];
         }
         // 添加数据
         BookMonthModel *submodel = dictm[key];
-        [submodel.list addObject:detailModel];
+        //[submodel.list addObject:detailModel];
         // 收入
         if (detailModel.cmodel.is_income == true) {
             [submodel setIncome:submodel.income + detailModel.price];

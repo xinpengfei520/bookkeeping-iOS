@@ -123,12 +123,18 @@
     [param setValue:@(month) forKey:@"month"];
     
     [self showProgressHUD:@"同步中..."];
+    @weakify(self)
     [AFNManager POST:monthBookListRequest params:param complete:^(APPResult *result) {
+        @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"请求成功" delay:1.f];
-            [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+            [self setModels:[BookMonthModel mj_objectArrayWithKeyValuesArray:result.data]];
+            //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
         } else {
+            // 当请求失败时，清空当前显示的列表数据
+            // TODO 增加点击重试按钮
+            [self setModels:nil];
             [self showTextHUD:result.msg delay:1.f];
         }
     }];
@@ -172,8 +178,9 @@
         NSLog(@"选择的值：%@", selectValue);
         @strongify(self)
         [self setDate:[NSDate dateWithYM:selectValue]];
-        [self setModels:[BookMonthModel
-                         statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self getMonthBookRequest:self.date.year month:self.date.month];
+//        [self setModels:[BookMonthModel
+//                         statisticalMonthWithYear:self.date.year month:self.date.month]];
     };
 
     // 3.显示
@@ -183,15 +190,15 @@
 // 下拉
 - (void)homeTablePull:(id)data {
     [self setDate:[self.date offsetMonths:1]];
-    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
-    //[self getMonthBookRequest:_date.year month:_date.month];
+    //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    [self getMonthBookRequest:_date.year month:_date.month];
 }
 
 // 上拉
 - (void)homeTableUp:(id)data {
     [self setDate:[self.date offsetMonths:-1]];
-    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
-    //[self getMonthBookRequest:_date.year month:_date.month];
+    //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    [self getMonthBookRequest:_date.year month:_date.month];
 }
 
 // 删除Cell

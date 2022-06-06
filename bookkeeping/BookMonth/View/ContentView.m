@@ -69,7 +69,7 @@
     NSMutableArray<BookMonthModel *> *monthModels = [BookMonthModel statisticalMonthWithYear:date.year month:date.month];
     NSMutableArray<BookDetailModel *> *arrm = [NSMutableArray array];
     for (BookMonthModel *month in monthModels) {
-        [arrm addObjectsFromArray:month.list];
+        [arrm addObjectsFromArray:month.array];
     }
     // 支出
 //    NSPredicate *pre = [NSPredicate predicateWithFormat:@"cmodel.is_income == 0"];

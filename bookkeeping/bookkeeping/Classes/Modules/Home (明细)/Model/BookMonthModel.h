@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger day;
 @property (nonatomic, assign) CGFloat income;       // 收入
 @property (nonatomic, assign) CGFloat pay;          // 支出
-@property (nonatomic, strong) NSMutableArray<BookDetailModel *> *list;  // 数据
+@property (nonatomic, strong) NSMutableArray<BookDetailModel *> *array;  // 数据
+@property (nonatomic, strong) NSArray<NSDictionary *> *list;
 
 // 统计数据
 + (NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month;
@@ -25,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)getMoneyDescribe;
 
 - (NSString*)getDateDescribe;
+
+- (NSMutableArray<BookDetailModel *> *)array;
 
 @end
 
