@@ -60,8 +60,6 @@
     BKCModel *cmodel = [self getCategoryModel:model.categoryId];
     // 显示类别图表
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
-    // 显示类别名称
-    [_nameLab setText:cmodel.name];
     // 显示备注
     [_nameLab setText:model.mark];
     // 显示记账信息

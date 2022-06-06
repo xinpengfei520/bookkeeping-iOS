@@ -5,6 +5,7 @@
 
 #import "NSUserDefaults+Extension.h"
 
+static NSMutableArray<BKCModel *> *categoryModelList;
 
 @implementation NSUserDefaults (Extension)
 
@@ -258,6 +259,9 @@
 }
 
 + (NSMutableArray<BKCModel *> *) getCategoryModelList{
+    if (categoryModelList) {
+        return categoryModelList;
+    }
     // 分类：从 SC.plist 文件中读取默认的分类数据
     NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
     NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];
@@ -268,7 +272,7 @@
     // 合并
     [pay addObjectsFromArray:income];
     // 字典数组转模型数组
-    NSMutableArray<BKCModel *> *categoryModelList = [BKCModel mj_objectArrayWithKeyValuesArray:pay];
+    categoryModelList = [BKCModel mj_objectArrayWithKeyValuesArray:pay];
     
     return categoryModelList;
 }
