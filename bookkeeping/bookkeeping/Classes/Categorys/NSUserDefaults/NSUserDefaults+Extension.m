@@ -277,6 +277,18 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     return categoryModelList;
 }
 
++ (BKCModel *) getCategoryModel:(NSInteger)categoryId{
+    NSMutableArray<BKCModel *> *categoryList = [NSUserDefaults getCategoryModelList];
+    BKCModel *categoryModel;
+    for (BKCModel *model in categoryList) {
+        if (model.Id == categoryId) {
+            categoryModel = model;
+            break;
+        }
+    }
+    return categoryModel;
+}
+
 + (void)load {
     BOOL isFirst = [NSUserDefaults objectForKey:PIN_FIRST_RUN];
     // 第一次运行

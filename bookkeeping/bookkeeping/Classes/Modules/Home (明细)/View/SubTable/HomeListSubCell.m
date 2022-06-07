@@ -31,7 +31,6 @@
     
     [self.iconConstraintL setConstant:countcoordinatesX(15)];
     [self.detailConstraintR setConstant:countcoordinatesX(15)];
-    _categoryList = [NSUserDefaults getCategoryModelList];
     
     @weakify(self)
     MGSwipeButton *btn = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
@@ -57,24 +56,13 @@
 #pragma mark - set
 - (void)setModel:(BookDetailModel *)model {
     _model = model;
-    BKCModel *cmodel = [self getCategoryModel:model.categoryId];
+    BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
     // 显示类别图表
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     // 显示备注
     [_nameLab setText:model.mark];
     // 显示记账信息
     [_detailLab setText:cmodel.is_income == 0 ? [@(-model.price) description] : [@(model.price) description]];
-}
-
-- (BKCModel *) getCategoryModel:(NSInteger)categoryId{
-    BKCModel *findModel;
-    for (BKCModel *model in _categoryList) {
-        if (model.Id == categoryId) {
-            findModel = model;
-            break;
-        }
-    }
-    return findModel;
 }
 
 @end

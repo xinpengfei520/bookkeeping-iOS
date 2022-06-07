@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HomeListSubCell : MGSwipeTableCell
 
 @property (nonatomic, strong) BookDetailModel *model;
-@property (nonatomic, strong) NSMutableArray<BKCModel *> *categoryList;
 
 @end
 

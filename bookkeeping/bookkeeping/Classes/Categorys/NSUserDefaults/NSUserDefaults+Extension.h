@@ -35,7 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray *)getCategoryModel;
 // 获取分类 Model 列表
 + (NSMutableArray *) getCategoryModelList;
-
+// // 获取分类 Model 通过 categoryId
++ (BKCModel *) getCategoryModel:(NSInteger)categoryId;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -38,21 +38,9 @@
 #pragma mark - set
 - (void)setModel:(BookDetailModel *)model {
     _model = model;
-    BKCModel *cmodel = [self getCategoryModel:model.categoryId];
+    BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     [_nameLab setText:cmodel.name];
-}
-
-- (BKCModel *) getCategoryModel:(NSInteger)categoryId{
-    NSMutableArray<BKCModel *> *categoryList = [NSUserDefaults getCategoryModelList];
-    BKCModel *findModel;
-    for (BKCModel *model in categoryList) {
-        if (model.Id == categoryId) {
-            findModel = model;
-            break;
-        }
-    }
-    return findModel;
 }
 
 @end
