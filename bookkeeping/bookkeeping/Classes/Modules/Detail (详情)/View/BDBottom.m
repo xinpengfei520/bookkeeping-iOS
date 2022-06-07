@@ -13,8 +13,8 @@
 #pragma mark - 声明
 @interface BDBottom()
 
-@property (weak, nonatomic) IBOutlet UIButton *editBtn;
-@property (weak, nonatomic) IBOutlet UIButton *delBtn;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *editConstraintB;
 
 @end
@@ -26,12 +26,12 @@
 
 - (void)initUI {
     [self setBackgroundColor:[UIColor whiteColor]];
-    [self.editBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
-    [self.editBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-    [self.editBtn setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
-    [self.delBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
-    [self.delBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-    [self.delBtn setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
+    [self.editButton.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
+    [self.editButton setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+    [self.editButton setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
+    [self.deleteButton.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
+    [self.deleteButton setTitleColor:kColor_Text_Red forState:UIControlStateNormal];
+    [self.deleteButton setTitleColor:kColor_Text_Red forState:UIControlStateHighlighted];
     [self.editConstraintB setConstant:SafeAreaBottomHeight];
     
 }

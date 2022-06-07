@@ -28,7 +28,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	NSLog(@"点击了搜索");
-    [_searchTextField isFirstResponder:NO]
+    [_searchTextField resignFirstResponder];
 	return YES;
 }
 
