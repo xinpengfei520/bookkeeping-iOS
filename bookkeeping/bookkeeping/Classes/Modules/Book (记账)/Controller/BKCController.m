@@ -117,7 +117,7 @@
     BKCModel *cmodel = collection.model.list[collection.selectIndex.row];
     
     BookDetailModel *model = [[BookDetailModel alloc] init];
-    model.Id = [[BookDetailModel getId] integerValue];
+    model.bookId = [[BookDetailModel getId] integerValue];
     model.price = [[NSDecimalNumber decimalNumberWithString:price] doubleValue];
     model.year = date.year;
     model.month = date.month;
@@ -143,16 +143,17 @@
         _model.cmodel = cmodel;
         model = _model;
         // 修改记账
-        [NSUserDefaults replaceBookModel:model];
+        //[NSUserDefaults replaceBookModel:model];
     }
     
-    
+    // 编辑修改完成
     if (self.navigationController.viewControllers.count != 1) {
         [self.navigationController popViewControllerAnimated:true];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:model];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE object:model];
     } else {
+        // 记账完成
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:model];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
             self.bookModelBlock(model);
         }];
     }

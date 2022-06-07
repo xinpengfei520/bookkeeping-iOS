@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BookDetailModel : BaseModel<NSCoding, NSCopying>
 
-@property (nonatomic, assign) NSInteger Id;
+@property (nonatomic, assign) NSInteger bookId;
 @property (nonatomic, assign) NSInteger categoryId;
 @property (nonatomic, assign) CGFloat price;
 @property (nonatomic, assign) NSInteger year;

@@ -38,7 +38,7 @@
 // 监听通知
 - (void)monitorNotification {
     @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOT_BOOK_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
         BookDetailModel *model = x.object;
         [self setModel:model];
@@ -81,7 +81,7 @@
         // 删除
         [NSUserDefaults removeBookModel:_model];
         // 通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_DELETE object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:nil];
         // 返回
         [self.navigationController popViewControllerAnimated:true];
         // 回调

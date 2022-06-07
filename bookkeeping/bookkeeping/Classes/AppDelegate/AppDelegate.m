@@ -82,7 +82,7 @@
     }
     // 记账完成
     else if ([url.absoluteString isEqualToString:@"kbook://book"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:nil];
     }
     return YES;
 }

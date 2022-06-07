@@ -55,11 +55,14 @@ static NSMutableArray<BKCModel *> *categoryModelList;
 + (void)replaceBookModel:(BookDetailModel *)model {
     NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
     NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    
     NSInteger index = [bookArr indexOfObject:model];
     [bookArr replaceObjectAtIndex:index withObject:model];
+    
     if ([bookSyncedArr containsObject:model]) {
         [bookSyncedArr replaceObjectAtIndex:index withObject:model];
     }
+    
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK];
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
 }

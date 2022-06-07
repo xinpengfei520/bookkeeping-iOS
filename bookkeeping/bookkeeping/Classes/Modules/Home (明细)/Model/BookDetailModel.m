@@ -33,7 +33,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     BookDetailModel *model = [[[self class] allocWithZone:zone] init];
-    model.Id = self.Id;
+    model.bookId = self.bookId;
     model.categoryId = self.categoryId;
     model.price = self.price;
     model.year = self.year;
@@ -53,7 +53,7 @@
         return false;
     }
     BookDetailModel *model = object;
-    if ([self Id] == [model Id]) {
+    if ([self bookId] == [model bookId]) {
         return true;
     }
     return false;

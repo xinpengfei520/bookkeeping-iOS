@@ -221,7 +221,7 @@
     
     // 删除model
     [NSUserDefaults removeCategoryModel:cell.model is_income:cell.model.is_system];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_DELETE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:nil];
     
     // 回调
     if (self.complete) {
