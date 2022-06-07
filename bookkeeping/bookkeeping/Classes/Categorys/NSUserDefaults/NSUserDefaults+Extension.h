@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BookDetailModel.h"
+#import "BookMonthModel.h"
 #import "CategoryListModel.h"
 #import "ACAListModel.h"
 
@@ -37,6 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray *) getCategoryModelList;
 // // 获取分类 Model 通过 categoryId
 + (BKCModel *) getCategoryModel:(NSInteger)categoryId;
+// 保存月记账列表
++ (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array;
+// 获取月记账列表
++ (NSMutableArray<BookMonthModel *> *)getMonthModelList:(NSInteger)year month:(NSInteger)month;
+
 @end
 
 NS_ASSUME_NONNULL_END

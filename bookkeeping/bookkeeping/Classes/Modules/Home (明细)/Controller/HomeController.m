@@ -123,6 +123,15 @@
 }
 
 - (void) getMonthBookRequest:(NSInteger)year month:(NSInteger)month {
+    // 先从本地缓存中取
+    NSMutableArray<BookMonthModel *> *list = [NSUserDefaults getMonthModelList:_date.year month:_date.month];
+    if (list && list.count > 0) {
+        NSLog(@"这是从缓存中读取的数据");
+        [self setModels:list];
+        return;
+    }
+    
+    // 从网络取
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(year) forKey:@"year"];
     [param setValue:@(month) forKey:@"month"];
@@ -134,7 +143,9 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"请求成功" delay:1.f];
-            [self setModels:[BookMonthModel mj_objectArrayWithKeyValuesArray:result.data]];
+            NSMutableArray<BookMonthModel *> *bookArray = [BookMonthModel mj_objectArrayWithKeyValuesArray:result.data];
+            [self setModels:bookArray];
+            [NSUserDefaults saveMonthModelList:year month:month array:bookArray];
             //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
         } else {
             // 当请求失败时，清空当前显示的列表数据

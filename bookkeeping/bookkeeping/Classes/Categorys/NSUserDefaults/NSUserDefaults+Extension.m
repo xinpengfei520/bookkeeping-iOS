@@ -41,14 +41,28 @@ static NSMutableArray<BKCModel *> *categoryModelList;
 
 // 添加记账
 + (void)insertBookModel:(BookDetailModel *)model {
-    NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
-    NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", model.year, model.month];
+    NSMutableArray *bookArr = [NSUserDefaults objectForKey:key];
+//    NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     
     [bookArr addObject:model];
-    [bookSyncedArr addObject:model];
+//    [bookSyncedArr addObject:model];
     
-    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK];
-    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
+    [NSUserDefaults setObject:bookArr forKey:key];
+//    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
+}
+
++ (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array {
+    // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];
+    [NSUserDefaults setObject:array forKey:key];
+}
+
++ (NSMutableArray<BookMonthModel *> *)getMonthModelList:(NSInteger)year month:(NSInteger)month {
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];
+    NSMutableArray<BookMonthModel *> *models = [NSUserDefaults objectForKey:key];
+    return models;
 }
 
 // 修改记账
