@@ -69,9 +69,10 @@
         [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 修改记账
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE_HOME object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        //[self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self getMonthBookRequest:self.date.year month:self.date.month];
     }];
     // 登录成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
@@ -102,6 +103,7 @@
     });
 }
 
+#pragma mark - request
 - (void) addBookRequest: (BookDetailModel *)model {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];
@@ -142,7 +144,6 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [self showTextHUD:@"请求成功" delay:1.f];
             NSMutableArray<BookMonthModel *> *bookArray = [BookMonthModel mj_objectArrayWithKeyValuesArray:result.data];
             [self setModels:bookArray];
             [NSUserDefaults saveMonthModelList:year month:month array:bookArray];

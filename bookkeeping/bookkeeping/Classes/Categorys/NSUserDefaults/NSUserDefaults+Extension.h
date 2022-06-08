@@ -26,8 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)insertBookModel:(BookDetailModel *)model;
 // 修改记账
 + (void)replaceBookModel:(BookDetailModel *)model;
-
-
+// 修改本地记账
++ (void)updateBookModel:(BookDetailModel *)model;
 // 添加分类
 + (void)insertCategoryModel:(BKCModel *)model is_income:(BOOL)is_income;
 // 删除分类
