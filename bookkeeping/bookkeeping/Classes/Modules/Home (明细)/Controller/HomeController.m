@@ -64,9 +64,10 @@
         [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 删除记账
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        BookDetailModel *model = x.object;
+        [self deleteBookRequest:model];
     }];
     // 修改记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE_HOME object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
@@ -118,6 +119,24 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"记账成功" delay:1.f];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
+        }
+    }];
+}
+
+- (void) deleteBookRequest: (BookDetailModel *)model {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:@(model.bookId) forKey:@"bookId"];
+    
+    [self showProgressHUD:@"删除中..."];
+    [AFNManager POST:bookDetailDeleteRequest params:param complete:^(APPResult *result) {
+        [self hideHUD];
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            // 修改本地记账
+            [NSUserDefaults updateBookModel:model];
+            [self showTextHUD:@"已删除" delay:1.f];
+            [self getMonthBookRequest:self.date.year month:self.date.month];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
@@ -221,9 +240,10 @@
 // 删除Cell
 - (void)homeTableCellRemove:(HomeListSubCell *)cell {
     // 删除
-    [NSUserDefaults removeBookModel:cell.model];
+    //[NSUserDefaults removeBookModel:cell.model];
     // 更新
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:nil];
+    [self deleteBookRequest:cell.model];
 }
 
 // 点击Cell

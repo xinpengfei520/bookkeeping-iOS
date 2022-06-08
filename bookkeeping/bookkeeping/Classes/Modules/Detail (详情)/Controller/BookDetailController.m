@@ -83,10 +83,8 @@
     }
     // 删除
     else if ([number integerValue] == 1) {
-        // 删除
-        [NSUserDefaults removeBookModel:_model];
         // 通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:_model];
         // 返回
         [self.navigationController popViewControllerAnimated:true];
         // 回调

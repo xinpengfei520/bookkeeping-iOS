@@ -76,6 +76,8 @@
 
 // 新增记账
 #define bookDetailSaveRequest Request(@"/book/detail/save")
+// 删除记账
+#define bookDetailDeleteRequest Request(@"/book/detail/delete")
 // 修改记账
 #define bookDetailUpdateRequest Request(@"/book/detail/update")
 // 获取月记账列表
