@@ -22,6 +22,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = YES;
     [self navigation];
+    [_navigation.searchTextField becomeFirstResponder];
 }
 
 #pragma mark - get
