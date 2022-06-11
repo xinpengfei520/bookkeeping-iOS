@@ -106,8 +106,8 @@
     
     // 脱敏显示
     if ([desensitization boolValue]) {
-        _payLab.text = @"***";
-        _incomeLab.text = @"***";
+        _payLab.text = @"****";
+        _incomeLab.text = @"****";
         _payLab.textColor = kColor_Text_White;
         _incomeLab.textColor = kColor_Text_White;
         [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_hide"] forState:UIControlStateNormal];
