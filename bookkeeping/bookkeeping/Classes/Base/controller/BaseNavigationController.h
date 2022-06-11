@@ -4,8 +4,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "HBDNavigationController.h"
 
-@interface BaseNavigationController : UINavigationController
+@interface BaseNavigationController : HBDNavigationController
 
 #pragma mark - 初始化
 + (instancetype)initWithRootViewController:(UIViewController *)vc;

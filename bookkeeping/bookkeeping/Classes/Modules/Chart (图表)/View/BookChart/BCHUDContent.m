@@ -36,7 +36,7 @@
 }
 
 #pragma mark - set
-- (void)setModels:(NSMutableArray<BKModel *> *)models {
+- (void)setModels:(NSMutableArray<BookDetailModel *> *)models {
     _models = models;
     [self.table reloadData];
     [self.lab setHidden:models.count != 0];

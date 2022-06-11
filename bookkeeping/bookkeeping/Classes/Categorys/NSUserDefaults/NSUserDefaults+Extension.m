@@ -5,13 +5,14 @@
 
 #import "NSUserDefaults+Extension.h"
 
+static NSMutableArray<BKCModel *> *categoryModelList;
 
 @implementation NSUserDefaults (Extension)
 
 
 // 取值
 + (id)objectForKey:(NSString *)key {
-    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.book.widget"];
+    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     id obj = [sharedData objectForKey:key];
     obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
     return obj;
@@ -20,16 +21,16 @@
 // 存值
 + (void)setObject:(id)obj forKey:(NSString *)key {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.book.widget"];
+    NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData setObject:data forKey:key];
     [sharedData synchronize];
 }
 
 // 删除记账
-+ (void)removeBookModel:(BKModel *)model {
++ (void)removeBookModel:(BookDetailModel *)model {
     // 删除
-    NSMutableArray<BKModel *> *bookArrm = [NSUserDefaults objectForKey:PIN_BOOK];
-    NSMutableArray<BKModel *> *bookSyncedArrm = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    NSMutableArray<BookDetailModel *> *bookArrm = [NSUserDefaults objectForKey:PIN_BOOK];
+    NSMutableArray<BookDetailModel *> *bookSyncedArrm = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     if ([bookSyncedArrm containsObject:model]) {
         [bookSyncedArrm removeObject:model];
     }
@@ -39,26 +40,53 @@
 }
 
 // 添加记账
-+ (void)insertBookModel:(BKModel *)model {
++ (void)insertBookModel:(BookDetailModel *)model {
+    // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", model.year, model.month];
+    NSMutableArray *bookArr = [NSUserDefaults objectForKey:key];
+//    NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    
+    [bookArr addObject:model];
+//    [bookSyncedArr addObject:model];
+    
+    [NSUserDefaults setObject:bookArr forKey:key];
+//    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
+}
+
++ (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array {
+    // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];
+    [NSUserDefaults setObject:array forKey:key];
+}
+
++ (NSMutableArray<BookMonthModel *> *)getMonthModelList:(NSInteger)year month:(NSInteger)month {
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];
+    NSMutableArray<BookMonthModel *> *models = [NSUserDefaults objectForKey:key];
+    return models;
+}
+
+// 修改记账
++ (void)replaceBookModel:(BookDetailModel *)model {
     NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
     NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
-    [bookArr addObject:model];
-    [bookSyncedArr addObject:model];
+    
+    NSInteger index = [bookArr indexOfObject:model];
+    [bookArr replaceObjectAtIndex:index withObject:model];
+    
+    if ([bookSyncedArr containsObject:model]) {
+        [bookSyncedArr replaceObjectAtIndex:index withObject:model];
+    }
+    
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK];
     [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
 }
 
-// 修改记账
-+ (void)replaceBookModel:(BKModel *)model {
-    NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
-    NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
-    NSInteger index = [bookArr indexOfObject:model];
-    [bookArr replaceObjectAtIndex:index withObject:model];
-    if ([bookSyncedArr containsObject:model]) {
-        [bookSyncedArr replaceObjectAtIndex:index withObject:model];
-    }
-    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK];
-    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
+// 修改本地记账
++ (void)updateBookModel:(BookDetailModel *)model {
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", model.year, model.month];
+    NSMutableArray<BookMonthModel *> *models = [NSUserDefaults objectForKey:key];
+    [models removeAllObjects];
+    [NSUserDefaults setObject:models forKey:key];
 }
 
 // 添加分类
@@ -127,8 +155,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -156,8 +184,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -182,8 +210,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -207,8 +235,8 @@
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BKModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BKModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
+            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
             book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
             [NSUserDefaults setObject:book forKey:PIN_BOOK];
@@ -218,7 +246,7 @@
     
     
     // 删除同类别信息
-    NSMutableArray<BKModel *> *arrm = [NSUserDefaults objectForKey:PIN_BOOK];
+    NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults objectForKey:PIN_BOOK];
     NSString *preStr = [NSString stringWithFormat:@"cmodel.Id == %ld", model.Id];
     arrm = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:arrm];
     [NSUserDefaults setObject:arrm forKey:PIN_BOOK];
@@ -255,15 +283,49 @@
     return [NSMutableArray arrayWithArray:@[model1, model2]];
 }
 
++ (NSMutableArray<BKCModel *> *) getCategoryModelList{
+    if (categoryModelList) {
+        return categoryModelList;
+    }
+    // 分类：从 SC.plist 文件中读取默认的分类数据
+    NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
+    NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];
+    // 支出分类
+    NSMutableArray *pay = [NSMutableArray arrayWithArray:systemCateDic[@"pay"]];
+    // 收入分类
+    NSMutableArray *income = [NSMutableArray arrayWithArray:systemCateDic[@"income"]];
+    // 合并
+    [pay addObjectsFromArray:income];
+    // 字典数组转模型数组
+    categoryModelList = [BKCModel mj_objectArrayWithKeyValuesArray:pay];
+    
+    return categoryModelList;
+}
+
++ (BKCModel *) getCategoryModel:(NSInteger)categoryId{
+    NSMutableArray<BKCModel *> *categoryList = [NSUserDefaults getCategoryModelList];
+    BKCModel *categoryModel;
+    for (BKCModel *model in categoryList) {
+        if (model.Id == categoryId) {
+            categoryModel = model;
+            break;
+        }
+    }
+    return categoryModel;
+}
+
 + (void)load {
     BOOL isFirst = [NSUserDefaults objectForKey:PIN_FIRST_RUN];
     // 第一次运行
     if (!isFirst) {
-        // 分类
+        // 分类：从 SC.plist 文件中读取默认的分类数据
         NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
         NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];
+        // 支出分类
         NSMutableArray *pay = [NSMutableArray arrayWithArray:systemCateDic[@"pay"]];
+        // 收入分类
         NSMutableArray *income = [NSMutableArray arrayWithArray:systemCateDic[@"income"]];
+        
         pay = [BKCModel mj_objectArrayWithKeyValuesArray:pay];
         income = [BKCModel mj_objectArrayWithKeyValuesArray:income];
         
@@ -285,7 +347,7 @@
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
         [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
         
-        // 添加类别
+        // 添加类别 从 ACA.plist 文件中读取默认的分类数据
         NSString *acaPath = [[NSBundle mainBundle] pathForResource:@"ACA" ofType:@"plist"];
         NSMutableArray *acaArr = [NSMutableArray arrayWithContentsOfFile:acaPath];
         acaArr = [ACAListModel mj_objectArrayWithKeyValuesArray:acaArr];

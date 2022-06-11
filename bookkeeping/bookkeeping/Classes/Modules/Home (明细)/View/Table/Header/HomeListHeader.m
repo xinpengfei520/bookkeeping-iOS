@@ -20,14 +20,12 @@
 #pragma mark - 实现
 @implementation HomeListHeader
 
-
 - (void)initUI {
     [self.nameLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]];
     [self.nameLab setTextColor:kColor_Text_Gary];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]];
     [self.detailLab setTextColor:kColor_Text_Gary];
-    [self.line setBackgroundColor:kColor_BG];
-    
+    [self.line setBackgroundColor:kColor_Line_Color];
     
     [self.nameConstraintL setConstant:countcoordinatesX(15)];
     [self.detaileConstraintR setConstant:countcoordinatesX(15)];
@@ -35,11 +33,12 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKMonthModel *)model {
+- (void)setModel:(BookMonthModel *)model {
     _model = model;
-    [_nameLab setText:model.dateStr];
-    [_detailLab setText:model.moneyStr];
+    [_nameLab setText:[model getDateDescribe]];
+    [_detailLab setText:[model getMoneyDescribe]];
 }
+
 //- (void)setListSorts:(NSMutableArray<BookListModel *> *)listSorts {
 //    _listSorts = listSorts;
 //    if (listSorts.count != 0) {

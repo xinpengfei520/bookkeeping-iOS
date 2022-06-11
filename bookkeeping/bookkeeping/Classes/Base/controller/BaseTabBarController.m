@@ -4,7 +4,15 @@
 //
 //  Created by RY on 2018/3/19.
 //  Copyright © 2018年 KK. All rights reserved.
-//
+//  
+//  UIModalPresentationFullScreen代表弹出VC时，presentedVC充满全屏，如果弹出VC的wantsFullScreenLayout
+//  设置为YES的，则会填充到状态栏下边，否则不会填充到状态栏之下。
+//　UIModalPresentationPageSheet代表弹出是弹出VC时，presentedVC的高度和当前屏幕高度相同，宽度和竖屏模式下
+//  屏幕宽度相同，剩余未覆盖区域将会变暗并阻止用户点击，这种弹出模式下，竖屏时跟UIModalPresentationFullScreen的效果一样，
+//  横屏时候两边则会留下变暗的区域。
+//　UIModalPresentationFormSheet这种模式下，presented VC的高度和宽度均会小于屏幕尺寸，presented VC居中显示，四周留下变暗区域。
+//　UIModalPresentationCurrentContext这种模式下，presented VC的弹出方式和presenting VC的父VC的方式相同。
+//　这四种方式在iPad上面统统有效，但在iPhone和iPod touch上面系统始终已UIModalPresentationFullScreen模式显示presented VC
 
 #import "BaseTabBarController.h"
 #import "BaseTabBar.h"
@@ -32,9 +40,6 @@
     // 记账页面
     BaseViewController *message = [[BaseViewController alloc] init];
     [self addChildViewController:message title:@"记账" image:@"tabbar_add_n" selImage:@"tabbar_add_h"];
-    // 图表页面
-    ChartController *sort = [[ChartController alloc] init];
-    [self addChildViewController:sort title:@"图表" image:@"tabbar_chart_n" selImage:@"tabbar_chart_s"];
 }
 
 - (void)hideTabbar:(BOOL)hidden {
@@ -86,19 +91,14 @@
             if (index == 1) {
                 BKCController *vc = [[BKCController alloc] init];
                 BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+                // Modal Presentation Styles（弹出风格）
+                nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+                self.navigationController.definesPresentationContext = NO;
                 [self presentViewController:nav animated:YES completion:^{
                     
                 }];
             }
             else {
-                // 我的
-                if (index == 4) {
-                    BaseNavigationController *nav = self.viewControllers[index];
-                    MineController *vc = nav.viewControllers[0];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [vc.mine.table setContentOffset:CGPointZero animated:true];
-                    });
-                }
                 [self setSelectedIndex:index];
                 [self.bar setIndex:index];
             }

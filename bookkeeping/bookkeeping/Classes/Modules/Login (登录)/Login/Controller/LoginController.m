@@ -4,9 +4,8 @@
  */
 
 #import "LoginController.h"
-#import "RE1Controller.h"
 #import "LOGIN_NOTIFICATION.h"
-
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface LoginController() {
@@ -18,8 +17,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 @property (weak, nonatomic) IBOutlet UITextField *passField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet UIButton *findBtn;
-@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintR;
@@ -35,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:YES];
+    self.hbd_barHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab1 setTextColor:kColor_Text_Black];
@@ -46,8 +43,6 @@
     [self.passField setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
     [self.passField setTextColor:kColor_Text_Black];
     [self buttonCanTap:false btn:self.loginBtn];
-    [self.findBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
-    [self.registerBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     [self.passField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     
@@ -62,20 +57,6 @@
 // 监听通知
 - (void)rac_notification_register {
     @weakify(self)
-    // 忘记密码完成
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_FORGET_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
-        NSLog(@"忘记密码完成");
-    }];
-    // 注册完成
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_REGISTER_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
-        @strongify(self)
-        // 回调
-        if (self.complete) {
-            self.complete();
-        }
-        // 关闭
-        [self.navigationController dismissViewControllerAnimated:true completion:nil];
-    }];
     // 登录完成
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
@@ -125,11 +106,11 @@
     [self.view endEditing:true];
     [AFNManager POST:PhoneLoginRequest params:param complete:^(APPResult *result) {
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [UserInfo saveUserInfo:result.data];
             [[NSNotificationCenter defaultCenter] postNotificationName:LOPGIN_LOGIN_COMPLETE object:nil];
         } else {
-            [self showTextHUD:result.message delay:1.5f];
+            [self showTextHUD:result.msg delay:1.5f];
         }
     }];
 }
@@ -143,20 +124,6 @@
 // 关闭
 - (IBAction)closeBtnClick:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-// 注册
-- (IBAction)registerBtnClick:(UIButton *)sender {
-    RE1Controller *vc = [[RE1Controller alloc] init];
-    [vc setIndex:0];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-// 找回密码
-- (IBAction)forgetBtnClick:(UIButton *)sender {
-    RE1Controller *vc = [[RE1Controller alloc] init];
-    [vc setIndex:1];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 // 文本编辑

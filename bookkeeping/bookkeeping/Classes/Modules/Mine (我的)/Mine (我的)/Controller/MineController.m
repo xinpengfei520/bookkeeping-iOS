@@ -11,6 +11,7 @@
 #import "BillController.h"
 #import "MINE_EVENT_MANAGER.h"
 #import "LAContextManager.h"
+#import "UIViewController+HBD.h"
 
 #define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
@@ -29,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:YES];
+    self.hbd_barHidden = YES;
     [self mine];
     [self setupUI];
 }
@@ -50,14 +51,14 @@
 // 获取个人信息
 - (void)getInfoRequest {
     UserModel *model = [UserInfo loadUserInfo];
-    NSString *key = model.openid ? @"openid" : @"account";
-    NSString *value = model.openid ? model.openid : model.account;
+    NSString *key = @"account";
+    NSString *value = model.account;
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:value, key, nil];
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
     [AFNManager POST:InfoRequest params:param complete:^(APPResult *result) {
         @strongify(self)
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [UserInfo saveUserInfo:result.data];
             [self.mine.table setModel:[UserInfo loadUserInfo]];
         }

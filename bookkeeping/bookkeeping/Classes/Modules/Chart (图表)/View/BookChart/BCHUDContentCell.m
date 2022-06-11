@@ -29,7 +29,7 @@
 }
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
     [_nameLab setText:[NSString stringWithFormat:@"%ld/%02ld/%02ld", model.year, model.month, model.day]];

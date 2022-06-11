@@ -37,7 +37,7 @@
     _indexPath = indexPath;
     [_nameLab setText:@[@"类型",@"金额",@"日期",@"备注"][indexPath.row]];
 }
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     if (_indexPath.row == 0) {
         [_detailLab setText:model.cmodel.is_income == true ? @"收入" : @"支出"];

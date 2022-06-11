@@ -24,7 +24,8 @@
 - (void)initUI {
     [self setBackgroundColor:kColor_Main_Color];
     [self.titleLab setFont:[UIFont systemFontOfSize:AdjustFont(16)]];
-    [self.titleLab setTextColor:kColor_Text_Black];
+    [self.titleLab setTextColor:kColor_Text_White];
+    [self.nameLab setTextColor:kColor_Text_White];
 }
 
 
@@ -43,7 +44,7 @@
         _nameLab.text = @"收入";
     }
 }
-- (void)setCmodel:(BKModel *)cmodel {
+- (void)setCmodel:(BookDetailModel *)cmodel {
     _cmodel = cmodel;
     if (_cmodel) {
         _nameLab.hidden = true;

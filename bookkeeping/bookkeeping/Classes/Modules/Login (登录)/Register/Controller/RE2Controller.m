@@ -4,7 +4,7 @@
  */
 
 #import "RE2Controller.h"
-#import "RE3Controller.h"
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface RE2Controller()
@@ -43,8 +43,8 @@
         }
         str;
     })];
-    [self setJz_navigationBarHidden:NO];
-    [self setJz_navigationBarTintColor:kColor_Main_Color];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
     [self.view setBackgroundColor:kColor_BG];
     
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
@@ -86,10 +86,10 @@
     [AFNManager POST:CreateCoderequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             [self countDownBegin];
         } else {
-            [self showWindowTextHUD:result.message delay:1.f];
+            [self showWindowTextHUD:result.msg delay:1.f];
             [self.navigationController popViewControllerAnimated:true];
         }
     }];
@@ -114,14 +114,10 @@
     [AFNManager POST:ValidateCoderequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == ServiceCodeSuccess) {
-            RE3Controller *vc = [[RE3Controller alloc] init];
-            vc.index = self.index;
-            vc.phone = [self.phone stringByReplacingOccurrencesOfString:@"-" withString:@""];
-            vc.openid = self.openid;
-            [self.navigationController pushViewController:vc animated:YES];
+        if (result.status == HttpStatusSuccess) {
+            
         } else {
-            [self showTextHUD:result.message delay:1.f];
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }

@@ -37,7 +37,7 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKChartModel *)model {
+- (void)setModel:(BookChartModel *)model {
     _model = model;
     _tHeader.model = model;
     [self reloadData];

@@ -54,43 +54,28 @@
 
 - (void)click:(NSInteger)index {
     NSArray<NSArray *> *image = @[
-        @[@"明细",@"记账",@"图表"],
         @[@"tabbar_detail_n",
-          @"tabbar_add_n",
-          @"tabbar_chart_n"],
+          @"tabbar_add_n"
+        ],
         @[@"tabbar_detail_s",
-          @"tabbar_add_h",
-          @"tabbar_chart_s"]
+          @"tabbar_add_h"
+        ]
     ];
     
     for (int y=0; y<self.views.count; y++) {
         UIView *subview = self.views[y];
         UIImageView *subicon = [subview viewWithTag:10];
-        subicon.image = [UIImage imageNamed:y == index ? image[2][y] : image[1][y]];
-        UILabel *sublab = [subview viewWithTag:11];
-        sublab.textColor = y == index ? kColor_Text_Gary : kColor_Text_Gary;
-        sublab.text = image[0][y];
+        subicon.image = [UIImage imageNamed:y == index ? image[1][y] : image[0][y]];
     }
-    
-    UIImageView *icn = [_views[index] viewWithTag:10];
-    [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        icn.transform = CGAffineTransformMakeScale(1.1, 1.1);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.8f delay:0 usingSpringWithDamping:0.2 initialSpringVelocity:10.0 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
-            icn.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        } completion:^(BOOL finished) {
-            
-        }];
-    }];
 }
 
-
+// 此方法的作用是增大记账按钮的点击区域，因为记账按钮更大一些，记账按钮的下标为1，所以使用 self.views[1]
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *view = [super hitTest:point withEvent:event];
     
-    CGPoint newPoint = [self convertPoint:point toView:self.views[2]];
-    UIImageView *image = [self.views[2] viewWithTag:10];
-    // 点击到世界
+    CGPoint newPoint = [self convertPoint:point toView:self.views[1]];
+    UIImageView *image = [self.views[1] viewWithTag:10];
+
     if (CGRectContainsPoint(image.frame, newPoint)) {
         // tabbar 显示中
         id obj = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -98,7 +83,7 @@
             BaseTabBarController *tab = (BaseTabBarController *)obj;
             BaseNavigationController *nav = tab.viewControllers[tab.selectedIndex];
             if (nav.viewControllers.count == 1) {
-                return self.views[2];
+                return self.views[1];
             }
         }
     }
@@ -137,13 +122,12 @@
         _views = [[NSMutableArray alloc] init];
         
         NSArray<NSArray *> *image = @[
-            @[@"明细",@"记账",@"图表"],
             @[@"tabbar_detail_n",
-              @"tabbar_add_n",
-              @"tabbar_chart_n"],
+              @"tabbar_add_n"
+            ],
             @[@"tabbar_detail_s",
-              @"tabbar_add_h",
-              @"tabbar_chart_s"]
+              @"tabbar_add_h"
+            ]
         ];
         
         NSInteger current = 0;
@@ -163,23 +147,10 @@
                     }
                     frame;
                 })];
-                icon.image = [UIImage imageNamed:current == i ? image[2][i] : image[1][i]];
+                icon.image = [UIImage imageNamed:current == i ? image[1][i] : image[0][i]];
                 icon.contentMode = UIViewContentModeScaleAspectFit;
                 icon.tag = 10;
                 icon;
-            });
-            
-            // tab icon 下面的文字
-            UILabel *lab = ({
-                UILabel *lab = [[UILabel alloc] initWithFrame:({
-                    CGRectMake(0, CGRectGetMaxY(icon.frame) + 1, width, 15);
-                })];
-                lab.text = image[0][i];
-                lab.font = [UIFont boldSystemFontOfSize:AdjustFont(8)];
-                lab.textColor = current == i ? kColor_Text_Gary : kColor_Text_Gary;
-                lab.textAlignment = NSTextAlignmentCenter;
-                lab.tag = 11;
-                lab;
             });
             
             UIView *item = ({
@@ -195,7 +166,6 @@
                     frame;
                 })];
                 [item addSubview:icon];
-                [item addSubview:lab];
                 item;
             });
             

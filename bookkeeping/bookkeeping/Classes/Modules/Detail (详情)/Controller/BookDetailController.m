@@ -8,6 +8,7 @@
 #import "BDTable.h"
 #import "BDBottom.h"
 #import "BD_EVENT.h"
+#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface BookDetailController()
@@ -26,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:true];
+    self.hbd_barHidden = YES;
     [self.rightButton setHidden:YES];
     [self header];
     [self bottom];
@@ -34,19 +35,24 @@
     [self monitorNotification];
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 // 监听通知
 - (void)monitorNotification {
     @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOT_BOOK_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        BKModel *model = x.object;
+        BookDetailModel *model = x.object;
         [self setModel:model];
+        [self updateBookRequest:model];
     }];
 }
 
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     self.header.model = model;
     self.table.model = model;
@@ -77,10 +83,8 @@
     }
     // 删除
     else if ([number integerValue] == 1) {
-        // 删除
-        [NSUserDefaults removeBookModel:_model];
         // 通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_DELETE object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:_model];
         // 返回
         [self.navigationController popViewControllerAnimated:true];
         // 回调
@@ -128,5 +132,29 @@
     return _eventStrategy;
 }
 
+#pragma mark - request
+- (void) updateBookRequest: (BookDetailModel *)model {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:@(model.bookId) forKey:@"bookId"];
+    [param setValue:@(model.year) forKey:@"year"];
+    [param setValue:@(model.month) forKey:@"month"];
+    [param setValue:@(model.day) forKey:@"day"];
+    [param setValue:@(model.price) forKey:@"price"];
+    [param setValue:model.mark forKey:@"mark"];
+    [param setValue:@(model.categoryId) forKey:@"categoryId"];
+    
+    [self showProgressHUD:@"修改中..."];
+    [AFNManager POST:bookDetailUpdateRequest params:param complete:^(APPResult *result) {
+        [self hideHUD];
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            // 修改本地记账
+            [NSUserDefaults updateBookModel:model];
+            [self showTextHUD:@"修改成功" delay:1.f];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE_HOME object:model];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
+        }
+    }];
+}
 
 @end

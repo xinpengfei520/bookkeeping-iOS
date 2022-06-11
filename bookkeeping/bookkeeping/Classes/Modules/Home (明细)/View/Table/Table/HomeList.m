@@ -6,7 +6,7 @@
 #import "HomeList.h"
 #import "HomeListCell.h"
 #import "HOME_EVENT.h"
-
+#import "BookMonthModel.h"
 
 #pragma mark - 声明
 @interface HomeList()<UITableViewDelegate, UITableViewDataSource>
@@ -80,7 +80,7 @@
 //
 //    _status = HomeListStatusNormal;
 //}
-- (void)setModels:(NSMutableArray<BKMonthModel *> *)models {
+- (void)setModels:(NSMutableArray<BookMonthModel *> *)models {
     _models = models;
     if (_status == HomeListStatusNormal) {
         // cell

@@ -87,14 +87,14 @@
 }
 
 #pragma mark - set
-- (void)setModel:(BKChartModel *)model {
+- (void)setModel:(BookChartModel *)model {
     _model = model;
     
     NSMutableArray<NSNumber *> *arrm = [NSMutableArray array];
     for (int i=0; i<model.chartArr.count; i++) {
         [arrm addObject:@(0)];
     }
-    for (BKModel *submodel in model.chartArr) {
+    for (BookDetailModel *submodel in model.chartArr) {
         // 周
         if (model.chartArr.count == 7) {
             NSInteger index = 7 - [submodel.date weekday];

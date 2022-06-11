@@ -232,6 +232,10 @@ static NSString *jgBackSetGetKey = @"jgBackSetGetKey";
         [self hideHUD];
     }
     
+    if (text == nil) {
+        text = @"请求失败";
+    }
+    
     JGProgressHUDInteractionType type = self.hud_type;
     JGProgressHUD *HUD = [[JGProgressHUD alloc] initWithStyle:JGProgressHUDStyleDark];
     [HUD setInteractionType:nil];

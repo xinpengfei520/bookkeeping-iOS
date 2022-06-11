@@ -37,11 +37,12 @@
 #define PIN_ACA_CATE    @"PIN_ACA_CATE"    // 添加类别
 
 #pragma mark - 记账
-#define PIN_BOOK           @"PIN_BOOK"            // 记账
-#define PIN_BOOK_SYNCED    @"PIN_BOOK_SYNCED"     // 未同步
+#define PIN_BOOK           @"PIN_BOOK"            // 记账（未同步）
+#define PIN_BOOK_SYNCED    @"PIN_BOOK_SYNCED"     // 记账（已同步）
 
 #pragma mark - 个人设置
 #define PIN_SETTING_FACE_ID           @"PIN_SETTING_FACE_ID"            // FaceID
 #define PIN_TIMING                    @"PIN_TIMING"                     // 定时通知
+#define PIN_DESENSITIZATION           @"PIN_DESENSITIZATION"            // 脱敏显示
 
 #endif

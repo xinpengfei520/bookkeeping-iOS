@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>轻记</string>
+	<string>记呀</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -231,7 +231,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>访问相机</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>当前App需要获取您的FaceID</string>
+	<string>访问您的FaceID</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>访问麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>

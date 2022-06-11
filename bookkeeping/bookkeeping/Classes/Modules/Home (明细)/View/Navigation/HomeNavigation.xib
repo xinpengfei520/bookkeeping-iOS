@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,37 +13,35 @@
             <rect key="frame" x="0.0" y="0.0" width="495" height="256"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="轻记" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XM-1u-3FX">
-                    <rect key="frame" x="229" y="137" width="37" height="21.5"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <bool key="isElement" value="NO"/>
-                    </accessibility>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zf-4T-Wln">
-                    <rect key="frame" x="20" y="135" width="30" height="26"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zf-4T-Wln">
+                    <rect key="frame" x="16" y="135" width="26" height="26"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="icon_menu"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1AY-99-8aY">
+                    <rect key="frame" x="453.5" y="137" width="21.5" height="22"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="icon_search"/>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="8zf-4T-Wln" firstAttribute="baseline" secondItem="9XM-1u-3FX" secondAttribute="baseline" id="AnY-u9-TQH"/>
-                <constraint firstItem="9XM-1u-3FX" firstAttribute="centerY" secondItem="b6K-oi-AfA" secondAttribute="centerY" constant="19.75" id="Quo-qy-mIz"/>
-                <constraint firstItem="9XM-1u-3FX" firstAttribute="centerX" secondItem="b6K-oi-AfA" secondAttribute="centerX" id="eQL-cz-HXf"/>
-                <constraint firstItem="8zf-4T-Wln" firstAttribute="leading" secondItem="b6K-oi-AfA" secondAttribute="leadingMargin" id="fLR-wH-VFm"/>
+                <constraint firstItem="1AY-99-8aY" firstAttribute="centerY" secondItem="b6K-oi-AfA" secondAttribute="centerY" constant="20" id="FIt-gG-CDu"/>
+                <constraint firstItem="8zf-4T-Wln" firstAttribute="centerY" secondItem="b6K-oi-AfA" secondAttribute="centerY" constant="20" id="V0t-Dz-4I6"/>
+                <constraint firstItem="8zf-4T-Wln" firstAttribute="leading" secondItem="b6K-oi-AfA" secondAttribute="leading" constant="16" id="YbE-jp-pZE"/>
+                <constraint firstAttribute="trailing" secondItem="1AY-99-8aY" secondAttribute="trailing" constant="20" id="ckG-53-mcC"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="mineButton" destination="8zf-4T-Wln" id="TZc-Je-FFq"/>
+                <outlet property="statisticsBtn" destination="1AY-99-8aY" id="V27-wn-0as"/>
             </connections>
             <point key="canvasLocation" x="-90.400000000000006" y="-71.064467766116948"/>
         </view>
     </objects>
     <resources>
-        <image name="icon_menu" width="64" height="64"/>
+        <image name="icon_menu" width="26" height="26"/>
+        <image name="icon_search" width="21.333333969116211" height="21.333333969116211"/>
     </resources>
 </document>

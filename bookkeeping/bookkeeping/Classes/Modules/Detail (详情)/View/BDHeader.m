@@ -25,7 +25,7 @@
 - (void)initUI {
     [self setBackgroundColor:kColor_Main_Color];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
-    [self.nameLab setTextColor:kColor_Text_Black];
+    [self.nameLab setTextColor:kColor_Text_White];
     [self.iconConstraintW setConstant:countcoordinatesX(60)];
 }
 
@@ -36,12 +36,11 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
-    [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
-    [_nameLab setText:model.cmodel.name];
-//    [_icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.cmodel.icon_l)]];
+    BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
+    [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
+    [_nameLab setText:cmodel.name];
 }
-
 
 @end

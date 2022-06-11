@@ -18,7 +18,7 @@
 #pragma mark - 初始化
 + (instancetype)initWithRootViewController:(UIViewController *)vc {
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
-    nav.jz_navigationBarTransitionStyle = JZNavigationBarTransitionStyleSystem;
+//    nav.jz_navigationBarTransitionStyle = JZNavigationBarTransitionStyleSystem;
     return nav;
 }
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {

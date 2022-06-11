@@ -42,13 +42,18 @@
 - (void)makeRootController {
     [self setWindow:[[UIWindow alloc] initWithFrame:SCREEN_BOUNDS]];
     [self.window setBackgroundColor:[UIColor whiteColor]];
-    [self.window setRootViewController:[[BaseTabBarController alloc] init]];
+    
+    HomeController *homeController = [[HomeController alloc] init];
+    BaseNavigationController *navigationController = [[BaseNavigationController alloc] initWithRootViewController:homeController];
+    [self.window setRootViewController:navigationController];
     [self.window makeKeyAndVisible];
 }
 
 // 配置
 - (void)systemConfig {
     [[UITextField appearance] setTintColor:kColor_Main_Color];
+    // 设置导航栏按钮颜色
+    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 }
 
 // 支持所有iOS系统
@@ -66,6 +71,8 @@
                 [current.navigationController pushViewController:vc animated:true];
             } else {
                 BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+                // Modal Presentation Styles（弹出风格）
+                nav.modalPresentationStyle = UIModalPresentationCurrentContext;
                 [tab presentViewController:nav animated:true completion:^{
                     
                 }];
@@ -75,7 +82,7 @@
     }
     // 记账完成
     else if ([url.absoluteString isEqualToString:@"kbook://book"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:nil];
     }
     return YES;
 }

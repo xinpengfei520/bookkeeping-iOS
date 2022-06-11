@@ -7,9 +7,9 @@
 
 
 //#define KHost @"http://127.0.0.1:8080"
-#define KHost @"http://192.168.1.7:8080"
+#define KHost @"http://192.168.3.108:8001"
 //#define KStatic(str) [NSString stringWithFormat:@"http://127.0.0.1:8080/media/%@", str]
-#define KStatic(str) [NSString stringWithFormat:@"http://192.168.1.7:8080/media/%@", str]
+#define KStatic(str) [NSString stringWithFormat:@"http://192.168.3.108:8001/media/%@", str]
 #define kUser  @"kUser"
 #define Request(A) [NSString stringWithFormat:@"%@%@", KHost, A]
 
@@ -74,3 +74,11 @@
 // 查账(组)
 #define getBookGroupRequest Request(@"/shayu/getBookGroupRequest.action")
 
+// 新增记账
+#define bookDetailSaveRequest Request(@"/book/detail/save")
+// 删除记账
+#define bookDetailDeleteRequest Request(@"/book/detail/delete")
+// 修改记账
+#define bookDetailUpdateRequest Request(@"/book/detail/update")
+// 获取月记账列表
+#define monthBookListRequest Request(@"/book/detail/year/month")

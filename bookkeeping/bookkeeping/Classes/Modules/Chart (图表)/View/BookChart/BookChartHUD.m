@@ -54,7 +54,7 @@
         [self setHidden:false];
     });
 }
-- (void)setModels:(NSMutableArray<BKModel *> *)models {
+- (void)setModels:(NSMutableArray<BookDetailModel *> *)models {
     _models = models;
     _content.models = models;
     NSInteger count = models.count > 3 ? 3 : models.count;

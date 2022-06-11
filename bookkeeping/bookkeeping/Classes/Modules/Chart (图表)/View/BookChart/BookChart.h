@@ -4,7 +4,7 @@
  */
 
 #import "BaseView.h"
-#import "BKModel.h"
+#import "BookChartModel.h"
 #import "ChartSubModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 声明
 @interface BookChart : BaseView
 
-@property (nonatomic, strong) BKChartModel *model;
+@property (nonatomic, strong) BookChartModel *model;
 
 @end
 

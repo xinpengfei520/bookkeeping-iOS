@@ -32,7 +32,6 @@
     [self.iconConstraintL setConstant:countcoordinatesX(15)];
     [self.detailConstraintR setConstant:countcoordinatesX(15)];
     
-    
     @weakify(self)
     MGSwipeButton *btn = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
     [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
@@ -55,15 +54,15 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
-    [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
-    // 显示类别名称
-//    [_nameLab setText:model.cmodel.name];
+    BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
+    // 显示类别图表
+    [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     // 显示备注
     [_nameLab setText:model.mark];
-    [_detailLab setText:model.cmodel.is_income == 0 ? [@(-model.price) description] : [@(model.price) description]];
+    // 显示记账信息
+    [_detailLab setText:cmodel.is_income == 0 ? [@(-model.price) description] : [@(model.price) description]];
 }
-
 
 @end

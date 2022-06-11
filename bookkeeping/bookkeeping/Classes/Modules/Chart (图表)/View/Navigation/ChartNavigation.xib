@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,9 +14,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_down" translatesAutoresizingMaskIntoConstraints="NO" id="JEL-2G-tpD">
-                    <rect key="frame" x="215" y="-14" width="15" height="100"/>
+                    <rect key="frame" x="215" y="-28" width="10" height="128"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="15" id="jeD-0j-bGd"/>
+                        <constraint firstAttribute="width" constant="10" id="jeD-0j-bGd"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2U-eq-6bW">
@@ -29,15 +29,15 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfQ-al-wNH">
-                    <rect key="frame" x="157" y="0.0" width="93" height="58"/>
+                    <rect key="frame" x="157" y="0.0" width="88" height="58"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpk-Xb-u7I">
-                    <rect key="frame" x="173.5" y="14" width="42" height="44"/>
+                    <rect key="frame" x="175" y="14" width="39.5" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="Im4-kp-llv"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V32-DG-R9a">
@@ -76,11 +76,11 @@
                 <outlet property="timeDown" destination="JEL-2G-tpD" id="hNZ-q0-xff"/>
                 <outlet property="titleLab" destination="kpk-Xb-u7I" id="IS8-Mq-7eE"/>
             </connections>
-            <point key="canvasLocation" x="1674" y="-589"/>
+            <point key="canvasLocation" x="1672.8" y="-589.20539730134942"/>
         </view>
     </objects>
     <resources>
         <image name="nav_back_n" width="23" height="23"/>
-        <image name="time_down" width="100" height="100"/>
+        <image name="time_down" width="128" height="128"/>
     </resources>
 </document>

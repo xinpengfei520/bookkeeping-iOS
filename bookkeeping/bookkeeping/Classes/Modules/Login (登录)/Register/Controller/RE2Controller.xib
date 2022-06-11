@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEL-nq-c7Z">
-                    <rect key="frame" x="15" y="50" width="52" height="50"/>
+                    <rect key="frame" x="15" y="30" width="52" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="SWM-QN-mFH"/>
                     </constraints>
@@ -41,36 +39,34 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bA6-Df-514">
-                    <rect key="frame" x="87" y="50" width="273" height="50"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="87" y="30" width="273" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxb-v8-nWT">
-                    <rect key="frame" x="15" y="100" width="345" height="1"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <rect key="frame" x="15" y="80" width="345" height="1"/>
+                    <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="Nce-Ob-Y9g"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWc-6V-Tte">
-                    <rect key="frame" x="15" y="111" width="52" height="50"/>
+                    <rect key="frame" x="15" y="91" width="52" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rfo-kp-wGw">
-                    <rect key="frame" x="87" y="111" width="172" height="50"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="87" y="91" width="172" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6WI-db-eD3">
-                    <rect key="frame" x="15" y="161" width="345" height="1"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <rect key="frame" x="15" y="141" width="345" height="1"/>
+                    <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP8-Nl-Nqj">
-                    <rect key="frame" x="260" y="111" width="100" height="50"/>
+                    <rect key="frame" x="260" y="91" width="100" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="B30-Z4-CAz"/>
                     </constraints>
@@ -83,25 +79,26 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIP-AC-HZL">
-                    <rect key="frame" x="259" y="121" width="1" height="30"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <rect key="frame" x="259" y="101" width="1" height="30"/>
+                    <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="1" id="I9W-xu-RLT"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvL-x2-zPm">
-                    <rect key="frame" x="15" y="212" width="345" height="45"/>
+                    <rect key="frame" x="15" y="192" width="345" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="j8y-gU-W3e"/>
                     </constraints>
                     <state key="normal" title="下一步">
-                        <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="titleColor" systemColor="groupTableViewBackgroundColor"/>
                     </state>
                     <connections>
                         <action selector="nextBtnClick:" destination="-1" eventType="touchUpInside" id="t52-pt-Pm0"/>
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="6WI-db-eD3" firstAttribute="height" secondItem="Qxb-v8-nWT" secondAttribute="height" id="0cl-fY-PWV"/>
@@ -135,8 +132,12 @@
                 <constraint firstItem="uP8-Nl-Nqj" firstAttribute="centerY" secondItem="vWc-6V-Tte" secondAttribute="centerY" id="yfR-NN-JkR"/>
                 <constraint firstItem="uP8-Nl-Nqj" firstAttribute="leading" secondItem="fIP-AC-HZL" secondAttribute="trailing" id="z8b-B2-jVI"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="378" y="-103"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

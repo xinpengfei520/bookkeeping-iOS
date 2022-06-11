@@ -38,7 +38,7 @@
     [self.infoView setClipsToBounds:false];
     [self.infoView setBackgroundColor:[UIColor clearColor]];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
-    [self.nameLab setTextColor:kColor_Text_Black];
+    [self.nameLab setTextColor:kColor_Text_White];
     
     [self.infoConstraintT setConstant:StatusBarHeight + countcoordinatesX(40)];
     [self.numberConstraintT setConstant:countcoordinatesX(10)];
@@ -80,12 +80,12 @@
             if (subview.tag == 10) {
                 UILabel *lab = (UILabel *)subview;
                 lab.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
-                lab.textColor = kColor_Text_Black;
+                lab.textColor = kColor_Text_White;
             }
             else if (subview.tag == 11) {
                 UILabel *lab = (UILabel *)subview;
                 lab.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];
-                lab.textColor = kColor_Text_Black;
+                lab.textColor = kColor_Text_White;
             }
         }
     }

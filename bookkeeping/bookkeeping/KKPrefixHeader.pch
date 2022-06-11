@@ -21,6 +21,7 @@
 #define kColor_Night_Back_Big      HexColor(@"#201523")     // 夜间背景色 深
 
 // 文字颜色
+#define kColor_Text_White          HexColor(@"#FFFFFF")      // 白
 #define kColor_Text_Black          RGBA(52, 50, 51, 1)       // 深
 #define kColor_Text_Gary           HexColor(@"#999999")      // 灰
 #define kColor_Text_Light          HexColor(@"#8B8B8B")      // 浅
@@ -36,7 +37,7 @@
 // 线条
 #define kColor_Line_Night          HexColor(@"27262A")       // Cell 线条
 #define kColor_Main_Color          RGBA(30,177,138,1)
-#define kColor_Main_Dark_Color     RGBA(241,206,65,1)
+#define kColor_Main_Dark_Color     RGBA(30,200,138,1)
 #define kColor_Red_Color           HexColor(@"FF4500")
 #define kColor_Red_Dark_Color      HexColor(@"f24302")
 
@@ -59,11 +60,20 @@
 #define iOS10Later ([UIDevice currentDevice].systemVersion.floatValue >= 10.0f)
 #define iOS11Later ([UIDevice currentDevice].systemVersion.floatValue >= 11.0f)
 #define iOS12Later ([UIDevice currentDevice].systemVersion.floatValue >= 12.0f)
+#define iOS13Later ([UIDevice currentDevice].systemVersion.floatValue >= 13.0f)
+#define iOS14Later ([UIDevice currentDevice].systemVersion.floatValue >= 14.0f)
+#define iOS15Later ([UIDevice currentDevice].systemVersion.floatValue >= 15.0f)
+#define iOS16Later ([UIDevice currentDevice].systemVersion.floatValue >= 16.0f)
+
 #define iOS7 (iOS7Later) && !(iOS8Later)
 #define iOS8 (iOS8Later) && !(iOS9Later)
 #define iOS9 (iOS9Later) && !(iOS10Later)
 #define iOS10 (iOS10Later) && !(iOS11Later)
 #define iOS11 (iOS11Later) && !(iOS12Later)
+#define iOS12 (iOS12Later) && !(iOS13Later)
+#define iOS13 (iOS13Later) && !(iOS14Later)
+#define iOS14 (iOS14Later) && !(iOS15Later)
+#define iOS15 (iOS14Later) && !(iOS16Later)
 
 
 // 手机型号
@@ -78,9 +88,12 @@
 
 // 尺寸
 #define StatusBarHeight ((IS_IPHONEX || IS_IPHONEXR) ? 44.f : 20.f)
-#define SafeAreaBottomHeight (IS_IPHONEX || IS_IPHONEXR ? 34 : 0)
+//#define SafeAreaBottomHeight (IS_IPHONEX || IS_IPHONEXR ? 34 : 0)
+// 底部的安全距离
+#define SafeAreaBottomHeight [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom
 #define TabbarHeight    (49.f + SafeAreaBottomHeight)
-#define NavigationBarHeight (44.f + StatusBarHeight)
+// old: 44.f
+#define NavigationBarHeight (72.f + StatusBarHeight)
 
 
 // 颜色

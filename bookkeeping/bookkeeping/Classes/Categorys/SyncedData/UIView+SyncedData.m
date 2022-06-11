@@ -30,7 +30,7 @@
     NSMutableArray<BKCModel *> *cateCusRemoveIncomeArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
     
     // 记账信息
-    NSMutableArray<BKModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
     
     // 参数
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -44,7 +44,7 @@
                                   [[BKCModel mj_keyValuesArrayWithObjectArray:cateCusRemoveIncomeArr] mj_JSONString], @"cateCusRemoveIncomeArr",
                                   [[BKCModel mj_keyValuesArrayWithObjectArray:cateCusHasIncomeArr] mj_JSONString], @"cateCusHasIncomeArr",
                                   
-                                  [[BKModel mj_keyValuesArrayWithObjectArray:bookArr] mj_JSONString], @"book",
+                                  [[BookDetailModel mj_keyValuesArrayWithObjectArray:bookArr] mj_JSONString], @"book",
                                   nil];
     
     @weakify(self)
@@ -53,7 +53,7 @@
         @strongify(self)
         [self hideWindowHUD];
         // 成功
-        if (result.status == ServiceCodeSuccess) {
+        if (result.status == HttpStatusSuccess) {
             
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_REMOVE_PAY_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_Has_PAY_SYNCED];
@@ -81,13 +81,13 @@
                 NSString *preStr = [NSString stringWithFormat:@"Id == %ld", category_id];
                 NSPredicate *pre = [NSPredicate predicateWithFormat:preStr];
                 if (category_id <= [pay lastObject].Id) {
-                    NSMutableArray<BKModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:pay];
-                    BKModel *model = [models firstObject];
+                    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:pay];
+                    BookDetailModel *model = [models firstObject];
                     [pay removeObject:model];
                     [payRemove addObject:model];
                 } else {
-                    NSMutableArray<BKModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:income];
-                    BKModel *model = [models firstObject];
+                    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:income];
+                    BookDetailModel *model = [models firstObject];
                     [income removeObject:model];
                     [incomeRemove addObject:model];
                 }
@@ -128,13 +128,13 @@
             [NSUserDefaults setObject:faceId forKey:PIN_SETTING_FACE_ID];
             
             NSArray<NSArray *> *bookarr = result.data[@"book"];
-            NSMutableArray<BKModel *> *bookModels = [NSMutableArray array];
+            NSMutableArray<BookDetailModel *> *bookModels = [NSMutableArray array];
             
             for (NSArray *subarr in bookarr) {
-                BKModel *model = [[BKModel alloc] init];
-                model.Id = [[BKModel getId] integerValue];
+                BookDetailModel *model = [[BookDetailModel alloc] init];
+                model.bookId = [[BookDetailModel getId] integerValue];
                 model.price = [subarr[0] floatValue];
-                model.category_id = [subarr[1] integerValue];
+                model.categoryId = [subarr[1] integerValue];
                 model.year = [subarr[2] integerValue];
                 model.month = [subarr[3] integerValue];
                 model.day = [subarr[4] integerValue];
@@ -163,7 +163,7 @@
         }
         // 失败
         else {
-            [self showWindowTextHUD:result.message delay:1.5f];
+            [self showWindowTextHUD:result.msg delay:1.5f];
         }
     }];
 }

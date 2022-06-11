@@ -37,7 +37,7 @@ static NSString *hookSetGetKey = @"hookSetGetKey";
 }
 - (instancetype)hook_initWithRootViewController:(UIViewController *)rootViewController {
     [self hook_initWithRootViewController:rootViewController];
-    [self hook_background];
+//    [self hook_background];
     return self;
 }
 

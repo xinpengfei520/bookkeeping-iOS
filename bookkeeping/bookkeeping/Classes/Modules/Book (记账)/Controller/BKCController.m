@@ -11,8 +11,9 @@
 #import "CAController.h"
 #import "KKRefreshGifHeader.h"
 #import "BOOK_EVENT.h"
-#import "BKModel.h"
-
+#import "BookDetailModel.h"
+#import "UIViewController+HBD.h"
+#define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
 #pragma mark - 声明
 @interface BKCController()<UIScrollViewDelegate>
@@ -33,22 +34,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setJz_navigationBarHidden:YES];
-    [self setTitle:@"记账"];
+    self.hbd_barHidden = YES;
     [self navigation];
     [self scroll];
     [self collections];
     [self keyboard];
 //    [self getCategoryListRequest];
-    
-    
-    
     [self bendiData];
     
-    
     if (_model) {
-        dispatch_async(dispatch_get_main_queue(), ^{        
-            BOOL is_income = self.model.cmodel.is_income;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            BKCModel *cmodel = [NSUserDefaults getCategoryModel:self.model.categoryId];
+            BOOL is_income = cmodel.is_income;
             [self.scroll setContentOffset:CGPointMake(SCREEN_WIDTH * is_income, 0) animated:false];
             [self.navigation setOffsetX:self.scroll.contentOffset.x];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -61,7 +58,7 @@
                     [arrm addObjectsFromArray:[NSUserDefaults objectForKey:PIN_CATE_SYS_HAS_INCOME]];
                     [arrm addObjectsFromArray:[NSUserDefaults objectForKey:PIN_CATE_CUS_HAS_INCOME]];
                 }
-                [collection setSelectIndex:[NSIndexPath indexPathForRow:[arrm indexOfObject:self.model.cmodel] inSection:0]];
+                [collection setSelectIndex:[NSIndexPath indexPathForRow:[arrm indexOfObject:cmodel] inSection:0]];
                 [collection reloadData];
                 [self bookClickItem:collection];
                 [self.keyboard setModel:self.model];
@@ -112,20 +109,22 @@
         [self setModels:[BKCIncomeModel mj_objectArrayWithKeyValuesArray:result.data]];
     }];
 }
+
 // 记账
 - (void)createBookRequest:(NSString *)price mark:(NSString *)mark date:(NSDate *)date {
     NSInteger index = self.scroll.contentOffset.x / SCREEN_WIDTH;
     BKCCollection *collection = self.collections[index];
     BKCModel *cmodel = collection.model.list[collection.selectIndex.row];
-    BKModel *model = [[BKModel alloc] init];
     
-    model.Id = [[BKModel getId] integerValue];
+    BookDetailModel *model = [[BookDetailModel alloc] init];
+    model.bookId = [[BookDetailModel getId] integerValue];
     model.price = [[NSDecimalNumber decimalNumberWithString:price] doubleValue];
     model.year = date.year;
     model.month = date.month;
     model.day = date.day;
-    model.mark = mark;
-    model.category_id = cmodel.Id;
+    // 去掉备注中的空格并判空，如果为空则使用类别名作为备注
+    model.mark = ([allTrim(mark)length] == 0)?cmodel.name:mark;
+    model.categoryId = cmodel.Id;
     model.cmodel = cmodel;
     
     // 新增
@@ -140,20 +139,22 @@
         _model.month = date.month;
         _model.day = date.day;
         _model.mark = mark;
-        _model.category_id = cmodel.Id;
+        _model.categoryId = cmodel.Id;
         _model.cmodel = cmodel;
         model = _model;
         // 修改记账
-        [NSUserDefaults replaceBookModel:model];
+        //[NSUserDefaults replaceBookModel:model];
     }
     
-    
+    // 编辑修改完成
     if (self.navigationController.viewControllers.count != 1) {
         [self.navigationController popViewControllerAnimated:true];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:model];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE object:model];
     } else {
+        // 记账完成
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOT_BOOK_COMPLETE object:model];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
+            self.bookModelBlock(model);
         }];
     }
 }

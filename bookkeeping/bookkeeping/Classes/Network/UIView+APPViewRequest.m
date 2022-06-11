@@ -32,6 +32,7 @@ static void *kUIView_APPViewRequest;
     }
     return params;
 }
+
 // 停止刷新
 - (void)endRefresh {
     if ([self isKindOfClass:[UIScrollView class]]) {
@@ -40,39 +41,42 @@ static void *kUIView_APPViewRequest;
         [scroll.mj_footer endRefreshing];
     }
 }
-// 临时缓存
+
+// 内存缓存
 - (void)useMemoryCache:(NSString *)url complete:(AFNManagerCompleteBlock)complete {
     if (complete) {
         id responseObject = [NSUserDefaults objectForKey:url];
         APPResult *result = [[APPResult alloc] init];
-        result.code = ServiceCodeMemoryCache;
-        result.status = ServiceCodeSuccess;
+        result.cache = CacheStatusMemoryCache;
+        result.status = HttpStatusSuccess;
         result.data = responseObject;
-        result.message = @"读取缓存成功";
+        result.msg = @"读取缓存成功";
         complete(result);
     }
 }
+
 // 本地缓存
 - (void)useDiskCache:(NSString *)url complete:(AFNManagerCompleteBlock)complete {
     if (complete) {
         id responseObject = [NSUserDefaults objectForKey:url];
         APPResult *result = [[APPResult alloc] init];
-        result.code = ServiceCodeMemoryCache;
-        result.status = ServiceCodeSuccess;
+        result.cache = CacheStatusDiskCache;
+        result.status = HttpStatusSuccess;
         result.data = responseObject;
-        result.message = @"读取缓存成功";
+        result.msg = @"读取缓存成功";
         complete(result);
     }
 }
+
 // 失败回调
 - (void)createErrorBlock:(AFNManagerCompleteBlock)complete {
     // 回调
     if (complete) {
         APPResult *result = [[APPResult alloc] init];
         result.data = nil;
-        result.code = ServiceCodeFail;
-        result.status = ServiceStatusFail;
-        result.message = @"请求失败";
+        result.cache = CacheStatusFail;
+        result.status = HttpStatusFail;
+        result.msg = @"请求失败";
         complete(result);
     }
 }
@@ -136,7 +140,7 @@ static void *kUIView_APPViewRequest;
         // 停止刷新
         [weak endRefresh];
         // 成功
-        if (result.status == ServiceStatusSuccess) {
+        if (result.status == HttpStatusSuccess) {
             // 有数据
             [viewParameter setAfn_hasData:YES];
             // 隐藏等待页
@@ -161,7 +165,7 @@ static void *kUIView_APPViewRequest;
 //            [[PINMemoryCache sharedCache] setObjectAsync:result.data forKey:url completion:nil];
         }
         // 失败
-        else if (result.status == ServiceStatusFail) {
+        else if (result.status == HttpStatusFail) {
             // 使用缓存
             if (viewParameter && viewParameter.afn_useCache == YES) {
                 // 隐藏

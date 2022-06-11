@@ -8,6 +8,7 @@
 
 #import "BDTable.h"
 #import "BDTableCell.h"
+#import "BookDetailModel.h"
 
 #pragma mark - 声明
 @interface BDTable()<UITableViewDelegate, UITableViewDataSource>
@@ -35,7 +36,7 @@
 
 
 #pragma mark - set
-- (void)setModel:(BKModel *)model {
+- (void)setModel:(BookDetailModel *)model {
     _model = model;
     [self reloadData];
 }
