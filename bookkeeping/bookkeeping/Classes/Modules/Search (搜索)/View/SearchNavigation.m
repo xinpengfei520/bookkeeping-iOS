@@ -7,6 +7,7 @@
 //
 
 #import "SearchNavigation.h"
+#import "SEARCH_EVENT.h"
 
 @interface SearchNavigation ()<UITextFieldDelegate>
 
@@ -22,13 +23,15 @@
 	[self.searchTextField setLeftView:imageView];
 	[self.searchTextField setLeftViewMode:UITextFieldViewModeAlways];
 	[self.searchTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
-	_searchTextField.returnKeyType = UIReturnKeySearch;//变为搜索按钮
-	_searchTextField.delegate = self;//设置代理
+    // 变为搜索按钮
+	_searchTextField.returnKeyType = UIReturnKeySearch;
+    // 设置代理
+    _searchTextField.delegate = self;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	NSLog(@"点击了搜索");
     [_searchTextField resignFirstResponder];
+    [self routerEventWithName:SEARCH_TEXT_INPUT data:textField.text];
 	return YES;
 }
 

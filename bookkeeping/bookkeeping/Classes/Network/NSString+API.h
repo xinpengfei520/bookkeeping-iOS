@@ -80,5 +80,7 @@
 #define bookDetailDeleteRequest Request(@"/book/detail/delete")
 // 修改记账
 #define bookDetailUpdateRequest Request(@"/book/detail/update")
+// 搜索记账
+#define bookDetailSearchRequest Request(@"/book/detail/search")
 // 获取月记账列表
 #define monthBookListRequest Request(@"/book/detail/year/month")
