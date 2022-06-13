@@ -32,6 +32,7 @@
     [self table];
     [self emptyView];
 }
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self.table setFrame:self.contentView.bounds];
@@ -51,9 +52,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.models ? self.models.count : 0;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.models[section].array.count;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeListSubCell *cell = [HomeListSubCell loadFirstNib:tableView];
     cell.model = self.models[indexPath.section].array[indexPath.row];
@@ -67,25 +70,29 @@
     header.model = self.models[section];
     return header;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return countcoordinatesX(40);
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return countcoordinatesX(50);
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(5))];
     view.backgroundColor = kColor_White;
     return view;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return countcoordinatesX(5);
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BookDetailModel *model = self.models[indexPath.section].array[indexPath.row];
     [self routerEventWithName:HOME_CELL_CLICK data:model];
 }
-
 
 - (void)endRefresh {
     [self.table.mj_header endRefreshing];
@@ -103,6 +110,7 @@
     }
     return _header;
 }
+
 - (KKRefreshNormalFooter *)footer {
     if (!_footer) {
         __weak typeof(self) weak = self;
@@ -112,6 +120,7 @@
     }
     return _footer;
 }
+
 - (UITableView *)table {
     if (!_table) {
         _table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -129,6 +138,7 @@
     }
     return _table;
 }
+
 - (HomeListEmpty *)emptyView {
     if (!_emptyView) {
         _emptyView = [HomeListEmpty loadFirstNib:self.bounds];

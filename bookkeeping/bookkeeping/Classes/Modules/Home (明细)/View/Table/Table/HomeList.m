@@ -83,8 +83,8 @@
 - (void)setModels:(NSMutableArray<BookMonthModel *> *)models {
     _models = models;
     if (_status == HomeListStatusNormal) {
-        // cell
-        NSIndexPath *index = [NSIndexPath indexPathForRow:1 inSection:0];
+        // old: NSIndexPath *index = [NSIndexPath indexPathForRow:1 inSection:0];
+        NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
         // cell
         HomeListCell *cell = [self.table cellForRowAtIndexPath:index];
         cell.models = models;
@@ -138,16 +138,19 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 下拉刷新
 - (void)homeTablePull:(id)data {
     _status = HomeListStatusPull;
 }
+
 // 上拉加载
 - (void)homeTableUp:(id)data {
     _status = HomeListStatusUp;
@@ -158,6 +161,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeListCell *cell = [HomeListCell loadCode:tableView];
     return cell;
@@ -168,6 +172,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return self.height;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
@@ -188,12 +193,13 @@
     }
     return _table;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           HOME_TABLE_PULL: [self createInvocationWithSelector:@selector(homeTablePull:)],
-                           HOME_TABLE_UP: [self createInvocationWithSelector:@selector(homeTableUp:)]
-                           };
+            HOME_TABLE_PULL: [self createInvocationWithSelector:@selector(homeTablePull:)],
+            HOME_TABLE_UP: [self createInvocationWithSelector:@selector(homeTableUp:)]
+        };
     }
     return _eventStrategy;
 }

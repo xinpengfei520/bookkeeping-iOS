@@ -46,7 +46,7 @@
     [self addButton];
     [self setDate:[NSDate date]];
     [self monitorNotification];
-    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+    [self getMonthBookRequest:_date.year month:_date.month];
 
     // 已经登录
     UserModel *model = [UserInfo loadUserInfo];
