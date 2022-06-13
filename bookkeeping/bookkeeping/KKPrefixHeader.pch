@@ -104,6 +104,8 @@
 // 字体
 #define AdjustFont(A) [UIFont adjustFontSize:A]
 
+// 字符串判空
+#define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
 #import "Common.h"
 

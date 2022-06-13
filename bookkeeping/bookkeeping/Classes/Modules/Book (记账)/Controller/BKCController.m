@@ -13,7 +13,6 @@
 #import "BOOK_EVENT.h"
 #import "BookDetailModel.h"
 #import "UIViewController+HBD.h"
-#define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
 #pragma mark - 声明
 @interface BKCController()<UIScrollViewDelegate>
