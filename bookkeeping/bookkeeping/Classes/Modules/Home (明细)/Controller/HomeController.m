@@ -59,9 +59,11 @@
 - (void)monitorNotification {
     // 记账
     @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        BookDetailModel *model = x.object;
+        [self addBookRequest:model];
+        //[self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 删除记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
@@ -119,6 +121,10 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"记账成功" delay:1.f];
+            // 判断添加的记账年月是否是当前页面显示的记账年月
+            if (model.year == self.date.year && model.month == self.date.month) {
+                [self getMonthBookRequest:self.date.year month:self.date.month];
+            }
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
@@ -330,12 +336,7 @@
     // Modal Presentation Styles（弹出风格）
     nav.modalPresentationStyle = UIModalPresentationCurrentContext;
     self.navigationController.definesPresentationContext = NO;
-    [self presentViewController:nav animated:YES completion:^{
-        
-    }];
-    bookController.bookModelBlock = ^(BookDetailModel *model){
-        [self addBookRequest:model];
-    };
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)pushToChartController:(id)data {

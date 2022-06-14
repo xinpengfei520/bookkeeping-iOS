@@ -89,6 +89,14 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     [NSUserDefaults setObject:models forKey:key];
 }
 
+// 删除本地记账
++ (void)deleteBookModel:(BookDetailModel *)model {
+    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", model.year, model.month];
+    NSMutableArray<BookMonthModel *> *models = [NSUserDefaults objectForKey:key];
+    [models removeAllObjects];
+    [NSUserDefaults setObject:models forKey:key];
+}
+
 // 添加分类
 + (void)insertCategoryModel:(BKCModel *)model is_income:(BOOL)is_income {
     if (is_income == 0) {

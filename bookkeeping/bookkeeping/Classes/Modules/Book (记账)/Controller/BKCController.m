@@ -129,7 +129,8 @@
     // 新增
     if (!_model) {
         // 添加记账
-        [NSUserDefaults insertBookModel:model];
+        //[NSUserDefaults insertBookModel:model];
+        [NSUserDefaults deleteBookModel:model];
     }
     // 修改
     else {
@@ -153,7 +154,6 @@
         // 记账完成
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
-            self.bookModelBlock(model);
         }];
     }
 }
