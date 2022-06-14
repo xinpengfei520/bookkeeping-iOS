@@ -98,16 +98,16 @@
     _model = model;
     if (_indexPath.section == 0) {
         if (_indexPath.row == 0) {
-            [self.icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.icon)]];
+            [self.icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.userAvatar)]];
         } else if (_indexPath.row == 1) {
-            [self setDetail:[@(model.Id) description]];
+            [self setDetail:model.userId];
         } else if (_indexPath.row == 2) {
-            [self setDetail:model.nickname];
+            [self setDetail:model.userName];
         } else if (_indexPath.row == 3) {
-            [self setDetail:model.sex == true ? @"男" : @"女"];
+            [self setDetail:@"男"];
         } else if (_indexPath.row == 4) {
-            if (model.account) {
-                [self setDetail:model.account];
+            if (model.userId) {
+                [self setDetail:model.userId];
                 [self setStatus:InfoTableCellStatusName];
                 [self.detailLab setTextColor:kColor_Text_Gary];
             } else {

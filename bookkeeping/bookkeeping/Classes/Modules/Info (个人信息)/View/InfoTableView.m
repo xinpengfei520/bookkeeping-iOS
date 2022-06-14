@@ -46,7 +46,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (_model) {
-        if (_model.account) {
+        if (_model.userId) {
             return self.arr.count;
         }
     }
@@ -77,7 +77,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if (_model) {
-        if (_model.account) {
+        if (_model.userId) {
             if (section == 0) {
                 return [UIView new];
             }
@@ -91,7 +91,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (_model) {
-        if (_model.account) {
+        if (_model.userId) {
             if (section == 0) {
                 return countcoordinatesX(10);
             }

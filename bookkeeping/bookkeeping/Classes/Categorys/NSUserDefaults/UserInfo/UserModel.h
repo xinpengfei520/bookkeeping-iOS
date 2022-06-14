@@ -10,16 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UserModel : BaseModel
+@interface UserModel : BaseModel<NSCoding>
 
-@property (nonatomic, assign) NSInteger Id;
-@property (nonatomic, strong) NSString *icon;
-@property (nonatomic, strong) NSString *account;
-@property (nonatomic, strong) NSString *nickname;
+@property (nonatomic, assign) NSString *userId;
+@property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong) NSString *userPhone;
+@property (nonatomic, strong) NSString *userAvatar;
+@property (nonatomic, strong) NSString *registerTime;
 @property (nonatomic, strong) NSString *token;
-@property (nonatomic, assign) BOOL sex;
-@property (nonatomic, assign) BOOL isPunch;
-@property (nonatomic, strong) NSString *punchCount;
+@property (nonatomic, strong) NSString *bookDays;
+@property (nonatomic, strong) NSString *bookCounts;
 @property (nonatomic, assign) NSInteger faceId;
 
 @end

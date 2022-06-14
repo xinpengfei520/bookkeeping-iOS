@@ -12,10 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *icon;     // 头像
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;      // 姓名
 @property (weak, nonatomic) IBOutlet UIView *infoView;      // 个人信息
-@property (weak, nonatomic) IBOutlet UIView *punchView;
 @property (weak, nonatomic) IBOutlet UIView *dayView;
 @property (weak, nonatomic) IBOutlet UIView *numberView;
-@property (weak, nonatomic) IBOutlet UILabel *punchLab;
 @property (weak, nonatomic) IBOutlet UILabel *dayLab;
 @property (weak, nonatomic) IBOutlet UILabel *numberLab;
 
@@ -56,11 +54,6 @@
         @strongify(self)
         [self routerEventWithName:MINE_HEADER_ICON_CLICK data:nil];
     }];
-    // 连续打卡
-    [self.punchView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-        @strongify(self)
-        [self routerEventWithName:MINE_HEADER_PUNCH_CLICK data:nil];
-    }];
     // 记账总天数
     [self.dayView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         @strongify(self)
@@ -99,21 +92,20 @@
     if (!model) {
         [_icon setImage:[UIImage imageNamed:@"default_header"]];
         [_nameLab setText:@"未登录"];
-        [_punchLab setText:@"0"];
         [_dayLab setText:@"0"];
         [_numberLab setText:@"0"];
         return;
     }
     
-    if (model.icon) {
-        [_icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.icon)]];
+    if (model.userAvatar) {
+        [_icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.userAvatar)]];
     }
     else {
         [_icon setImage:[UIImage imageNamed:@"default_header"]];
     }
-    [_nameLab setText:model.nickname];
-    [_punchLab setText:model.punchCount];
-    [self setPunch:model.isPunch];
+    [_nameLab setText:model.userName];
+    [_dayLab setText:model.bookDays];
+    [_numberLab setText:model.bookCounts];
 }
 
 

@@ -19,7 +19,7 @@
 }
 
 - (NSString *)punchCount {
-    return _punchCount ? _punchCount : @"0";
+    return @"0";
 }
 
 

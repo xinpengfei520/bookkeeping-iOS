@@ -55,7 +55,7 @@
 #pragma mark - 请求
 - (void)getChangeRequest {
     UserModel *model = [UserInfo loadUserInfo];
-    NSDictionary *param = @{@"account": model.account,
+    NSDictionary *param = @{@"userId": model.userId,
                             @"old_pass": self.field1.text,
                             @"new_pass": self.field3.text};
     [self showProgressHUD];

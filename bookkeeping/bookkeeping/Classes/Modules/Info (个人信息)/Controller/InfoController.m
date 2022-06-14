@@ -42,8 +42,8 @@
     UserModel *model = [UserInfo loadUserInfo];
     NSMutableDictionary *param = ({
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        if (model.account) {
-            [param setObject:model.account forKey:@"account"];
+        if (model.userId) {
+            [param setObject:model.userId forKey:@"account"];
         }
         param;
     });
@@ -55,7 +55,7 @@
         if (result.status == HttpStatusSuccess) {
             // 更新数据
             UserModel *model = [UserInfo loadUserInfo];
-            [model setIcon:result.data];
+            [model setUserAvatar:result.data];
             [UserInfo saveUserModel:model];
             [self setModel:model];
             // 刷新
@@ -73,8 +73,8 @@
     NSMutableDictionary *param = ({
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
         [param setObject:nickName forKey:@"name"];
-        if (model.account) {
-            [param setObject:model.account forKey:@"account"];
+        if (model.userId) {
+            [param setObject:model.userId forKey:@"account"];
         }
         param;
     });
@@ -86,7 +86,7 @@
         if (result.status == HttpStatusSuccess) {
             // 更新数据
             UserModel *model = [UserInfo loadUserInfo];
-            [model setNickname:nickName];
+            [model setUserName:nickName];
             [UserInfo saveUserModel:model];
             [self setModel:model];
         } else {
@@ -102,8 +102,8 @@
     NSMutableDictionary *param = ({
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
         [param setObject:@(sex) forKey:@"sex"];
-        if (model.account) {
-            [param setObject:model.account forKey:@"account"];
+        if (model.userId) {
+            [param setObject:model.userId forKey:@"userId"];
         }
         param;
     });
@@ -115,7 +115,6 @@
         if (result.status == HttpStatusSuccess) {
             // 更新数据
             UserModel *model = [UserInfo loadUserInfo];
-            [model setSex:sex];
             [UserInfo saveUserModel:model];
             [self setModel:model];
             // 刷新
@@ -164,7 +163,7 @@
         // 手机号
         else if (indexPath.row == 4) {
             UserModel *model = [UserInfo loadUserInfo];
-            if (!model.account) {
+            if (!model.userId) {
                 
             }
         }
@@ -214,14 +213,10 @@
         NSInteger index = [number integerValue];
         if (index == 0) {
             UserModel *model = [UserInfo loadUserInfo];
-            if (model.sex != true) {
-                [self changeSexRequest:1];
-            }
+            [self changeSexRequest:1];
         } else if (index == 1) {
             UserModel *model = [UserInfo loadUserInfo];
-            if (model.sex != false) {
-                [self changeSexRequest:0];
-            }
+            [self changeSexRequest:0];
         }
     }];
 }

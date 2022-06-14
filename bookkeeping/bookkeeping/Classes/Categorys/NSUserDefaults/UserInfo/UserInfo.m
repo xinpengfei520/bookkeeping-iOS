@@ -7,7 +7,6 @@
 
 @implementation UserInfo
 
-
 // 是否登录
 + (BOOL)isLogin {
     // 有缓存
@@ -18,16 +17,17 @@
     return NO;
 }
 
-
 // 保存个人信息
 + (void)saveUserInfo:(NSDictionary *)param {
     [NSUserDefaults setObject:param forKey:kUser];
 }
+
 // 保存个人信息
 + (void)saveUserModel:(UserModel *)model {
     NSDictionary *param = [model mj_keyValues];
     [NSUserDefaults setObject:param forKey:kUser];
 }
+
 // 读取个人信息
 + (UserModel *)loadUserInfo {
     NSDictionary *param = (NSDictionary *)[NSUserDefaults objectForKey:kUser];
@@ -35,15 +35,12 @@
     return model;
 }
 
-
 // 清除登录信息
 + (void)clearUserInfo {
     NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData removeObjectForKey:kUser];
-    
 //    [[PINCacheManager sharedManager] removeObjectForKey:kUser];
 }
-
 
 
 @end

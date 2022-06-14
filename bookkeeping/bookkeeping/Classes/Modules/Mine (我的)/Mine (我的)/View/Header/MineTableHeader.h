@@ -10,7 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MineTableHeader : BaseView
 
 @property (nonatomic, strong) UserModel *model;
-@property (nonatomic, assign) BOOL punch;
 
 @end
 

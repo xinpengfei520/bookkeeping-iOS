@@ -39,8 +39,6 @@
 #define CreateCoderequest Request(@"/shayu/createCodeRequest.action")
 // 验证验证码
 #define ValidateCoderequest Request(@"/shayu/validateCodeRequest.action")
-// 个人信息
-#define InfoRequest Request(@"/shayu/getInfoRequest.action")
 // 修改密码
 #define ChangePassRequest Request(@"/shayu/changePassRequest.action")
 // 忘记密码
@@ -84,3 +82,5 @@
 #define bookDetailSearchRequest Request(@"/book/detail/search")
 // 获取月记账列表
 #define monthBookListRequest Request(@"/book/detail/year/month")
+// 个人信息
+#define userInfoRequest Request(@"/book/user/info")

@@ -32,13 +32,14 @@
     [super viewDidLoad];
     self.hbd_barHidden = YES;
     [self mine];
-    [self setupUI];
+    [self getUserInfoRequest];
+    //[self setupUI];
 }
 
 - (void)setupUI {
     // 登录了
     if ([UserInfo isLogin]) {
-        [self getInfoRequest];
+        [self getUserInfoRequest];
     }
     // 未登录
     else {
@@ -49,18 +50,23 @@
 
 #pragma mark - 请求
 // 获取个人信息
-- (void)getInfoRequest {
+- (void)getUserInfoRequest {
     UserModel *model = [UserInfo loadUserInfo];
-    NSString *key = @"account";
-    NSString *value = model.account;
+    NSString *key = @"userId";
+    NSString *value = @"1";
+    //NSString *value = model.userId;
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:value, key, nil];
+    
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
-    [AFNManager POST:InfoRequest params:param complete:^(APPResult *result) {
+    [AFNManager POST:userInfoRequest params:param complete:^(APPResult *result) {
         @strongify(self)
-        if (result.status == HttpStatusSuccess) {
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            UserModel *userModel = [UserModel mj_objectWithKeyValues:result.data];
             [UserInfo saveUserInfo:result.data];
             [self.mine.table setModel:[UserInfo loadUserInfo]];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
         }
     }];
 }
@@ -223,7 +229,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupUI];
+    //[self setupUI];
 }
 
 
