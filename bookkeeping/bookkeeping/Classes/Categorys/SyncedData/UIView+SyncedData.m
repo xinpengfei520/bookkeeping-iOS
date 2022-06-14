@@ -79,7 +79,7 @@
             for (NSArray *subarr in arr) {
                 NSInteger category_id = [subarr[0] integerValue];
                 NSString *preStr = [NSString stringWithFormat:@"Id == %ld", category_id];
-                NSPredicate *pre = [NSPredicate predicateWithFormat:preStr];
+                __unused NSPredicate *pre = [NSPredicate predicateWithFormat:preStr];
                 if (category_id <= [pay lastObject].Id) {
                     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:pay];
                     BookDetailModel *model = [models firstObject];

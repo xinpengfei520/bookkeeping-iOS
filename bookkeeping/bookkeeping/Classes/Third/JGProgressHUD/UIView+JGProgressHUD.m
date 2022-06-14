@@ -236,7 +236,7 @@ static NSString *jgBackSetGetKey = @"jgBackSetGetKey";
         text = @"请求失败";
     }
     
-    JGProgressHUDInteractionType type = self.hud_type;
+    __unused JGProgressHUDInteractionType type = self.hud_type;
     JGProgressHUD *HUD = [[JGProgressHUD alloc] initWithStyle:JGProgressHUDStyleDark];
     [HUD setInteractionType:nil];
     [HUD setPosition:JGProgressHUDPositionBottomCenter];

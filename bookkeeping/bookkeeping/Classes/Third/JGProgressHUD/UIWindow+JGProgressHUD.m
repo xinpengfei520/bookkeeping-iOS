@@ -104,7 +104,7 @@
     [self showWindowTextHUD:text delay:10000];
 }
 - (void)showWindowTextHUD:(NSString *)text delay:(NSTimeInterval)delay {
-    JGProgressHUDInteractionType type = self.hud_type;
+    __unused JGProgressHUDInteractionType type = self.hud_type;
     JGProgressHUD *HUD = [[JGProgressHUD alloc] initWithStyle:JGProgressHUDStyleDark];
     [HUD setInteractionType:nil];
     [HUD setPosition:JGProgressHUDPositionBottomCenter];

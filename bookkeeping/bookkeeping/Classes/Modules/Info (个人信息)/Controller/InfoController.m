@@ -212,10 +212,8 @@
     [[sheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *number) {
         NSInteger index = [number integerValue];
         if (index == 0) {
-            UserModel *model = [UserInfo loadUserInfo];
             [self changeSexRequest:1];
         } else if (index == 1) {
-            UserModel *model = [UserInfo loadUserInfo];
             [self changeSexRequest:0];
         }
     }];

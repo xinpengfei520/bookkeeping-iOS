@@ -51,7 +51,7 @@
 #pragma mark - 请求
 // 获取个人信息
 - (void)getUserInfoRequest {
-    UserModel *model = [UserInfo loadUserInfo];
+    __unused UserModel *model = [UserInfo loadUserInfo];
     NSString *key = @"userId";
     NSString *value = @"1";
     //NSString *value = model.userId;
@@ -62,7 +62,7 @@
     [AFNManager POST:userInfoRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            UserModel *userModel = [UserModel mj_objectWithKeyValues:result.data];
+            __unused UserModel *userModel = [UserModel mj_objectWithKeyValues:result.data];
             [UserInfo saveUserInfo:result.data];
             [self.mine.table setModel:[UserInfo loadUserInfo]];
         } else {
