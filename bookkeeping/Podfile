@@ -1,6 +1,7 @@
 platform :ios, '12.0'
+inhibit_all_warnings!
 
-target ‘bookkeeping’ do
+target 'bookkeeping' do
     pod 'pop', '1.0.12'
     pod 'SDWebImage', '4.4.3'
     pod 'Masonry', '1.1.0'
@@ -20,6 +21,6 @@ target ‘bookkeeping’ do
     pod 'HBDNavigationBar', '~> 1.9.5'
 end
 
-target ‘BookMonth’ do
+target 'BookMonth' do
   pod 'MJExtension', '3.0.15'
 end

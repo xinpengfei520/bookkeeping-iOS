@@ -238,7 +238,7 @@ static NSString *jgBackSetGetKey = @"jgBackSetGetKey";
     
     __unused JGProgressHUDInteractionType type = self.hud_type;
     JGProgressHUD *HUD = [[JGProgressHUD alloc] initWithStyle:JGProgressHUDStyleDark];
-    [HUD setInteractionType:nil];
+    [HUD setInteractionType:JGProgressHUDInteractionTypeBlockTouchesOnHUDView];
     [HUD setPosition:JGProgressHUDPositionBottomCenter];
     [HUD setVibrancyEnabled:NO];
     [HUD setIndicatorView:nil];

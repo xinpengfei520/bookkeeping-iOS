@@ -2809,6 +2809,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				"WARNING_CFLAGS[arch=*]" = "-Wno-shorten-64-to-32";
 			};
 			name = Debug;
 		};
