@@ -80,17 +80,18 @@
                 NSInteger category_id = [subarr[0] integerValue];
                 NSString *preStr = [NSString stringWithFormat:@"Id == %ld", category_id];
                 __unused NSPredicate *pre = [NSPredicate predicateWithFormat:preStr];
-                if (category_id <= [pay lastObject].Id) {
-                    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:pay];
-                    BookDetailModel *model = [models firstObject];
-                    [pay removeObject:model];
-                    [payRemove addObject:model];
-                } else {
-                    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:income];
-                    BookDetailModel *model = [models firstObject];
-                    [income removeObject:model];
-                    [incomeRemove addObject:model];
-                }
+//                20220615
+//                if (category_id <= [pay lastObject].Id) {
+//                    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:pay];
+//                    BookDetailModel *model = [models firstObject];
+//                    [pay removeObject:model];
+//                    [payRemove addObject:model];
+//                } else {
+//                    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:income];
+//                    BookDetailModel *model = [models firstObject];
+//                    [income removeObject:model];
+//                    [incomeRemove addObject:model];
+//                }
             }
             
             [NSUserDefaults setObject:pay forKey:PIN_CATE_SYS_HAS_PAY];

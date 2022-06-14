@@ -25,20 +25,21 @@
 //    [super awakeFromNib];
 //    [self control];
 //}
-//
-//
-//#pragma mark - 动画
-//- (void)show {
-//    [self setAlpha:1];
-//    [self control];
-//}
-//- (void)hide {
-//    [self setAlpha:0];
+
+
+#pragma mark - 动画
+- (void)show {
+    [self setAlpha:1];
+    //[self control];
+}
+
+- (void)hide {
+    [self setAlpha:0];
 //    [self.control removeFromSuperview];
 //    self.control = nil;
-//}
-//
-//
+}
+
+
 //#pragma mark - get
 //- (GoodsControl *)control {
 //    if (!_control) {

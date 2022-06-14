@@ -16,7 +16,7 @@
 ///用时间戳倒计时
 -(void)countDownWithStratTimeStamp:(long long)starTimeStamp finishTimeStamp:(long long)finishTimeStamp completeBlock:(void (^)(NSInteger day,NSInteger hour,NSInteger minute,NSInteger second))completeBlock;
 ///每秒走一次，回调block
--(void)countDownWithPER_SECBlock:(void (^)())PER_SECBlock;
+-(void)countDownWithPER_SECBlock:(void (^)(void))PER_SECBlock;
 -(void)destoryTimer;
 -(NSDate *)dateWithLongLong:(long long)longlongValue;
 @end
