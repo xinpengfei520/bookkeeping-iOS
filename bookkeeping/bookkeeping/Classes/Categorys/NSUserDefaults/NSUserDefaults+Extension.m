@@ -12,15 +12,20 @@ static NSMutableArray<BKCModel *> *categoryModelList;
 
 // 取值
 + (id)objectForKey:(NSString *)key {
+    NSError *error = nil;
     NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     id obj = [sharedData objectForKey:key];
-    obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
+    //obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
+    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:obj error:&error];
+    unarchiver.requiresSecureCoding = NO;
+    obj = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:&error];
     return obj;
 }
 
 // 存值
 + (void)setObject:(id)obj forKey:(NSString *)key {
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj requiringSecureCoding:NO error:&error];
     NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData setObject:data forKey:key];
     [sharedData synchronize];
