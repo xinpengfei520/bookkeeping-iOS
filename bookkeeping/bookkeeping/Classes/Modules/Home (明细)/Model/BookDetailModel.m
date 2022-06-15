@@ -41,10 +41,8 @@
     model.day = self.day;
     model.week = self.week;
     model.mark = self.mark;
-    model.dateStr = self.dateStr;
     model.date = self.date;
     model.dateNumber = self.dateNumber;
-    //model.cmodel = [self.cmodel copy];
     return model;
 }
 
@@ -59,7 +57,7 @@
     return false;
 }
 
-- (NSString *)dateStr {
+- (NSString *)getDateStr {
     NSString *str = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
     NSDate *date = [NSDate dateWithYMD:str];
     return [NSString stringWithFormat:@"%ld年%02ld月%02ld日   %@", _year, _month, _day, [date dayFromWeekday]];

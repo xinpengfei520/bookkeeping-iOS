@@ -21,10 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger day;
 @property (nonatomic, assign) NSInteger week;
 @property (nonatomic, copy  ) NSString *mark;
-@property (nonatomic, copy  ) NSString *dateStr;    // 日期(例: 01月03日 星期五)
 @property (nonatomic, strong) NSDate *date;         // 日期
 @property (nonatomic, assign) NSInteger dateNumber; // 日期数字
-@property (nonatomic, strong) BKCModel *cmodel;
 
 // 获取Id
 + (NSNumber *)getId;
@@ -32,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)getTypeDesc;
 // 获取价格描述
 -(NSString *)getPriceStr;
+// 获取日期(例: 2022年01月03日 星期五)
+-(NSString *)getDateStr;
 
 @end
 

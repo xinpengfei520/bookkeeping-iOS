@@ -45,7 +45,7 @@
     } else if (_indexPath.row == 1) {
         [_detailLab setText:[model getPriceStr]];
     } else if (_indexPath.row == 2) {
-        [_detailLab setText:model.dateStr];
+        [_detailLab setText:[model getDateStr]];
     } else if (_indexPath.row == 3) {
         NSString *mark;
         if ((model.mark && model.mark.length != 0)) {
