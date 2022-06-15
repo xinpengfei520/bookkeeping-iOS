@@ -33,13 +33,16 @@
 - (NSString *)getMoneyDescribe {
     NSMutableString *strm = [NSMutableString string];
     if (_income != 0) {
-        [strm appendFormat:@"收入: %@", [@(_income) description]];
+        // 不要使用 [@(_income) description], 因为会导致精度问题
+        NSString *strIncome=[NSString stringWithFormat:@"%0.2f", _income];
+        [strm appendFormat:@"收入: %@", strIncome];
     }
     if (_income != 0 && _pay != 0) {
         [strm appendString:@"    "];
     }
     if (_pay != 0) {
-        [strm appendFormat:@"支出: %@", [@(_pay) description]];
+        NSString *strPay=[NSString stringWithFormat:@"%0.2f", _pay];
+        [strm appendFormat:@"支出: %@", strPay];
     }
     return strm;
 }
