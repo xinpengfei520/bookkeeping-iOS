@@ -50,7 +50,8 @@
     
     @weakify(self)
     // 头像
-    [self.infoView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+    self.nameLab.userInteractionEnabled = YES;
+    [self.nameLab addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         @strongify(self)
         [self routerEventWithName:MINE_HEADER_ICON_CLICK data:nil];
     }];

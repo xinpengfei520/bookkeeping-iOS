@@ -282,6 +282,7 @@
 		F3A052572856103F00DB2E99 /* SearchListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A052562856103F00DB2E99 /* SearchListHeader.xib */; };
 		F3A0525A2856125B00DB2E99 /* SearchListSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A052592856125B00DB2E99 /* SearchListSubCell.m */; };
 		F3A0525C2856127700DB2E99 /* SearchListSubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0525B2856127700DB2E99 /* SearchListSubCell.xib */; };
+		F3A052642858FDED00DB2E99 /* AlertViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A052632858FDED00DB2E99 /* AlertViewManager.m */; };
 		F3AE5FCB28466EAD00E95086 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FCA28466EAD00E95086 /* UIButton+EnlargeTouchArea.m */; };
 		F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FD72847C9D100E95086 /* SearchViewController.m */; };
 		F3AE5FDC2847CCFF00E95086 /* SearchNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3AE5FDB2847CCFF00E95086 /* SearchNavigation.xib */; };
@@ -763,6 +764,8 @@
 		F3A052592856125B00DB2E99 /* SearchListSubCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchListSubCell.m; sourceTree = "<group>"; };
 		F3A0525B2856127700DB2E99 /* SearchListSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchListSubCell.xib; sourceTree = "<group>"; };
 		F3A0525D285618FD00DB2E99 /* SEARCH_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEARCH_EVENT.h; sourceTree = "<group>"; };
+		F3A052622858FDED00DB2E99 /* AlertViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertViewManager.h; sourceTree = "<group>"; };
+		F3A052632858FDED00DB2E99 /* AlertViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertViewManager.m; sourceTree = "<group>"; };
 		F3AE5FC928466E0D00E95086 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		F3AE5FCA28466EAD00E95086 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		F3AE5FD62847C9D100E95086 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -902,6 +905,7 @@
 		3219839121C6436A00311885 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F3A052612858FD6600DB2E99 /* Alert */,
 				F354830827B90D2200F2D6DE /* Manager */,
 				4B35F1A721CCC694007271BE /* Empty */,
 				3257AED521C8761200787A34 /* BottomButton */,
@@ -2208,6 +2212,15 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		F3A052612858FD6600DB2E99 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				F3A052622858FDED00DB2E99 /* AlertViewManager.h */,
+				F3A052632858FDED00DB2E99 /* AlertViewManager.m */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		F3AE5FD22847C95900E95086 /* Search (搜索) */ = {
 			isa = PBXGroup;
 			children = (
@@ -2630,6 +2643,7 @@
 				4B35F1A621CCC641007271BE /* AFNManager.m in Sources */,
 				4B35F1D521CD0798007271BE /* ACAListModel.m in Sources */,
 				4B35F1A521CCC641007271BE /* APPResult.m in Sources */,
+				F3A052642858FDED00DB2E99 /* AlertViewManager.m in Sources */,
 				4BEB733221CE3F9C00BEF013 /* InfoFooter.m in Sources */,
 				4BEB731D21CE033300BEF013 /* KKRefreshGifHeader.m in Sources */,
 				4BA68B0521C7F6FB0063A5C2 /* ACACollectionCell.m in Sources */,

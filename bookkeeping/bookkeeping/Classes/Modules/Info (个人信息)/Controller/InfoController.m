@@ -9,6 +9,7 @@
 #import "INFO_EVENT_MANAGER.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "UIViewController+HBD.h"
+#import "AlertViewManager.h"
 
 #pragma mark - 声明
 @interface InfoController()
@@ -175,68 +176,68 @@
 
 // 退出登录
 - (void)footerClick:(id)data {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"退出后不会删除任何历史数据，下次登录依然可以使用本账号" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles: nil];
-    [sheet showInView:self.view];
-    [[sheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *number) {
-        NSInteger index = [number integerValue];
-        if (index == 0) {
+    // 按钮二维数组，array[0] 存放 title 数组, array[1] 存放 style 数组
+    NSArray<NSArray *> *buttonArray = @[
+        @[@"退出登录"],
+        @[[NSNumber numberWithInteger:UIAlertActionStyleDestructive]]
+    ];
+    
+    [[AlertViewManager sharedInstacne]showSheet:@"记呀" message:@"确定退出当前帐号吗？" cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
+        if (buttonTag == 0) {
             [UserInfo clearUserInfo];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
             [self.navigationController popViewControllerAnimated:true];
             [[NSNotificationCenter defaultCenter] postNotificationName:LOPGIN_LOGOUT_COMPLETE object:nil];
         }
-    }];
+    } buttonArray:buttonArray];
 }
 
 // 拍照
 - (void)takePhoto {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
-    [sheet showInView:self.view];
-    [[sheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *number) {
-        NSInteger index = [number integerValue];
+    [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
         // 拍照
-        if (index == 0) {
+        if (buttonTag == 0) {
             
         }
         // 从相册选择
-        else if (index == 1) {
+        else if (buttonTag == 1) {
             
         }
-    }];
+    } buttonTitles:@"拍照", @"从相册选择", nil];
 }
 // 性别
 - (void)takeSex {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男", @"女", nil];
-    [sheet showInView:self.view];
-    [[sheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *number) {
-        NSInteger index = [number integerValue];
-        if (index == 0) {
+    [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
+        if (buttonTag == 0) {
             [self changeSexRequest:1];
-        } else if (index == 1) {
+        } else if (buttonTag == 1) {
             [self changeSexRequest:0];
         }
-    }];
+    } buttonTitles:@"男", @"女", nil];
 }
 // 昵称
 - (void)takeNickname {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"昵称" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    UITextField *txtName = [alert textFieldAtIndex:0];
-    [txtName setPlaceholder:@"请输入2-8位昵称"];
-    [txtName addTarget:self action:@selector(txtValueChange:) forControlEvents:UIControlEventEditingChanged];
-    [alert show];
-    [[alert rac_buttonClickedSignal] subscribeNext:^(NSNumber *number) {
-        NSInteger index = [number integerValue];
-        // 确定
-        if (index == 1) {
-            if (txtName.text.length == 0) {
-                [self showTextHUD:@"昵称不能为空" delay:1.f];
-                return;
-            }
-            [self changeNickRequest:txtName.text];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    // 增加确定按钮
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+        // 获取第1个输入框；
+        UITextField *titleTextField = alertController.textFields.firstObject;
+        NSLog(@"%@", titleTextField.text);
+        if (titleTextField.text.length == 0) {
+            [self showTextHUD:@"昵称不能为空" delay:1.f];
+            return;
         }
+        [self changeNickRequest:titleTextField.text];
+    }]];
+    // 增加取消按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    // 定义第一个输入框；
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入2-8位昵称";
+        [textField addTarget:self action:@selector(txtValueChange:) forControlEvents:UIControlEventEditingChanged];
     }];
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 - (void)txtValueChange:(UITextField *)textField {

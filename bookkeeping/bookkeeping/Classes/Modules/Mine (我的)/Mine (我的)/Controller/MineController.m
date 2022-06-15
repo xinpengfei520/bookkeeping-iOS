@@ -144,7 +144,8 @@
 
 // 记账总天数
 - (void)headerDayClick:(id)data {
-    
+    InfoController *vc = [[InfoController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 // 记账总笔数

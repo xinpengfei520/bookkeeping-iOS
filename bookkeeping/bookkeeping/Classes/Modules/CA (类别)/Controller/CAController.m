@@ -170,24 +170,38 @@
     }];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 // 值改变
 - (void)segValueChange:(NSNumber *)number {
     _table.model = _models[[number integerValue]];
 }
+
 // 删除cell
 - (void)deleteCellClick:(CategoryCell *)cell {
-    @weakify(self)
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"删除类别会同时删除该类别下的所有历史收支记录" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert show];
-    [[alert rac_buttonClickedSignal] subscribeNext:^(NSNumber *number) {
-        @strongify(self)
-        NSInteger index = [number integerValue];
-        // 确定
-        if (index == 1) {
-            [self deleteWithCell:cell];
-        }
+    UIAlertController *alert = [UIAlertController
+                                 alertControllerWithTitle:@"警告"
+                                 message:@"删除类别会同时删除该类别下的所有历史收支记录"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *yesButton = [UIAlertAction
+                                actionWithTitle:@"确定"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+        [self deleteWithCell:cell];
     }];
+    
+    UIAlertAction *noButton = [UIAlertAction
+                               actionWithTitle:@"取消"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+    }];
+    
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
+
 // 添加系统分类
 - (void)insertCellClick:(CategoryCell *)cell {
     // 界面
