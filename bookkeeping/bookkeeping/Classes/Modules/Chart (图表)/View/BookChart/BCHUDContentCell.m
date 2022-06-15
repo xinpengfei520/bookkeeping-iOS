@@ -1,5 +1,5 @@
 /**
- * 弹框cell
+ * 图表页面：点击折线图的弹框 cell
  * @author 郑业强 2019-01-07
  */
 
@@ -31,10 +31,11 @@
 #pragma mark - set
 - (void)setModel:(BookDetailModel *)model {
     _model = model;
-    [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
+    BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
+    [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     [_nameLab setText:[NSString stringWithFormat:@"%ld/%02ld/%02ld", model.year, model.month, model.day]];
-    [_detailLab setText:model.cmodel.name];
-    [_priceLab setText:[@(model.price) description]];
+    [_detailLab setText:cmodel.name];
+    [_priceLab setText:[NSString stringWithFormat:@"%0.2f", model.price]];
 }
 
 @end
