@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSMutableArray<BookDetailModel *> *> *chartHudArr;  // 图表
 
 // 统计数据(图表首页)
-+ (BookChartModel *)statisticalChart:(NSInteger)status isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date;
++ (BookChartModel *)statisticalChart:(NSInteger)status isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date arrm:(NSMutableArray<BookDetailModel *> *)arrm;
 
 @end
 

@@ -48,9 +48,10 @@
 #pragma mark - set
 - (void)setModel:(BookDetailModel *)model {
     _model = model;
-    [_icon setImage:[UIImage imageNamed:model.cmodel.icon_l]];
-    [_nameLab setText:model.cmodel.name];
-    [_detailLab setText:[@(model.price) description]];
+    BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
+    [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
+    [_nameLab setText:cmodel.name];
+    [_detailLab setText:[NSString stringWithFormat:@"%0.2f", model.price]];
     
     CGFloat width = SCREEN_WIDTH - OUT_PADDING * 2 - ICON_W - LINE_L;
     width = width / _maxPrice * model.price;

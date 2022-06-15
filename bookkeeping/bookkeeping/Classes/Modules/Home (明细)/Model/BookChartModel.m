@@ -24,12 +24,13 @@
 }
 
 // 统计数据(图表首页)
-+ (BookChartModel *)statisticalChart:(NSInteger)status isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date {
++ (BookChartModel *)statisticalChart:(NSInteger)status isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date arrm:(NSMutableArray<BookDetailModel *> *)arrm{
+    
     NSMutableString *preStr = [NSMutableString string];
-    NSMutableArray *arrm = [NSUserDefaults objectForKey:PIN_BOOK];
-    [preStr appendFormat:@"cmodel.is_income == %d", isIncome];
-    if (cmodel) {
-        [preStr appendFormat:@" AND cmodel.Id == %ld", cmodel.cmodel.Id];
+    if (isIncome) {
+        [preStr appendFormat:@"categoryId >= %d", 33];
+    }else{
+        [preStr appendFormat:@"categoryId <= %d", 32];
     }
 
     // 周

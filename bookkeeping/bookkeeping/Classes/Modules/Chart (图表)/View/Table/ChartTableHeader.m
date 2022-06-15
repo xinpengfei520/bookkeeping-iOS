@@ -40,13 +40,13 @@
 - (void)setModel:(BookChartModel *)model {
     _model = model;
     _chart.model = model;
-    _avgLab.text = [NSString stringWithFormat:@"平均值: %@", [@(model.avg) description]];
+    _avgLab.text = [NSString stringWithFormat:@"平均值: %0.2f", model.avg];
     _maxLab.text = ({
         NSString *str;
         if (model.is_income == false) {
-            str = [NSString stringWithFormat:@"总支出: %@", [@(model.sum) description]];
+            str = [NSString stringWithFormat:@"总支出: %0.2f", model.sum];
         } else {
-            str = [NSString stringWithFormat:@"总收入: %@", [@(model.sum) description]];
+            str = [NSString stringWithFormat:@"总收入: %0.2f", model.sum];
         }
         str;
     });

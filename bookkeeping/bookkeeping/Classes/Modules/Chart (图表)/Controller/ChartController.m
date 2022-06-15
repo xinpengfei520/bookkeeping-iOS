@@ -56,7 +56,8 @@
     
     [self updateDateRange];
     [self monitorNotification];
-    [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+    [self getYearBookRequest:self.date.year];
+//    [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
 }
 // 监听通知
 - (void)monitorNotification {
@@ -65,35 +66,40 @@
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+        [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
     // 删除记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+        [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
     // 修改记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+        [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
     // 退出登录
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:LOPGIN_LOGOUT_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+        [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
     // 同步数据成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:SYNCED_DATA_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+        [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
 }
@@ -140,6 +146,39 @@
     _subdate.maxModel = _maxModel;
 }
 
+#pragma mark - request
+- (void) getYearBookRequest:(NSInteger)year {
+    // 先从本地缓存中取
+    NSMutableArray<BookDetailModel *> *list = [NSUserDefaults getYearModelList:_date.year];
+    if (list && list.count > 0) {
+        NSLog(@"这是从缓存中读取的数据");
+        BookChartModel *chartModel=[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date arrm:list];
+        [self setModel:chartModel];
+        return;
+    }
+    
+    // 从网络取
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:@(year) forKey:@"year"];
+    
+    [self showProgressHUD:@"同步中..."];
+    @weakify(self)
+    [AFNManager POST:yearBookListRequest params:param complete:^(APPResult *result) {
+        @strongify(self)
+        [self hideHUD];
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            NSMutableArray<BookDetailModel *> *bookArray = [BookDetailModel mj_objectArrayWithKeyValuesArray:result.data];
+            [NSUserDefaults saveYearModelList:year array:bookArray];
+            BookChartModel *chartModel=[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date arrm:bookArray];
+            [self setModel:chartModel];
+        } else {
+            // 当请求失败时，清空当前显示的列表数据
+            // TODO 增加点击重试按钮
+            //[self setModels:nil];
+            [self showTextHUD:result.msg delay:1.f];
+        }
+    }];
+}
 
 #pragma mark - 事件
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
@@ -218,7 +257,8 @@
                 date;
             })];
             [self setSegmentIndex:seg.selectedSegmentIndex];
-            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+            [self getYearBookRequest:self.date.year];
         }];
         [self.view addSubview:_seg];
     }
@@ -234,7 +274,8 @@
             NSInteger day = model.day == -1 ? 1 : model.day;
             NSString *str = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, month, day];
             [self setDate:[NSDate dateWithYMD:str]];
-            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+            [self getYearBookRequest:self.date.year];
         }];
         [self.view addSubview:_subdate];
     }
@@ -261,7 +302,8 @@
             @strongify(self)
             [self setNavigationIndex:index];
             [self updateDateRange];
-            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+//            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
+            [self getYearBookRequest:self.date.year];
         }];
         [self.view addSubview:_chud];
     }

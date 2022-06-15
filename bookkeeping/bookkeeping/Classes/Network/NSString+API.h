@@ -82,5 +82,7 @@
 #define bookDetailSearchRequest Request(@"/book/detail/search")
 // 获取月记账列表
 #define monthBookListRequest Request(@"/book/detail/year/month")
+// 获取年记账列表
+#define yearBookListRequest Request(@"/book/detail/year")
 // 个人信息
 #define userInfoRequest Request(@"/book/user/info")

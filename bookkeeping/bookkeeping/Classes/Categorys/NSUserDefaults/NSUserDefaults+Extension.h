@@ -38,8 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray *)getCategoryModel;
 // 获取分类 Model 列表
 + (NSMutableArray *) getCategoryModelList;
-// // 获取分类 Model 通过 categoryId
+// 获取分类 Model 通过 categoryId
 + (BKCModel *) getCategoryModel:(NSInteger)categoryId;
+// 保存年记账列表
++ (void)saveYearModelList:(NSInteger)year array:(NSMutableArray *)array;
+// 获取年记账列表
++ (NSMutableArray<BookDetailModel *> *)getYearModelList:(NSInteger)year;
 // 保存月记账列表
 + (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array;
 // 获取月记账列表

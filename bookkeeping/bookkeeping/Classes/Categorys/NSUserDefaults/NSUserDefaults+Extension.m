@@ -58,6 +58,18 @@ static NSMutableArray<BKCModel *> *categoryModelList;
 //    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
 }
 
++ (void)saveYearModelList:(NSInteger)year array:(NSMutableArray *)array {
+    // 拼接key: 年 + BOOK_DETAIL, 例：2022_BOOK_DETAIL
+    NSString *key = [NSString stringWithFormat:@"%ld_BOOK_DETAIL", year];
+    [NSUserDefaults setObject:array forKey:key];
+}
+
++ (NSMutableArray<BookDetailModel *> *)getYearModelList:(NSInteger)year {
+    NSString *key = [NSString stringWithFormat:@"%ld_BOOK_DETAIL", year];
+    NSMutableArray<BookDetailModel *> *models = [NSUserDefaults objectForKey:key];
+    return models;
+}
+
 + (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array {
     // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
     NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];
