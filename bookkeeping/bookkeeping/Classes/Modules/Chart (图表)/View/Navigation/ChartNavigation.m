@@ -23,7 +23,7 @@
 
 - (void)initUI {
     [self setBackgroundColor:kColor_Main_Color];
-    [self.titleLab setFont:[UIFont systemFontOfSize:AdjustFont(16)]];
+    [self.titleLab setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
     [self.titleLab setTextColor:kColor_Text_White];
     [self.nameLab setTextColor:kColor_Text_White];
 }
@@ -44,6 +44,7 @@
         _nameLab.text = @"收入";
     }
 }
+
 - (void)setCmodel:(BookDetailModel *)cmodel {
     _cmodel = cmodel;
     if (_cmodel) {
@@ -52,12 +53,13 @@
         _incomeBtn.hidden = true;
         _backBtn.hidden = false;
         _titleLab.hidden = false;
-        _titleLab.text = cmodel.cmodel.name;
+        BKCModel *category = [NSUserDefaults getCategoryModel:cmodel.categoryId];
+        _titleLab.text = category.name;
     } else {
         _nameLab.hidden = false;
         _timeDown.hidden = false;
         _incomeBtn.hidden = false;
-        _backBtn.hidden = true;
+        _backBtn.hidden = false;
         _titleLab.hidden = true;
     }
 }

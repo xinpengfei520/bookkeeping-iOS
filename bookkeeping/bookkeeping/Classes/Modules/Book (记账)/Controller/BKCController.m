@@ -124,7 +124,7 @@
     // 去掉备注中的空格并判空，如果为空则使用类别名作为备注
     model.mark = ([allTrim(mark)length] == 0)?cmodel.name:mark;
     model.categoryId = cmodel.Id;
-    model.cmodel = cmodel;
+    //model.cmodel = cmodel;
     
     // 新增
     if (!_model) {
@@ -140,7 +140,7 @@
         _model.day = date.day;
         _model.mark = mark;
         _model.categoryId = cmodel.Id;
-        _model.cmodel = cmodel;
+        //_model.cmodel = cmodel;
         model = _model;
         // 修改记账
         //[NSUserDefaults replaceBookModel:model];

@@ -37,16 +37,24 @@
     _indexPath = indexPath;
     [_nameLab setText:@[@"类型",@"金额",@"日期",@"备注"][indexPath.row]];
 }
+
 - (void)setModel:(BookDetailModel *)model {
     _model = model;
     if (_indexPath.row == 0) {
-        [_detailLab setText:model.cmodel.is_income == true ? @"收入" : @"支出"];
+        [_detailLab setText:[model getTypeDesc]];
     } else if (_indexPath.row == 1) {
-        [_detailLab setText:[@(model.price) description]];
+        [_detailLab setText:[model getPriceStr]];
     } else if (_indexPath.row == 2) {
         [_detailLab setText:model.dateStr];
     } else if (_indexPath.row == 3) {
-        [_detailLab setText:(model.mark && model.mark.length != 0) ? model.mark : model.cmodel.name];
+        NSString *mark;
+        if ((model.mark && model.mark.length != 0)) {
+            mark = model.mark;
+        }else{
+            BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
+            mark = cmodel.name;
+        }
+        [_detailLab setText:mark];
     }
 }
 

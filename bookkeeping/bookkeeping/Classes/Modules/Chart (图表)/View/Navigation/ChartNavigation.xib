@@ -46,7 +46,7 @@
                         <constraint firstAttribute="width" constant="44" id="XuF-Ib-5A5"/>
                         <constraint firstAttribute="width" secondItem="V32-DG-R9a" secondAttribute="height" multiplier="1:1" id="gJO-bU-x7w"/>
                     </constraints>
-                    <state key="normal" image="nav_back_n"/>
+                    <state key="normal" image="icon_back_white"/>
                     <connections>
                         <action selector="backClick:" destination="55m-r8-Oau" eventType="touchUpInside" id="UWM-8t-uKP"/>
                     </connections>
@@ -80,7 +80,7 @@
         </view>
     </objects>
     <resources>
-        <image name="nav_back_n" width="23" height="23"/>
+        <image name="icon_back_white" width="21.333333969116211" height="21.333333969116211"/>
         <image name="time_down" width="128" height="128"/>
     </resources>
 </document>

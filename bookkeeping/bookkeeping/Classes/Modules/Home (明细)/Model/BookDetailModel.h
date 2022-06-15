@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 获取Id
 + (NSNumber *)getId;
+// 获取收支类型描述
+-(NSString *)getTypeDesc;
+// 获取价格描述
+-(NSString *)getPriceStr;
 
 @end
 

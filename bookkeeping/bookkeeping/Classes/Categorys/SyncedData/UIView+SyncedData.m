@@ -140,17 +140,17 @@
                 model.month = [subarr[3] integerValue];
                 model.day = [subarr[4] integerValue];
                 model.mark = subarr[5];
-                model.cmodel = ({
-                    BKCModel *submodel = [[BKCModel alloc] init];
-                    submodel.Id = [subarr[1] integerValue];
-                    submodel.name = subarr[8];
-                    submodel.icon_n = subarr[9];
-                    submodel.icon_l = subarr[10];
-                    submodel.icon_s = subarr[11];
-                    submodel.is_income = [subarr[6] boolValue];
-                    submodel.is_system = [subarr[7] boolValue];
-                    submodel;
-                });
+//                model.cmodel = ({
+//                    BKCModel *submodel = [[BKCModel alloc] init];
+//                    submodel.Id = [subarr[1] integerValue];
+//                    submodel.name = subarr[8];
+//                    submodel.icon_n = subarr[9];
+//                    submodel.icon_l = subarr[10];
+//                    submodel.icon_s = subarr[11];
+//                    submodel.is_income = [subarr[6] boolValue];
+//                    submodel.is_system = [subarr[7] boolValue];
+//                    submodel;
+//                });
                 [bookModels addObject:model];
             }
             
