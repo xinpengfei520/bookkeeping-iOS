@@ -133,7 +133,7 @@
             
             for (NSArray *subarr in bookarr) {
                 BookDetailModel *model = [[BookDetailModel alloc] init];
-                model.bookId = [[BookDetailModel getId] integerValue];
+                model.bookId = [[BookDetailModel getBookId] integerValue];
                 model.price = [subarr[0] floatValue];
                 model.categoryId = [subarr[1] integerValue];
                 model.year = [subarr[2] integerValue];

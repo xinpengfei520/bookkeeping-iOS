@@ -21,11 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger day;
 @property (nonatomic, assign) NSInteger week;
 @property (nonatomic, copy  ) NSString *mark;
-@property (nonatomic, strong) NSDate *date;         // 日期
-@property (nonatomic, assign) NSInteger dateNumber; // 日期数字
+@property (nonatomic, strong) NSDate *date;
 
-// 获取Id
-+ (NSNumber *)getId;
+// 获取 bookId
++ (NSNumber *)getBookId;
 // 获取收支类型描述
 -(NSString *)getTypeDesc;
 // 获取价格描述

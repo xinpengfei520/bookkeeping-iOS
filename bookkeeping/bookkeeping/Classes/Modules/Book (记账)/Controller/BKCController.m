@@ -116,7 +116,7 @@
     BKCModel *cmodel = collection.model.list[collection.selectIndex.row];
     
     BookDetailModel *model = [[BookDetailModel alloc] init];
-    model.bookId = [[BookDetailModel getId] integerValue];
+    model.bookId = [[BookDetailModel getBookId] integerValue];
     model.price = [[NSDecimalNumber decimalNumberWithString:price] doubleValue];
     model.year = date.year;
     model.month = date.month;

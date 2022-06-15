@@ -42,7 +42,6 @@
     model.week = self.week;
     model.mark = self.mark;
     model.date = self.date;
-    model.dateNumber = self.dateNumber;
     return model;
 }
 
@@ -87,15 +86,15 @@
     return [self.date weekOfYear];
 }
 
-// 获取Id
-+ (NSNumber *)getId {
-    NSNumber *Id = [NSUserDefaults objectForKey:BookDetailModelId];
-    if (!Id) {
-        Id = @(0);
+// 获取 bookId
++ (NSNumber *)getBookId {
+    NSNumber *bookId = [NSUserDefaults objectForKey:BookDetailModelId];
+    if (!bookId) {
+        bookId = @(0);
     }
-    Id = @([Id integerValue] + 1);
-    [NSUserDefaults setObject:Id forKey:BookDetailModelId];
-    return Id;
+    bookId = @([bookId integerValue] + 1);
+    [NSUserDefaults setObject:bookId forKey:BookDetailModelId];
+    return bookId;
 }
 
 @end
