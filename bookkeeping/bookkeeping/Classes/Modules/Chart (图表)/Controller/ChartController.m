@@ -107,12 +107,21 @@
 // 更新时间范围
 - (void)updateDateRange {
     // 收入
-    NSInteger is_income = _navigationIndex == 1;
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
-    NSString *preStr = [NSString stringWithFormat:@"cmodel.is_income == %ld", is_income];
-    if (_cmodel) {
-        preStr = [preStr stringByAppendingString:[NSString stringWithFormat:@" AND cmodel.Id == %ld", _cmodel.cmodel.Id]];
+    //NSInteger is_income = _navigationIndex == 1;
+    //NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
+    //NSString *preStr = [NSString stringWithFormat:@"cmodel.is_income == %ld", is_income];
+    NSString *preStr;
+    if (_navigationIndex == 1) {
+        preStr = [NSString stringWithFormat:@"categoryId >= %d", 33];
+    }else{
+        preStr = [NSString stringWithFormat:@"categoryId <= %d", 32];
     }
+    
+    if (_cmodel) {
+        preStr = [preStr stringByAppendingString:[NSString stringWithFormat:@" AND categoryId == %ld", _cmodel.categoryId]];
+    }
+    
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getYearModelList:_date.year];
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:bookArr];
     // 最小时间
     _minModel = ({

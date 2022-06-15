@@ -84,13 +84,12 @@
         BookMonthModel *submodel = dictm[key];
         //[submodel.list addObject:detailModel];
         // 收入
-        if (detailModel.cmodel.is_income == true) {
+        if (detailModel.categoryId >= 33) {
             [submodel setIncome:submodel.income + detailModel.price];
-        }
-        // 支出
-        else {
+        }else { // 支出
             [submodel setPay:submodel.pay + detailModel.price];
         }
+        
         [dictm setObject:submodel forKey:key];
     }
     
