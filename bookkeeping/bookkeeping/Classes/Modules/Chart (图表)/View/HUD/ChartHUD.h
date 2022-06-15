@@ -19,6 +19,7 @@ typedef void (^ChartHUDComplete)(NSInteger index);
 
 - (void)show;
 - (void)hide;
+- (void)setIndex:(NSInteger)index;
 
 @end
 

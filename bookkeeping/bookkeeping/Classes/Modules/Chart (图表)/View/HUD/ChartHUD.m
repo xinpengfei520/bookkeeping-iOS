@@ -22,7 +22,7 @@
 
 
 - (void)initUI {
-    _current = 0;
+    //_current = 0;
     [self setUserInteractionEnabled:false];
     [self setClipsToBounds:true];
     [self shadow];
@@ -60,6 +60,9 @@
     return cell;
 }
 
+- (void)setIndex:(NSInteger)index{
+    _current = index;
+}
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

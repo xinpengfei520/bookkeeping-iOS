@@ -45,13 +45,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hbd_barHidden = YES;
+    _navigationIndex = _navIndex;
     [self setDate:[NSDate date]];
     [self navigation];
     [self seg];
     [self subdate];
     [self table];
     [self chud];
-    [self setNavigationIndex:0];
+    [self setNavigationIndex:_navigationIndex];
     
     [self updateDateRange];
     [self monitorNotification];
@@ -96,6 +97,7 @@
         [self updateDateRange];
     }];
 }
+
 // 更新时间范围
 - (void)updateDateRange {
     // 收入
@@ -119,6 +121,7 @@
         }
         model;
     });
+    
     // 最大时间
     _maxModel = ({
         NSDate *maxDate = [models valueForKeyPath:@"@max.date"];
@@ -133,7 +136,6 @@
         model;
     });
     
-    
     _subdate.minModel = _minModel;
     _subdate.maxModel = _maxModel;
 }
@@ -143,12 +145,14 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 点击Cell
 - (void)chartTableClick:(NSIndexPath *)indexPath {
     BookDetailModel *model = self.model.groupArr[indexPath.row];
@@ -169,12 +173,14 @@
     _model = model;
     _table.model = model;
 }
+
 - (void)setNavigationIndex:(NSInteger)navigationIndex {
     _navigationIndex = navigationIndex;
     _navigation.navigationIndex = navigationIndex;
     _subdate.navigationIndex = navigationIndex;
     _table.navigationIndex = navigationIndex;
 }
+
 - (void)setSegmentIndex:(NSInteger)segmentIndex {
     _segmentIndex = segmentIndex;
     _subdate.segmentIndex = segmentIndex;
@@ -250,6 +256,7 @@
     if (!_chud) {
         @weakify(self)
         _chud = [ChartHUD loadCode:CGRectMake(0, _seg.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - _seg.bottom - TabbarHeight)];
+        [_chud setIndex:_navigationIndex];
         [_chud setComplete:^(NSInteger index) {
             @strongify(self)
             [self setNavigationIndex:index];
@@ -263,8 +270,8 @@
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           CHART_TABLE_CLICK: [self createInvocationWithSelector:@selector(chartTableClick:)]
-                           };
+            CHART_TABLE_CLICK: [self createInvocationWithSelector:@selector(chartTableClick:)]
+        };
     }
     return _eventStrategy;
 }

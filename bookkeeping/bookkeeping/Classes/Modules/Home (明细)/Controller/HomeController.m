@@ -339,8 +339,13 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)pushToChartController:(id)data {
+/**
+ * push 到 ChartController
+ * @param index 导航栏下标：0 支出 1 收入
+ */
+- (void)pushToChartController:(NSString*)index {
     ChartController *vc = [[ChartController alloc] init];
+    vc.navIndex = [index integerValue];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

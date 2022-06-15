@@ -70,11 +70,11 @@
 }
 
 - (void)payLabelClick {
-    [self routerEventWithName:HOME_PAY_CLICK data:nil];
+    [self routerEventWithName:HOME_PAY_CLICK data:@"0"];
 }
 
 - (void)incomeLabelClick {
-    [self routerEventWithName:HOME_INCOME_CLICK data:nil];
+    [self routerEventWithName:HOME_INCOME_CLICK data:@"1"];
 }
 
 /**
