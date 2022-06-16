@@ -18,10 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *numberLab;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconConstraintW;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *punchConstraintW;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoConstraintT;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *numberConstraintT;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *punchConstraintT;
 
 @end
 
@@ -40,18 +38,14 @@
     
     [self.infoConstraintT setConstant:StatusBarHeight + countcoordinatesX(40)];
     [self.numberConstraintT setConstant:countcoordinatesX(10)];
-    [self.punchConstraintW setConstant:countcoordinatesX(70)];
-    [self.punchConstraintT setConstant:StatusBarHeight + countcoordinatesX(5)];
     [self.iconConstraintW setConstant:countcoordinatesX(70)];
     
     [self.icon.layer setCornerRadius:countcoordinatesX(70) / 2];
     [self.icon.layer setMasksToBounds:true];
     
-    
     @weakify(self)
     // 头像
-    self.nameLab.userInteractionEnabled = YES;
-    [self.nameLab addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+    [self.infoView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         @strongify(self)
         [self routerEventWithName:MINE_HEADER_ICON_CLICK data:nil];
     }];
