@@ -40,7 +40,7 @@
     [self.numberConstraintT setConstant:countcoordinatesX(10)];
     [self.iconConstraintW setConstant:countcoordinatesX(70)];
     
-    [self.icon.layer setCornerRadius:countcoordinatesX(70) / 2];
+    [self.icon.layer setCornerRadius:countcoordinatesX(56) / 2];
     [self.icon.layer setMasksToBounds:true];
     
     @weakify(self)
@@ -93,7 +93,8 @@
     }
     
     if (model.userAvatar) {
-        [_icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.userAvatar)]];
+        //[_icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.userAvatar)]];
+        [_icon sd_setImageWithURL:[NSURL URLWithString:model.userAvatar]];
     }
     else {
         [_icon setImage:[UIImage imageNamed:@"default_header"]];

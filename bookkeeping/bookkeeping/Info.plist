@@ -170,6 +170,17 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>vance.xin</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
 			<key>sina.cn</key>
 			<dict>
 				<key>NSExceptionMinimumTLSVersion</key>
