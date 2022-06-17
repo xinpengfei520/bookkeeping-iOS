@@ -45,4 +45,7 @@
 #define PIN_TIMING                    @"PIN_TIMING"                     // 定时通知
 #define PIN_DESENSITIZATION           @"PIN_DESENSITIZATION"            // 脱敏显示
 
+#pragma mark - 认证 token
+#define AUTHORIZATION_TOKEN           @"AUTHORIZATION_TOKEN"            // auth token
+
 #endif

@@ -31,8 +31,6 @@
 #define AddInsertCategoryListRequest Request(@"/shayu/addInsertCategoryRequest.action")
 // 删除用户类别
 #define RemoveInsertCategoryListRequest Request(@"/shayu/removeInsertCategoryRequest.action")
-// 账号登录
-#define PhoneLoginRequest Request(@"/shayu/getLoginRequest.action")
 // 注册
 #define RegisterRequest Request(@"/shayu/getRegisterRequest.action")
 // 创建验证码
@@ -86,3 +84,7 @@
 #define yearBookListRequest Request(@"/book/detail/year")
 // 个人信息
 #define userInfoRequest Request(@"/book/user/info")
+// 短信验证码
+#define userSmsCodeRequest Request(@"/book/user/sms/code")
+// 登录
+#define userLoginRequest Request(@"/book/user/login")

@@ -52,14 +52,10 @@
 // 获取个人信息
 - (void)getUserInfoRequest {
     __unused UserModel *model = [UserInfo loadUserInfo];
-    NSString *key = @"userId";
-    NSString *value = @"1";
-    //NSString *value = model.userId;
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:value, key, nil];
     
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
-    [AFNManager POST:userInfoRequest params:param complete:^(APPResult *result) {
+    [AFNManager POST:userInfoRequest params:nil complete:^(APPResult *result) {
         @strongify(self)
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             __unused UserModel *userModel = [UserModel mj_objectWithKeyValues:result.data];

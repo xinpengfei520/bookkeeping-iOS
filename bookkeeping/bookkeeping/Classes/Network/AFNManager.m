@@ -36,38 +36,42 @@ static AFHTTPSessionManager *_manager;
 
 
 #pragma mark - 请求
-+ (void)POST:(NSString *)url params:(NSDictionary *)params complete:(AFNManagerCompleteBlock)complete {
++ (void)POST:(NSString *)url params:(NSDictionary * _Nullable)params complete:(AFNManagerCompleteBlock)complete {
     [self POST:url params:params progress:nil complete:complete];
 }
 
-+ (void)POST:(NSString *)url params:(NSDictionary *)params progress:(AFNManagerProgressBlock)progress complete:(AFNManagerCompleteBlock)complete {
++ (void)POST:(NSString *)url params:(NSDictionary * _Nullable)params progress:(AFNManagerProgressBlock)progress complete:(AFNManagerCompleteBlock)complete {
     
     AFHTTPSessionManager *manager = [AFNManager manager];
-    if ([UserInfo isLogin]) {
-        [manager.requestSerializer setValue:[UserInfo loadUserInfo].token forHTTPHeaderField:@"token"];
+    
+    // 添加 Authorization 请求头
+    NSString *authorization = [UserInfo getAuthorizationToken];
+    if (authorization) {
+        [manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
     }
+    
     [manager POST:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
-        // 过程
         if (progress) {
             progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount, downloadProgress.fractionCompleted);
         }
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        // 成功
+        // 获取 header 中的 Authorization 并保存
+        if ([task.response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *headers = (NSHTTPURLResponse *)task.response;
+            if (headers && [[headers allHeaderFields] isKindOfClass:[NSDictionary class]]
+                && [[[headers allHeaderFields] allKeys]containsObject:@"Authorization"]) {
+                NSString *authorization = [headers allHeaderFields][@"Authorization"];
+                [UserInfo saveAuthorizationToken:authorization];
+            }
+        }
+        
         if (complete) {
-            // 解析
             APPResult *result = [APPResult mj_objectWithKeyValues:responseObject];
             result.status = HttpStatusSuccess;
             result.cache = CacheStatusSuccess;
             complete(result);
-//            // 存储Token
-//            if (result.data &&
-//                [result.data isKindOfClass:[NSDictionary class]] &&
-//                [[result.data allKeys] containsObject:@"token"]) {
-//                [UserInfo saveToken:result.data[@"token"]];
-//            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull err) {
-        // 回调
         if (complete) {
             APPResult *result = [[APPResult alloc] init];
             result.data = nil;

@@ -17,9 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)saveUserInfo:(NSDictionary *)param;
 // 保存个人信息
 + (void)saveUserModel:(UserModel *)model;
+// 保存授权 token
++ (void)saveAuthorizationToken:(NSString *)authorization;
+// 获取授权 token
++ (NSString *)getAuthorizationToken;
 // 读取个人信息
 + (UserModel *)loadUserInfo;
-
 // 清除登录信息
 + (void)clearUserInfo;
 

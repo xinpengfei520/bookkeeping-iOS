@@ -28,6 +28,17 @@
     [NSUserDefaults setObject:param forKey:kUser];
 }
 
++ (void)saveAuthorizationToken:(NSString *)authorization{
+    NSLog(@"authorization: %@", authorization);
+    if (authorization) {
+        [NSUserDefaults setObject:authorization forKey:AUTHORIZATION_TOKEN];
+    }
+}
+
++ (NSString *)getAuthorizationToken{
+    return [NSUserDefaults objectForKey:AUTHORIZATION_TOKEN];
+}
+
 // 读取个人信息
 + (UserModel *)loadUserInfo {
     NSDictionary *param = (NSDictionary *)[NSUserDefaults objectForKey:kUser];
