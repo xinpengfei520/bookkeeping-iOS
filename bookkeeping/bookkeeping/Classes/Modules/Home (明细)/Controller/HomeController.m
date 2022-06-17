@@ -80,7 +80,7 @@
     // 登录成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        //[self.view syncedDataRequest];
+        [self getMonthBookRequest:self.date.year month:self.date.month];
     }];
     // 退出登录
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGOUT_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {

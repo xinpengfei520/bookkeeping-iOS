@@ -13,7 +13,7 @@
 @interface InfoTableView()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *arr;
-@property (nonatomic, strong) InfoFooter *footerv;
+@property (nonatomic, strong) InfoFooter *footer;
 
 @end
 
@@ -82,7 +82,7 @@
                 return [UIView new];
             }
             else {
-                return [self footerv];
+                return [self footer];
             }
         }
     }
@@ -108,22 +108,18 @@
 - (NSArray<NSArray<NSString *> *> *)arr {
     if (!_arr) {
         _arr = @[
-                 @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"微信"],
-                 @[@"修改密码"]
-                 ];
+            @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"QQ"],
+            @[@"修改密码"]
+        ];
     }
     return _arr;
 }
-- (InfoFooter *)footerv {
-    if (!_footerv) {
-//        @weakify(self)
-        _footerv = [InfoFooter loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(60))];
-//        [_footerv addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-//            @strongify(self)
-//            [self routerEventWithName:INFO_FOOTER_CLICK data:nil];
-//        }];
+
+- (InfoFooter *)footer {
+    if (!_footer) {
+        _footer = [InfoFooter loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(60))];
     }
-    return _footerv;
+    return _footer;
 }
 
 

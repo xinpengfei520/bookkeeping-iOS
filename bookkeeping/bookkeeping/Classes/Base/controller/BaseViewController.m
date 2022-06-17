@@ -50,7 +50,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn.titleLabel setFont:font];
         [btn setFrame:CGRectMake(0, 0, maxSize.width, 40)];
-        [btn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+        [btn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
         [btn setTitle:navTitle forState:UIControlStateNormal];
         btn;
     });

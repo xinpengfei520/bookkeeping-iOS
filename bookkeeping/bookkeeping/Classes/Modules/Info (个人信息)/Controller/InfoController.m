@@ -81,6 +81,10 @@
     }];
 }
 
+- (void)changePhoneRequest:(NSString *)nickName {
+    
+}
+
 - (void)changeNickRequest:(NSString *)nickName {
     @weakify(self)
     UserModel *model = [UserInfo loadUserInfo];
@@ -175,10 +179,11 @@
         }
         // 手机号
         else if (indexPath.row == 4) {
-            UserModel *model = [UserInfo loadUserInfo];
-            if (!model.userId) {
-                
-            }
+            [self updatePhone];
+        }
+        // QQ
+        else if (indexPath.row == 5) {
+            
         }
     } else {
         CPAController *vc = [[CPAController alloc] init];
@@ -228,7 +233,9 @@
 
 // 昵称
 - (void)takeNickname {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    // 增加取消按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
     // 增加确定按钮
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
         // 获取第1个输入框；
@@ -240,12 +247,33 @@
         }
         [self changeNickRequest:titleTextField.text];
     }]];
-    // 增加取消按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
     // 定义第一个输入框；
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入2-8位昵称";
         [textField addTarget:self action:@selector(txtValueChange:) forControlEvents:UIControlEventEditingChanged];
+    }];
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+- (void)updatePhone {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改手机号" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    // 增加取消按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    // 增加确定按钮
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+        // 获取第1个输入框；
+        UITextField *titleTextField = alertController.textFields.firstObject;
+        NSLog(@"%@", titleTextField.text);
+        if (titleTextField.text.length == 0) {
+            [self showTextHUD:@"手机号不能为空" delay:1.f];
+            return;
+        }
+        [self changePhoneRequest:titleTextField.text];
+    }]];
+    // 定义第一个输入框；
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入11位新手机号";
+        [textField addTarget:self action:@selector(inputPhoneChange:) forControlEvents:UIControlEventEditingChanged];
     }];
     [self presentViewController:alertController animated:true completion:nil];
 }
@@ -256,11 +284,16 @@
     }
 }
 
+- (void)inputPhoneChange:(UITextField *)textField {
+    if (textField.text.length > 11) {
+        textField.text = [textField.text substringToIndex:11];
+    }
+}
 
 #pragma mark - get
 - (InfoTableView *)table {
     if (!_table) {
-        _table = [[InfoTableView alloc] initWithFrame:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight) style:UITableViewStylePlain];
+        _table = [[InfoTableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight) style:UITableViewStylePlain];
         [self.view addSubview:_table];
     }
     return _table;

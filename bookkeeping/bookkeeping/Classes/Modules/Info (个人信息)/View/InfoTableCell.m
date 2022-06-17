@@ -32,7 +32,6 @@
     [self.icon.layer setCornerRadius:countcoordinatesX(30) / 2];
     [self.icon.layer setMasksToBounds:true];
     
-    
     [self.iconConstraintW setConstant:countcoordinatesX(30)];
     
     [self setSelectedBackgroundView:[[UIView alloc] initWithFrame:self.frame]];
@@ -63,6 +62,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
 }
+
 - (void)setIndexPath:(NSIndexPath *)indexPath {
     _indexPath = indexPath;
     self.status = ({
@@ -89,16 +89,17 @@
     
     // name
     NSArray *arr= @[
-                    @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"QQ"],
-                    @[@"修改密码"]
-                    ];
+        @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"QQ"],
+        @[@"修改密码"]
+    ];
     [self setName:arr[indexPath.section][indexPath.row]];
 }
+
 - (void)setModel:(UserModel *)model {
     _model = model;
     if (_indexPath.section == 0) {
         if (_indexPath.row == 0) {
-            [self.icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.userAvatar)]];
+            [self.icon sd_setImageWithURL:[NSURL URLWithString:model.userAvatar]];
         } else if (_indexPath.row == 1) {
             [self setDetail:model.userId];
         } else if (_indexPath.row == 2) {
@@ -106,15 +107,19 @@
         } else if (_indexPath.row == 3) {
             [self setDetail:@"男"];
         } else if (_indexPath.row == 4) {
-            if (model.userId) {
-                [self setDetail:model.userId];
-                [self setStatus:InfoTableCellStatusName];
+            if (model.userPhone) {
+                [self setDetail:model.userPhone];
+                [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Text_Gary];
             } else {
                 [self setDetail:@"未绑定"];
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Red_Color];
             }
+        }else if (_indexPath.row == 5) {
+            [self setDetail:@"未绑定"];
+            [self setStatus:InfoTableCellStatusNext];
+            [self.detailLab setTextColor:kColor_Red_Color];
         }
     }
 }
@@ -123,6 +128,7 @@
     _name = name;
     _nameLab.text = name;
 }
+
 - (void)setDetail:(NSString *)detail {
     _detail = detail;
     _detailLab.text = detail;
