@@ -50,16 +50,13 @@
 #pragma mark - 请求
 // 获取个人信息
 - (void)getUserInfoRequest {
-    __unused UserModel *model = [UserInfo loadUserInfo];
-    
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
     [AFNManager POST:userInfoRequest params:nil complete:^(APPResult *result) {
         @strongify(self)
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            __unused UserModel *userModel = [UserModel mj_objectWithKeyValues:result.data];
             [UserInfo saveUserInfo:result.data];
-            [self.mine.table setModel:[UserInfo loadUserInfo]];
+            self.model = [UserModel mj_objectWithKeyValues:result.data];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
@@ -125,7 +122,7 @@
         LoginController *vc = [[LoginController alloc] init];
         [vc setComplete:^{
             @strongify(self)
-            self.model = [UserInfo loadUserInfo];
+            [self getUserInfoRequest];
         }];
         BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
         [self.navigationController presentViewController:nav animated:YES completion:nil];

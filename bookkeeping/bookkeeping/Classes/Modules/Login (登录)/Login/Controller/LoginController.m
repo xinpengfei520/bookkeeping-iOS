@@ -64,11 +64,9 @@
     // 登录完成
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        // 回调
         if (self.complete) {
             self.complete();
         }
-        // 关闭
         [self.navigationController dismissViewControllerAnimated:true completion:nil];
     }];
 }
@@ -111,7 +109,7 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"登录成功" delay:1.5f];
-            //[[NSNotificationCenter defaultCenter] postNotificationName:LOPGIN_LOGIN_COMPLETE object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGIN_COMPLETE object:nil];
         } else {
             [self showTextHUD:result.msg delay:1.5f];
         }
