@@ -36,8 +36,7 @@
 }
 
 
-#pragma mark - 请求
-// 更换头像
+#pragma mark - request
 - (void)changeIconRequest:(UIImage *)image {
     @weakify(self)
     UserModel *model = [UserInfo loadUserInfo];
@@ -67,7 +66,21 @@
     }];
 }
 
-// 更改昵称
+- (void)sendLogoutRequest {
+    @weakify(self)
+    [self.afn_request setAfn_useCache:false];
+    [AFNManager POST:userLogoutRequest params:nil complete:^(APPResult *result) {
+        @strongify(self)
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            [UserInfo clearUserInfo];
+            [self.navigationController popViewControllerAnimated:true];
+            [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGOUT_COMPLETE object:nil];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
+        }
+    }];
+}
+
 - (void)changeNickRequest:(NSString *)nickName {
     @weakify(self)
     UserModel *model = [UserInfo loadUserInfo];
@@ -96,7 +109,6 @@
     }];
 }
 
-// 更改性别
 - (void)changeSexRequest:(NSInteger)sex {
     @weakify(self)
     UserModel *model = [UserInfo loadUserInfo];
@@ -134,7 +146,7 @@
 }
 
 
-#pragma mark - 事件
+#pragma mark - event
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
@@ -175,7 +187,7 @@
 }
 
 // 退出登录
-- (void)footerClick:(id)data {
+- (void)logoutClick:(id)data {
     // 按钮二维数组，array[0] 存放 title 数组, array[1] 存放 style 数组
     NSArray<NSArray *> *buttonArray = @[
         @[@"退出登录"],
@@ -184,11 +196,7 @@
     
     [[AlertViewManager sharedInstacne]showSheet:@"记呀" message:@"确定退出当前帐号吗？" cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
         if (buttonTag == 0) {
-            [UserInfo clearUserInfo];
-            [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK];
-            [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
-            [self.navigationController popViewControllerAnimated:true];
-            [[NSNotificationCenter defaultCenter] postNotificationName:LOPGIN_LOGOUT_COMPLETE object:nil];
+            [self sendLogoutRequest];
         }
     } buttonArray:buttonArray];
 }
@@ -206,6 +214,7 @@
         }
     } buttonTitles:@"拍照", @"从相册选择", nil];
 }
+
 // 性别
 - (void)takeSex {
     [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
@@ -216,6 +225,7 @@
         }
     } buttonTitles:@"男", @"女", nil];
 }
+
 // 昵称
 - (void)takeNickname {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -260,7 +270,7 @@
     if (!_eventStrategy) {
         _eventStrategy = @{
             INFO_CELL_CLICK: [self createInvocationWithSelector:@selector(cellClick:)],
-            INFO_FOOTER_CLICK: [self createInvocationWithSelector:@selector(footerClick:)],
+            INFO_FOOTER_CLICK: [self createInvocationWithSelector:@selector(logoutClick:)],
         };
     }
     return _eventStrategy;

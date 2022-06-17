@@ -9,9 +9,8 @@
 
 // 是否登录
 + (BOOL)isLogin {
-    // 有缓存
-//    if ([[PINCacheManager sharedManager] containsObjectForKey:kUser]) {
-    if ([NSUserDefaults objectForKey:kUser]) {
+    // 有缓存的 token 说明已经登录
+    if ([self getAuthorizationToken]) {
         return YES;
     }
     return NO;
@@ -50,7 +49,11 @@
 + (void)clearUserInfo {
     NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData removeObjectForKey:kUser];
+    [sharedData removeObjectForKey:AUTHORIZATION_TOKEN];
 //    [[PINCacheManager sharedManager] removeObjectForKey:kUser];
+    
+    [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK];
+    [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
 }
 
 

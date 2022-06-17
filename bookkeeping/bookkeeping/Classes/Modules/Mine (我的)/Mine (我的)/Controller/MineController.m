@@ -32,8 +32,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = YES;
     [self mine];
-    [self getUserInfoRequest];
-    //[self setupUI];
+    [self setupUI];
 }
 
 - (void)setupUI {
@@ -226,7 +225,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //[self setupUI];
 }
 
 

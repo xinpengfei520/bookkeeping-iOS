@@ -88,3 +88,5 @@
 #define userSmsCodeRequest Request(@"/book/user/sms/code")
 // 登录
 #define userLoginRequest Request(@"/book/user/login")
+// 退出登录
+#define userLogoutRequest Request(@"/book/user/logout")
