@@ -71,7 +71,16 @@
 }
 
 -(NSString *)getPriceStr{
-    return [NSString stringWithFormat:@"%0.2f", _price];
+    // 如果没有小数
+    if (fmodf(_price, 1)==0) {
+        return [NSString stringWithFormat:@"%.0f",_price];
+        // 如果有一位小数
+    } else if (fmodf(_price*10, 1)==0) {
+        return [NSString stringWithFormat:@"%.1f",_price];
+        // 如果有两位小数
+    } else {
+        return [NSString stringWithFormat:@"%.2f",_price];
+    }
 }
 
 - (NSDate *)date {

@@ -62,8 +62,8 @@
     // 显示备注
     [_nameLab setText:model.mark];
     // 显示记账信息
-    NSString *strPrice=[NSString stringWithFormat:@"%0.2f", model.price];
-    [_detailLab setText:cmodel.is_income == 0 ? [@"-" stringByAppendingString: strPrice] : strPrice];
+    NSString *priceStr = [model getPriceStr];
+    [_detailLab setText:cmodel.is_income == 0 ? [@"-" stringByAppendingString: priceStr] : priceStr];
 }
 
 @end
