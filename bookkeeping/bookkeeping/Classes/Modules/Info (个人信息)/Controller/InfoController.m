@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) InfoTableView *table;
 @property (nonatomic, strong) UserModel *model;
+// 临时保存修改后的用户信息
+@property (nonatomic, strong) UserModel *updateModel;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
 
 @end
@@ -33,6 +35,7 @@
     [self.view setBackgroundColor:kColor_Line_Color];
     [self table];
     [self setModel:[UserInfo loadUserInfo]];
+    [self setUpdateModel:[UserInfo loadUserInfo]];
 }
 
 
@@ -66,7 +69,7 @@
     }];
 }
 
-- (void)sendLogoutRequest {
+- (void)logoutRequest {
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
     [AFNManager POST:userLogoutRequest params:nil complete:^(APPResult *result) {
@@ -81,59 +84,38 @@
     }];
 }
 
-- (void)changePhoneRequest:(NSString *)nickName {
-    
+- (void)changePhoneRequest:(NSString *)phone {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:phone forKey:@"phone"];
+    [self.updateModel setUserPhone:phone];
+    [self changeUserInfoRequest:param];
 }
 
 - (void)changeNickRequest:(NSString *)nickName {
-    @weakify(self)
-    UserModel *model = [UserInfo loadUserInfo];
-    NSMutableDictionary *param = ({
-        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        [param setObject:nickName forKey:@"name"];
-        if (model.userId) {
-            [param setObject:model.userId forKey:@"account"];
-        }
-        param;
-    });
-    [self.afn_request setAfn_useCache:false];
-    [self showProgressHUD:@"修改中"];
-    [AFNManager POST:NicknameRequest params:param complete:^(APPResult *result) {
-        @strongify(self)
-        [self hideHUD];
-        if (result.status == HttpStatusSuccess) {
-            // 更新数据
-            UserModel *model = [UserInfo loadUserInfo];
-            [model setUserName:nickName];
-            [UserInfo saveUserModel:model];
-            [self setModel:model];
-        } else {
-            [self showTextHUD:result.msg delay:1.f];
-        }
-    }];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:nickName forKey:@"nickName"];
+    [self.updateModel setNickname:nickName];
+    [self changeUserInfoRequest:param];
 }
 
 - (void)changeSexRequest:(NSInteger)sex {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:@(sex) forKey:@"sex"];
+    [self.updateModel setSex:sex];
+    [self changeUserInfoRequest:param];
+}
+
+- (void)changeUserInfoRequest:(NSMutableDictionary *)param {
     @weakify(self)
-    UserModel *model = [UserInfo loadUserInfo];
-    NSMutableDictionary *param = ({
-        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        [param setObject:@(sex) forKey:@"sex"];
-        if (model.userId) {
-            [param setObject:model.userId forKey:@"userId"];
-        }
-        param;
-    });
     [self.afn_request setAfn_useCache:false];
     [self showProgressHUD:@"修改中"];
-    [AFNManager POST:ChangeSexRequest params:param complete:^(APPResult *result) {
+    [AFNManager POST:updateUserInfoRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess) {
             // 更新数据
-            UserModel *model = [UserInfo loadUserInfo];
-            [UserInfo saveUserModel:model];
-            [self setModel:model];
+            [UserInfo saveUserModel:self.updateModel];
+            [self setModel:self.updateModel];
             // 刷新
             [self.table reloadData];
         } else {
@@ -141,7 +123,6 @@
         }
     }];
 }
-
 
 #pragma mark - set
 - (void)setModel:(UserModel *)model {
@@ -201,7 +182,7 @@
     
     [[AlertViewManager sharedInstacne]showSheet:@"记呀" message:@"确定退出当前帐号吗？" cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
         if (buttonTag == 0) {
-            [self sendLogoutRequest];
+            [self logoutRequest];
         }
     } buttonArray:buttonArray];
 }

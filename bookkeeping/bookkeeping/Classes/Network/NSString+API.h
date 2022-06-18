@@ -86,6 +86,8 @@
 #define yearBillRequest Request(@"/book/detail/bill")
 // 个人信息
 #define userInfoRequest Request(@"/book/user/info")
+// 修改个人信息
+#define updateUserInfoRequest Request(@"/book/user/update")
 // 短信验证码
 #define userSmsCodeRequest Request(@"/book/user/sms/code")
 // 登录
