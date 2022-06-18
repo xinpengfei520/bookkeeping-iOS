@@ -93,13 +93,12 @@
     }
     
     if (model.userAvatar) {
-        //[_icon sd_setImageWithURL:[NSURL URLWithString:KStatic(model.userAvatar)]];
         [_icon sd_setImageWithURL:[NSURL URLWithString:model.userAvatar]];
     }
     else {
         [_icon setImage:[UIImage imageNamed:@"default_header"]];
     }
-    [_nameLab setText:model.userName];
+    [_nameLab setText:model.nickname];
     [_dayLab setText:model.bookDays];
     [_numberLab setText:model.bookCounts];
 }

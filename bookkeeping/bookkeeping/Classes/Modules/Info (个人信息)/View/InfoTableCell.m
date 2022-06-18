@@ -103,12 +103,12 @@
         } else if (_indexPath.row == 1) {
             [self setDetail:model.userId];
         } else if (_indexPath.row == 2) {
-            [self setDetail:model.userName];
+            [self setDetail:model.nickname];
         } else if (_indexPath.row == 3) {
-            [self setDetail:@"男"];
+            [self setDetail:model.sex==true?@"男":@"女"];
         } else if (_indexPath.row == 4) {
-            if (model.userPhone) {
-                [self setDetail:model.userPhone];
+            if (model.userName) {
+                [self setDetail:model.userName];
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Text_Gary];
             } else {

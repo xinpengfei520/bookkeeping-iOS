@@ -86,14 +86,14 @@
 
 - (void)changePhoneRequest:(NSString *)phone {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:phone forKey:@"phone"];
-    [self.updateModel setUserPhone:phone];
+    [param setObject:phone forKey:@"userName"];
+    [self.updateModel setUserName:phone];
     [self changeUserInfoRequest:param];
 }
 
 - (void)changeNickRequest:(NSString *)nickName {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:nickName forKey:@"nickName"];
+    [param setObject:nickName forKey:@"nickname"];
     [self.updateModel setNickname:nickName];
     [self changeUserInfoRequest:param];
 }
@@ -112,7 +112,8 @@
     [AFNManager POST:updateUserInfoRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == HttpStatusSuccess) {
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            [self showTextHUD:@"修改成功" delay:1.f];
             // 更新数据
             [UserInfo saveUserModel:self.updateModel];
             [self setModel:self.updateModel];

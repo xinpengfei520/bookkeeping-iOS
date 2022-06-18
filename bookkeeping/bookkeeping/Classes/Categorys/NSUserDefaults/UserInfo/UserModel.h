@@ -13,16 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UserModel : BaseModel<NSCoding>
 
 @property (nonatomic, assign) NSString *userId;
-@property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *nickname;
-@property (nonatomic, strong) NSString *userPhone;
+@property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *userAvatar;
 @property (nonatomic, strong) NSString *registerTime;
 @property (nonatomic, strong) NSString *token;
 @property (nonatomic, strong) NSString *bookDays;
 @property (nonatomic, strong) NSString *bookCounts;
+@property (nonatomic, assign) BOOL sex;
 @property (nonatomic, assign) NSInteger faceId;
-@property (nonatomic, assign) NSInteger sex;
 
 @end
 
