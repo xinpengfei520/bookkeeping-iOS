@@ -1,5 +1,5 @@
 /**
- * 地址
+ * 接口请求地址
  * @author 郑业强 2018-12-21 创建文件
  */
 
@@ -31,8 +31,6 @@
 #define AddInsertCategoryListRequest Request(@"/shayu/addInsertCategoryRequest.action")
 // 删除用户类别
 #define RemoveInsertCategoryListRequest Request(@"/shayu/removeInsertCategoryRequest.action")
-// 注册
-#define RegisterRequest Request(@"/shayu/getRegisterRequest.action")
 // 创建验证码
 #define CreateCoderequest Request(@"/shayu/createCodeRequest.action")
 // 验证验证码
@@ -45,14 +43,8 @@
 #define BindThirdRequest Request(@"/shayu/bindThirdRequest.action")
 // 绑定手机号
 #define BindPhoneRequest Request(@"/shayu/bindPhoneRequest.action")
-// 修改性别
-#define ChangeSexRequest Request(@"/shayu/changeSexRequest.action")
-// 修改昵称
-#define NicknameRequest Request(@"/shayu/changeNameRequest.action")
 // 修改头像
 #define ChangeIconRequest Request(@"/shayu/changeIconRequest.action")
-// 打卡
-#define CreatePunchRequest Request(@"/shayu/createPunchRequest.action")
 // 声音
 #define SoundRequest Request(@"/shayu/soundRequest.action")
 // 详情
