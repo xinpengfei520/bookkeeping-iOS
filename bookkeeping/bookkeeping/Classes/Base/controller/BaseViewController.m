@@ -93,10 +93,8 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     self.navigationItem.leftBarButtonItem = barBtn;
     self.leftButton = btn;
 
-    // 主页、图表、记账页面隐藏左边返回按钮
-    if ([self isKindOfClass:[HomeController class]] ||
-        [self isKindOfClass:[ChartController class]] ||
-        [self isKindOfClass:[BKCController class]]) {
+    // 主页、记账页面隐藏左边返回按钮
+    if ([self isKindOfClass:[HomeController class]] || [self isKindOfClass:[BKCController class]]) {
         self.leftButton.hidden = YES;
     } else {
         self.leftButton.hidden = NO;

@@ -20,9 +20,9 @@
 @interface ChartController()
 
 @property (nonatomic, strong) ChartNavigation *navigation;
-@property (nonatomic, strong) ChartSegmentControl *seg;
+@property (nonatomic, strong) ChartSegmentControl *segment;
 @property (nonatomic, strong) ChartDate *subdate;
-@property (nonatomic, strong) ChartHUD *chud;
+@property (nonatomic, strong) ChartHUD *chartHUD;
 @property (nonatomic, strong) ChartTableView *table;
 
 @property (nonatomic, assign) NSInteger navigationIndex;
@@ -48,33 +48,24 @@
     _navigationIndex = _navIndex;
     [self setDate:[NSDate date]];
     [self navigation];
-    [self seg];
+    [self segment];
     [self subdate];
     [self table];
-    [self chud];
+    [self chartHUD];
     [self setNavigationIndex:_navigationIndex];
     
     [self updateDateRange];
     [self monitorNotification];
     [self getYearBookRequest:self.date.year];
-//    [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
 }
+
 // 监听通知
 - (void)monitorNotification {
-    // 记账
     @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
-        @strongify(self)
-        [self setDate:[NSDate date]];
-//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
-        [self getYearBookRequest:self.date.year];
-        [self updateDateRange];
-    }];
     // 删除记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
         [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
@@ -82,15 +73,6 @@
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
-        [self getYearBookRequest:self.date.year];
-        [self updateDateRange];
-    }];
-    // 退出登录
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGOUT_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
-        @strongify(self)
-        [self setDate:[NSDate date]];
-//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
         [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
@@ -98,7 +80,6 @@
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:SYNCED_DATA_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-//        [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
         [self getYearBookRequest:self.date.year];
         [self updateDateRange];
     }];
@@ -106,10 +87,6 @@
 
 // 更新时间范围
 - (void)updateDateRange {
-    // 收入
-    //NSInteger is_income = _navigationIndex == 1;
-    //NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
-    //NSString *preStr = [NSString stringWithFormat:@"cmodel.is_income == %ld", is_income];
     NSString *preStr;
     if (_navigationIndex == 1) {
         preStr = [NSString stringWithFormat:@"categoryId >= %d", 33];
@@ -189,7 +166,7 @@
     }];
 }
 
-#pragma mark - 事件
+#pragma mark - event
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
@@ -244,17 +221,18 @@
         [_navigation setCmodel:_cmodel];
         [[_navigation.button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
             @strongify(self)
-            [self.chud show];
+            [self.chartHUD show];
         }];
         [self.view addSubview:_navigation];
     }
     return _navigation;
 }
-- (ChartSegmentControl *)seg {
-    if (!_seg) {
+
+- (ChartSegmentControl *)segment {
+    if (!_segment) {
         @weakify(self)
-        _seg = [ChartSegmentControl loadFirstNib:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(50))];
-        [[_seg.seg rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(UISegmentedControl *seg) {
+        _segment = [ChartSegmentControl loadFirstNib:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(50))];
+        [[_segment.seg rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(UISegmentedControl *seg) {
             @strongify(self)
             [self setDate:({
                 NSInteger index = seg.selectedSegmentIndex;
@@ -269,14 +247,15 @@
 //            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
             [self getYearBookRequest:self.date.year];
         }];
-        [self.view addSubview:_seg];
+        [self.view addSubview:_segment];
     }
-    return _seg;
+    return _segment;
 }
+
 - (ChartDate *)subdate {
     if (!_subdate) {
         @weakify(self)
-        _subdate = [ChartDate loadCode:CGRectMake(0, _seg.bottom, SCREEN_WIDTH, countcoordinatesX(45))];
+        _subdate = [ChartDate loadCode:CGRectMake(0, _segment.bottom, SCREEN_WIDTH, countcoordinatesX(45))];
         [_subdate setComplete:^(ChartSubModel *model) {
             @strongify(self)
             NSInteger month = model.month == -1 ? 1 : model.month;
@@ -290,6 +269,7 @@
     }
     return _subdate;
 }
+
 - (ChartTableView *)table {
     if (!_table) {
         _table = [ChartTableView initWithFrame:({
@@ -302,22 +282,24 @@
     }
     return _table;
 }
-- (ChartHUD *)chud {
-    if (!_chud) {
+
+- (ChartHUD *)chartHUD {
+    if (!_chartHUD) {
         @weakify(self)
-        _chud = [ChartHUD loadCode:CGRectMake(0, _seg.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - _seg.bottom - TabbarHeight)];
-        [_chud setIndex:_navigationIndex];
-        [_chud setComplete:^(NSInteger index) {
+        _chartHUD = [ChartHUD loadCode:CGRectMake(0, _segment.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - _segment.bottom - TabbarHeight)];
+        [_chartHUD setIndex:_navigationIndex];
+        [_chartHUD setComplete:^(NSInteger index) {
             @strongify(self)
             [self setNavigationIndex:index];
             [self updateDateRange];
 //            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
             [self getYearBookRequest:self.date.year];
         }];
-        [self.view addSubview:_chud];
+        [self.view addSubview:_chartHUD];
     }
-    return _chud;
+    return _chartHUD;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
