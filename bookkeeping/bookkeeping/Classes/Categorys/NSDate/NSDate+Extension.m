@@ -266,7 +266,6 @@
 	NSDateComponents *comps = [gregorian components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday) fromDate:date];
 	NSInteger weekday = [comps weekday];
 	// old: weekday = weekday == 1 ? 7 : weekday - 1;
-	weekday = weekday == 1 ? 7 : weekday;
 	return weekday;
 }
 
@@ -274,10 +273,13 @@
 	return [NSDate dayFromWeekday:self];
 }
 
+/**
+ * 每周的第一天为星期日
+ */
 + (NSString *)dayFromWeekday:(NSDate *)date {
 	switch([date weekday]) {
 	case 1:
-		return @"星期天";
+		return @"星期日";
 		break;
 	case 2:
 		return @"星期一";
