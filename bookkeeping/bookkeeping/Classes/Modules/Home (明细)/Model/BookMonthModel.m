@@ -33,18 +33,28 @@
 - (NSString *)getMoneyDescribe {
     NSMutableString *strm = [NSMutableString string];
     if (_income != 0) {
-        // 不要使用 [@(_income) description], 因为会导致精度问题
-        NSString *strIncome=[NSString stringWithFormat:@"%0.2f", _income];
-        [strm appendFormat:@"收入: %@", strIncome];
+        [strm appendFormat:@"收入: %@", [self getPriceStr:_income]];
     }
     if (_income != 0 && _pay != 0) {
         [strm appendString:@"    "];
     }
     if (_pay != 0) {
-        NSString *strPay=[NSString stringWithFormat:@"%0.2f", _pay];
-        [strm appendFormat:@"支出: %@", strPay];
+        [strm appendFormat:@"支出: %@", [self getPriceStr:_pay]];
     }
     return strm;
+}
+
+-(NSString *)getPriceStr:(CGFloat)price{
+    // 如果没有小数
+    if (fmodf(price, 1)==0) {
+        return [NSString stringWithFormat:@"%.0f",price];
+        // 如果有一位小数
+    } else if (fmodf(price*10, 1)==0) {
+        return [NSString stringWithFormat:@"%.1f",price];
+        // 如果有两位小数
+    } else {
+        return [NSString stringWithFormat:@"%.2f",price];
+    }
 }
 
 - (NSMutableArray<BookDetailModel *> *)array{
