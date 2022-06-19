@@ -63,6 +63,7 @@
     _pay = pay;
     NSString *payStr = [NSString stringWithFormat:@"%.2f", pay];
     [self.money3Lab setAttributedText:[NSAttributedString createMath:payStr integer:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight] decimal:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight] color:kColor_Text_White]];
+    
     NSString *money = [NSString stringWithFormat:@"%.2f", _income - pay];
     [self.money1Lab setAttributedText:[NSAttributedString createMath:money integer:[UIFont systemFontOfSize:AdjustFont(30) weight:UIFontWeightLight] decimal:[UIFont systemFontOfSize:AdjustFont(26) weight:UIFontWeightLight] color:kColor_Text_White]];
 }

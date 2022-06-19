@@ -109,11 +109,11 @@
 }
 
 - (void)dealWithData:(NSMutableArray<BookDetailModel *> *)bookArr {
-    NSString *str = [NSString stringWithFormat:@"categoryId >= 33"];
-    NSMutableArray<BookDetailModel *> *incomeArr = [NSMutableArray kk_filteredArrayUsingPredicate:str array:bookArr];
+    NSString *predicate = [NSString stringWithFormat:@"categoryId >= 33"];
+    NSMutableArray<BookDetailModel *> *incomeArr = [NSMutableArray kk_filteredArrayUsingPredicate:predicate array:bookArr];
     
-    str = [NSString stringWithFormat:@"categoryId <= 32"];
-    NSMutableArray<BookDetailModel *> *payArr = [NSMutableArray kk_filteredArrayUsingPredicate:str array:bookArr];
+    predicate = [NSString stringWithFormat:@"categoryId <= 32"];
+    NSMutableArray<BookDetailModel *> *payArr = [NSMutableArray kk_filteredArrayUsingPredicate:predicate array:bookArr];
     
     [self.table setIncome:[[incomeArr valueForKeyPath:@"@sum.price.floatValue"] floatValue]];
     [self.table setPay:[[payArr valueForKeyPath:@"@sum.price.floatValue"] floatValue]];
