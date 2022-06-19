@@ -88,14 +88,14 @@
 // 更新时间范围
 - (void)updateDateRange {
     NSString *preStr;
-    if (_navigationIndex == 1) {
-        preStr = [NSString stringWithFormat:@"categoryId >= %d", 33];
-    }else{
-        preStr = [NSString stringWithFormat:@"categoryId <= %d", 32];
-    }
-    
     if (_cmodel) {
-        preStr = [preStr stringByAppendingString:[NSString stringWithFormat:@" AND categoryId == %ld", _cmodel.categoryId]];
+        preStr = [NSString stringWithFormat:@"categoryId == %ld", _cmodel.categoryId];
+    }else{
+        if (_navigationIndex == 1) {
+            preStr = [NSString stringWithFormat:@"categoryId >= %d", 33];
+        }else{
+            preStr = [NSString stringWithFormat:@"categoryId <= %d", 32];
+        }
     }
     
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getYearModelList:_date.year];

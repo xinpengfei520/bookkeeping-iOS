@@ -27,10 +27,14 @@
 + (BookChartModel *)statisticalChart:(NSInteger)status isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date arrm:(NSMutableArray<BookDetailModel *> *)arrm{
     
     NSMutableString *preStr = [NSMutableString string];
-    if (isIncome) {
-        [preStr appendFormat:@"categoryId >= %d", 33];
+    if (cmodel) {
+        [preStr appendFormat:@"categoryId == %ld", cmodel.categoryId];
     }else{
-        [preStr appendFormat:@"categoryId <= %d", 32];
+        if (isIncome) {
+            [preStr appendFormat:@"categoryId >= %d", 33];
+        }else{
+            [preStr appendFormat:@"categoryId <= %d", 32];
+        }
     }
 
     // 周
@@ -120,7 +124,6 @@
         }];
     }
     
-    
     NSMutableArray<BookDetailModel *> *groupArr = [NSMutableArray array];
     if (!cmodel) {
         for (BookDetailModel *model in models) {
@@ -140,8 +143,7 @@
                 NSDecimalNumber *number2 = [NSDecimalNumber decimalNumberWithString:[@(model.price) description]];
                 number1 = [number1 decimalNumberByAdding:number2];
                 groupArr[index].price = [number1 doubleValue];
-                
-//                groupArr[index].price += model.price;
+                //groupArr[index].price += model.price;
             }
         }
     } else {
@@ -151,11 +153,9 @@
         }
     }
     
-    
     [groupArr sortUsingComparator:^NSComparisonResult(BookDetailModel *obj1, BookDetailModel *obj2) {
         return obj1.price < obj2.price;
     }];
-    
     
     BookChartModel *model = [[BookChartModel alloc] init];
     model.groupArr = groupArr;
