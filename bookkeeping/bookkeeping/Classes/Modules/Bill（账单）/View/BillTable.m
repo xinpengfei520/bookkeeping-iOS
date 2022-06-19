@@ -63,12 +63,12 @@
 
 
 #pragma mark - set
-- (void)setIncome:(NSInteger)income {
+- (void)setIncome:(CGFloat)income {
     _income = income;
     _header.income = income;
 }
 
-- (void)setPay:(NSInteger)pay {
+- (void)setPay:(CGFloat)pay {
     _pay = pay;
     _header.pay = pay;
 }

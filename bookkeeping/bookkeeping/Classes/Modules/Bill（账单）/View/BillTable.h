@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BillTable : UITableView
 
-@property (nonatomic, assign) NSInteger income;
-@property (nonatomic, assign) NSInteger pay;
+@property (nonatomic, assign) CGFloat income;
+@property (nonatomic, assign) CGFloat pay;
 @property (nonatomic, strong) NSMutableArray *models;
 
 @end
