@@ -74,6 +74,8 @@
 #define monthBookListRequest Request(@"/book/detail/year/month")
 // 获取年记账列表
 #define yearBookListRequest Request(@"/book/detail/year")
+// 获取所有记账列表
+#define allBookListRequest Request(@"/book/detail/list/all")
 // 获取年账单
 #define yearBillRequest Request(@"/book/detail/bill")
 // 个人信息

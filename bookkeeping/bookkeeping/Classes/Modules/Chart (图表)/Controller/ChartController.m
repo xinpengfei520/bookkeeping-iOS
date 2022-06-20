@@ -144,12 +144,9 @@
     }
     
     // 从网络取
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setValue:@(year) forKey:@"year"];
-    
     [self showProgressHUD];
     @weakify(self)
-    [AFNManager POST:yearBookListRequest params:param complete:^(APPResult *result) {
+    [AFNManager POST:allBookListRequest params:nil complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
