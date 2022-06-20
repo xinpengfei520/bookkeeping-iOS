@@ -42,10 +42,12 @@
     _tHeader.model = model;
     [self reloadData];
 }
+
 - (void)setNavigationIndex:(NSInteger)navigationIndex {
     _navigationIndex = navigationIndex;
     [self reloadData];
 }
+
 - (void)setSegmentIndex:(NSInteger)segmentIndex {
     _segmentIndex = segmentIndex;
 //    _tHeader.segmentIndex = segmentIndex;
@@ -56,20 +58,24 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 点击图表
 - (void)chartBeginTouch:(id)data {
     [self setScrollEnabled:false];
 }
+
 // 结束图表
 - (void)chartEndTouch:(id)data {
     [self setScrollEnabled:true];
 }
+
 // 取消图表
 - (void)chartCannelTouch:(id)data {
     [self setScrollEnabled:true];
@@ -96,14 +102,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return countcoordinatesX(50);
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     ChartSectionHeader *header = [ChartSectionHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(40))];
     header.navigationIndex = _navigationIndex;
     return header;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return countcoordinatesX(50);
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self routerEventWithName:CHART_TABLE_CLICK data:indexPath];
@@ -117,13 +126,14 @@
     }
     return _tHeader;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           CHART_CHART_TOUCH_BEGIN: [self createInvocationWithSelector:@selector(chartBeginTouch:)],
-                           CHART_CHART_TOUCH_END: [self createInvocationWithSelector:@selector(chartEndTouch:)],
-                           CHART_CHART_TOUCH_CANNEL: [self createInvocationWithSelector:@selector(chartCannelTouch:)]
-                           };
+            CHART_CHART_TOUCH_BEGIN: [self createInvocationWithSelector:@selector(chartBeginTouch:)],
+            CHART_CHART_TOUCH_END: [self createInvocationWithSelector:@selector(chartEndTouch:)],
+            CHART_CHART_TOUCH_CANNEL: [self createInvocationWithSelector:@selector(chartCannelTouch:)]
+        };
     }
     return _eventStrategy;
 }

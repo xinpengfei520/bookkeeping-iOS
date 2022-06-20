@@ -172,16 +172,19 @@
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
     [self handleEventWithName:eventName data:data];
 }
+
 - (void)handleEventWithName:(NSString *)eventName data:(id)data {
     NSInvocation *invocation = self.eventStrategy[eventName];
     [invocation setArgument:&data atIndex:2];
     [invocation invoke];
     [super routerEventWithName:eventName data:data];
 }
+
 // 点击导航栏
 - (void)bookClickNavigation:(NSNumber *)index {
     [self.scroll setContentOffset:CGPointMake(SCREEN_WIDTH * [index integerValue], 0) animated:YES];
 }
+
 // 点击item
 - (void)bookClickItem:(BKCCollection *)collection {
     NSIndexPath *indexPath = collection.selectIndex;
@@ -243,6 +246,7 @@
     }
     return _scroll;
 }
+
 - (BKCNavigation *)navigation {
     if (!_navigation) {
         _navigation = [BKCNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
@@ -250,6 +254,7 @@
     }
     return _navigation;
 }
+
 - (NSMutableArray<BKCCollection *> *)collections {
     if (!_collections) {
         _collections = [NSMutableArray array];
@@ -268,6 +273,7 @@
     }
     return _collections;
 }
+
 - (BKCKeyboard *)keyboard {
     if (!_keyboard) {
         @weakify(self)
@@ -280,12 +286,13 @@
     }
     return _keyboard;
 }
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           BOOK_CLICK_ITEM: [self createInvocationWithSelector:@selector(bookClickItem:)],
-                           BOOK_CLICK_NAVIGATION: [self createInvocationWithSelector:@selector(bookClickNavigation:)],
-                           };
+            BOOK_CLICK_ITEM: [self createInvocationWithSelector:@selector(bookClickItem:)],
+            BOOK_CLICK_NAVIGATION: [self createInvocationWithSelector:@selector(bookClickNavigation:)],
+        };
     }
     return _eventStrategy;
 }
