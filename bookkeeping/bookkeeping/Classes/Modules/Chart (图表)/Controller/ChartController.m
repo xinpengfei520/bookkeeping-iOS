@@ -98,7 +98,7 @@
         }
     }
     
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getYearModelList:_date.year];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:bookArr];
     // 最小时间
     _minModel = ({
@@ -135,7 +135,7 @@
 #pragma mark - request
 - (void) getYearBookRequest:(NSInteger)year {
     // 先从本地缓存中取
-    NSMutableArray<BookDetailModel *> *list = [NSUserDefaults getYearModelList:_date.year];
+    NSMutableArray<BookDetailModel *> *list = [NSUserDefaults getAllBookList];
     if (list && list.count > 0) {
         NSLog(@"这是从缓存中读取的数据");
         BookChartModel *chartModel=[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date arrm:list];
@@ -154,7 +154,7 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             NSMutableArray<BookDetailModel *> *bookArray = [BookDetailModel mj_objectArrayWithKeyValuesArray:result.data];
-            [NSUserDefaults saveYearModelList:year array:bookArray];
+            [NSUserDefaults saveAllBookList:bookArray];
             BookChartModel *chartModel=[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date arrm:bookArray];
             [self setModel:chartModel];
         } else {

@@ -40,10 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray *) getCategoryModelList;
 // 获取分类 Model 通过 categoryId
 + (BKCModel *) getCategoryModel:(NSInteger)categoryId;
-// 保存年记账列表
-+ (void)saveYearModelList:(NSInteger)year array:(NSMutableArray *)array;
-// 获取年记账列表
-+ (NSMutableArray<BookDetailModel *> *)getYearModelList:(NSInteger)year;
+// 保存所有账列表
++ (void)saveAllBookList:(NSMutableArray *)array;
+// 获取所有账列表
++ (NSMutableArray<BookDetailModel *> *)getAllBookList;
 // 保存月记账列表
 + (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array;
 // 获取月记账列表

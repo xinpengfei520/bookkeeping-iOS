@@ -39,6 +39,7 @@
 #pragma mark - 记账
 #define PIN_BOOK           @"PIN_BOOK"            // 记账（未同步）
 #define PIN_BOOK_SYNCED    @"PIN_BOOK_SYNCED"     // 记账（已同步）
+#define All_BOOK_LIST      @"All_BOOK_LIST"       // 所有记账
 
 #pragma mark - 个人设置
 #define PIN_SETTING_FACE_ID           @"PIN_SETTING_FACE_ID"            // FaceID
