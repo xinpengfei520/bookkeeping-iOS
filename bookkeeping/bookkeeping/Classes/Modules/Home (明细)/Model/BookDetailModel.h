@@ -19,9 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger year;
 @property (nonatomic, assign) NSInteger month;
 @property (nonatomic, assign) NSInteger day;
-@property (nonatomic, assign) NSInteger week;
 @property (nonatomic, copy  ) NSString *mark;
+// 下面 3 个字段不是接口返回的字段，且不能删除，用于过滤数据
+@property (nonatomic, assign) NSInteger week;
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, assign) NSInteger dateNumber;
 
 // 获取 bookId
 + (NSNumber *)getBookId;

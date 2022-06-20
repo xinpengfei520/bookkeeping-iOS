@@ -70,6 +70,7 @@
         NSDate *maxDate = _maxModel.date;
         NSMutableArray<ChartSubModel *> *submodels = [[NSMutableArray alloc] init];
         NSInteger weeks = [NSDate compareWeek:minDate withDate:maxDate];
+        
         for (NSInteger i=0; i<weeks; i++) {
             NSDate *newDate = [minDate offsetDays:i * 7];
             newDate = [newDate offsetDays:-[newDate weekday]+1];
@@ -87,12 +88,14 @@
                 [self.selectIndexs addObject:indexPath];
             }
         }
+        
         if (self.selectIndexs.count == 0) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:submodels.count - 1 inSection:0];
             [self.selectIndexs addObject:indexPath];
         }
         submodels;
     })];
+    
     // 月
     [self.sModels replaceObjectAtIndex:1 withObject:({
         // 数据整理
@@ -120,6 +123,7 @@
         }
         submodels;
     })];
+    
     // 年
     [self.sModels replaceObjectAtIndex:2 withObject:({
         // 数据整理
@@ -141,12 +145,11 @@
         submodels;
     })];
     
-    
     [self.collection reloadData];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
     });
-
 }
 
 
@@ -155,10 +158,12 @@
     _minModel = minModel;
     [self updateDateRange];
 }
+
 - (void)setMaxModel:(BookDetailModel *)maxModel {
     _maxModel = maxModel;
     [self updateDateRange];
 }
+
 - (void)setSegmentIndex:(NSInteger)segmentIndex {
     _segmentIndex = segmentIndex;
 //    _selectIndex = nil;
@@ -169,6 +174,7 @@
         [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
     });
 }
+
 - (void)setNavigationIndex:(NSInteger)navigationIndex {
     _navigationIndex = navigationIndex;
     [self updateDateRange];
@@ -179,6 +185,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.sModels[self.segmentIndex].count;
 }
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ChartDateCell *cell = [ChartDateCell loadItem:collectionView index:indexPath];
 //    cell.choose = [_selectIndex isEqual:indexPath];
@@ -198,6 +205,7 @@
         self.complete(model);
     }
 }
+
 - (void)collectionDidSelect:(NSIndexPath *)indexPath animation:(BOOL)animation {
     // 移动
     [self.collection scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animation];
@@ -246,6 +254,7 @@
     }
     return _collection;
 }
+
 - (UIView *)line {
     if (!_line) {
         _line = [[UIView alloc] initWithFrame:({
@@ -260,12 +269,14 @@
     }
     return _line;
 }
+
 - (NSMutableArray<NSIndexPath *> *)selectIndexs {
     if (!_selectIndexs) {
         _selectIndexs = [NSMutableArray array];
     }
     return _selectIndexs;
 }
+
 - (NSMutableArray<NSMutableArray<ChartSubModel *> *> *)sModels {
     if (!_sModels) {
         _sModels = [NSMutableArray array];

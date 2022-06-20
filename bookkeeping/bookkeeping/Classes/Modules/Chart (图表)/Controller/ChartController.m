@@ -21,7 +21,7 @@
 
 @property (nonatomic, strong) ChartNavigation *navigation;
 @property (nonatomic, strong) ChartSegmentControl *segment;
-@property (nonatomic, strong) ChartDate *subdate;
+@property (nonatomic, strong) ChartDate *chartDate;
 @property (nonatomic, strong) ChartHUD *chartHUD;
 @property (nonatomic, strong) ChartTableView *table;
 
@@ -49,7 +49,7 @@
     [self setDate:[NSDate date]];
     [self navigation];
     [self segment];
-    [self subdate];
+    [self chartDate];
     [self table];
     [self chartHUD];
     [self setNavigationIndex:_navigationIndex];
@@ -128,8 +128,8 @@
         model;
     });
     
-    _subdate.minModel = _minModel;
-    _subdate.maxModel = _maxModel;
+    _chartDate.minModel = _minModel;
+    _chartDate.maxModel = _maxModel;
 }
 
 #pragma mark - request
@@ -147,7 +147,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(year) forKey:@"year"];
     
-    [self showProgressHUD:@"同步中..."];
+    [self showProgressHUD];
     @weakify(self)
     [AFNManager POST:yearBookListRequest params:param complete:^(APPResult *result) {
         @strongify(self)
@@ -202,13 +202,13 @@
 - (void)setNavigationIndex:(NSInteger)navigationIndex {
     _navigationIndex = navigationIndex;
     _navigation.navigationIndex = navigationIndex;
-    _subdate.navigationIndex = navigationIndex;
+    _chartDate.navigationIndex = navigationIndex;
     _table.navigationIndex = navigationIndex;
 }
 
 - (void)setSegmentIndex:(NSInteger)segmentIndex {
     _segmentIndex = segmentIndex;
-    _subdate.segmentIndex = segmentIndex;
+    _chartDate.segmentIndex = segmentIndex;
     _table.segmentIndex = segmentIndex;
 }
 
@@ -236,8 +236,8 @@
             @strongify(self)
             [self setDate:({
                 NSInteger index = seg.selectedSegmentIndex;
-                NSIndexPath *indexPath = self.subdate.selectIndexs[index];
-                ChartSubModel *model = self.subdate.sModels[index][indexPath.row];
+                NSIndexPath *indexPath = self.chartDate.selectIndexs[index];
+                ChartSubModel *model = self.chartDate.sModels[index][indexPath.row];
                 NSInteger month = model.month == -1 ? 1 : model.month;
                 NSInteger day = model.day == -1 ? 1 : model.day;
                 NSDate *date = [NSDate dateWithYMD:[NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, month, day]];
@@ -252,11 +252,11 @@
     return _segment;
 }
 
-- (ChartDate *)subdate {
-    if (!_subdate) {
+- (ChartDate *)chartDate {
+    if (!_chartDate) {
         @weakify(self)
-        _subdate = [ChartDate loadCode:CGRectMake(0, _segment.bottom, SCREEN_WIDTH, countcoordinatesX(45))];
-        [_subdate setComplete:^(ChartSubModel *model) {
+        _chartDate = [ChartDate loadCode:CGRectMake(0, _segment.bottom, SCREEN_WIDTH, countcoordinatesX(45))];
+        [_chartDate setComplete:^(ChartSubModel *model) {
             @strongify(self)
             NSInteger month = model.month == -1 ? 1 : model.month;
             NSInteger day = model.day == -1 ? 1 : model.day;
@@ -265,15 +265,15 @@
 //            [self setModel:[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date]];
             [self getYearBookRequest:self.date.year];
         }];
-        [self.view addSubview:_subdate];
+        [self.view addSubview:_chartDate];
     }
-    return _subdate;
+    return _chartDate;
 }
 
 - (ChartTableView *)table {
     if (!_table) {
         _table = [ChartTableView initWithFrame:({
-            CGFloat top = self.subdate.bottom;
+            CGFloat top = self.chartDate.bottom;
             CGFloat height = SCREEN_HEIGHT - top;
             height -= self.navigationController.viewControllers.count == 1 ? TabbarHeight : 0;
             CGRectMake(0, top, SCREEN_WIDTH, height);

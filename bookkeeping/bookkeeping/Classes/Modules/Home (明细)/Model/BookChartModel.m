@@ -24,7 +24,7 @@
 }
 
 // 统计数据(图表首页)
-+ (BookChartModel *)statisticalChart:(NSInteger)status isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date arrm:(NSMutableArray<BookDetailModel *> *)arrm{
++ (BookChartModel *)statisticalChart:(NSInteger)segmentIndex isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date arrm:(NSMutableArray<BookDetailModel *> *)arrm{
     
     NSMutableString *preStr = [NSMutableString string];
     if (cmodel) {
@@ -37,33 +37,33 @@
         }
     }
 
-    // 周
-    if (status == 0) {
+    // 周(周日到周六 7 天的数据)
+    if (segmentIndex == 0) {
         NSDate *start = [date offsetDays:-[date weekday] + 1];
         NSDate *end = [date offsetDays:7 - [date weekday]];
-        NSDateFormatter *fora = [[NSDateFormatter alloc] init];
-        [fora setDateFormat:@"yyyyMMdd"];
-        [fora setTimeZone:[NSTimeZone localTimeZone]];
-        NSInteger startStr = [[fora stringFromDate:start] integerValue];
-        NSInteger endStr = [[fora stringFromDate:end] integerValue];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyyMMdd"];
+        [formatter setTimeZone:[NSTimeZone localTimeZone]];
+        NSInteger startStr = [[formatter stringFromDate:start] integerValue];
+        NSInteger endStr = [[formatter stringFromDate:end] integerValue];
         
         [preStr appendFormat:@" AND dateNumber >= %ld AND dateNumber <= %ld", startStr, endStr];
     }
     // 月
-    else if (status == 1) {
+    else if (segmentIndex == 1) {
         [preStr appendFormat:@" AND year == %ld AND month == %ld", date.year, date.month];
     }
     // 年
-    else if (status == 2) {
+    else if (segmentIndex == 2) {
         [preStr appendFormat:@" AND year == %ld", date.year];
     }
+    
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:arrm];
-    
-    
     NSMutableArray<BookDetailModel *> *chartArr = [NSMutableArray array];
     NSMutableArray<NSMutableArray<BookDetailModel *> *> *chartHudArr = [NSMutableArray array];
+    
     // 周
-    if (status == 0) {
+    if (segmentIndex == 0) {
         NSDate *first = [date offsetDays:-[date weekday] + 1];
         for (int i=0; i<7; i++) {
             NSDate *date = [first offsetDays:i];
@@ -85,7 +85,7 @@
         }
     }
     // 月
-    else if (status == 1) {
+    else if (segmentIndex == 1) {
         for (int i=1; i<=[date daysInMonth]; i++) {
             BookDetailModel *model = [[BookDetailModel alloc] init];
             model.year = date.year;
@@ -101,7 +101,7 @@
         }
     }
     // 年
-    else if (status == 2) {
+    else if (segmentIndex == 2) {
         for (int i=1; i<=12; i++) {
             BookDetailModel *model = [[BookDetailModel alloc] init];
             model.year = date.year;
