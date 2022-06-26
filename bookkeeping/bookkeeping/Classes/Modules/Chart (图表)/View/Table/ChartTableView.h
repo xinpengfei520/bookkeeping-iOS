@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, strong) ChartSubModel *subModel;
 //@property (nonatomic, strong) BKModel *model;
 @property (nonatomic, strong) BookChartModel *model;
+// 是否是记账详情，如果是记账详情，则显示记账备注，否则显示记账类别名
+@property (nonatomic, assign, readwrite) BOOL isBookDetail;
 
 + (instancetype)initWithFrame:(CGRect)frame;
 

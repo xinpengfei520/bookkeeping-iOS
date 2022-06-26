@@ -81,10 +81,22 @@
     CGFloat incomePrice = [[income valueForKeyPath:@"@sum.price.floatValue"] floatValue];
     NSLog(@"incomePrice: %.2f,payPrice: %.2f,balance: %.2f",incomePrice,payPrice,(incomePrice - payPrice));
 
-    [_valueLab1 setText:[NSString stringWithFormat:@"%.2f", incomePrice]];
-    [_valueLab2 setText:[NSString stringWithFormat:@"%.2f", payPrice]];
-    [_valueLab3 setText:[NSString stringWithFormat:@"%.2f", incomePrice - payPrice]];
+    [_valueLab1 setText:[self getPriceStr:incomePrice]];
+    [_valueLab2 setText:[self getPriceStr:payPrice]];
+    [_valueLab3 setText:[self getPriceStr:(incomePrice - payPrice)]];
 }
 
+-(NSString *)getPriceStr:(CGFloat)price{
+    // 如果没有小数
+    if (fmodf(price, 1)==0) {
+        return [NSString stringWithFormat:@"%.0f",price];
+        // 如果有一位小数
+    } else if (fmodf(price*10, 1)==0) {
+        return [NSString stringWithFormat:@"%.1f",price];
+        // 如果有两位小数
+    } else {
+        return [NSString stringWithFormat:@"%.2f",price];
+    }
+}
 
 @end

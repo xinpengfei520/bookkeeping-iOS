@@ -346,6 +346,7 @@
 - (void)pushToChartController:(NSString*)index {
     ChartController *vc = [[ChartController alloc] init];
     vc.navIndex = [index integerValue];
+    vc.isBookDetail = false;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

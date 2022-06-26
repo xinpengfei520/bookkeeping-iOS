@@ -206,6 +206,7 @@
         vc.cmodel = model;
         // 将选中的 segment 下标也传递过去
         vc.segmentIndex = _segmentIndex;
+        vc.isBookDetail = true;
         [self.navigationController pushViewController:vc animated:true];
     } else {
         BookDetailController *vc = [[BookDetailController alloc] init];
@@ -218,6 +219,7 @@
 #pragma mark - set
 - (void)setModel:(BookChartModel *)model {
     _model = model;
+    _table.isBookDetail = _isBookDetail;
     _table.model = model;
 }
 

@@ -50,7 +50,7 @@
     _model = model;
     BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
-    [_nameLab setText:cmodel.name];
+    [_nameLab setText:_isBookDetail?model.mark:cmodel.name];
     [_detailLab setText:[NSString stringWithFormat:@"%0.2f", model.price]];
     
     CGFloat width = SCREEN_WIDTH - OUT_PADDING * 2 - ICON_W - LINE_L;
