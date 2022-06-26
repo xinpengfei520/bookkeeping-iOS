@@ -1,5 +1,5 @@
 /**
- * 图表
+ * ChartTableCell
  * @author 郑业强 2018-12-18 创建文件
  */
 
@@ -51,7 +51,7 @@
     BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     [_nameLab setText:_isBookDetail?model.mark:cmodel.name];
-    [_detailLab setText:[NSString stringWithFormat:@"%0.2f", model.price]];
+    [_detailLab setText:[model getPriceStr]];
     
     CGFloat width = SCREEN_WIDTH - OUT_PADDING * 2 - ICON_W - LINE_L;
     width = width / _maxPrice * model.price;

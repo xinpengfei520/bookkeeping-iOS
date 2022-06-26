@@ -13,7 +13,7 @@
 #pragma mark - 声明
 @interface ChartTableView()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) ChartTableHeader *tHeader;
+@property (nonatomic, strong) ChartTableHeader *tableHeader;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
 
 @end
@@ -30,7 +30,7 @@
     [table lineHide];
     [table lineAll];
     [table setSeparatorColor:kColor_BG];
-    [table setTableHeaderView:[table tHeader]];
+    [table setTableHeaderView:[table tableHeader]];
     [table setShowsVerticalScrollIndicator:false];
     return table;
 }
@@ -39,7 +39,7 @@
 #pragma mark - set
 - (void)setModel:(BookChartModel *)model {
     _model = model;
-    _tHeader.model = model;
+    _tableHeader.model = model;
     [self reloadData];
 }
 
@@ -50,7 +50,7 @@
 
 - (void)setSegmentIndex:(NSInteger)segmentIndex {
     _segmentIndex = segmentIndex;
-//    _tHeader.segmentIndex = segmentIndex;
+//    _tableHeader.segmentIndex = segmentIndex;
 }
 
 
@@ -84,17 +84,14 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.model.group.count;
-//    return 1;
     return self.model.groupArr.count;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ChartTableCell *cell = [ChartTableCell loadFirstNib:tableView];
     cell.isBookDetail = _isBookDetail;
     cell.maxPrice = [[self.model.groupArr valueForKeyPath:@"@max.price.floatValue"] floatValue];
     cell.model = self.model.groupArr[indexPath.row];
-//    cell.maxPrice = [[self.model.group valueForKeyPath:@"@max.price.floatValue"] floatValue];
-//    cell.model = self.model.group[indexPath.row];
     return cell;
 }
 
@@ -121,11 +118,11 @@
 
 
 #pragma mark - get
-- (ChartTableHeader *)tHeader {
-    if (!_tHeader) {
-        _tHeader = [ChartTableHeader loadCode:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH / 2)];
+- (ChartTableHeader *)tableHeader {
+    if (!_tableHeader) {
+        _tableHeader = [ChartTableHeader loadCode:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH / 2)];
     }
-    return _tHeader;
+    return _tableHeader;
 }
 
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
