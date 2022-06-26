@@ -167,7 +167,7 @@
 
 #pragma mark - request
 - (void) getYearBookRequest {
-    [self showProgressHUD];
+    [self showProgressHUD:@"获取中..."];
     @weakify(self)
     [AFNManager POST:allBookListRequest params:nil complete:^(APPResult *result) {
         @strongify(self)
@@ -204,6 +204,8 @@
     if (!_cmodel) {
         ChartController *vc = [[ChartController alloc] init];
         vc.cmodel = model;
+        // 将选中的 segment 下标也传递过去
+        vc.segmentIndex = _segmentIndex;
         [self.navigationController pushViewController:vc animated:true];
     } else {
         BookDetailController *vc = [[BookDetailController alloc] init];
@@ -266,6 +268,8 @@
             [self setSegmentIndex:seg.selectedSegmentIndex];
             [self getYearBookRequestWithAsync];
         }];
+        // 设置选中的 segment 下标
+        _segment.seg.selectedSegmentIndex = _segmentIndex;
         [self.view addSubview:_segment];
     }
     return _segment;
