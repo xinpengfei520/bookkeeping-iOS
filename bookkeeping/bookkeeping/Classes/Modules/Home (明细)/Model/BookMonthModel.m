@@ -69,7 +69,7 @@
  */
 + (NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month {
     // 根据时间过滤
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
     NSString *preStr = [NSString stringWithFormat:@"year == %ld AND month == %ld", year, month];
 //    NSPredicate *pre = [NSPredicate predicateWithFormat:preStr];
 //    NSMutableArray<BookDetailModel *> *models = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];

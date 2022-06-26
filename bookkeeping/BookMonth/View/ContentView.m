@@ -46,7 +46,7 @@
     [self.bookBtn.layer setMasksToBounds:true];
     [self.bookBtn setBackgroundColor:kColor_Main_Color];
     [self.bookBtn setBackgroundImage:[UIColor createImageWithColor:kColor_Main_Color] forState:UIControlStateNormal];
-    [self.bookBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+    [self.bookBtn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
     [self.bookBtn setBackgroundImage:[UIColor createImageWithColor:kColor_Main_Dark_Color] forState:UIControlStateHighlighted];
     [self.bookBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     
@@ -71,22 +71,19 @@
     for (BookMonthModel *month in monthModels) {
         [arrm addObjectsFromArray:month.array];
     }
+
     // 支出
-//    NSPredicate *pre = [NSPredicate predicateWithFormat:@"cmodel.is_income == 0"];
-//    NSMutableArray<BookDetailModel *> *pay = [NSMutableArray arrayWithArray:[arrm filteredArrayUsingPredicate:pre]];
-    NSMutableArray<BookDetailModel *> *pay = [NSMutableArray kk_filteredArrayUsingPredicate:@"cmodel.is_income == 0" array:arrm];
-    
+    NSMutableArray<BookDetailModel *> *pay = [NSMutableArray kk_filteredArrayUsingPredicate:@"categoryId <= 32" array:arrm];
     CGFloat payPrice = [[pay valueForKeyPath:@"@sum.price.floatValue"] floatValue];
+
     // 收入
-//    pre = [NSPredicate predicateWithFormat:@"cmodel.is_income == 1"];
-//    NSMutableArray<BookDetailModel *> *income = [NSMutableArray arrayWithArray:[arrm filteredArrayUsingPredicate:pre]];
-    NSMutableArray<BookDetailModel *> *income = [NSMutableArray kk_filteredArrayUsingPredicate:@"cmodel.is_income == 1" array:arrm];
+    NSMutableArray<BookDetailModel *> *income = [NSMutableArray kk_filteredArrayUsingPredicate:@"categoryId >= 33" array:arrm];
     CGFloat incomePrice = [[income valueForKeyPath:@"@sum.price.floatValue"] floatValue];
-    
+    NSLog(@"incomePrice: %.2f,payPrice: %.2f,balance: %.2f",incomePrice,payPrice,(incomePrice - payPrice));
+
     [_valueLab1 setText:[NSString stringWithFormat:@"%.2f", incomePrice]];
     [_valueLab2 setText:[NSString stringWithFormat:@"%.2f", payPrice]];
     [_valueLab3 setText:[NSString stringWithFormat:@"%.2f", incomePrice - payPrice]];
-    
 }
 
 
