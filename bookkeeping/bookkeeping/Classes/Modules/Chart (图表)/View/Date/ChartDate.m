@@ -51,16 +51,17 @@
                 })];
             })];
         }
-        [self.collection reloadData];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collection reloadData];
             [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
         });
     }
+    
     // 只有最大/最小数据
     if (!_minModel || !_maxModel) {
         return;
     }
-    
     
     // 更新控件
     [self.selectIndexs removeAllObjects];
@@ -145,9 +146,8 @@
         submodels;
     })];
     
-    [self.collection reloadData];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collection reloadData];
         [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
     });
 }
@@ -169,8 +169,8 @@
 //    _selectIndex = nil;
 //    [self updateDateRange];
     
-    [self.collection reloadData];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collection reloadData];
         [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
     });
 }
