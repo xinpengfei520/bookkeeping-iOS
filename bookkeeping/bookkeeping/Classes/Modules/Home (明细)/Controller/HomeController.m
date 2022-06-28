@@ -14,6 +14,7 @@
 #import "BookDetailController.h"
 #import "SearchViewController.h"
 #import "MineController.h"
+#import "LoginController.h"
 #import "ChartController.h"
 #import "LOGIN_NOTIFICATION.h"
 #import "ACAListModel.h"
@@ -46,7 +47,9 @@
     [self addButton];
     [self setDate:[NSDate date]];
     [self monitorNotification];
-    [self getMonthBookRequest:_date.year month:_date.month];
+    if ([UserInfo isLogin]) {
+        [self getMonthBookRequest:_date.year month:_date.month];
+    }
 
     // 已经登录
     UserModel *model = [UserInfo loadUserInfo];
@@ -210,6 +213,7 @@
 
 // 点击月份
 - (void)homeMonthClick:(id)data {
+    
     @weakify(self)
     NSDate *date = self.date;
     NSDate *min = [NSDate br_setYear:2000 month:1 day:1];
@@ -335,12 +339,16 @@
 }
 
 - (void)pushToBookController{
-    BKCController *bookController = [[BKCController alloc] init];
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:bookController];
-    // Modal Presentation Styles（弹出风格）
-    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
-    self.navigationController.definesPresentationContext = NO;
-    [self presentViewController:nav animated:YES completion:nil];
+    if ([UserInfo isLogin]) {
+        BKCController *bookController = [[BKCController alloc] init];
+        BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:bookController];
+        // Modal Presentation Styles（弹出风格）
+        nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+        self.navigationController.definesPresentationContext = NO;
+        [self presentViewController:nav animated:YES completion:nil];
+    }else{
+        [self pushToLoginController];
+    }
 }
 
 /**
@@ -348,10 +356,25 @@
  * @param index 导航栏下标：0 支出 1 收入
  */
 - (void)pushToChartController:(NSString*)index {
-    ChartController *vc = [[ChartController alloc] init];
-    vc.navIndex = [index integerValue];
-    vc.isBookDetail = false;
-    [self.navigationController pushViewController:vc animated:YES];
+    if ([UserInfo isLogin]) {
+        ChartController *vc = [[ChartController alloc] init];
+        vc.navIndex = [index integerValue];
+        vc.isBookDetail = false;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        [self pushToLoginController];
+    }
+}
+
+- (void)pushToLoginController {
+    @weakify(self)
+    LoginController *vc = [[LoginController alloc] init];
+    [vc setComplete:^{
+        @strongify(self)
+        [self getMonthBookRequest:self.date.year month:self.date.month];
+    }];
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {

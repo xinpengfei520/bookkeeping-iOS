@@ -50,10 +50,7 @@
     NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData removeObjectForKey:kUser];
     [sharedData removeObjectForKey:AUTHORIZATION_TOKEN];
-//    [[PINCacheManager sharedManager] removeObjectForKey:kUser];
-    
-    [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK];
-    [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
+    [NSUserDefaults setObject:[NSMutableArray array] forKey:All_BOOK_LIST];
 }
 
 
