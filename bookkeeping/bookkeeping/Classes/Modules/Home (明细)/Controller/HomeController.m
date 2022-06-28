@@ -121,6 +121,12 @@
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [self showTextHUD:@"记账成功" delay:1.f];
+            NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:result.data];
+            NSNumber *bookId = [dic objectForKey:@"bookId"];
+            model.bookId = [bookId intValue];
+            // 添加记账
+            [NSUserDefaults insertBookModel:model];
+            
             // 判断添加的记账年月是否是当前页面显示的记账年月
             if (model.year == self.date.year && model.month == self.date.month) {
                 [self getMonthBookRequest:self.date.year month:self.date.month];
@@ -139,6 +145,8 @@
     [AFNManager POST:bookDetailDeleteRequest params:param complete:^(APPResult *result) {
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            // 从本地所有记账中移除
+            [NSUserDefaults removeBookModel:model];
             // 修改本地记账
             [NSUserDefaults updateBookModel:model];
             [self showTextHUD:@"已删除" delay:1.f];
@@ -245,10 +253,6 @@
 
 // 删除Cell
 - (void)homeTableCellRemove:(HomeListSubCell *)cell {
-    // 删除
-    //[NSUserDefaults removeBookModel:cell.model];
-    // 更新
-    //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_DELETE object:nil];
     [self deleteBookRequest:cell.model];
 }
 

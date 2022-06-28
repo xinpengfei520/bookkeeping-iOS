@@ -33,29 +33,22 @@ static NSMutableArray<BKCModel *> *categoryModelList;
 
 // 删除记账
 + (void)removeBookModel:(BookDetailModel *)model {
-    // 删除
-    NSMutableArray<BookDetailModel *> *bookArrm = [NSUserDefaults objectForKey:PIN_BOOK];
-    NSMutableArray<BookDetailModel *> *bookSyncedArrm = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
-    if ([bookSyncedArrm containsObject:model]) {
-        [bookSyncedArrm removeObject:model];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
+    for (int i= 0; i<bookArr.count; i++) {
+        BookDetailModel *subModel = bookArr[i];
+        if (subModel.bookId == model.bookId) {
+            [bookArr removeObjectAtIndex:i];
+            break;
+        }
     }
-    [bookArrm removeObject:model];
-    [NSUserDefaults setObject:bookArrm forKey:PIN_BOOK];
-    [NSUserDefaults setObject:bookArrm forKey:PIN_BOOK_SYNCED];
+    [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
 }
 
 // 添加记账
 + (void)insertBookModel:(BookDetailModel *)model {
-    // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
-    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", model.year, model.month];
-    NSMutableArray *bookArr = [NSUserDefaults objectForKey:key];
-//    NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
-    
+    NSMutableArray *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
     [bookArr addObject:model];
-//    [bookSyncedArr addObject:model];
-    
-    [NSUserDefaults setObject:bookArr forKey:key];
-//    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
+    [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
 }
 
 + (void)saveAllBookList:(NSMutableArray *)array {
@@ -81,18 +74,15 @@ static NSMutableArray<BKCModel *> *categoryModelList;
 
 // 修改记账
 + (void)replaceBookModel:(BookDetailModel *)model {
-    NSMutableArray *bookArr = [NSUserDefaults objectForKey:PIN_BOOK];
-    NSMutableArray *bookSyncedArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
-    
-    NSInteger index = [bookArr indexOfObject:model];
-    [bookArr replaceObjectAtIndex:index withObject:model];
-    
-    if ([bookSyncedArr containsObject:model]) {
-        [bookSyncedArr replaceObjectAtIndex:index withObject:model];
+    NSMutableArray *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
+    for (int i= 0; i<bookArr.count; i++) {
+        BookDetailModel *subModel = bookArr[i];
+        if (subModel.bookId == model.bookId) {
+            [bookArr replaceObjectAtIndex:i withObject:model];
+            break;
+        }
     }
-    
-    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK];
-    [NSUserDefaults setObject:bookArr forKey:PIN_BOOK_SYNCED];
+    [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
 }
 
 // 修改本地记账
