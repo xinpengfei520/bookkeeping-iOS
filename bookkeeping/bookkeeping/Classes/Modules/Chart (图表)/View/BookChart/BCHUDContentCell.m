@@ -25,7 +25,8 @@
     [self.nameLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(8)]];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(8)]];
     [self.priceLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(8)]];
-    [self.detailConstraintL setConstant:countcoordinatesX(30)];
+    // detailLab 距离 _nameLab 的距离
+    [self.detailConstraintL setConstant:countcoordinatesX(16)];
 }
 
 #pragma mark - set
@@ -35,7 +36,7 @@
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     [_nameLab setText:[NSString stringWithFormat:@"%ld/%02ld/%02ld", model.year, model.month, model.day]];
     [_detailLab setText:cmodel.name];
-    [_priceLab setText:[NSString stringWithFormat:@"%0.2f", model.price]];
+    [_priceLab setText:[model getPriceStr]];
 }
 
 @end
