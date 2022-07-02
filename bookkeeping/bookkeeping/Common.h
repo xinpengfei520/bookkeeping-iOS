@@ -95,7 +95,7 @@
 #import "ChartController.h"
 #import "BKCController.h"
 #import "MineController.h"
-
+#import "LoginController.h"
 
 #endif
 

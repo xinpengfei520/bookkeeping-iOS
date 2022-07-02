@@ -61,8 +61,8 @@
 
     // 记一笔
     if ([url.absoluteString isEqualToString:@"kbook://month"]) {
-        BaseTabBarController *tab = (BaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-        BOOL condition1 = [tab isKindOfClass:[BaseTabBarController class]];
+        BaseNavigationController *tab = (BaseNavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        BOOL condition1 = [tab isKindOfClass:[BaseNavigationController class]];
         BOOL condition2 = ![[UIViewController getCurrentVC] isKindOfClass:[BKCController class]];
         if (condition1 && condition2) {
             BKCController *vc = [[BKCController alloc] init];
@@ -70,9 +70,16 @@
             if (current.presentedViewController) {
                 [current.navigationController pushViewController:vc animated:true];
             } else {
-                BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
-                // Modal Presentation Styles（弹出风格）
-                nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+                BaseNavigationController *nav = nil;
+                if ([UserInfo isLogin]) {
+                    nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+                    // Modal Presentation Styles（弹出风格）
+                    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+                }else{
+                    LoginController *loginController = [[LoginController alloc] init];
+                    nav = [[BaseNavigationController alloc] initWithRootViewController:loginController];
+                }
+                
                 [tab presentViewController:nav animated:true completion:^{
                     
                 }];
