@@ -63,6 +63,7 @@
     }
     return _maxLab;
 }
+
 - (UILabel *)avgLab {
     if (!_avgLab) {
         _avgLab = [[UILabel alloc] initWithFrame:CGRectMake(_maxLab.left, _maxLab.bottom + countcoordinatesX(3), SCREEN_WIDTH, countcoordinatesX(20))];
@@ -72,6 +73,7 @@
     }
     return _avgLab;
 }
+
 - (BookChart *)chart {
     if (!_chart) {
         _chart = [BookChart loadCode:({

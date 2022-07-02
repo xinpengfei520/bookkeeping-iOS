@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ChartTableCell : BaseTableCell
 
 @property (nonatomic, assign) CGFloat maxPrice;
+@property (nonatomic, assign) CGFloat sumPrice;
 @property (nonatomic, strong) BookDetailModel *model;
 // 是否是记账详情，如果是记账详情，则显示记账备注，否则显示记账类别名
 @property (nonatomic, assign, readwrite) BOOL isBookDetail;

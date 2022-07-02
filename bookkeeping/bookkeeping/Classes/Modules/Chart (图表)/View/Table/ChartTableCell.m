@@ -50,7 +50,7 @@
     _model = model;
     BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
-    [_nameLab setText:_isBookDetail?model.mark:cmodel.name];
+    [_nameLab setText:[self getDisc:model cmodel:cmodel]];
     [_detailLab setText:[model getPriceStr]];
     
     CGFloat width = SCREEN_WIDTH - OUT_PADDING * 2 - ICON_W - LINE_L;
@@ -58,6 +58,13 @@
     [self.lineConstraintW setConstant:width];
 }
 
+- (NSString *)getDisc:(BookDetailModel *)model cmodel:(BKCModel *)cmodel{
+    NSString *mark = _isBookDetail?model.mark:cmodel.name;
+    mark = [mark stringByAppendingString:@"  "];
+    mark = [mark stringByAppendingString:[NSString stringWithFormat:@"%.1f",model.price*100/_sumPrice]];
+    mark = [mark stringByAppendingString:@"%"];
+    return mark;
+}
 
 
 @end

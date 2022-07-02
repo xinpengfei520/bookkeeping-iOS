@@ -91,6 +91,7 @@
     ChartTableCell *cell = [ChartTableCell loadFirstNib:tableView];
     cell.isBookDetail = _isBookDetail;
     cell.maxPrice = [[self.model.groupArr valueForKeyPath:@"@max.price.floatValue"] floatValue];
+    cell.sumPrice = [[self.model.chartArr valueForKeyPath:@"@sum.price.floatValue"] floatValue];
     cell.model = self.model.groupArr[indexPath.row];
     return cell;
 }
