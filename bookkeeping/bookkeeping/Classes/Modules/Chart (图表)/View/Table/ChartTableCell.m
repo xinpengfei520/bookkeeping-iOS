@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailConstraintR;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconConstraintL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconConstraintW;
+@property (weak, nonatomic) IBOutlet UILabel *percentLab;
 
 @end
 
@@ -31,6 +32,8 @@
 - (void)initUI {
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];
+    [self.percentLab setFont:[UIFont systemFontOfSize:AdjustFont(8) weight:UIFontWeightLight]];
+    [self.percentLab setTextColor:kColor_Text_Black];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(12)]];
     [self.detailLab setTextColor:kColor_Text_Black];
     [self.line setImage:[UIColor createImageWithColor:kColor_Main_Color]];
@@ -50,20 +53,13 @@
     _model = model;
     BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
-    [_nameLab setText:[self getDisc:model cmodel:cmodel]];
+    [_nameLab setText:_isBookDetail?model.mark:cmodel.name];
+    [_percentLab setText:[NSString stringWithFormat:@"%.1f%%",model.price*100/_sumPrice]];
     [_detailLab setText:[model getPriceStr]];
     
     CGFloat width = SCREEN_WIDTH - OUT_PADDING * 2 - ICON_W - LINE_L;
     width = width / _maxPrice * model.price;
     [self.lineConstraintW setConstant:width];
-}
-
-- (NSString *)getDisc:(BookDetailModel *)model cmodel:(BKCModel *)cmodel{
-    NSString *mark = _isBookDetail?model.mark:cmodel.name;
-    mark = [mark stringByAppendingString:@"  "];
-    mark = [mark stringByAppendingString:[NSString stringWithFormat:@"%.1f",model.price*100/_sumPrice]];
-    mark = [mark stringByAppendingString:@"%"];
-    return mark;
 }
 
 
