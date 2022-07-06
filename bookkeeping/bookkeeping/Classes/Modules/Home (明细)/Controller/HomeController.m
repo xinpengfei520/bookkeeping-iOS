@@ -20,6 +20,7 @@
 #import "ACAListModel.h"
 #import "UIViewController+HBD.h"
 #import "UIButton+EnlargeTouchArea.h"
+#import "LAContextManager.h"
 
 #pragma mark - 声明
 @interface HomeController()
@@ -47,6 +48,17 @@
     [self addButton];
     [self setDate:[NSDate date]];
     [self monitorNotification];
+    
+    // 从缓存中取出 PIN_SETTING_FACE_ID 的值，如果没有则默认为 0
+    NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
+    if ([faceId boolValue] == true) {
+        [self verifyFaceID];
+    }else{
+        [self getData];
+    }
+}
+
+- (void)getData{
     if ([UserInfo isLogin]) {
         [self getMonthBookRequest:_date.year month:_date.month];
     }
@@ -56,6 +68,43 @@
     if (model.token && model.token.length != 0) {
         [self.view syncedDataRequest];
     }
+}
+
+- (void)verifyFaceID {
+    @weakify(self)
+    [LAContextManager callLAContextManagerWithController:self success:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self)
+            NSLog(@"FaceID verify success~");
+            [self getData];
+        });
+    } failure:^(NSError *tyError, LAContextErrorType feedType) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // @TODO
+            if (tyError.code == -8) {
+                // 超出TouchID尝试次数或FaceID尝试次数，已被锁
+                NSLog(@"超出TouchID尝试次数或FaceID尝试次数，已被锁========");
+            }
+            else if (tyError.code == -7) {
+                // 未开启TouchID权限(没有可用的指纹)
+                NSLog(@"未开启TouchID权限(没有可用的指纹)========");
+            }
+            else if (tyError.code == -6) {
+                if (IS_IPHONE_X) {
+                    // iPhoneX 设置里面没有开启FaceID权限
+                    NSLog(@"iPhoneX 设置里面没有开启FaceID权限========");
+                }
+                else {
+                    // 非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)
+                    NSLog(@"非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)========");
+                }
+            }
+            else {
+                // 其他error情况 如用户主动取消等
+                NSLog(@"其他error情况 如用户主动取消等========");
+            }
+        });
+    }];
 }
 
 // 监听通知
