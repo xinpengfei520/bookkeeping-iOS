@@ -39,6 +39,8 @@
     // 登录了
     if ([UserInfo isLogin]) {
         [self getUserInfoRequest];
+        // 同步数据
+        //[self.view syncedDataRequest];
     }
     // 未登录
     else {
@@ -90,21 +92,63 @@
             BillController *vc = [[BillController alloc] init];
             [self.navigationController pushViewController:vc animated:true];
         }
+        // 账本管理
+        else if (indexPath.row == 1) {
+            
+        }
+        // 资产管理
+        else if (indexPath.row == 2) {
+            
+        }
+        // 债务管理
+        else if (indexPath.row == 3) {
+            
+        }
+    }
+    else if (indexPath.section == 1) {
         // 类别设置
-        if (indexPath.row == 1) {
+        if (indexPath.row == 0) {
             CAController *vc = [[CAController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
         // 定时提醒
-        else if (indexPath.row == 2) {
+        else if (indexPath.row == 1) {
             TimeRemindController *vc = [[TimeRemindController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
+        // 定时记账
+        else if (indexPath.row == 2) {
+            
+        }
+        // 导出数据
+        else if (indexPath.row == 4) {
+            
+        }
+        // Siri捷径
+        else if (indexPath.row == 5) {
+            
+        }
     }
-    else if (indexPath.section == 1) {
-        // 同步数据
-         if (indexPath.row == 0 && [UserInfo isLogin]) {
-            [self.view syncedDataRequest];
+    else if (indexPath.section == 2) {
+        // 邀请好友
+        if (indexPath.row == 0) {
+            
+        }
+        // 意见反馈
+        else if (indexPath.row == 1) {
+            
+        }
+        // 评分
+        else if (indexPath.row == 2) {
+            
+        }
+        // 帮助
+        else if (indexPath.row == 3) {
+            
+        }
+        // 关于
+        else if (indexPath.row == 4) {
+            
         }
     }
 }
@@ -129,20 +173,14 @@
     }
 }
 
-// 连续打卡
-- (void)headerPunchClick:(id)data {
-    
-}
-
 // 记账总天数
 - (void)headerDayClick:(id)data {
-    InfoController *vc = [[InfoController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self showTextHUD:@"你真棒！" delay:1.5f];
 }
 
 // 记账总笔数
 - (void)headerNumberClick:(id)data {
-    
+    [self showTextHUD:@"继续加油哦！" delay:1.5f];
 }
 
 // FaceID 开关点击事件
@@ -205,7 +243,6 @@
         _eventStrategy = @{
             MINE_CELL_CLICK: [self createInvocationWithSelector:@selector(mineCellClick:)],
             MINE_HEADER_ICON_CLICK: [self createInvocationWithSelector:@selector(headerIconClick:)],
-            MINE_HEADER_PUNCH_CLICK: [self createInvocationWithSelector:@selector(headerPunchClick:)],
             MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerDayClick:)],
             MINE_HEADER_NUMBER_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
             MINE_FACE_ID_CLICK: [self createInvocationWithSelector:@selector(faceIdClick:)]

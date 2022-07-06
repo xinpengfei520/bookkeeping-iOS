@@ -70,8 +70,8 @@
     cell.status = [self.datas[2][indexPath.section][indexPath.row] integerValue];
     cell.detailLab.hidden = indexPath.section != 0;
 
-    // 给区块 0 里面的第 3 下标的 Item 开关赋值
-    if (indexPath.section == 0) {
+    // 给区块 1 里面下标为 3 的 Item 开关赋值
+    if (indexPath.section == 1) {
         if (indexPath.row == 3) {
             NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
             [cell.sw setOn:[faceId boolValue]];
@@ -127,13 +127,19 @@
 - (NSArray<NSArray<NSArray *> *> *)datas {
     _datas = @[
         @[
-            @[@"我的账单",@"类别设置",@"定时提醒",@"面容解锁"],
+            @[@"我的账单",@"账本管理",@"资产管理",@"债务管理"],
+            @[@"类别设置",@"定时提醒",@"定时记账",@"面容解锁",@"导出数据",@"Siri 捷径"],
+            @[@"邀请好友",@"意见反馈",@"评分",@"帮助",@"关于"]
         ],
         @[
-            @[@"mine_bill",@"mine_category",@"mine_remind",@"mine_face_id"],
+            @[@"mine_bill",@"mine_books",@"mine_assets",@"mine_debt"],
+            @[@"mine_category",@"mine_remind",@"mine_recycle",@"mine_face_id",@"mine_export",@"mine_siri"],
+            @[@"mine_invite",@"mine_feedback",@"mine_rating",@"mine_help",@"mine_about"]
         ],
         @[
-            @[@(0),@(0),@(0),@(1)],
+            @[@(0),@(0),@(0),@(0)],
+            @[@(0),@(0),@(0),@(1),@(0),@(0)],
+            @[@(0),@(0),@(0),@(0),@(0)]
         ]
     ];
     
