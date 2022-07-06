@@ -103,9 +103,14 @@
             SEARCH_CELL_REMOVE: [self createInvocationWithSelector:@selector(searchTableCellRemove:)],
             SEARCH_CELL_CLICK: [self createInvocationWithSelector:@selector(searchTableCellClick:)],
             SEARCH_TEXT_INPUT: [self createInvocationWithSelector:@selector(searchWithInputText:)],
+            SEARCH_BACK: [self createInvocationWithSelector:@selector(backAction:)],
         };
     }
     return _eventStrategy;
+}
+
+- (void)backAction:(id)data {
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 - (void)searchTableCellRemove:(SearchListSubCell *)cell {

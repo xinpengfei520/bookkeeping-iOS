@@ -38,6 +38,7 @@
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="backBtn" destination="SlS-nB-NSc" id="jKy-ZQ-UCL"/>
                 <outlet property="searchTextField" destination="HB1-bn-UYm" id="bkx-vl-Bjo"/>
             </connections>
             <point key="canvasLocation" x="-449" y="-167"/>

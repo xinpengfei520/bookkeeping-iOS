@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SearchNavigation : BaseView
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
 
 @end
 

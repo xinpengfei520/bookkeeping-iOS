@@ -27,6 +27,10 @@
 	_searchTextField.returnKeyType = UIReturnKeySearch;
     // 设置代理
     _searchTextField.delegate = self;
+    
+    [self.backBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [self routerEventWithName:SEARCH_BACK data:nil];
+    }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
