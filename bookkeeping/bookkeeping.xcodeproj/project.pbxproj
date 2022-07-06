@@ -275,6 +275,7 @@
 		4BFD381C21E4D84B00BAB0BB /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		AEA489C5440A548BEBD1304B /* libPods-BookMonth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2513416B4CCC355FFD281675 /* libPods-BookMonth.a */; };
 		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
+		F35310882875F8ED00D297A9 /* AssetsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310872875F8ED00D297A9 /* AssetsController.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
 		F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0524E285510E700DB2E99 /* SearchListCell.xib */; };
@@ -751,6 +752,8 @@
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
 		F35310822875EF1F00D297A9 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		F35310832875EF1F00D297A9 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
+		F35310862875F8ED00D297A9 /* AssetsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetsController.h; sourceTree = "<group>"; };
+		F35310872875F8ED00D297A9 /* AssetsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetsController.m; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
 		F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bookkeepingRelease.entitlements; sourceTree = "<group>"; };
@@ -928,6 +931,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F35310852875F86E00D297A9 /* Assets(资产) */,
 				F35310802875EF1F00D297A9 /* About (关于) */,
 				F3AE5FD22847C95900E95086 /* Search (搜索) */,
 				4BE7844A21C678FB00B8EC46 /* Home (明细) */,
@@ -2224,6 +2228,15 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		F35310852875F86E00D297A9 /* Assets(资产) */ = {
+			isa = PBXGroup;
+			children = (
+				F35310862875F8ED00D297A9 /* AssetsController.h */,
+				F35310872875F8ED00D297A9 /* AssetsController.m */,
+			);
+			path = "Assets(资产)";
+			sourceTree = "<group>";
+		};
 		F354830827B90D2200F2D6DE /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2684,6 +2697,7 @@
 				4B35F1BC21CCC694007271BE /* UIView+KKEmpty.m in Sources */,
 				4B229A7121E6228500152030 /* BillTable.m in Sources */,
 				4BE7846C21C679F500B8EC46 /* MineController.m in Sources */,
+				F35310882875F8ED00D297A9 /* AssetsController.m in Sources */,
 				4B229A6E21E6184300152030 /* BillController.m in Sources */,
 				4BE8CC1921C93F21007935E2 /* NSDate+Extension.m in Sources */,
 				4BEB732721CE378700BEF013 /* InfoController.m in Sources */,

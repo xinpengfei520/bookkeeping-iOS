@@ -4,17 +4,10 @@
  */
 
 #import "MineController.h"
-#import "CAController.h"
-#import "TimeRemindController.h"
-#import "InfoController.h"
-#import "LoginController.h"
-#import "BillController.h"
-#import "AboutController.h"
 #import "MINE_EVENT_MANAGER.h"
 #import "LAContextManager.h"
 #import "UIViewController+HBD.h"
 
-#define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #pragma mark - 声明
 @interface MineController()
@@ -99,11 +92,8 @@
         }
         // 资产管理
         else if (indexPath.row == 2) {
-            
-        }
-        // 债务管理
-        else if (indexPath.row == 3) {
-            
+            AssetsController *vc = [[AssetsController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
     else if (indexPath.section == 1) {

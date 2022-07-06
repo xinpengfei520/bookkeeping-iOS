@@ -96,6 +96,12 @@
 #import "BKCController.h"
 #import "MineController.h"
 #import "LoginController.h"
+#import "AssetsController.h"
+#import "AboutController.h"
+#import "CAController.h"
+#import "TimeRemindController.h"
+#import "InfoController.h"
+#import "BillController.h"
 
 #endif
 
