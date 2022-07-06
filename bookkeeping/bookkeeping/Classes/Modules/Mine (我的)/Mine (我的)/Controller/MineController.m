@@ -9,6 +9,7 @@
 #import "InfoController.h"
 #import "LoginController.h"
 #import "BillController.h"
+#import "AboutController.h"
 #import "MINE_EVENT_MANAGER.h"
 #import "LAContextManager.h"
 #import "UIViewController+HBD.h"
@@ -148,7 +149,8 @@
         }
         // 关于
         else if (indexPath.row == 4) {
-            
+            AboutController *vc = [[AboutController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }

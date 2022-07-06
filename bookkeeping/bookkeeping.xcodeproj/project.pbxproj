@@ -274,6 +274,7 @@
 		4BFD381B21E4D7C000BAB0BB /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8CC1621C93F21007935E2 /* NSDate+Extension.m */; };
 		4BFD381C21E4D84B00BAB0BB /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		AEA489C5440A548BEBD1304B /* libPods-BookMonth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2513416B4CCC355FFD281675 /* libPods-BookMonth.a */; };
+		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
 		F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0524E285510E700DB2E99 /* SearchListCell.xib */; };
@@ -748,6 +749,8 @@
 		A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bookkeeping.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
+		F35310822875EF1F00D297A9 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
+		F35310832875EF1F00D297A9 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
 		F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bookkeepingRelease.entitlements; sourceTree = "<group>"; };
@@ -925,6 +928,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F35310802875EF1F00D297A9 /* About (关于) */,
 				F3AE5FD22847C95900E95086 /* Search (搜索) */,
 				4BE7844A21C678FB00B8EC46 /* Home (明细) */,
 				4BE7845621C678FB00B8EC46 /* Book (记账) */,
@@ -2203,6 +2207,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F35310802875EF1F00D297A9 /* About (关于) */ = {
+			isa = PBXGroup;
+			children = (
+				F35310812875EF1F00D297A9 /* Controller */,
+			);
+			path = "About (关于)";
+			sourceTree = "<group>";
+		};
+		F35310812875EF1F00D297A9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F35310822875EF1F00D297A9 /* AboutController.h */,
+				F35310832875EF1F00D297A9 /* AboutController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		F354830827B90D2200F2D6DE /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2688,6 +2709,7 @@
 				4BA68B0A21C7F75B0063A5C2 /* ACAReusableHeader.m in Sources */,
 				3219840621C6460100311885 /* NSAttributedString+Extension.m in Sources */,
 				4BA68AFC21C7F5DB0063A5C2 /* ACATextField.m in Sources */,
+				F35310842875EF1F00D297A9 /* AboutController.m in Sources */,
 				3257AED821C8774400787A34 /* TITableView.m in Sources */,
 				32FA228C21D62ACB0000BC0E /* HomeListEmpty.m in Sources */,
 				4B229A7521E622E900152030 /* BillTableCell.m in Sources */,
