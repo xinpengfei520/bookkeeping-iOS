@@ -229,7 +229,7 @@
 #pragma mark - get
 - (MineView *)mine {
     if (!_mine) {
-        _mine = [MineView loadCode:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TabbarHeight)];
+        _mine = [MineView loadCode:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [self.view addSubview:_mine];
     }
     return _mine;

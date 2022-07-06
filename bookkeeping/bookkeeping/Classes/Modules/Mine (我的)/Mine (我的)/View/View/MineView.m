@@ -64,7 +64,7 @@
 
 - (MineTableView *)table {
     if (!_table) {
-        _table = [MineTableView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TabbarHeight)];
+        _table = [MineTableView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [_table setSeparatorColor:kColor_BG];
         [self addSubview:_table];
     }
@@ -74,8 +74,8 @@
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
-                           MINE_DID_SCROLL: [self createInvocationWithSelector:@selector(mineDidScroll:)],
-                           };
+            MINE_DID_SCROLL: [self createInvocationWithSelector:@selector(mineDidScroll:)],
+        };
     }
     return _eventStrategy;
 }
