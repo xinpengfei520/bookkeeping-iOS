@@ -127,7 +127,8 @@
     else if (indexPath.section == 2) {
         // 邀请好友
         if (indexPath.row == 0) {
-            [self showTextHUD:@"敬请期待" delay:1.5f];
+            ShareController *vc = [[ShareController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         // 意见反馈
         else if (indexPath.row == 1) {

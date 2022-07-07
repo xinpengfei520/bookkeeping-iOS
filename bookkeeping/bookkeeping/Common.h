@@ -108,6 +108,7 @@
 #import "ExportController.h"
 #import "AutoBookController.h"
 #import "BooksController.h"
+#import "ShareController.h"
 
 #endif
 

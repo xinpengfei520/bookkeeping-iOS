@@ -282,6 +282,14 @@
 		F353109B2876C88D00D297A9 /* ExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109A2876C88D00D297A9 /* ExportController.m */; };
 		F353109F2876C8E200D297A9 /* SiriController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109E2876C8E200D297A9 /* SiriController.m */; };
 		F35310A32876C94000D297A9 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310A22876C94000D297A9 /* FeedbackController.m */; };
+		F35310B42876D82400D297A9 /* ShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310A62876D82400D297A9 /* ShareController.m */; };
+		F35310B52876D82400D297A9 /* ShareShot.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35310A92876D82400D297A9 /* ShareShot.xib */; };
+		F35310B62876D82400D297A9 /* ShareBottom.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310AA2876D82400D297A9 /* ShareBottom.m */; };
+		F35310B72876D82400D297A9 /* ShareBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310AC2876D82400D297A9 /* ShareBadge.m */; };
+		F35310B82876D82400D297A9 /* ShareOrder.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35310AD2876D82400D297A9 /* ShareOrder.xib */; };
+		F35310B92876D82400D297A9 /* ShareShot.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310B02876D82400D297A9 /* ShareShot.m */; };
+		F35310BA2876D82400D297A9 /* ShareBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35310B12876D82400D297A9 /* ShareBadge.xib */; };
+		F35310BB2876D82400D297A9 /* ShareOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310B32876D82400D297A9 /* ShareOrder.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
 		F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0524E285510E700DB2E99 /* SearchListCell.xib */; };
@@ -772,6 +780,19 @@
 		F353109E2876C8E200D297A9 /* SiriController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiriController.m; sourceTree = "<group>"; };
 		F35310A12876C94000D297A9 /* FeedbackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackController.h; sourceTree = "<group>"; };
 		F35310A22876C94000D297A9 /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
+		F35310A62876D82400D297A9 /* ShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareController.m; sourceTree = "<group>"; };
+		F35310A72876D82400D297A9 /* ShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareController.h; sourceTree = "<group>"; };
+		F35310A92876D82400D297A9 /* ShareShot.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareShot.xib; sourceTree = "<group>"; };
+		F35310AA2876D82400D297A9 /* ShareBottom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBottom.m; sourceTree = "<group>"; };
+		F35310AB2876D82400D297A9 /* ShareShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareShot.h; sourceTree = "<group>"; };
+		F35310AC2876D82400D297A9 /* ShareBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBadge.m; sourceTree = "<group>"; };
+		F35310AD2876D82400D297A9 /* ShareOrder.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareOrder.xib; sourceTree = "<group>"; };
+		F35310AE2876D82400D297A9 /* ShareOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareOrder.h; sourceTree = "<group>"; };
+		F35310AF2876D82400D297A9 /* ShareBottom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBottom.h; sourceTree = "<group>"; };
+		F35310B02876D82400D297A9 /* ShareShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareShot.m; sourceTree = "<group>"; };
+		F35310B12876D82400D297A9 /* ShareBadge.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareBadge.xib; sourceTree = "<group>"; };
+		F35310B22876D82400D297A9 /* ShareBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBadge.h; sourceTree = "<group>"; };
+		F35310B32876D82400D297A9 /* ShareOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareOrder.m; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
 		F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bookkeepingRelease.entitlements; sourceTree = "<group>"; };
@@ -949,6 +970,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F35310A42876D82400D297A9 /* Share(分享) */,
 				F35310A02876C90400D297A9 /* Feedback(反馈) */,
 				F353109C2876C8A800D297A9 /* Siri(捷径) */,
 				F35310982876C86500D297A9 /* Export(导出) */,
@@ -2315,6 +2337,42 @@
 			path = "Feedback(反馈)";
 			sourceTree = "<group>";
 		};
+		F35310A42876D82400D297A9 /* Share(分享) */ = {
+			isa = PBXGroup;
+			children = (
+				F35310A52876D82400D297A9 /* Controller */,
+				F35310A82876D82400D297A9 /* View */,
+			);
+			path = "Share(分享)";
+			sourceTree = "<group>";
+		};
+		F35310A52876D82400D297A9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F35310A62876D82400D297A9 /* ShareController.m */,
+				F35310A72876D82400D297A9 /* ShareController.h */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F35310A82876D82400D297A9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F35310A92876D82400D297A9 /* ShareShot.xib */,
+				F35310AA2876D82400D297A9 /* ShareBottom.m */,
+				F35310AB2876D82400D297A9 /* ShareShot.h */,
+				F35310AC2876D82400D297A9 /* ShareBadge.m */,
+				F35310AD2876D82400D297A9 /* ShareOrder.xib */,
+				F35310AE2876D82400D297A9 /* ShareOrder.h */,
+				F35310AF2876D82400D297A9 /* ShareBottom.h */,
+				F35310B02876D82400D297A9 /* ShareShot.m */,
+				F35310B12876D82400D297A9 /* ShareBadge.xib */,
+				F35310B22876D82400D297A9 /* ShareBadge.h */,
+				F35310B32876D82400D297A9 /* ShareOrder.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		F354830827B90D2200F2D6DE /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2507,6 +2565,7 @@
 				4BEB72EC21CE033300BEF013 /* dropdown_anim__00047@2x.png in Resources */,
 				4B35F1BE21CCC694007271BE /* KKGoodsEmpty.xib in Resources */,
 				4BEB72FF21CE033300BEF013 /* dropdown_anim__00056@2x.png in Resources */,
+				F35310BA2876D82400D297A9 /* ShareBadge.xib in Resources */,
 				4BEB72F621CE033300BEF013 /* dropdown_anim__00041@2x.png in Resources */,
 				4BF064A021E112C6005F1665 /* BDBottom.xib in Resources */,
 				4BEB731421CE033300BEF013 /* dropdown_anim__00033@2x.png in Resources */,
@@ -2553,6 +2612,7 @@
 				32A5801221DF33C4008993B2 /* ACA.plist in Resources */,
 				4BEB72E921CE033300BEF013 /* dropdown_anim__0007@2x.png in Resources */,
 				327CEC1821C882A6001D0086 /* HomeListSubCell.xib in Resources */,
+				F35310B52876D82400D297A9 /* ShareShot.xib in Resources */,
 				4BEB72FE21CE033300BEF013 /* dropdown_anim__00035@2x.png in Resources */,
 				327CEC1F21C88A10001D0086 /* HomeListHeader.xib in Resources */,
 				4BEB730E21CE033300BEF013 /* dropdown_anim__00037@2x.png in Resources */,
@@ -2581,6 +2641,7 @@
 				4B4852F921C6938D00891096 /* cc_entertainmente_climbing_s@3x.png in Resources */,
 				32751F0B21C8E97300D9F415 /* BKCNavigation.xib in Resources */,
 				4BEB730621CE033300BEF013 /* dropdown_anim__00060@2x.png in Resources */,
+				F35310B82876D82400D297A9 /* ShareOrder.xib in Resources */,
 				4B1E127F21CA8041001F5B36 /* MineTableHeader.xib in Resources */,
 				327CEC2921C88E45001D0086 /* ChartTableCell.xib in Resources */,
 				4BEB72E821CE033300BEF013 /* dropdown_anim__00012@2x.png in Resources */,
@@ -2671,6 +2732,7 @@
 				327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */,
 				F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */,
 				32E2A27921EDBBF0009AD84C /* UIView+SyncedData.m in Sources */,
+				F35310B42876D82400D297A9 /* ShareController.m in Sources */,
 				4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */,
 				4B7560B321D1224A00E63744 /* BaseViewController+Extension.m in Sources */,
 				327CEC1D21C88A04001D0086 /* HomeListHeader.m in Sources */,
@@ -2695,6 +2757,7 @@
 				4B1E128621CA93C1001F5B36 /* CategorySectionHeader.m in Sources */,
 				4B35F1A221CCC641007271BE /* UIView+APPViewRequest.m in Sources */,
 				4BF53223220C82320042CB5A /* ASBaseTableCell.m in Sources */,
+				F35310B72876D82400D297A9 /* ShareBadge.m in Sources */,
 				4B35F1C021CCC694007271BE /* KKEmptyNoNet.m in Sources */,
 				321983C021C6459B00311885 /* BaseCollectionCell.m in Sources */,
 				4B8D636421D8D38C002AEB4A /* BCHUDContent.m in Sources */,
@@ -2760,6 +2823,7 @@
 				4B35F1D521CD0798007271BE /* ACAListModel.m in Sources */,
 				4B35F1A521CCC641007271BE /* APPResult.m in Sources */,
 				F3A052642858FDED00DB2E99 /* AlertViewManager.m in Sources */,
+				F35310BB2876D82400D297A9 /* ShareOrder.m in Sources */,
 				4BEB733221CE3F9C00BEF013 /* InfoFooter.m in Sources */,
 				4BEB731D21CE033300BEF013 /* KKRefreshGifHeader.m in Sources */,
 				4BA68B0521C7F6FB0063A5C2 /* ACACollectionCell.m in Sources */,
@@ -2812,8 +2876,10 @@
 				4B229A7521E622E900152030 /* BillTableCell.m in Sources */,
 				3257AEDC21C877E500787A34 /* TITableCell.m in Sources */,
 				32D0B2CB21C782270030F5B2 /* ChartDateCell.m in Sources */,
+				F35310B92876D82400D297A9 /* ShareShot.m in Sources */,
 				4B9798F821CE69DB0020B207 /* RE2Controller.m in Sources */,
 				4B132AA521C68DE500D5B489 /* BKCCollection.m in Sources */,
+				F35310B62876D82400D297A9 /* ShareBottom.m in Sources */,
 				4B1917D021CD45C900137215 /* NSObject+JGRuntime.m in Sources */,
 				32D0B2BD21C778C20030F5B2 /* ChartNavigation.m in Sources */,
 				4B48530B21C69F2800891096 /* MineHeader.m in Sources */,
