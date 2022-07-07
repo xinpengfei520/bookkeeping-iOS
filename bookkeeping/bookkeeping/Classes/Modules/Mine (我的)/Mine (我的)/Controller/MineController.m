@@ -88,7 +88,8 @@
         }
         // 账本管理
         else if (indexPath.row == 1) {
-            
+            BooksController *vc = [[BooksController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         // 资产管理
         else if (indexPath.row == 2) {
@@ -109,29 +110,33 @@
         }
         // 定时记账
         else if (indexPath.row == 2) {
-            
+            AutoBookController *vc = [[AutoBookController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         // 导出数据
         else if (indexPath.row == 4) {
-            
+            ExportController *vc = [[ExportController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         // Siri捷径
         else if (indexPath.row == 5) {
-            
+            SiriController *vc = [[SiriController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
     else if (indexPath.section == 2) {
         // 邀请好友
         if (indexPath.row == 0) {
-            
+            [self showTextHUD:@"敬请期待" delay:1.5f];
         }
         // 意见反馈
         else if (indexPath.row == 1) {
-            
+            FeedbackController *vc = [[FeedbackController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         // 评分
         else if (indexPath.row == 2) {
-            
+            [self showTextHUD:@"敬请期待" delay:1.5f];
         }
         // 帮助
         else if (indexPath.row == 3) {

@@ -70,7 +70,7 @@
 #import "UIViewController+Extension.h"
 #import "CALayer+Extension.h"
 #import "UIView+SyncedData.h"
-
+#import "UIViewController+HBD.h"
 
 //================================= Util =====================================//
 #import "Single.h"
@@ -103,6 +103,11 @@
 #import "InfoController.h"
 #import "BillController.h"
 #import "WebViewController.h"
+#import "FeedbackController.h"
+#import "SiriController.h"
+#import "ExportController.h"
+#import "AutoBookController.h"
+#import "BooksController.h"
 
 #endif
 

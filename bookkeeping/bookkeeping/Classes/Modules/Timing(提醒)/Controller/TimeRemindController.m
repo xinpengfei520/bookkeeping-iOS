@@ -105,9 +105,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavTitle:@"定时提醒"];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    [self setNavTitle:@"提醒"];
     [self table];
     [self bottom];
     [self.view bringSubviewToFront:self.bottom];

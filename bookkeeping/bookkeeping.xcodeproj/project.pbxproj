@@ -277,6 +277,11 @@
 		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
 		F35310882875F8ED00D297A9 /* AssetsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310872875F8ED00D297A9 /* AssetsController.m */; };
 		F353108C2875FC6D00D297A9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353108B2875FC6D00D297A9 /* WebViewController.m */; };
+		F35310932876C76700D297A9 /* BooksController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310922876C76700D297A9 /* BooksController.m */; };
+		F35310972876C82B00D297A9 /* AutoBookController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310962876C82B00D297A9 /* AutoBookController.m */; };
+		F353109B2876C88D00D297A9 /* ExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109A2876C88D00D297A9 /* ExportController.m */; };
+		F353109F2876C8E200D297A9 /* SiriController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109E2876C8E200D297A9 /* SiriController.m */; };
+		F35310A32876C94000D297A9 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310A22876C94000D297A9 /* FeedbackController.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
 		F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0524E285510E700DB2E99 /* SearchListCell.xib */; };
@@ -757,6 +762,16 @@
 		F35310872875F8ED00D297A9 /* AssetsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetsController.m; sourceTree = "<group>"; };
 		F353108A2875FC6D00D297A9 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F353108B2875FC6D00D297A9 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		F35310912876C76700D297A9 /* BooksController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BooksController.h; sourceTree = "<group>"; };
+		F35310922876C76700D297A9 /* BooksController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BooksController.m; sourceTree = "<group>"; };
+		F35310952876C82B00D297A9 /* AutoBookController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoBookController.h; sourceTree = "<group>"; };
+		F35310962876C82B00D297A9 /* AutoBookController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoBookController.m; sourceTree = "<group>"; };
+		F35310992876C88D00D297A9 /* ExportController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportController.h; sourceTree = "<group>"; };
+		F353109A2876C88D00D297A9 /* ExportController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportController.m; sourceTree = "<group>"; };
+		F353109D2876C8E200D297A9 /* SiriController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiriController.h; sourceTree = "<group>"; };
+		F353109E2876C8E200D297A9 /* SiriController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiriController.m; sourceTree = "<group>"; };
+		F35310A12876C94000D297A9 /* FeedbackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackController.h; sourceTree = "<group>"; };
+		F35310A22876C94000D297A9 /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
 		F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bookkeepingRelease.entitlements; sourceTree = "<group>"; };
@@ -934,6 +949,11 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F35310A02876C90400D297A9 /* Feedback(反馈) */,
+				F353109C2876C8A800D297A9 /* Siri(捷径) */,
+				F35310982876C86500D297A9 /* Export(导出) */,
+				F35310942876C7F000D297A9 /* AutoBook(定时记账) */,
+				F35310902876C72600D297A9 /* Books(账本) */,
 				F35310852875F86E00D297A9 /* Assets(资产) */,
 				F35310802875EF1F00D297A9 /* About (关于) */,
 				F3AE5FD22847C95900E95086 /* Search (搜索) */,
@@ -941,7 +961,7 @@
 				4BE7845621C678FB00B8EC46 /* Book (记账) */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
 				3244849C21C726570051B8B6 /* Mine (我的) */,
-				4BA68ADA21C7EA930063A5C2 /* Timing (定时) */,
+				4BA68ADA21C7EA930063A5C2 /* Timing(提醒) */,
 				4BA68AD221C7EA930063A5C2 /* CA (类别) */,
 				4BEB732121CE375F00BEF013 /* Info (个人信息) */,
 				4B229A6821E6183500152030 /* Bill（账单） */,
@@ -1661,7 +1681,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BA68ADA21C7EA930063A5C2 /* Timing (定时) */ = {
+		4BA68ADA21C7EA930063A5C2 /* Timing(提醒) */ = {
 			isa = PBXGroup;
 			children = (
 				326F8F2521D4CA470030B329 /* TIMING_EVENT.h */,
@@ -1669,7 +1689,7 @@
 				4BA68ADC21C7EA930063A5C2 /* Model */,
 				4BA68ADD21C7EA930063A5C2 /* View */,
 			);
-			path = "Timing (定时)";
+			path = "Timing(提醒)";
 			sourceTree = "<group>";
 		};
 		4BA68ADB21C7EA930063A5C2 /* Controller */ = {
@@ -2250,6 +2270,51 @@
 			path = WebView;
 			sourceTree = "<group>";
 		};
+		F35310902876C72600D297A9 /* Books(账本) */ = {
+			isa = PBXGroup;
+			children = (
+				F35310912876C76700D297A9 /* BooksController.h */,
+				F35310922876C76700D297A9 /* BooksController.m */,
+			);
+			path = "Books(账本)";
+			sourceTree = "<group>";
+		};
+		F35310942876C7F000D297A9 /* AutoBook(定时记账) */ = {
+			isa = PBXGroup;
+			children = (
+				F35310952876C82B00D297A9 /* AutoBookController.h */,
+				F35310962876C82B00D297A9 /* AutoBookController.m */,
+			);
+			path = "AutoBook(定时记账)";
+			sourceTree = "<group>";
+		};
+		F35310982876C86500D297A9 /* Export(导出) */ = {
+			isa = PBXGroup;
+			children = (
+				F35310992876C88D00D297A9 /* ExportController.h */,
+				F353109A2876C88D00D297A9 /* ExportController.m */,
+			);
+			path = "Export(导出)";
+			sourceTree = "<group>";
+		};
+		F353109C2876C8A800D297A9 /* Siri(捷径) */ = {
+			isa = PBXGroup;
+			children = (
+				F353109D2876C8E200D297A9 /* SiriController.h */,
+				F353109E2876C8E200D297A9 /* SiriController.m */,
+			);
+			path = "Siri(捷径)";
+			sourceTree = "<group>";
+		};
+		F35310A02876C90400D297A9 /* Feedback(反馈) */ = {
+			isa = PBXGroup;
+			children = (
+				F35310A12876C94000D297A9 /* FeedbackController.h */,
+				F35310A22876C94000D297A9 /* FeedbackController.m */,
+			);
+			path = "Feedback(反馈)";
+			sourceTree = "<group>";
+		};
 		F354830827B90D2200F2D6DE /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2624,6 +2689,7 @@
 				321983BC21C6459B00311885 /* BaseTableCell.m in Sources */,
 				321983C121C6459B00311885 /* BaseCollectionReusableView.m in Sources */,
 				4B1893C121D66F7E005002E2 /* ChartHUD.m in Sources */,
+				F35310A32876C94000D297A9 /* FeedbackController.m in Sources */,
 				F3AE5FE5284A299F00E95086 /* BookChartModel.m in Sources */,
 				3257AED421C8750800787A34 /* TimeRemindController.m in Sources */,
 				4B1E128621CA93C1001F5B36 /* CategorySectionHeader.m in Sources */,
@@ -2642,6 +2708,7 @@
 				4B1917B321CD391000137215 /* CategoryListModel.m in Sources */,
 				32EAB40B21D0EA820069DF99 /* CPAController.m in Sources */,
 				3219840321C6460100311885 /* UIFont+Extension.m in Sources */,
+				F35310932876C76700D297A9 /* BooksController.m in Sources */,
 				3219840D21C6460100311885 /* CALayer+Extension.m in Sources */,
 				321983BA21C6459B00311885 /* BaseView.m in Sources */,
 				3219840521C6460100311885 /* UICollectionView+Extension.m in Sources */,
@@ -2684,6 +2751,7 @@
 				32D0B2B821C76D0B0030F5B2 /* KKRefreshNormalHeader.m in Sources */,
 				4B2214FE21E9E4A8000F619F /* ScreenBlurry.m in Sources */,
 				4B1E128321CA8BD3001F5B36 /* UIScrollView+Extension.m in Sources */,
+				F353109B2876C88D00D297A9 /* ExportController.m in Sources */,
 				4B1917B021CD333000137215 /* BKCIncomeModel.m in Sources */,
 				4B48530821C69A2E00891096 /* MineTableHeader.m in Sources */,
 				4B1893C521D67081005002E2 /* ChartHUDCell.m in Sources */,
@@ -2710,6 +2778,7 @@
 				32A4C22321CB15B100DF4327 /* JHCollectionViewLayoutAttributes.m in Sources */,
 				4B35F1BC21CCC694007271BE /* UIView+KKEmpty.m in Sources */,
 				4B229A7121E6228500152030 /* BillTable.m in Sources */,
+				F35310972876C82B00D297A9 /* AutoBookController.m in Sources */,
 				4BE7846C21C679F500B8EC46 /* MineController.m in Sources */,
 				F35310882875F8ED00D297A9 /* AssetsController.m in Sources */,
 				4B229A6E21E6184300152030 /* BillController.m in Sources */,
@@ -2758,6 +2827,7 @@
 				4B4852FD21C6974800891096 /* MineTableView.m in Sources */,
 				4B9798FD21CE744A0020B207 /* CountDown.m in Sources */,
 				321983FC21C6460100311885 /* UIButton+BarButtonItem.m in Sources */,
+				F353109F2876C8E200D297A9 /* SiriController.m in Sources */,
 				4BA68AEF21C7EEAA0063A5C2 /* CategoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

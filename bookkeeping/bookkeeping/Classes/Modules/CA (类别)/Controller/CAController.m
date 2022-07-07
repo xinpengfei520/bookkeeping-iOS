@@ -32,9 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavTitle:@"类别设置"];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    [self setNavTitle:@"类别设置"];
     [self header];
     [self table];
     [self bootom];

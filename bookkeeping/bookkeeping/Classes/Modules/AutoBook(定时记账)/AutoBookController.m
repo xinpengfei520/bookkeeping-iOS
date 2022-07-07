@@ -1,26 +1,26 @@
 //
-//  AssetsController.m
+//  AutoBookController.m
 //  bookkeeping
 //
 //  Created by PengfeiXin on 2022/7/7.
 //  Copyright © 2022 kk. All rights reserved.
 //
 
-#import "AssetsController.h"
+#import "AutoBookController.h"
 
-
-@interface AssetsController ()
+@interface AutoBookController ()
 
 @end
 
-@implementation AssetsController
+@implementation AutoBookController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
-    [self setNavTitle:@"资产"];
+    [self setNavTitle:@"定时记账"];
 }
+
 
 
 @end
