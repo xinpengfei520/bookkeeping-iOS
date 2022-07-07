@@ -137,7 +137,7 @@
         else if (indexPath.row == 3) {
             WebViewController *vc = [[WebViewController alloc] init];
             [vc setNavTitle:@"帮助"];
-            [vc setUrl:@"https://book.vance.xin/"];
+            [vc setUrl:@"https://book.vance.xin/help_ios.html"];
             [self.navigationController pushViewController:vc animated:YES];
         }
         // 关于

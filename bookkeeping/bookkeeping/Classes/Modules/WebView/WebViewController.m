@@ -33,6 +33,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    [self setNavTitle:@"帮助"];
     [self web];
     [self myProgressView];
     if (_url) {
@@ -77,7 +78,8 @@
             [config setPreferences:({
                 WKPreferences *preferences = [WKPreferences new];
                 preferences.javaScriptCanOpenWindowsAutomatically = YES;
-                preferences.minimumFontSize = 40.0;
+                // html 页面中文字的最小字体大小
+                preferences.minimumFontSize = 16.0;
                 preferences;
             })];
             config;
