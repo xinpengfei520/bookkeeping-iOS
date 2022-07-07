@@ -191,13 +191,39 @@
 // 拍照
 - (void)takePhoto {
     [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
+        
+        [ZLPhotoConfiguration default].allowSelectVideo = NO;
+        [ZLPhotoConfiguration default].allowRecordVideo = NO;
+        [ZLPhotoConfiguration default].allowSelectGif = NO;
+        [ZLPhotoConfiguration default].maxSelectCount = 1;
+        
         // 拍照
         if (buttonTag == 0) {
-            
+            @weakify(self)
+            ZLCameraConfiguration *cameraConfig = [ZLPhotoConfiguration default].cameraConfiguration;
+            // All properties of the camera configuration have default value
+            cameraConfig.sessionPreset = CaptureSessionPresetVga640x480;
+            cameraConfig.focusMode = FocusModeContinuousAutoFocus;
+            cameraConfig.exposureMode = ExposureModeContinuousAutoExposure;
+            cameraConfig.flashMode = FlashModeOff;
+            cameraConfig.videoExportType = VideoExportTypeMov;
+
+            ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
+            camera.takeDoneBlock = ^(UIImage * _Nullable image, NSURL * _Nullable videoUrl) {
+                @strongify(self)
+                [self changeIconRequest:image];
+            };
+            [self showDetailViewController:camera sender:nil];
         }
         // 从相册选择
         else if (buttonTag == 1) {
-            
+            @weakify(self)
+            ZLPhotoPreviewSheet *ps = [[ZLPhotoPreviewSheet alloc] initWithSelectedAssets:@[]];
+            ps.selectImageBlock = ^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
+                @strongify(self)
+                [self changeIconRequest:images[0]];
+            };
+            [ps showPhotoLibraryWithSender:self];
         }
     } buttonTitles:@"拍照", @"从相册选择", nil];
 }

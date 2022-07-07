@@ -273,7 +273,8 @@
 		4BFD381721E4D3CB00BAB0BB /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD381521E4D3CB00BAB0BB /* UIViewController+Extension.m */; };
 		4BFD381B21E4D7C000BAB0BB /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8CC1621C93F21007935E2 /* NSDate+Extension.m */; };
 		4BFD381C21E4D84B00BAB0BB /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
-		AEA489C5440A548BEBD1304B /* libPods-BookMonth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2513416B4CCC355FFD281675 /* libPods-BookMonth.a */; };
+		AA5BEE312D81D8AC6B19AA6D /* Pods_BookMonth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */; };
+		AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */; };
 		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
 		F35310882875F8ED00D297A9 /* AssetsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310872875F8ED00D297A9 /* AssetsController.m */; };
 		F353108C2875FC6D00D297A9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353108B2875FC6D00D297A9 /* WebViewController.m */; };
@@ -308,7 +309,6 @@
 		F3AE5FE8284A2ADB00E95086 /* BookDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE7284A2ADB00E95086 /* BookDetailModel.m */; };
 		F3AE5FE9284A424200E95086 /* BookDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE7284A2ADB00E95086 /* BookDetailModel.m */; };
 		F3AE5FEA284A42CF00E95086 /* BookMonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE1284A28C700E95086 /* BookMonthModel.m */; };
-		F5982707CC838EDD0692E0E0 /* libPods-bookkeeping.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -337,7 +337,6 @@
 
 /* Begin PBXFileReference section */
 		1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.debug.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.debug.xcconfig"; sourceTree = "<group>"; };
-		2513416B4CCC355FFD281675 /* libPods-BookMonth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookMonth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -761,8 +760,9 @@
 		4BFD381521E4D3CB00BAB0BB /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		4BFD381621E4D3CB00BAB0BB /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
 		4BFD382121E4D98300BAB0BB /* BookMonth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonth.entitlements; sourceTree = "<group>"; };
-		A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bookkeeping.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookkeeping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
+		C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookMonth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
 		F35310822875EF1F00D297A9 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		F35310832875EF1F00D297A9 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
@@ -831,7 +831,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5982707CC838EDD0692E0E0 /* libPods-bookkeeping.a in Frameworks */,
+				AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,7 +840,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32BFA7E821E483F300B926F3 /* NotificationCenter.framework in Frameworks */,
-				AEA489C5440A548BEBD1304B /* libPods-BookMonth.a in Frameworks */,
+				AA5BEE312D81D8AC6B19AA6D /* Pods_BookMonth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2239,9 +2239,9 @@
 		5BA81AE5E9A23B63357F8783 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A0876EDE7488D8385656CB1E /* libPods-bookkeeping.a */,
 				32BFA7E721E483F300B926F3 /* NotificationCenter.framework */,
-				2513416B4CCC355FFD281675 /* libPods-BookMonth.a */,
+				C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */,
+				734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2450,8 +2450,8 @@
 				3219836D21C642BB00311885 /* Sources */,
 				3219836E21C642BB00311885 /* Frameworks */,
 				3219836F21C642BB00311885 /* Resources */,
-				72C9B65804051A60D201F0C8 /* [CP] Copy Pods Resources */,
 				32BFA7F721E483F400B926F3 /* Embed App Extensions */,
+				FFCF24632B541AFC963CC696 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2682,23 +2682,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		72C9B65804051A60D201F0C8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7F286FD2C65DAA4732C74105 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2719,6 +2702,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFCF24632B541AFC963CC696 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

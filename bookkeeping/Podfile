@@ -1,4 +1,5 @@
-platform :ios, '12.0'
+platform :ios, '10.0'
+use_frameworks!
 inhibit_all_warnings!
 
 target 'bookkeeping' do
@@ -19,6 +20,7 @@ target 'bookkeeping' do
     pod 'KMNavigationBarTransition', '1.1.5'
     pod 'Bugly'
     pod 'HBDNavigationBar', '~> 1.9.5'
+    pod 'ZLPhotoBrowser'
 end
 
 target 'BookMonth' do
