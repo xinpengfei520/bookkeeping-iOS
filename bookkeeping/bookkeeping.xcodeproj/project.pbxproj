@@ -985,13 +985,13 @@
 				3244849C21C726570051B8B6 /* Mine (我的) */,
 				4BA68ADA21C7EA930063A5C2 /* Timing(提醒) */,
 				4BA68AD221C7EA930063A5C2 /* CA (类别) */,
-				4BEB732121CE375F00BEF013 /* Info (个人信息) */,
-				4B229A6821E6183500152030 /* Bill（账单） */,
-				4BE7845A21C678FB00B8EC46 /* Chart (图表) */,
-				32EAB40121D0E99D0069DF99 /* CP (修改密码) */,
-				4BF0648721E10A50005F1665 /* Detail (详情) */,
+				4BEB732121CE375F00BEF013 /* Info(个人信息) */,
+				4B229A6821E6183500152030 /* Bill(账单) */,
+				4BE7845A21C678FB00B8EC46 /* Chart(图表) */,
+				32EAB40121D0E99D0069DF99 /* CP(修改密码) */,
+				4BF0648721E10A50005F1665 /* Detail(详情) */,
 				F35310892875FC6D00D297A9 /* WebView */,
-				324484A421C727810051B8B6 /* Login (登录) */,
+				324484A421C727810051B8B6 /* Login(登录) */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1220,14 +1220,14 @@
 			path = "Mine (我的)/Mine (我的)";
 			sourceTree = "<group>";
 		};
-		324484A421C727810051B8B6 /* Login (登录) */ = {
+		324484A421C727810051B8B6 /* Login(登录) */ = {
 			isa = PBXGroup;
 			children = (
 				4B7560B421D1225500E63744 /* Tool */,
 				4BC41CF721CF92F800B397BD /* Login */,
 				4BAF976721CE6182006EEF93 /* Register */,
 			);
-			path = "Login (登录)";
+			path = "Login(登录)";
 			sourceTree = "<group>";
 		};
 		3257AED521C8761200787A34 /* BottomButton */ = {
@@ -1433,14 +1433,14 @@
 			path = HUD;
 			sourceTree = "<group>";
 		};
-		32EAB40121D0E99D0069DF99 /* CP (修改密码) */ = {
+		32EAB40121D0E99D0069DF99 /* CP(修改密码) */ = {
 			isa = PBXGroup;
 			children = (
 				32EAB40221D0E99D0069DF99 /* Controller */,
 				32EAB40321D0E99D0069DF99 /* Model */,
 				32EAB40421D0E99D0069DF99 /* View */,
 			);
-			path = "CP (修改密码)";
+			path = "CP(修改密码)";
 			sourceTree = "<group>";
 		};
 		32EAB40221D0E99D0069DF99 /* Controller */ = {
@@ -1502,14 +1502,14 @@
 			path = ScreenBlurry;
 			sourceTree = "<group>";
 		};
-		4B229A6821E6183500152030 /* Bill（账单） */ = {
+		4B229A6821E6183500152030 /* Bill(账单) */ = {
 			isa = PBXGroup;
 			children = (
 				4B229A6921E6183500152030 /* Controller */,
 				4B229A6A21E6183500152030 /* Model */,
 				4B229A6B21E6183500152030 /* View */,
 			);
-			path = "Bill（账单）";
+			path = "Bill(账单)";
 			sourceTree = "<group>";
 		};
 		4B229A6921E6183500152030 /* Controller */ = {
@@ -1978,7 +1978,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BE7845A21C678FB00B8EC46 /* Chart (图表) */ = {
+		4BE7845A21C678FB00B8EC46 /* Chart(图表) */ = {
 			isa = PBXGroup;
 			children = (
 				4B8D635C21D8CF03002AEB4A /* CHART_EVENT.h */,
@@ -1986,7 +1986,7 @@
 				4BE7845C21C678FB00B8EC46 /* Model */,
 				4BE7845D21C678FB00B8EC46 /* View */,
 			);
-			path = "Chart (图表)";
+			path = "Chart(图表)";
 			sourceTree = "<group>";
 		};
 		4BE7845B21C678FB00B8EC46 /* Controller */ = {
@@ -2111,7 +2111,7 @@
 			path = img;
 			sourceTree = "<group>";
 		};
-		4BEB732121CE375F00BEF013 /* Info (个人信息) */ = {
+		4BEB732121CE375F00BEF013 /* Info(个人信息) */ = {
 			isa = PBXGroup;
 			children = (
 				4BEB733521CE428F00BEF013 /* INFO_EVENT_MANAGER.h */,
@@ -2119,7 +2119,7 @@
 				4BEB732221CE377800BEF013 /* Model */,
 				4BEB732421CE377800BEF013 /* View */,
 			);
-			path = "Info (个人信息)";
+			path = "Info(个人信息)";
 			sourceTree = "<group>";
 		};
 		4BEB732221CE377800BEF013 /* Model */ = {
@@ -2153,7 +2153,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BF0648721E10A50005F1665 /* Detail (详情) */ = {
+		4BF0648721E10A50005F1665 /* Detail(详情) */ = {
 			isa = PBXGroup;
 			children = (
 				4B68DC3F21E1C90100CBF20C /* BD_EVENT.h */,
@@ -2161,7 +2161,7 @@
 				4BF0648921E10A50005F1665 /* Model */,
 				4BF0648A21E10A50005F1665 /* View */,
 			);
-			path = "Detail (详情)";
+			path = "Detail(详情)";
 			sourceTree = "<group>";
 		};
 		4BF0648821E10A50005F1665 /* Controller */ = {
