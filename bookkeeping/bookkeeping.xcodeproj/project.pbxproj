@@ -983,7 +983,7 @@
 				4BE7845621C678FB00B8EC46 /* Book (记账) */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
 				3244849C21C726570051B8B6 /* Mine (我的) */,
-				4BA68ADA21C7EA930063A5C2 /* Timing(提醒) */,
+				4BA68ADA21C7EA930063A5C2 /* Timing(定时提醒) */,
 				4BA68AD221C7EA930063A5C2 /* CA (类别) */,
 				4BEB732121CE375F00BEF013 /* Info(个人信息) */,
 				4B229A6821E6183500152030 /* Bill(账单) */,
@@ -1703,7 +1703,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BA68ADA21C7EA930063A5C2 /* Timing(提醒) */ = {
+		4BA68ADA21C7EA930063A5C2 /* Timing(定时提醒) */ = {
 			isa = PBXGroup;
 			children = (
 				326F8F2521D4CA470030B329 /* TIMING_EVENT.h */,
@@ -1711,7 +1711,7 @@
 				4BA68ADC21C7EA930063A5C2 /* Model */,
 				4BA68ADD21C7EA930063A5C2 /* View */,
 			);
-			path = "Timing(提醒)";
+			path = "Timing(定时提醒)";
 			sourceTree = "<group>";
 		};
 		4BA68ADB21C7EA930063A5C2 /* Controller */ = {
