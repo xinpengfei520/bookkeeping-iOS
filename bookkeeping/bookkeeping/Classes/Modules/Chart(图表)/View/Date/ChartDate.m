@@ -31,40 +31,31 @@
 #pragma mark - 操作
 // 更新子控件
 - (void)updateDateRange {
-    // 没数据
-    if (!_minModel && !_maxModel) {
-        [self.selectIndexs removeAllObjects];
-        for (NSInteger i=0; i<3; i++) {
-            [self.selectIndexs addObject:[NSIndexPath indexPathForRow:0 inSection:0]];
-            [self.sModels replaceObjectAtIndex:i withObject:({
-                [NSMutableArray arrayWithObject:({
-                    NSDate *date = [NSDate date];
-                    date = [date offsetDays:-[date weekday]+1];
-//                    NSDate *date = [NSDate createZeroDate:[NSDate date]];
-                    ChartSubModel *model = [[ChartSubModel alloc] init];
-                    model.year = date.year;
-                    model.month = date.month;
-                    model.day = date.day;
-                    model.week = [date weekOfYear];
-                    model.selectIndex = i;
-                    model;
-                })];
-            })];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collection reloadData];
-            [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
-        });
-    }
-    
-    // 只有最大/最小数据
     if (!_minModel || !_maxModel) {
         return;
     }
-    
-    // 更新控件
+
     [self.selectIndexs removeAllObjects];
+    
+    for (NSInteger i=0; i<3; i++) {
+        [self.selectIndexs addObject:[NSIndexPath indexPathForRow:0 inSection:0]];
+        [self.sModels replaceObjectAtIndex:i withObject:({
+            [NSMutableArray arrayWithObject:({
+                NSDate *date = [NSDate date];
+                date = [date offsetDays:-[date weekday]+1];
+                ChartSubModel *model = [[ChartSubModel alloc] init];
+                model.year = date.year;
+                model.month = date.month;
+                model.day = date.day;
+                model.week = [date weekOfYear];
+                model.selectIndex = i;
+                model;
+            })];
+        })];
+    }
+    
+    [self.selectIndexs removeAllObjects];
+    
     // 周
     [self.sModels replaceObjectAtIndex:0 withObject:({
         NSDate *minDate = _minModel.date;
@@ -146,10 +137,7 @@
         submodels;
     })];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.collection reloadData];
-        [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
-    });
+    [self reloadDataOnMainThread];
 }
 
 
@@ -166,12 +154,17 @@
 
 - (void)setSegmentIndex:(NSInteger)segmentIndex {
     _segmentIndex = segmentIndex;
-//    _selectIndex = nil;
-//    [self updateDateRange];
-    
+    [self reloadDataOnMainThread];
+}
+
+- (void)reloadDataOnMainThread{
+    @weakify(self)
     dispatch_async(dispatch_get_main_queue(), ^{
+        @strongify(self)
         [self.collection reloadData];
-        [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
+        if (self.segmentIndex < self.selectIndexs.count) {
+            [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
+        }
     });
 }
 
@@ -188,8 +181,11 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ChartDateCell *cell = [ChartDateCell loadItem:collectionView index:indexPath];
-//    cell.choose = [_selectIndex isEqual:indexPath];
-    cell.choose = [self.selectIndexs[self.segmentIndex] isEqual:indexPath];
+    if (self.segmentIndex < self.selectIndexs.count) {
+        cell.choose = [self.selectIndexs[self.segmentIndex] isEqual:indexPath];
+    }else{
+        cell.choose = NO;
+    }
     cell.model = self.sModels[self.segmentIndex][indexPath.row];
     return cell;
 }
