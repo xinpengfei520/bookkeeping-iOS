@@ -92,6 +92,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = barBtn;
     self.leftButton = btn;
+    self.navigationItem.backButtonTitle = @"返回";
 
     // 主页、记账页面隐藏左边返回按钮
     if ([self isKindOfClass:[HomeController class]] || [self isKindOfClass:[BKCController class]]) {
