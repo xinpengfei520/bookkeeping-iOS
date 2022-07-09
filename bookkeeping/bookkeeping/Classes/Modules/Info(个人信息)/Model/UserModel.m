@@ -24,16 +24,12 @@
 }
 
 + (void)load {
-    [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-        return @{
-                 @"Id": @"id"
-                 };
-    }];
+    // 后台返回的 json 里面含有 id、等 OC 关键字的时候，需要进行 model 属性的 key 的替换
+//    [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+//        return @{
+//            @"Id": @"id"
+//        };
+//    }];
 }
-
-- (NSString *)punchCount {
-    return @"0";
-}
-
 
 @end

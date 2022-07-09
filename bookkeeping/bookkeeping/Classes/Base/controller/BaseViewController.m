@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
 
 - (void)setNavTitle:(NSString *)navTitle {
     _navTitle = navTitle;
-    UIFont *font = [UIFont systemFontOfSize:AdjustFont(15)];
+    UIFont *font = [UIFont systemFontOfSize:AdjustFont(14)];
     CGSize maxSize = [navTitle sizeWithMaxSize:CGSizeMake(MAXFLOAT, 0) font:font];
     
     UIButton *btn = ({

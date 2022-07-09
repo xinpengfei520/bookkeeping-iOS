@@ -1207,8 +1207,6 @@
 			children = (
 				3219841221C6474500311885 /* UserInfo.h */,
 				3219841021C6474500311885 /* UserInfo.m */,
-				3219841321C6474500311885 /* UserModel.h */,
-				3219841121C6474500311885 /* UserModel.m */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -2130,6 +2128,8 @@
 		4BEB732221CE377800BEF013 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3219841321C6474500311885 /* UserModel.h */,
+				3219841121C6474500311885 /* UserModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
