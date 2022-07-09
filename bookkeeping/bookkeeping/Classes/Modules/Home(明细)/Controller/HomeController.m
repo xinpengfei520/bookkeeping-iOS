@@ -202,8 +202,6 @@
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             // 从本地所有记账中移除
             [NSUserDefaults removeBookModel:model];
-            // 修改本地记账
-            [NSUserDefaults updateBookModel:model];
             [self showTextHUD:@"已删除" delay:1.f];
             [self getMonthBookRequest:self.date.year month:self.date.month];
         } else {

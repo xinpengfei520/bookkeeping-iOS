@@ -149,8 +149,6 @@
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             // 修改本地所有记账
             [NSUserDefaults replaceBookModel:model];
-            // 修改本地按月记账
-            [NSUserDefaults updateBookModel:model];
             [self showTextHUD:@"修改成功" delay:1.f];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE_HOME object:model];
         } else {

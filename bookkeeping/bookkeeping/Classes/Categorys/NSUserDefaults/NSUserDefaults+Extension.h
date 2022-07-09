@@ -18,18 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)objectForKey:(NSString *)key;
 // 存值
 + (void)setObject:(id)obj forKey:(NSString *)key;
-
-
 // 删除记账
 + (void)removeBookModel:(BookDetailModel *)model;
 // 添加记账
 + (void)insertBookModel:(BookDetailModel *)model;
 // 修改记账
 + (void)replaceBookModel:(BookDetailModel *)model;
-// 修改本地记账
-+ (void)updateBookModel:(BookDetailModel *)model;
-// 删除本地记账
-+ (void)deleteBookModel:(BookDetailModel *)model;
 // 添加分类
 + (void)insertCategoryModel:(BKCModel *)model is_income:(BOOL)is_income;
 // 删除分类
