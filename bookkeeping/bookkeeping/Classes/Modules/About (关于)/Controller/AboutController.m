@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
     [self setNavTitle:@"关于"];
@@ -52,7 +53,7 @@
         _nameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, _image.bottom, SCREEN_WIDTH, countcoordinatesX(20))];
         _nameLab.text = @"财务自由从「记呀」开始";
         _nameLab.textAlignment = NSTextAlignmentCenter;
-        _nameLab.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
+        _nameLab.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
         [self.view addSubview:_nameLab];
     }
     return _nameLab;

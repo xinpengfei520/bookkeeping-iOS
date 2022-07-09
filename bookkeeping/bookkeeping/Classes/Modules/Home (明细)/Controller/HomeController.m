@@ -172,7 +172,6 @@
     [AFNManager POST:bookDetailSaveRequest params:param complete:^(APPResult *result) {
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [self showTextHUD:@"记账成功" delay:1.f];
             NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:result.data];
             NSNumber *bookId = [dic objectForKey:@"bookId"];
             model.bookId = [bookId intValue];
@@ -262,7 +261,6 @@
 
 // 点击月份
 - (void)homeMonthClick:(id)data {
-    
     @weakify(self)
     NSDate *date = self.date;
     NSDate *min = [NSDate br_setYear:2000 month:1 day:1];
@@ -292,16 +290,24 @@
 
 // 下拉
 - (void)homeTablePull:(id)data {
-    [self setDate:[self.date offsetMonths:1]];
-    //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
-    [self getMonthBookRequest:_date.year month:_date.month];
+    if ([UserInfo isLogin]) {
+        [self setDate:[self.date offsetMonths:1]];
+        //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+        [self getMonthBookRequest:_date.year month:_date.month];
+    }else{
+        [self pushToLoginController];
+    }
 }
 
 // 上拉
 - (void)homeTableUp:(id)data {
-    [self setDate:[self.date offsetMonths:-1]];
-    //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
-    [self getMonthBookRequest:_date.year month:_date.month];
+    if ([UserInfo isLogin]) {
+        [self setDate:[self.date offsetMonths:-1]];
+        //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+        [self getMonthBookRequest:_date.year month:_date.month];
+    }else{
+        [self pushToLoginController];
+    }
 }
 
 // 删除Cell
