@@ -309,6 +309,8 @@
 		F3AE5FE8284A2ADB00E95086 /* BookDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE7284A2ADB00E95086 /* BookDetailModel.m */; };
 		F3AE5FE9284A424200E95086 /* BookDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE7284A2ADB00E95086 /* BookDetailModel.m */; };
 		F3AE5FEA284A42CF00E95086 /* BookMonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE1284A28C700E95086 /* BookMonthModel.m */; };
+		F3B1E00128783F4900B13A90 /* AssetsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B1E00028783F4900B13A90 /* AssetsHeader.xib */; };
+		F3B1E004287849A500B13A90 /* AssetsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B1E003287849A500B13A90 /* AssetsHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -824,6 +826,9 @@
 		F3AE5FE4284A299F00E95086 /* BookChartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookChartModel.m; sourceTree = "<group>"; };
 		F3AE5FE6284A2ADB00E95086 /* BookDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailModel.h; sourceTree = "<group>"; };
 		F3AE5FE7284A2ADB00E95086 /* BookDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookDetailModel.m; sourceTree = "<group>"; };
+		F3B1E00028783F4900B13A90 /* AssetsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetsHeader.xib; sourceTree = "<group>"; };
+		F3B1E002287849A500B13A90 /* AssetsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetsHeader.h; sourceTree = "<group>"; };
+		F3B1E003287849A500B13A90 /* AssetsHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetsHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2277,8 +2282,9 @@
 		F35310852875F86E00D297A9 /* Assets(资产) */ = {
 			isa = PBXGroup;
 			children = (
-				F35310862875F8ED00D297A9 /* AssetsController.h */,
-				F35310872875F8ED00D297A9 /* AssetsController.m */,
+				F3B1DFFF28783ED500B13A90 /* View */,
+				F3B1DFFE28783ECC00B13A90 /* Model */,
+				F3B1DFFD28783EC500B13A90 /* Controller */,
 			);
 			path = "Assets(资产)";
 			sourceTree = "<group>";
@@ -2439,6 +2445,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F3B1DFFD28783EC500B13A90 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F35310862875F8ED00D297A9 /* AssetsController.h */,
+				F35310872875F8ED00D297A9 /* AssetsController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F3B1DFFE28783ECC00B13A90 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3B1DFFF28783ED500B13A90 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F3B1E00028783F4900B13A90 /* AssetsHeader.xib */,
+				F3B1E002287849A500B13A90 /* AssetsHeader.h */,
+				F3B1E003287849A500B13A90 /* AssetsHeader.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2585,6 +2617,7 @@
 				4B132AAA21C68F4300D5B489 /* BKCCollectionCell.xib in Resources */,
 				4BEB72E721CE033300BEF013 /* dropdown_anim__00026@2x.png in Resources */,
 				4BEB731621CE033300BEF013 /* dropdown_anim__00021@2x.png in Resources */,
+				F3B1E00128783F4900B13A90 /* AssetsHeader.xib in Resources */,
 				4BEB731921CE033300BEF013 /* dropdown_anim__00023@2x.png in Resources */,
 				4BEB730D21CE033300BEF013 /* dropdown_anim__00029@2x.png in Resources */,
 				4BEB730121CE033300BEF013 /* dropdown_anim__00044@2x.png in Resources */,
@@ -2845,6 +2878,7 @@
 				F35310972876C82B00D297A9 /* AutoBookController.m in Sources */,
 				4BE7846C21C679F500B8EC46 /* MineController.m in Sources */,
 				F35310882875F8ED00D297A9 /* AssetsController.m in Sources */,
+				F3B1E004287849A500B13A90 /* AssetsHeader.m in Sources */,
 				4B229A6E21E6184300152030 /* BillController.m in Sources */,
 				4BE8CC1921C93F21007935E2 /* NSDate+Extension.m in Sources */,
 				4BEB732721CE378700BEF013 /* InfoController.m in Sources */,

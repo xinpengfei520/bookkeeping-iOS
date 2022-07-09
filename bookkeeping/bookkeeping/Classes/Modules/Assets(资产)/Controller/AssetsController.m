@@ -8,10 +8,12 @@
 
 #import "AssetsController.h"
 #import "BottomButton.h"
+#import "AssetsHeader.h"
 #import "CA_EVENT.h"
 
 @interface AssetsController ()
 
+@property (nonatomic, strong) AssetsHeader *header;
 @property (nonatomic, strong) BottomButton *bottom;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
 
@@ -24,7 +26,17 @@
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
     [self setNavTitle:@"资产"];
+    [self header];
     [self bottom];
+}
+
+
+- (AssetsHeader *)header {
+    if (!_header) {
+        _header = [AssetsHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(64))];
+        [self.view addSubview:_header];
+    }
+    return _header;
 }
 
 - (BottomButton *)bottom {
