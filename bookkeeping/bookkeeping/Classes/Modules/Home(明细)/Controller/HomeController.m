@@ -61,6 +61,10 @@
 - (void)getData{
     if ([UserInfo isLogin]) {
         [self getMonthBookRequest:_date.year month:_date.month];
+    }else{
+        // 设置空数据
+        NSMutableArray<BookMonthModel *> *list = [NSMutableArray array];
+        [self setModels:list];
     }
 
     // 已经登录
@@ -210,7 +214,7 @@
 
 - (void) getMonthBookRequest:(NSInteger)year month:(NSInteger)month {
     // 先从本地缓存中取
-    NSMutableArray<BookMonthModel *> *list = [NSUserDefaults getMonthModelList:_date.year month:_date.month];
+    NSMutableArray<BookMonthModel *> *list = [BookMonthModel statisticalMonthWithYear:_date.year month:_date.month];
     if (list && list.count > 0) {
         NSLog(@"这是从缓存中读取的数据");
         [self setModels:list];
@@ -218,20 +222,15 @@
     }
     
     // 从网络取
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setValue:@(year) forKey:@"year"];
-    [param setValue:@(month) forKey:@"month"];
-    
     [self showProgressHUD:@"同步中..."];
     @weakify(self)
-    [AFNManager POST:monthBookListRequest params:param complete:^(APPResult *result) {
+    [AFNManager POST:allBookListRequest params:nil complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            NSMutableArray<BookMonthModel *> *bookArray = [BookMonthModel mj_objectArrayWithKeyValuesArray:result.data];
-            [self setModels:bookArray];
-            [NSUserDefaults saveMonthModelList:year month:month array:bookArray];
-            //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
+            NSMutableArray<BookDetailModel *> *bookArray = [BookDetailModel mj_objectArrayWithKeyValuesArray:result.data];
+            [NSUserDefaults saveAllBookList:bookArray];
+            [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
         } else {
             // 当请求失败时，清空当前显示的列表数据
             // TODO 增加点击重试按钮
@@ -279,9 +278,7 @@
         NSLog(@"选择的值：%@", selectValue);
         @strongify(self)
         [self setDate:[NSDate dateWithYM:selectValue]];
-        [self getMonthBookRequest:self.date.year month:self.date.month];
-//        [self setModels:[BookMonthModel
-//                         statisticalMonthWithYear:self.date.year month:self.date.month]];
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     };
 
     // 3.显示
@@ -290,24 +287,14 @@
 
 // 下拉
 - (void)homeTablePull:(id)data {
-    if ([UserInfo isLogin]) {
-        [self setDate:[self.date offsetMonths:1]];
-        //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
-        [self getMonthBookRequest:_date.year month:_date.month];
-    }else{
-        [self pushToLoginController];
-    }
+    [self setDate:[self.date offsetMonths:1]];
+    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
 }
 
 // 上拉
 - (void)homeTableUp:(id)data {
-    if ([UserInfo isLogin]) {
-        [self setDate:[self.date offsetMonths:-1]];
-        //[self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
-        [self getMonthBookRequest:_date.year month:_date.month];
-    }else{
-        [self pushToLoginController];
-    }
+    [self setDate:[self.date offsetMonths:-1]];
+    [self setModels:[BookMonthModel statisticalMonthWithYear:_date.year month:_date.month]];
 }
 
 // 删除Cell

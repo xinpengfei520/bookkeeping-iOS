@@ -57,22 +57,15 @@
     }
 }
 
-- (NSMutableArray<BookDetailModel *> *)array{
-    NSMutableArray *bookArray = [BookDetailModel mj_objectArrayWithKeyValuesArray:_list];
-    return bookArray;
-}
-
 /**
  * 统计数据
  * @param year 年份
  * @param month 月份
  */
 + (NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month {
-    // 根据时间过滤
+    // 根据年、月过滤
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
     NSString *preStr = [NSString stringWithFormat:@"year == %ld AND month == %ld", year, month];
-//    NSPredicate *pre = [NSPredicate predicateWithFormat:preStr];
-//    NSMutableArray<BookDetailModel *> *models = [NSMutableArray arrayWithArray:[bookArr filteredArrayUsingPredicate:pre]];
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:bookArr];
     
     // 统计数据
@@ -92,7 +85,7 @@
         }
         // 添加数据
         BookMonthModel *submodel = dictm[key];
-        //[submodel.list addObject:detailModel];
+        [submodel.array addObject:detailModel];
         // 收入
         if (detailModel.categoryId >= 33) {
             [submodel setIncome:submodel.income + detailModel.price];

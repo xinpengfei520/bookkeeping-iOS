@@ -50,7 +50,7 @@
     NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData removeObjectForKey:kUser];
     [sharedData removeObjectForKey:AUTHORIZATION_TOKEN];
-    [NSUserDefaults setObject:[NSMutableArray array] forKey:All_BOOK_LIST];
+    [sharedData removeObjectForKey:All_BOOK_LIST];
 }
 
 

@@ -984,8 +984,8 @@
 				F35310852875F86E00D297A9 /* Assets(资产) */,
 				F35310802875EF1F00D297A9 /* About (关于) */,
 				F3AE5FD22847C95900E95086 /* Search (搜索) */,
-				4BE7844A21C678FB00B8EC46 /* Home (明细) */,
-				4BE7845621C678FB00B8EC46 /* Book (记账) */,
+				4BE7844A21C678FB00B8EC46 /* Home(明细) */,
+				4BE7845621C678FB00B8EC46 /* Book(记账) */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
 				3244849C21C726570051B8B6 /* Mine (我的) */,
 				4BA68ADA21C7EA930063A5C2 /* Timing(定时提醒) */,
@@ -1862,7 +1862,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BE7844A21C678FB00B8EC46 /* Home (明细) */ = {
+		4BE7844A21C678FB00B8EC46 /* Home(明细) */ = {
 			isa = PBXGroup;
 			children = (
 				32D0B2B921C76F570030F5B2 /* HOME_EVENT.h */,
@@ -1870,7 +1870,7 @@
 				4BE7844C21C678FB00B8EC46 /* Model */,
 				4BE7844D21C678FB00B8EC46 /* View */,
 			);
-			path = "Home (明细)";
+			path = "Home(明细)";
 			sourceTree = "<group>";
 		};
 		4BE7844B21C678FB00B8EC46 /* Controller */ = {
@@ -1932,7 +1932,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BE7845621C678FB00B8EC46 /* Book (记账) */ = {
+		4BE7845621C678FB00B8EC46 /* Book(记账) */ = {
 			isa = PBXGroup;
 			children = (
 				32D0B2BA21C772EB0030F5B2 /* BOOK_EVENT.h */,
@@ -1940,7 +1940,7 @@
 				4BE7845821C678FB00B8EC46 /* Model */,
 				4BE7845921C678FB00B8EC46 /* View */,
 			);
-			path = "Book (记账)";
+			path = "Book(记账)";
 			sourceTree = "<group>";
 		};
 		4BE7845721C678FB00B8EC46 /* Controller */ = {

@@ -167,12 +167,9 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
-            book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK_SYNCED];
+            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
             
         }
         else if (is_income == true) {
@@ -194,14 +191,10 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:sysHasSyncedArr forKey:PIN_CATE_SYS_Has_INCOME_SYNCED];
             [NSUserDefaults setObject:sysRemoveSyncedArr forKey:PIN_CATE_SYS_REMOVE_INCOME_SYNCED];
             
-            
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
-            book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK_SYNCED];
+            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
         }
     }
     // 自定义
@@ -211,57 +204,50 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             NSMutableArray *cusHasPaySyncedArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_HAS_PAY_SYNCED];
             NSMutableArray *cusRemovePaySyncedArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_REMOVE_PAY_SYNCED];
             [cusHasPayArr removeObject:model];
+            
             if ([cusHasPaySyncedArr containsObject:model]) {
                 [cusHasPaySyncedArr removeObject:model];
             } else {
                 [cusRemovePaySyncedArr addObject:model];
             }
+            
             [NSUserDefaults setObject:cusHasPayArr forKey:PIN_CATE_CUS_HAS_PAY];
             [NSUserDefaults setObject:cusHasPaySyncedArr forKey:PIN_CATE_CUS_HAS_PAY_SYNCED];
             [NSUserDefaults setObject:cusRemovePaySyncedArr forKey:PIN_CATE_CUS_REMOVE_PAY_SYNCED];
             
-            
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
-            book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK_SYNCED];
-            
-            
+            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
             
         } else if (is_income == true) {
             NSMutableArray *cusHasIcomeEArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_HAS_INCOME];
             NSMutableArray *cusHasIncomeSyncedArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
             NSMutableArray *cusRemoveIncomeSyncedArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
             [cusHasIcomeEArr removeObject:model];
+            
             if ([cusHasIncomeSyncedArr containsObject:model]) {
                 [cusHasIncomeSyncedArr removeObject:model];
             } else {
                 [cusRemoveIncomeSyncedArr addObject:model];
             }
+            
             [NSUserDefaults setObject:cusHasIcomeEArr forKey:PIN_CATE_CUS_HAS_INCOME];
             [NSUserDefaults setObject:cusHasIncomeSyncedArr forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
             [NSUserDefaults setObject:cusRemoveIncomeSyncedArr forKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
             
-            
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:PIN_BOOK];
-            NSMutableArray<BookDetailModel *> *book_synced = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
             book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
-            book_synced = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book_synced];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK];
-            [NSUserDefaults setObject:book forKey:PIN_BOOK_SYNCED];
+            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
         }
     }
     
-    
     // 删除同类别信息
-    NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults objectForKey:PIN_BOOK];
+    NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults objectForKey:All_BOOK_LIST];
     NSString *preStr = [NSString stringWithFormat:@"cmodel.Id == %ld", model.Id];
     arrm = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:arrm];
-    [NSUserDefaults setObject:arrm forKey:PIN_BOOK];
+    [NSUserDefaults setObject:arrm forKey:All_BOOK_LIST];
 }
 
 // 获取分类
@@ -366,8 +352,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
         [NSUserDefaults setObject:acaArr forKey:PIN_ACA_CATE];
         
         // 记账
-        [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK];
-        [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
+        [NSUserDefaults setObject:[NSMutableArray array] forKey:All_BOOK_LIST];
         
         // FaceID
         [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_FACE_ID];

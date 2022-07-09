@@ -127,7 +127,7 @@
     
     // 新增
     if (!_model) {
-        [NSUserDefaults deleteBookModel:model];
+        //[NSUserDefaults deleteBookModel:model];
     }
     // 修改
     else {

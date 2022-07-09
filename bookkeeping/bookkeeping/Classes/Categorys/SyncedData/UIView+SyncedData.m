@@ -19,7 +19,6 @@
     // 用户 - 删除的 - 支出
     NSMutableArray<BKCModel *> *cateCusRemovePayArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_REMOVE_PAY_SYNCED];
     
-    
     // 系统 - 添加的 - 收入
     NSMutableArray<BKCModel *> *cateSysHasIncomeArr = [NSUserDefaults objectForKey:PIN_CATE_SYS_Has_INCOME_SYNCED];
     // 系统 - 删除的 - 收入
@@ -30,7 +29,7 @@
     NSMutableArray<BKCModel *> *cateCusRemoveIncomeArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
     
     // 记账信息
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK_SYNCED];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:PIN_BOOK_FAILED];
     
     // 参数
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -54,7 +53,6 @@
         [self hideWindowHUD];
         // 成功
         if (result.status == HttpStatusSuccess) {
-            
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_REMOVE_PAY_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_Has_PAY_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_REMOVE_PAY_SYNCED];
@@ -63,7 +61,7 @@
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_SYS_REMOVE_INCOME_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
             [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
-            [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_SYNCED];
+            [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_FAILED];
             
             NSString *systemCatePath = [[NSBundle mainBundle] pathForResource:@"SC" ofType:@"plist"];
             NSDictionary *systemCateDic = [NSDictionary dictionaryWithContentsOfFile:systemCatePath];
@@ -154,7 +152,7 @@
                 [bookModels addObject:model];
             }
             
-            [NSUserDefaults setObject:bookModels forKey:PIN_BOOK];
+            [NSUserDefaults setObject:bookModels forKey:All_BOOK_LIST];
             
             UserModel *model = [UserInfo loadUserInfo];
             model.faceId = [faceId integerValue];
