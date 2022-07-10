@@ -6,11 +6,11 @@
 #import <Foundation/Foundation.h>
 
 // 生产环境
-#define KHost @"https://api.vance.xin"
-#define KStatic(str) [NSString stringWithFormat:@"https://api.vance.xin/media/%@", str]
+//#define KHost @"https://api.vance.xin"
+//#define KStatic(str) [NSString stringWithFormat:@"https://api.vance.xin/media/%@", str]
 
-//#define KHost @"http://192.168.3.108:8001"
-//#define KStatic(str) [NSString stringWithFormat:@"http://192.168.3.108:8001/media/%@", str]
+#define KHost @"http://192.168.3.108:8001"
+#define KStatic(str) [NSString stringWithFormat:@"http://192.168.3.108:8001/media/%@", str]
 #define kUser  @"kUser"
 #define Request(A) [NSString stringWithFormat:@"%@%@", KHost, A]
 
@@ -44,8 +44,6 @@
 #define BindThirdRequest Request(@"/shayu/bindThirdRequest.action")
 // 绑定手机号
 #define BindPhoneRequest Request(@"/shayu/bindPhoneRequest.action")
-// 修改头像
-#define ChangeIconRequest Request(@"/shayu/changeIconRequest.action")
 // 声音
 #define SoundRequest Request(@"/shayu/soundRequest.action")
 // 详情
@@ -81,6 +79,8 @@
 #define userInfoRequest Request(@"/book/user/info")
 // 修改个人信息
 #define updateUserInfoRequest Request(@"/book/user/update")
+// 上传头像
+#define uploadAvatarRequest Request(@"/book/user/upload/avatar")
 // 短信验证码
 #define userSmsCodeRequest Request(@"/book/user/sms/code")
 // 登录

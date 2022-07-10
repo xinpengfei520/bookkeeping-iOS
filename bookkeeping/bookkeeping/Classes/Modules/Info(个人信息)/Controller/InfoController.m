@@ -42,26 +42,19 @@
 #pragma mark - request
 - (void)changeIconRequest:(UIImage *)image {
     @weakify(self)
-    UserModel *model = [UserInfo loadUserInfo];
-    NSMutableDictionary *param = ({
-        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        if (model.userId) {
-            [param setObject:model.userId forKey:@"account"];
-        }
-        param;
-    });
     [self.afn_request setAfn_useCache:false];
     [self showProgressHUD:@"修改中"];
-    [AFNManager POST:ChangeIconRequest params:param andImages:@[image] progress:nil complete:^(APPResult *result) {
+    [AFNManager POST:uploadAvatarRequest params:nil images:@[image] progress:nil complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
-        if (result.status == HttpStatusSuccess) {
-            // 更新数据
-            UserModel *model = [UserInfo loadUserInfo];
-            [model setUserAvatar:result.data];
-            [UserInfo saveUserModel:model];
-            [self setModel:model];
-            // 刷新
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            // 取出上传成功后的 url
+            NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:result.data];
+            NSString *avatarUrl = [dic objectForKey:@"avatarUrl"];
+            
+            [self.updateModel setUserAvatar:avatarUrl];
+            [UserInfo saveUserModel:self.updateModel];
+            [self setModel:self.updateModel];
             [self.table reloadData];
         } else {
             [self showTextHUD:result.msg delay:1.f];

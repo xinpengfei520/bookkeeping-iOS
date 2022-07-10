@@ -83,12 +83,14 @@ static AFHTTPSessionManager *_manager;
     }];
 }
 
-+ (void)POST:(NSString *)url params:(NSDictionary *)params andImages:(NSArray<UIImage *> *)images progress:(AFNManagerProgressBlock)progress complete:(AFNManagerCompleteBlock)complete {
++ (void)POST:(NSString *)url params:(NSDictionary * _Nullable)params images:(NSArray<UIImage *> *)images progress:(AFNManagerProgressBlock)progress complete:(AFNManagerCompleteBlock)complete {
     AFHTTPSessionManager *manager = [self manager];
-    // Token
-    if ([UserInfo loadUserInfo]) {
-        [manager.requestSerializer setValue:[UserInfo loadUserInfo].token forHTTPHeaderField:@"token"];
+    // 添加 Authorization 请求头
+    NSString *authorization = [UserInfo getAuthorizationToken];
+    if (authorization) {
+        [manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
     }
+    
     // 请求
     [manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // 图片
