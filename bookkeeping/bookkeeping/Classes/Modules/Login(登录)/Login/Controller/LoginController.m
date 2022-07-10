@@ -136,7 +136,9 @@
 
 #pragma mark - click actions
 - (IBAction)loginClick:(UIButton *)sender {
-    [self getLoginRequest];
+    //[self getLoginRequest];
+    VerifyController *vc = [[VerifyController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)sendCodeClick:(UIButton *)sender {

@@ -97,6 +97,7 @@
 #import "BKCController.h"
 #import "MineController.h"
 #import "LoginController.h"
+#import "VerifyController.h"
 #import "AssetsController.h"
 #import "AboutController.h"
 #import "CAController.h"

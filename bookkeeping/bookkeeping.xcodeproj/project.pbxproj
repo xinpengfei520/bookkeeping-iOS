@@ -292,6 +292,8 @@
 		F35310BA2876D82400D297A9 /* ShareBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35310B12876D82400D297A9 /* ShareBadge.xib */; };
 		F35310BB2876D82400D297A9 /* ShareOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310B32876D82400D297A9 /* ShareOrder.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
+		F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3581D9E287ADD2C007B17CD /* VerifyController.m */; };
+		F3581DA1287ADD2C007B17CD /* VerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3581D9F287ADD2C007B17CD /* VerifyController.xib */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
 		F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0524E285510E700DB2E99 /* SearchListCell.xib */; };
 		F3A052522855116F00DB2E99 /* SearchListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A052512855116F00DB2E99 /* SearchListCell.m */; };
@@ -797,6 +799,9 @@
 		F35310B32876D82400D297A9 /* ShareOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareOrder.m; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
+		F3581D9D287ADD2C007B17CD /* VerifyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyController.h; sourceTree = "<group>"; };
+		F3581D9E287ADD2C007B17CD /* VerifyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyController.m; sourceTree = "<group>"; };
+		F3581D9F287ADD2C007B17CD /* VerifyController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyController.xib; sourceTree = "<group>"; };
 		F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bookkeepingRelease.entitlements; sourceTree = "<group>"; };
 		F375540E27D3CB8B00C22EB3 /* BookMonthRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonthRelease.entitlements; sourceTree = "<group>"; };
 		F3A0524B28550BBD00DB2E99 /* SearchList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchList.h; sourceTree = "<group>"; };
@@ -975,6 +980,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F3581D9C287ADC89007B17CD /* Verify(验证码) */,
 				F35310A42876D82400D297A9 /* Share(分享) */,
 				F35310A02876C90400D297A9 /* Feedback(反馈) */,
 				F353109C2876C8A800D297A9 /* Siri(捷径) */,
@@ -2388,6 +2394,16 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		F3581D9C287ADC89007B17CD /* Verify(验证码) */ = {
+			isa = PBXGroup;
+			children = (
+				F3581D9D287ADD2C007B17CD /* VerifyController.h */,
+				F3581D9E287ADD2C007B17CD /* VerifyController.m */,
+				F3581D9F287ADD2C007B17CD /* VerifyController.xib */,
+			);
+			path = "Verify(验证码)";
+			sourceTree = "<group>";
+		};
 		F3A052612858FD6600DB2E99 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -2590,6 +2606,7 @@
 				4BEB72E521CE033300BEF013 /* dropdown_anim__00038@2x.png in Resources */,
 				327CEC2E21C89201001D0086 /* ChartSectionHeader.xib in Resources */,
 				4BEB72F121CE033300BEF013 /* dropdown_anim__00051@2x.png in Resources */,
+				F3581DA1287ADD2C007B17CD /* VerifyController.xib in Resources */,
 				4BEB72F921CE033300BEF013 /* dropdown_anim__00030@2x.png in Resources */,
 				4BEB731021CE033300BEF013 /* dropdown_anim__00013@2x.png in Resources */,
 				4B1893C621D67081005002E2 /* ChartHUDCell.xib in Resources */,
@@ -2872,6 +2889,7 @@
 				4B35F1A321CCC641007271BE /* UIViewController+APPViewRequest.m in Sources */,
 				4B35F1A421CCC641007271BE /* APPViewRequest.m in Sources */,
 				3219838421C642BC00311885 /* main.m in Sources */,
+				F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */,
 				32A4C22321CB15B100DF4327 /* JHCollectionViewLayoutAttributes.m in Sources */,
 				4B35F1BC21CCC694007271BE /* UIView+KKEmpty.m in Sources */,
 				4B229A7121E6228500152030 /* BillTable.m in Sources */,
