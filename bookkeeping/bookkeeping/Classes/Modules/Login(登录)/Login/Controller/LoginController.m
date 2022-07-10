@@ -13,11 +13,8 @@
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab1;
-@property (weak, nonatomic) IBOutlet UILabel *nameLab2;
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
-@property (weak, nonatomic) IBOutlet UITextField *passField;
-@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet UIButton *sendCodeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *getCodeBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintR;
@@ -37,18 +34,11 @@
     [self.view setBackgroundColor:kColor_BG];
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab1 setTextColor:kColor_Text_Black];
-    [self.nameLab2 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.nameLab2 setTextColor:kColor_Text_Black];
     [self.phoneField setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
     [self.phoneField setTextColor:kColor_Text_Black];
-    [self.passField setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
-    [self.passField setTextColor:kColor_Text_Black];
     
-    [self buttonCanTap:false btn:self.loginBtn];
-    [self buttonCanTap:false btn:self.sendCodeBtn];
-    
+    [self buttonCanTap:false btn:self.getCodeBtn];
     [self.phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
-    [self.passField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     
     [self.phoneConstraintL setConstant:countcoordinatesX(15)];
     [self.phoneConstraintR setConstant:countcoordinatesX(15)];
@@ -92,30 +82,12 @@
         [btn setBackgroundImage:[UIColor createImageWithColor:kColor_Line_Color] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIColor createImageWithColor:kColor_Line_Color] forState:UIControlStateHighlighted];
     }
-    [btn.layer setCornerRadius:3];
+    [btn.layer setCornerRadius:8];
     [btn.layer setMasksToBounds:YES];
 }
 
 
 #pragma mark - http request
-- (void)getLoginRequest {
-    NSString *phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:phone, @"phone",
-                           self.passField.text, @"code", nil];
-    
-    [self showProgressHUD];
-    [self.view endEditing:true];
-    [AFNManager POST:userLoginRequest params:param complete:^(APPResult *result) {
-        [self hideHUD];
-        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [self showTextHUD:@"登录成功" delay:1.5f];
-            [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGIN_COMPLETE object:nil];
-        } else {
-            [self showTextHUD:result.msg delay:1.5f];
-        }
-    }];
-}
-
 - (void)getSmsCodeRequest {
     NSString *phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:phone, @"phone", nil];
@@ -128,20 +100,18 @@
             NSDictionary *dic = result.data;
             NSString *code = [dic objectForKey:@"code"];
             [self showTextHUD:[@"发送成功，验证码为：" stringByAppendingString:code] delay:6.5f];
+            VerifyController *vc = [[VerifyController alloc] init];
+            vc.phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            vc.code = code;
+            [self.navigationController pushViewController:vc animated:YES];
         } else {
             [self showTextHUD:result.msg delay:1.5f];
         }
     }];
 }
 
-#pragma mark - click actions
-- (IBAction)loginClick:(UIButton *)sender {
-    //[self getLoginRequest];
-    VerifyController *vc = [[VerifyController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (IBAction)sendCodeClick:(UIButton *)sender {
+#pragma mark - click
+- (IBAction)getCodeBtnClick:(UIButton *)sender {
     [self getSmsCodeRequest];
 }
 
@@ -178,18 +148,10 @@
     
     // 根据输入的手机号位数设置发送验证码按钮是否可点击
     if (self.phoneField.text.length == 13) {
-        [self buttonCanTap:true btn:self.sendCodeBtn];
+        [self buttonCanTap:true btn:self.getCodeBtn];
     } else {
-        [self buttonCanTap:false btn:self.sendCodeBtn];
+        [self buttonCanTap:false btn:self.getCodeBtn];
     }
-    
-    // 根据输入的验证码位数设置登录按钮是否可点击
-    if (self.passField.text.length == 6) {
-        [self buttonCanTap:true btn:self.loginBtn];
-    } else {
-        [self buttonCanTap:false btn:self.loginBtn];
-    }
-    
 }
 
 @end

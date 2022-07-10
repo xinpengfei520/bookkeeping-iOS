@@ -52,17 +52,6 @@
                         <constraint firstItem="qg2-dE-y9o" firstAttribute="leading" secondItem="Icp-0C-aHJ" secondAttribute="leading" constant="16" id="cX2-4H-8Ye"/>
                         <constraint firstItem="qg2-dE-y9o" firstAttribute="top" secondItem="Icp-0C-aHJ" secondAttribute="top" constant="15" id="pv0-s2-U6N"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="8"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                            <color key="value" systemColor="systemGrayColor"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4I-ks-El7">
                     <rect key="frame" x="16" y="241" width="382" height="50"/>
@@ -79,6 +68,9 @@
                             <integer key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="verifyBtnAction:" destination="-1" eventType="touchDown" id="AGg-4N-QA8"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="没收到验证码？56s后可重新发送" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VkN-Hm-MXU">
                     <rect key="frame" x="102" y="311" width="220" height="17"/>
