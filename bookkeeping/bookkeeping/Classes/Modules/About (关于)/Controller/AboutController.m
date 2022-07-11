@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIImageView *image;
 @property (nonatomic, strong) UILabel *nameLab;
 @property (nonatomic, strong) UIButton *share;
+@property (nonatomic, strong) UILabel *version;
 
 @end
 
@@ -30,6 +31,7 @@
     [self image];
     [self nameLab];
     [self share];
+    [self version];
 }
 
 
@@ -66,7 +68,7 @@
             CGFloat left = SCREEN_WIDTH / 4;
             CGFloat width = SCREEN_WIDTH - left * 2;
             CGFloat height = countcoordinatesX(40);
-            CGFloat top = SCREEN_HEIGHT - SafeAreaBottomHeight - countcoordinatesX(80) - height - NavigationBarHeight;
+            CGFloat top = SCREEN_HEIGHT - SafeAreaBottomHeight - countcoordinatesX(100) - height - NavigationBarHeight;
             CGRectMake(left, top, width, height);
         });
         [_share setTitle:@"关注「记呀」微信公众号" forState:UIControlStateNormal];
@@ -84,6 +86,27 @@
     return _share;
 }
 
+- (UILabel *)version {
+    if (!_version) {
+        _version = [[UILabel alloc]init];
+        _version.frame = ({
+            CGFloat left = SCREEN_WIDTH / 4;
+            CGFloat width = SCREEN_WIDTH - left * 2;
+            CGFloat height = countcoordinatesX(32);
+            CGFloat top = SCREEN_HEIGHT - SafeAreaBottomHeight - countcoordinatesX(40) - height - NavigationBarHeight;
+            CGRectMake(left, top, width, height);
+        });
+        
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        [_version setTextAlignment:NSTextAlignmentCenter];
+        [_version setText:[@"V" stringByAppendingString: appVersion]];
+        [_version setTextColor:[UIColor lightGrayColor]];
+        [_version setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
+        [self.view addSubview:_version];
+    }
+    return _version;
+}
 
 
 @end
