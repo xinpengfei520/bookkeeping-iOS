@@ -72,7 +72,7 @@
                         <action selector="verifyBtnAction:" destination="-1" eventType="touchDown" id="AGg-4N-QA8"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="没收到验证码？56s后可重新发送" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VkN-Hm-MXU">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="56s后可重新获取" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VkN-Hm-MXU">
                     <rect key="frame" x="102" y="311" width="220" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="Euv-1h-rgd"/>

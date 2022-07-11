@@ -12,6 +12,8 @@
 
 @interface VerifyController ()
 
+@property (nonatomic, strong) CountDown *countDown;
+
 @end
 
 @implementation VerifyController
@@ -29,6 +31,7 @@
     [self buttonCanTap:false btn:_verifyBtn];
     
     [self.codeTextField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
+    [self countDownBegin];
 }
 
 // 按钮是否可以点击
@@ -86,6 +89,29 @@
             [self showTextHUD:result.msg delay:1.5f];
         }
     }];
+}
+
+- (void)countDownBegin {
+    [self.countDown countDownWithStratTimeStamp:0 finishTimeStamp:59 * 1000 completeBlock:^(NSInteger day, NSInteger hour, NSInteger minute, NSInteger second) {
+        if (second != 0 || minute != 0) {
+            NSString *str = [NSString stringWithFormat:@"%02lds 后可重新获取", second];
+            [self.countDownLab setText:str];
+            [self.countDownLab setTextColor:[UIColor lightGrayColor]];
+            [self.countDownLab setUserInteractionEnabled:NO];
+        } else {
+            [self.countDownLab setText:@"重新获取"];
+            [self.countDownLab setTextColor:[UIColor systemBlueColor]];
+            [self.countDownLab setUserInteractionEnabled:YES];
+        }
+    }];
+}
+
+#pragma mark - get
+- (CountDown *)countDown {
+    if (!_countDown) {
+        _countDown = [[CountDown alloc] init];
+    }
+    return _countDown;
 }
 
 @end
