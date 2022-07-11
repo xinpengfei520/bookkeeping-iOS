@@ -12,7 +12,7 @@
     NSInteger index;
 }
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLab1;
+@property (weak, nonatomic) IBOutlet UILabel *areaCodeLab;
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 @property (weak, nonatomic) IBOutlet UIButton *getCodeBtn;
 @property (weak, nonatomic) IBOutlet UIView *inputBgView;
@@ -28,13 +28,13 @@
     self.hbd_barHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
     
-    [self.inputBgView borderForColor:[UIColor grayColor] borderWidth:1.f borderType:UIBorderSideTypeAll];
+    [self.inputBgView borderForColor:[UIColor lightGrayColor] borderWidth:1.f borderType:UIBorderSideTypeAll];
     [self.inputBgView.layer setCornerRadius:8];
     [self.inputBgView.layer setBorderWidth:1];
     [self.inputBgView.layer setMasksToBounds:YES];
     
-    [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.nameLab1 setTextColor:kColor_Text_Black];
+    [self.areaCodeLab setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
+    [self.areaCodeLab setTextColor:[UIColor systemBlueColor]];
     [self.phoneField setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
     [self.phoneField setTextColor:kColor_Text_Black];
     

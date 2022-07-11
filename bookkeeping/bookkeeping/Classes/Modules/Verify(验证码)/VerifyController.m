@@ -20,7 +20,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self.inputBgView borderForColor:[UIColor grayColor] borderWidth:1.f borderType:UIBorderSideTypeAll];
+    [self.inputBgView borderForColor:[UIColor lightGrayColor] borderWidth:1.f borderType:UIBorderSideTypeAll];
     [self.inputBgView.layer setCornerRadius:8];
     [self.inputBgView.layer setBorderWidth:1];
     [self.inputBgView.layer setMasksToBounds:YES];
