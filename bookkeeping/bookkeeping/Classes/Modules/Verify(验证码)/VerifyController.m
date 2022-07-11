@@ -19,7 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    NSString *phoneDesc = [@"短信验证码已发送至+86*******" stringByAppendingString:[_phone substringFromIndex:7]];
+    [self.phoneLab setText:phoneDesc];
     [self.inputBgView borderForColor:[UIColor lightGrayColor] borderWidth:1.f borderType:UIBorderSideTypeAll];
     [self.inputBgView.layer setCornerRadius:8];
     [self.inputBgView.layer setBorderWidth:1];
