@@ -1002,7 +1002,8 @@
 				32EAB40121D0E99D0069DF99 /* CP(修改密码) */,
 				4BF0648721E10A50005F1665 /* Detail(详情) */,
 				F35310892875FC6D00D297A9 /* WebView */,
-				324484A421C727810051B8B6 /* Login(登录) */,
+				4BAF976721CE6182006EEF93 /* Register */,
+				324484A421C727810051B8B6 /* Login */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1079,6 +1080,7 @@
 		321983C321C6460100311885 /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
+				F3581DA2287C0F6F007B17CD /* BaseViewController */,
 				328FB41122110D0B00A61426 /* YYLabel */,
 				4B466EBD220562760069F38E /* SyncedData */,
 				321983ED21C6460100311885 /* UITableView */,
@@ -1229,14 +1231,15 @@
 			path = "Mine (我的)/Mine (我的)";
 			sourceTree = "<group>";
 		};
-		324484A421C727810051B8B6 /* Login(登录) */ = {
+		324484A421C727810051B8B6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				4B7560B421D1225500E63744 /* Tool */,
-				4BC41CF721CF92F800B397BD /* Login */,
-				4BAF976721CE6182006EEF93 /* Register */,
+				32EAB40D21D0F85C0069DF99 /* LOGIN_NOTIFICATION.h */,
+				4BC41CF821CF92F800B397BD /* Controller */,
+				4BC41CF921CF92F800B397BD /* Model */,
+				4BC41CFA21CF92F800B397BD /* View */,
 			);
-			path = "Login(登录)";
+			path = Login;
 			sourceTree = "<group>";
 		};
 		3257AED521C8761200787A34 /* BottomButton */ = {
@@ -1646,16 +1649,6 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
-		4B7560B421D1225500E63744 /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-				32EAB40D21D0F85C0069DF99 /* LOGIN_NOTIFICATION.h */,
-				4B7560B121D1224A00E63744 /* BaseViewController+Extension.h */,
-				4B7560B221D1224A00E63744 /* BaseViewController+Extension.m */,
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
 		4B9798FA21CE744A0020B207 /* CountDown */ = {
 			isa = PBXGroup;
 			children = (
@@ -1834,16 +1827,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BC41CF721CF92F800B397BD /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				4BC41CF821CF92F800B397BD /* Controller */,
-				4BC41CF921CF92F800B397BD /* Model */,
-				4BC41CFA21CF92F800B397BD /* View */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
 		4BC41CF821CF92F800B397BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1858,14 +1841,16 @@
 			isa = PBXGroup;
 			children = (
 			);
-			path = Model;
+			name = Model;
+			path = Login/Model;
 			sourceTree = "<group>";
 		};
 		4BC41CFA21CF92F800B397BD /* View */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = View;
+			name = View;
+			path = Login/View;
 			sourceTree = "<group>";
 		};
 		4BE7844A21C678FB00B8EC46 /* Home(明细) */ = {
@@ -2402,6 +2387,15 @@
 				F3581D9F287ADD2C007B17CD /* VerifyController.xib */,
 			);
 			path = "Verify(验证码)";
+			sourceTree = "<group>";
+		};
+		F3581DA2287C0F6F007B17CD /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4B7560B121D1224A00E63744 /* BaseViewController+Extension.h */,
+				4B7560B221D1224A00E63744 /* BaseViewController+Extension.m */,
+			);
+			path = BaseViewController;
 			sourceTree = "<group>";
 		};
 		F3A052612858FD6600DB2E99 /* Alert */ = {
