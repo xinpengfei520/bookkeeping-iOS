@@ -15,14 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLab1;
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 @property (weak, nonatomic) IBOutlet UIButton *getCodeBtn;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintL;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintR;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneConstraintH;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginConstraintH;
+@property (weak, nonatomic) IBOutlet UIView *inputBgView;
 
 @end
-
 
 #pragma mark - 实现
 @implementation LoginController
@@ -32,6 +27,12 @@
     [super viewDidLoad];
     self.hbd_barHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
+    
+    [self.inputBgView borderForColor:[UIColor grayColor] borderWidth:1.f borderType:UIBorderSideTypeAll];
+    [self.inputBgView.layer setCornerRadius:8];
+    [self.inputBgView.layer setBorderWidth:1];
+    [self.inputBgView.layer setMasksToBounds:YES];
+    
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab1 setTextColor:kColor_Text_Black];
     [self.phoneField setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
@@ -39,11 +40,6 @@
     
     [self buttonCanTap:false btn:self.getCodeBtn];
     [self.phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
-    
-    [self.phoneConstraintL setConstant:countcoordinatesX(15)];
-    [self.phoneConstraintR setConstant:countcoordinatesX(15)];
-    [self.phoneConstraintH setConstant:countcoordinatesX(45)];
-    [self.loginConstraintH setConstant:countcoordinatesX(45)];
     
     [self rac_notification_register];
 }
