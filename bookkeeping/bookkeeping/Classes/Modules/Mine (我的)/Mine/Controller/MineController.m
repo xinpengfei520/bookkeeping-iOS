@@ -54,7 +54,11 @@
             [UserInfo saveUserInfo:result.data];
             self.model = [UserModel mj_objectWithKeyValues:result.data];
         } else {
-            [self showTextHUD:result.msg delay:1.f];
+            if(result.code == TOKEN_EXPIRED){
+                [[NSNotificationCenter defaultCenter] postNotificationName:MINE_TOKEN_EXPIRED object:nil];
+            }else{
+                [self showTextHUD:result.msg delay:1.f];
+            }
         }
     }];
 }

@@ -47,5 +47,6 @@
 
 #pragma mark - 认证 token
 #define AUTHORIZATION_TOKEN           @"AUTHORIZATION_TOKEN"            // auth token
+#define AUTHORIZATION_TIMESTAMP       @"AUTHORIZATION_TIMESTAMP"
 
 #endif

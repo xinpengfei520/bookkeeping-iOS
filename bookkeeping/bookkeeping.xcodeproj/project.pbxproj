@@ -993,7 +993,7 @@
 				4BE7844A21C678FB00B8EC46 /* Home(明细) */,
 				4BE7845621C678FB00B8EC46 /* Book(记账) */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
-				3244849C21C726570051B8B6 /* Mine (我的) */,
+				3244849C21C726570051B8B6 /* Mine */,
 				4BA68ADA21C7EA930063A5C2 /* Timing(定时提醒) */,
 				4BA68AD221C7EA930063A5C2 /* CA (类别) */,
 				4BEB732121CE375F00BEF013 /* Info(个人信息) */,
@@ -1219,7 +1219,7 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
-		3244849C21C726570051B8B6 /* Mine (我的) */ = {
+		3244849C21C726570051B8B6 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
 				3244849B21C721B90051B8B6 /* MINE_EVENT_MANAGER.h */,
@@ -1227,8 +1227,8 @@
 				4BE7845021C678FB00B8EC46 /* Model */,
 				4BE7845121C678FB00B8EC46 /* View */,
 			);
-			name = "Mine (我的)";
-			path = "Mine (我的)/Mine (我的)";
+			name = Mine;
+			path = "Mine (我的)/Mine";
 			sourceTree = "<group>";
 		};
 		324484A421C727810051B8B6 /* Login */ = {

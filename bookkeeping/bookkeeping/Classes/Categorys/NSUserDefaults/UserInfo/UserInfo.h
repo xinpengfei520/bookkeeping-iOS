@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (UserModel *)loadUserInfo;
 // 清除登录信息
 + (void)clearUserInfo;
+// 保存 token 的时间戳
++ (void)saveAuthorizationTimestamp;
+// token 是否将要过期
++ (BOOL)authorizationWillExpired;
 
 @end
 

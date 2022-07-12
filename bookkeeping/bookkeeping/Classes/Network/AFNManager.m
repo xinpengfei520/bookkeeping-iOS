@@ -62,6 +62,7 @@ static AFHTTPSessionManager *_manager;
                 && [[[headers allHeaderFields] allKeys]containsObject:@"Authorization"]) {
                 NSString *authorization = [headers allHeaderFields][@"Authorization"];
                 [UserInfo saveAuthorizationToken:authorization];
+                [UserInfo saveAuthorizationTimestamp];
             }
         }
         

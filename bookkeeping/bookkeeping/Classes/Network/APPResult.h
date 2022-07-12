@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 // 业务成功码
 #define BIZ_SUCCESS 0
+// token 过期(登录过期)
+#define TOKEN_EXPIRED 5001
 
 #pragma mark - typeof
 typedef NS_ENUM(NSInteger, CacheStatus) {

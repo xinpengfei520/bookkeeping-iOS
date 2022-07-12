@@ -9,6 +9,7 @@
 #import "HomeList.h"
 #import "HomeListSubCell.h"
 #import "HOME_EVENT.h"
+#import "MINE_EVENT_MANAGER.h"
 #import "BookDetailModel.h"
 #import "BookMonthModel.h"
 #import "BookDetailController.h"
@@ -61,16 +62,12 @@
 - (void)getData{
     if ([UserInfo isLogin]) {
         [self getMonthBookRequest:_date.year month:_date.month];
+        //[self.view syncedDataRequest];
+        [self refreshToken];
     }else{
         // 设置空数据
         NSMutableArray<BookMonthModel *> *list = [NSMutableArray array];
         [self setModels:list];
-    }
-
-    // 已经登录
-    UserModel *model = [UserInfo loadUserInfo];
-    if (model.token && model.token.length != 0) {
-        [self.view syncedDataRequest];
     }
 }
 
@@ -148,6 +145,11 @@
         @strongify(self)
         [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
+    // token 过期
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:MINE_TOKEN_EXPIRED object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+        @strongify(self)
+        [self pushToLoginController];
+    }];
 }
 
 
@@ -163,6 +165,19 @@
 }
 
 #pragma mark - request
+- (void)refreshToken {
+    if ([UserInfo authorizationWillExpired]) {
+        [AFNManager POST:refreshTokenRequest params:nil complete:^(APPResult *result) {
+            [self hideHUD];
+            if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+                NSLog(@"刷新 token 成功");
+            } else {
+                NSLog(@"刷新 token 失败");
+            }
+        }];
+    }
+}
+
 - (void) addBookRequest: (BookDetailModel *)model {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];

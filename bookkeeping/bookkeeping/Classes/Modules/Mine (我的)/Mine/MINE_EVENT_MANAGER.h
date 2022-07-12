@@ -12,5 +12,6 @@
 #define MINE_HEADER_DAY_CLICK       @"MINE_HEADER_DAY_CLICK"     // 总天数点击
 #define MINE_HEADER_NUMBER_CLICK    @"MINE_HEADER_NUMBER_CLICK"  // 总笔数点击
 #define MINE_FACE_ID_CLICK          @"MINE_FACE_ID_CLICK"        // FaceID 开关
+#define MINE_TOKEN_EXPIRED          @"MINE_TOKEN_EXPIRED"        // token 过期
 
 #endif

@@ -27,6 +27,25 @@
     [NSUserDefaults setObject:param forKey:kUser];
 }
 
++ (void)saveAuthorizationTimestamp{
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval time = [date timeIntervalSince1970];
+    NSString *timeString = [NSString stringWithFormat:@"%.0f", time];
+    [NSUserDefaults setObject:timeString forKey:AUTHORIZATION_TIMESTAMP];
+}
+
++ (BOOL)authorizationWillExpired{
+    NSString *timeString = [NSUserDefaults objectForKey:AUTHORIZATION_TIMESTAMP];
+    double timestamp = timeString.doubleValue;
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval currentTime = [date timeIntervalSince1970];
+    // token 有效期为 7 天，所以判断当前有效期超过 6 天后代表将要过期，请求刷新 token
+    if ((currentTime - timestamp) > 6*24*60*60) {
+        return YES;
+    }
+    return NO;
+}
+
 + (void)saveAuthorizationToken:(NSString *)authorization{
     NSLog(@"authorization: %@", authorization);
     if (authorization) {

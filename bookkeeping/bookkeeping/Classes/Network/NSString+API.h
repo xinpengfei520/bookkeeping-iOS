@@ -87,3 +87,5 @@
 #define userLoginRequest Request(@"/book/user/login")
 // 退出登录
 #define userLogoutRequest Request(@"/book/user/logout")
+// 刷新 token
+#define refreshTokenRequest Request(@"/book/user/refresh/token")

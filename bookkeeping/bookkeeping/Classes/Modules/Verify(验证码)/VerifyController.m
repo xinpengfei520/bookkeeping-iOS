@@ -76,7 +76,7 @@
 #pragma mark - http request
 - (void)verifyRequest {
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:self.phone, @"phone",
-                           self.code, @"code", nil];
+                           self.codeTextField.text, @"code", nil];
     
     [self showProgressHUD];
     [self.view endEditing:true];
