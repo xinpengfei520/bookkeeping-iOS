@@ -57,7 +57,6 @@
     });
 }
 
-
 - (void)rightButtonClick {
     @weakify(self)
     NSDate *date = [NSDate date];
@@ -86,33 +85,16 @@
 - (void)updateYearValue:(NSString *)selectValue {
     [self setDate:[NSDate dateWithYMD:[NSString stringWithFormat:@"%@-01-01", selectValue]]];
     [(UILabel *)[self.rightButton viewWithTag:10] setText:[NSString stringWithFormat:@"%ld年", self.date.year]];
-    [self getYearBillRequest];
+    [self updateData];
 }
 
-#pragma mark - request
-- (void) getYearBillRequest {
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setValue:@(self.date.year) forKey:@"year"];
+- (void)updateData{
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
     
-    [self showProgressHUD:@"获取中..."];
-    @weakify(self)
-    [AFNManager POST:yearBillRequest params:param complete:^(APPResult *result) {
-        @strongify(self)
-        [self hideHUD];
-        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            NSMutableArray<BookDetailModel *> *bookArray = [BookDetailModel mj_objectArrayWithKeyValuesArray:result.data];
-            [self dealWithData:bookArray];
-        } else {
-            [self showTextHUD:result.msg delay:1.f];
-        }
-    }];
-}
-
-- (void)dealWithData:(NSMutableArray<BookDetailModel *> *)bookArr {
-    NSString *predicate = [NSString stringWithFormat:@"categoryId >= 33"];
+    NSString *predicate = [NSString stringWithFormat:@"year == %ld AND categoryId >= 33",self.date.year];
     NSMutableArray<BookDetailModel *> *incomeArr = [NSMutableArray kk_filteredArrayUsingStringFormat:predicate array:bookArr];
     
-    predicate = [NSString stringWithFormat:@"categoryId <= 32"];
+    predicate = [NSString stringWithFormat:@"year == %ld AND categoryId <= 32",self.date.year];
     NSMutableArray<BookDetailModel *> *payArr = [NSMutableArray kk_filteredArrayUsingStringFormat:predicate array:bookArr];
     
     [self.table setIncome:[[incomeArr valueForKeyPath:@"@sum.price.floatValue"] floatValue]];
@@ -121,10 +103,10 @@
     NSMutableArray *arrm = [NSMutableArray array];
     
     for (NSInteger i=1; i<=12; i++) {
-        NSString *incomeStr = [NSString stringWithFormat:@"month == %ld AND categoryId >= 33", i];
+        NSString *incomeStr = [NSString stringWithFormat:@"year == %ld AND month == %ld AND categoryId >= 33", self.date.year,i];
         NSMutableArray<BookDetailModel *> *incomeModels = [NSMutableArray kk_filteredArrayUsingStringFormat:incomeStr array:bookArr];
         
-        NSString *payStr = [NSString stringWithFormat:@"month == %ld AND categoryId <= 32", i];
+        NSString *payStr = [NSString stringWithFormat:@"year == %ld AND month == %ld AND categoryId <= 32",self.date.year,i];
         NSMutableArray<BookDetailModel *> *payModels = [NSMutableArray kk_filteredArrayUsingStringFormat:payStr array:bookArr];
         
         CGFloat income = [[incomeModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];
@@ -153,10 +135,9 @@
 }
 
 
-#pragma mark - get BillTable View
+#pragma mark - get
 - (BillTable *)table {
     if (!_table) {
-        // x = 0, y= 0, width = SCREEN_WIDTH, height = SCREEN_HEIGHT - NavigationBarHeight
         _table = [[BillTable alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight) style:UITableViewStyleGrouped];
         [_table setBackgroundView:({
             UIView *back = [[UIView alloc] initWithFrame:self.table.bounds];
