@@ -32,7 +32,6 @@
 }
 
 
-
 #pragma mark - 点击
 // 删除
 - (IBAction)actionClick:(UIButton *)sender {
@@ -49,7 +48,8 @@
     // 显示备注
     [_nameLab setText:model.mark];
     // 显示记账信息
-    [_detailLab setText:cmodel.is_income == 0 ? [@(-model.price) description] : [@(model.price) description]];
+    NSString *priceStr = [model getPriceStr];
+    [_detailLab setText:cmodel.is_income == 0 ? [@"-" stringByAppendingString: priceStr] : priceStr];
 }
 
 @end

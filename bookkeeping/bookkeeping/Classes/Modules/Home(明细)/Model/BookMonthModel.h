@@ -23,9 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month;
 +(NSMutableArray<BookMonthModel *> *)searchWithKeyword:(NSString*)keyword;
 -(NSString*)getMoneyDescribe;
-
 -(NSString*)getDateDescribe;
-
+-(NSString *)getDateDescribeWithYear;
 -(NSMutableArray<BookDetailModel *> *)array;
 
 @end

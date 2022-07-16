@@ -82,8 +82,8 @@
     
     //返回最近结果
     return pinyin;
-    
 }
+
 // 1000 转 1k
 + (NSString *)getMeasureThousand:(NSInteger)math {
     if (math / 1000 != 0) {
@@ -92,5 +92,11 @@
     return [@(math) description];
 }
 
++ (BOOL)isIntOrFloat:(NSString*)string{
+    NSScanner *scan = [NSScanner scannerWithString:string];
+    int intVal;
+    float floatVal;
+    return([scan scanInt:&intVal] && [scan isAtEnd])||([scan scanFloat:&floatVal] && [scan isAtEnd]);
+}
 
 @end

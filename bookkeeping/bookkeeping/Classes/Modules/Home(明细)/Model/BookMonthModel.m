@@ -30,6 +30,12 @@
     return [NSString stringWithFormat:@"%02ld月%02ld日   %@", _month, _day, [date dayFromWeekday]];
 }
 
+- (NSString *)getDateDescribeWithYear {
+    NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
+    NSDate *date = [NSDate dateWithYMD:dateStr];
+    return [NSString stringWithFormat:@"%ld年%02ld月%02ld日   %@", _year,_month, _day, [date dayFromWeekday]];
+}
+
 - (NSString *)getMoneyDescribe {
     NSMutableString *strm = [NSMutableString string];
     if (_income != 0) {
@@ -58,29 +64,39 @@
 }
 
 /**
- * 统计数据
+ * 统计数据 (根据年、月过滤)
  * @param year 年份
  * @param month 月份
  */
 + (NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month {
-    // 根据年、月过滤
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
     NSString *preStr = [NSString stringWithFormat:@"year == %ld AND month == %ld", year, month];
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:bookArr];
-    return [self assembleData:models];
+    return [self assembleData:models sortType:1];
 }
 
 +(NSMutableArray<BookMonthModel *> *)searchWithKeyword:(NSString*)keyword{
+    NSPredicate *predicate = nil;
+    // 判断输入的是否是金额
+    if ([NSString isIntOrFloat:keyword]) {
+        predicate = [NSPredicate predicateWithFormat:@"%K == %@",@"priceString", keyword];
+    }else{
+        // 根据 categoryId、mark 过滤
+        NSInteger categoryId = [NSUserDefaults getCategoryId:keyword];
+        predicate = [NSPredicate predicateWithFormat:@"categoryId == %ld OR %K contains %@", categoryId,@"mark", keyword];
+    }
+    
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
-    // 根据 categoryId、mark 过滤
-    NSInteger categoryId = [NSUserDefaults getCategoryId:keyword];
-    NSString *property = @"mark";
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %ld OR %K contains %@", categoryId,property, keyword];
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:predicate array:bookArr];
-    return [self assembleData:models];
+    return [self assembleData:models sortType:2];
 }
 
-+(NSMutableArray<BookMonthModel *> *)assembleData:(NSMutableArray<BookDetailModel *> *)models{
+/**
+ * 组装数据
+ * @param models 数据
+ * @param sortType 排序类型：1 使用 day 字段排序，2 使用 year month day 字段排序
+ */
++(NSMutableArray<BookMonthModel *> *)assembleData:(NSMutableArray<BookDetailModel *> *)models sortType:(NSInteger)sortType{
     NSMutableDictionary *dictm = [NSMutableDictionary dictionary];
     for (BookDetailModel *detailModel in models) {
         NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", detailModel.year, detailModel.month, detailModel.day];
@@ -110,9 +126,18 @@
     
     // 排序，按照 day 的倒序排
     NSMutableArray<BookMonthModel *> *arrm = [NSMutableArray arrayWithArray:[dictm allValues]];
-    arrm = [NSMutableArray arrayWithArray:[arrm sortedArrayUsingComparator:^NSComparisonResult(BookMonthModel *obj1, BookMonthModel *obj2) {
-        return obj2.day - obj1.day;
-    }]];
+    if (sortType == 1) {
+        arrm = [NSMutableArray arrayWithArray:[arrm sortedArrayUsingComparator:^NSComparisonResult(BookMonthModel *obj1, BookMonthModel *obj2) {
+            return obj2.day - obj1.day;
+        }]];
+    }else{
+        NSSortDescriptor *yearDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:NO];
+        NSSortDescriptor *monthDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"month" ascending:NO];
+        NSSortDescriptor *dayDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"day" ascending:NO];
+        // 这里的排序是: 首先按照 year 排序, 然后是 month, 最后按照 day
+        NSArray *descriptorArray = [NSArray arrayWithObjects:yearDescriptor, monthDescriptor, dayDescriptor, nil];
+        [arrm sortUsingDescriptors:descriptorArray];
+    }
     
     return arrm;
 }

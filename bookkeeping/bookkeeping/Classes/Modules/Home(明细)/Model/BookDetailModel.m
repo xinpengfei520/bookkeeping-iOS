@@ -91,6 +91,10 @@
     return [[NSString stringWithFormat:@"%ld%02ld%02ld", _year, _month, _day] integerValue];
 }
 
+-(NSString *)priceString{
+    return [self getPriceStr];
+}
+
 - (NSInteger)week {
     return [self.date weekOfYear];
 }

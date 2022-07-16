@@ -33,7 +33,7 @@
 
 - (void)setModel:(BookMonthModel *)model {
     _model = model;
-    [_nameLab setText:[model getDateDescribe]];
+    [_nameLab setText:[model getDateDescribeWithYear]];
     [_detailLab setText:[model getMoneyDescribe]];
 }
 

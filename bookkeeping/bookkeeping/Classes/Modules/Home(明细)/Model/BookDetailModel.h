@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger week;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, assign) NSInteger dateNumber;
+@property (nonatomic, copy  ) NSString *priceString;
 
 // 获取 bookId
 + (NSNumber *)getBookId;
