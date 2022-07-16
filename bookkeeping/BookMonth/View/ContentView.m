@@ -73,11 +73,11 @@
     }
 
     // 支出
-    NSMutableArray<BookDetailModel *> *pay = [NSMutableArray kk_filteredArrayUsingPredicate:@"categoryId <= 32" array:arrm];
+    NSMutableArray<BookDetailModel *> *pay = [NSMutableArray kk_filteredArrayUsingStringFormat:@"categoryId <= 32" array:arrm];
     CGFloat payPrice = [[pay valueForKeyPath:@"@sum.price.floatValue"] floatValue];
 
     // 收入
-    NSMutableArray<BookDetailModel *> *income = [NSMutableArray kk_filteredArrayUsingPredicate:@"categoryId >= 33" array:arrm];
+    NSMutableArray<BookDetailModel *> *income = [NSMutableArray kk_filteredArrayUsingStringFormat:@"categoryId >= 33" array:arrm];
     CGFloat incomePrice = [[income valueForKeyPath:@"@sum.price.floatValue"] floatValue];
     NSLog(@"incomePrice: %.2f,payPrice: %.2f,balance: %.2f",incomePrice,payPrice,(incomePrice - payPrice));
 

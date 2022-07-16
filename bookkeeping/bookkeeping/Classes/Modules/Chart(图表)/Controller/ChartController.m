@@ -110,14 +110,14 @@
     }
     
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
-    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:bookArr];
+    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:bookArr];
     // 最小时间
     _minModel = ({
         NSDate *minDate = [models valueForKeyPath:@"@min.date"];
         if (minDate) {
             preStr = [NSString stringWithFormat:@"year == %ld AND month == %02ld AND day == %02ld", minDate.year, minDate.month, minDate.day];
         }
-        NSMutableArray *arr = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:models];
+        NSMutableArray *arr = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:models];
         BookDetailModel *model;
         if (arr.count != 0) {
             model = arr[0];
@@ -131,7 +131,7 @@
         if (maxDate) {
             preStr = [NSString stringWithFormat:@"year == %ld AND month == %02ld AND day == %02ld", maxDate.year, maxDate.month, maxDate.day];
         }
-        NSMutableArray *arr = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:models];
+        NSMutableArray *arr = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:models];
         BookDetailModel *model;
         if (arr.count != 0) {
             model = arr[0];

@@ -66,9 +66,21 @@
     // 根据年、月过滤
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
     NSString *preStr = [NSString stringWithFormat:@"year == %ld AND month == %ld", year, month];
-    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:bookArr];
-    
-    // 统计数据
+    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:bookArr];
+    return [self assembleData:models];
+}
+
++(NSMutableArray<BookMonthModel *> *)searchWithKeyword:(NSString*)keyword{
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
+    // 根据 categoryId、mark 过滤
+    NSInteger categoryId = [NSUserDefaults getCategoryId:keyword];
+    NSString *property = @"mark";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %ld OR %K contains %@", categoryId,property, keyword];
+    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:predicate array:bookArr];
+    return [self assembleData:models];
+}
+
++(NSMutableArray<BookMonthModel *> *)assembleData:(NSMutableArray<BookDetailModel *> *)models{
     NSMutableDictionary *dictm = [NSMutableDictionary dictionary];
     for (BookDetailModel *detailModel in models) {
         NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", detailModel.year, detailModel.month, detailModel.day];

@@ -152,7 +152,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
             NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
-            book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
+            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
             [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
             
         }
@@ -177,7 +177,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
             NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
-            book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
+            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
             [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
         }
     }
@@ -201,7 +201,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
             NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
-            book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
+            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
             [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
             
         } else if (is_income == true) {
@@ -222,7 +222,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
             NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
-            book = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:book];
+            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
             [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
         }
     }
@@ -230,7 +230,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     // 删除同类别信息
     NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults objectForKey:All_BOOK_LIST];
     NSString *preStr = [NSString stringWithFormat:@"cmodel.Id == %ld", model.Id];
-    arrm = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:arrm];
+    arrm = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:arrm];
     [NSUserDefaults setObject:arrm forKey:All_BOOK_LIST];
 }
 
@@ -284,7 +284,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     return categoryModelList;
 }
 
-+ (BKCModel *) getCategoryModel:(NSInteger)categoryId{
++ (BKCModel *)getCategoryModel:(NSInteger)categoryId{
     NSMutableArray<BKCModel *> *categoryList = [NSUserDefaults getCategoryModelList];
     BKCModel *categoryModel;
     for (BKCModel *model in categoryList) {
@@ -294,6 +294,18 @@ static NSMutableArray<BKCModel *> *categoryModelList;
         }
     }
     return categoryModel;
+}
+
++ (NSInteger)getCategoryId:(NSString*)keyword{
+    NSMutableArray<BKCModel *> *categoryList = [NSUserDefaults getCategoryModelList];
+    NSInteger categoryId = -1;
+    for (BKCModel *model in categoryList) {
+        if ([model.name isEqualToString:keyword]) {
+            categoryId = model.Id;
+            break;
+        }
+    }
+    return categoryId;
 }
 
 + (void)load {

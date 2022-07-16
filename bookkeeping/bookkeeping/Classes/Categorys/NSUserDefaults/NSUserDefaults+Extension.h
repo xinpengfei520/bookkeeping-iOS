@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray *) getCategoryModelList;
 // 获取分类 Model 通过 categoryId
 + (BKCModel *) getCategoryModel:(NSInteger)categoryId;
+// 获取分类 Model 的 categoryId，通过 keyword
++ (NSInteger)getCategoryId:(NSString*)keyword;
 // 保存所有账列表
 + (void)saveAllBookList:(NSMutableArray *)array;
 // 获取所有账列表

@@ -12,8 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSMutableArray (Extension)
 
-/// 过滤数据
-+ (NSMutableArray *)kk_filteredArrayUsingPredicate:(NSString *)fotmat array:(NSArray *)array;
+// 过滤数据
++ (NSMutableArray *)kk_filteredArrayUsingStringFormat:(NSString *)fotmat array:(NSArray *)array;
++ (NSMutableArray *)kk_filteredArrayUsingPredicate:(NSPredicate *)pre array:(NSArray *)array;
 
 @end
 

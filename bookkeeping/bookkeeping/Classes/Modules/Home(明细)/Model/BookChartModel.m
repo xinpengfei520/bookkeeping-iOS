@@ -58,7 +58,7 @@
         [preStr appendFormat:@" AND year == %ld", date.year];
     }
     
-    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:preStr array:arrm];
+    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:arrm];
     NSMutableArray<BookDetailModel *> *chartArr = [NSMutableArray array];
     NSMutableArray<NSMutableArray<BookDetailModel *> *> *chartHudArr = [NSMutableArray array];
     

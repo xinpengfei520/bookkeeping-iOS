@@ -67,8 +67,6 @@
 #define bookDetailDeleteRequest Request(@"/book/detail/delete")
 // 修改记账
 #define bookDetailUpdateRequest Request(@"/book/detail/update")
-// 搜索记账
-#define bookDetailSearchRequest Request(@"/book/detail/search")
 // 获取年记账列表
 #define yearBookListRequest Request(@"/book/detail/year")
 // 获取所有记账列表

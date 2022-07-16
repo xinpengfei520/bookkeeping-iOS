@@ -989,7 +989,7 @@
 				F35310902876C72600D297A9 /* Books(账本) */,
 				F35310852875F86E00D297A9 /* Assets(资产) */,
 				F35310802875EF1F00D297A9 /* About (关于) */,
-				F3AE5FD22847C95900E95086 /* Search (搜索) */,
+				F3AE5FD22847C95900E95086 /* Search */,
 				4BE7844A21C678FB00B8EC46 /* Home(明细) */,
 				4BE7845621C678FB00B8EC46 /* Book(记账) */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
@@ -2407,7 +2407,7 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
-		F3AE5FD22847C95900E95086 /* Search (搜索) */ = {
+		F3AE5FD22847C95900E95086 /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				F3A0525D285618FD00DB2E99 /* SEARCH_EVENT.h */,
@@ -2415,7 +2415,7 @@
 				F3AE5FD42847C99B00E95086 /* Model */,
 				F3AE5FD32847C98D00E95086 /* Controller */,
 			);
-			path = "Search (搜索)";
+			path = Search;
 			sourceTree = "<group>";
 		};
 		F3AE5FD32847C98D00E95086 /* Controller */ = {

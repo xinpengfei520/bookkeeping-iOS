@@ -11,8 +11,13 @@
 @implementation NSMutableArray (Extension)
 
 // 过滤数据
-+ (NSMutableArray *)kk_filteredArrayUsingPredicate:(NSString *)fotmat array:(NSArray *)array {
-    NSPredicate *pre = [NSPredicate predicateWithFormat:fotmat];
++ (NSMutableArray *)kk_filteredArrayUsingStringFormat:(NSString *)format array:(NSArray *)array {
+    NSPredicate *pre = [NSPredicate predicateWithFormat:format];
+    NSMutableArray *arrm = [NSMutableArray arrayWithArray:[array filteredArrayUsingPredicate:pre]];
+    return arrm;
+}
+
++ (NSMutableArray *)kk_filteredArrayUsingPredicate:(NSPredicate *)pre array:(NSArray *)array {
     NSMutableArray *arrm = [NSMutableArray arrayWithArray:[array filteredArrayUsingPredicate:pre]];
     return arrm;
 }

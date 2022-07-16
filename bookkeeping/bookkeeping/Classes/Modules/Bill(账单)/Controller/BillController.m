@@ -110,10 +110,10 @@
 
 - (void)dealWithData:(NSMutableArray<BookDetailModel *> *)bookArr {
     NSString *predicate = [NSString stringWithFormat:@"categoryId >= 33"];
-    NSMutableArray<BookDetailModel *> *incomeArr = [NSMutableArray kk_filteredArrayUsingPredicate:predicate array:bookArr];
+    NSMutableArray<BookDetailModel *> *incomeArr = [NSMutableArray kk_filteredArrayUsingStringFormat:predicate array:bookArr];
     
     predicate = [NSString stringWithFormat:@"categoryId <= 32"];
-    NSMutableArray<BookDetailModel *> *payArr = [NSMutableArray kk_filteredArrayUsingPredicate:predicate array:bookArr];
+    NSMutableArray<BookDetailModel *> *payArr = [NSMutableArray kk_filteredArrayUsingStringFormat:predicate array:bookArr];
     
     [self.table setIncome:[[incomeArr valueForKeyPath:@"@sum.price.floatValue"] floatValue]];
     [self.table setPay:[[payArr valueForKeyPath:@"@sum.price.floatValue"] floatValue]];
@@ -122,10 +122,10 @@
     
     for (NSInteger i=1; i<=12; i++) {
         NSString *incomeStr = [NSString stringWithFormat:@"month == %ld AND categoryId >= 33", i];
-        NSMutableArray<BookDetailModel *> *incomeModels = [NSMutableArray kk_filteredArrayUsingPredicate:incomeStr array:bookArr];
+        NSMutableArray<BookDetailModel *> *incomeModels = [NSMutableArray kk_filteredArrayUsingStringFormat:incomeStr array:bookArr];
         
         NSString *payStr = [NSString stringWithFormat:@"month == %ld AND categoryId <= 32", i];
-        NSMutableArray<BookDetailModel *> *payModels = [NSMutableArray kk_filteredArrayUsingPredicate:payStr array:bookArr];
+        NSMutableArray<BookDetailModel *> *payModels = [NSMutableArray kk_filteredArrayUsingStringFormat:payStr array:bookArr];
         
         CGFloat income = [[incomeModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];
         CGFloat pay = [[payModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];

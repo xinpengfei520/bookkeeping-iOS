@@ -20,13 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<BookDetailModel *> *array;  // 数据
 
 // 统计数据
-+ (NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month;
++(NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month;
++(NSMutableArray<BookMonthModel *> *)searchWithKeyword:(NSString*)keyword;
+-(NSString*)getMoneyDescribe;
 
-- (NSString*)getMoneyDescribe;
+-(NSString*)getDateDescribe;
 
-- (NSString*)getDateDescribe;
-
-- (NSMutableArray<BookDetailModel *> *)array;
+-(NSMutableArray<BookDetailModel *> *)array;
 
 @end
 

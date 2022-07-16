@@ -54,35 +54,10 @@
     return _list;
 }
 
-#pragma mark - request
-- (void) searchResultRequest:(NSString*)keyword {
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setValue:keyword forKey:@"keyword"];
-    
-    [self showProgressHUD:@"搜索中..."];
-    @weakify(self)
-    [AFNManager POST:bookDetailSearchRequest params:param complete:^(APPResult *result) {
-        @strongify(self)
-        [self hideHUD];
-        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            NSMutableArray<BookMonthModel *> *bookArray = [BookMonthModel mj_objectArrayWithKeyValuesArray:result.data];
-            [self setModels:bookArray];
-        } else {
-            // 当请求失败时，清空当前显示的列表数据
-            [self setModels:nil];
-            [self showTextHUD:result.msg delay:1.f];
-        }
-    }];
-}
-
 #pragma mark - set
 - (void)setModels:(NSMutableArray<BookMonthModel *> *)models {
     _models = models;
-    @weakify(self)
-    dispatch_async(dispatch_get_main_queue(), ^{
-        @strongify(self)
-        self.list.models = models;
-    });
+    self.list.models = models;
 }
 
 #pragma mark - event
@@ -123,7 +98,12 @@
         return;
     }
     
-    [self searchResultRequest:input];
+    NSMutableArray<BookMonthModel *> *list = [BookMonthModel searchWithKeyword:input];
+    if (list && list.count > 0) {
+        [self setModels:list];
+    }else {
+        [self setModels:nil];
+    }
 }
 
 - (void)searchTableCellClick:(BookDetailModel *)model {
