@@ -534,7 +534,7 @@
     _model = model;
     NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
     [self.markField setText:model.mark];
-    [self setMoney:[@(model.price) description].mutableCopy];
+    [self setMoney:[model getPriceStr].mutableCopy];
     [self setCurrentDate:[NSDate dateWithYMD:key]];
     
     UIButton *btn = [self viewWithTag:DATE_TAG];

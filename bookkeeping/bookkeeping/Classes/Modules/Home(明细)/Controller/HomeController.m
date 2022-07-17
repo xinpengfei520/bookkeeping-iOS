@@ -127,8 +127,7 @@
     // 修改记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE_HOME object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        //[self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
-        [self getMonthBookRequest:self.date.year month:self.date.month];
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 登录成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
@@ -178,7 +177,7 @@
     }
 }
 
-- (void) addBookRequest: (BookDetailModel *)model {
+- (void)addBookRequest: (BookDetailModel *)model {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];
     [param setValue:@(model.month) forKey:@"month"];
@@ -207,7 +206,7 @@
     }];
 }
 
-- (void) deleteBookRequest: (BookDetailModel *)model {
+- (void)deleteBookRequest:(BookDetailModel *)model {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.bookId) forKey:@"bookId"];
     
@@ -225,11 +224,10 @@
     }];
 }
 
-- (void) getMonthBookRequest:(NSInteger)year month:(NSInteger)month {
+- (void)getMonthBookRequest:(NSInteger)year month:(NSInteger)month {
     // 先从本地缓存中取
     NSMutableArray<BookMonthModel *> *list = [BookMonthModel statisticalMonthWithYear:_date.year month:_date.month];
     if (list && list.count > 0) {
-        NSLog(@"这是从缓存中读取的数据");
         [self setModels:list];
         return;
     }
