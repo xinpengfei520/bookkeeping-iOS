@@ -103,7 +103,7 @@
 + (NSNumber *)getBookId {
     NSNumber *bookId = [NSUserDefaults objectForKey:BookDetailModelId];
     if (!bookId) {
-        bookId = @(0);
+        bookId = @(1000000);
     }
     bookId = @([bookId integerValue] + 1);
     [NSUserDefaults setObject:bookId forKey:BookDetailModelId];

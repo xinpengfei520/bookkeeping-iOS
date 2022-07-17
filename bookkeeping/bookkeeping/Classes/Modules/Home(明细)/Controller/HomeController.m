@@ -114,9 +114,13 @@
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
+        CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
+        NSLog(@"方法耗时: %f ms", endTime * 1000.0);
+        
         BookDetailModel *model = x.object;
         [self addBookRequest:model];
-        //[self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 删除记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
@@ -177,7 +181,8 @@
     }
 }
 
-- (void)addBookRequest: (BookDetailModel *)model {
+- (void)addBookRequest:(BookDetailModel *)model {
+    NSInteger oldBookId = model.bookId;
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];
     [param setValue:@(model.month) forKey:@"month"];
@@ -186,19 +191,17 @@
     [param setValue:model.mark forKey:@"mark"];
     [param setValue:@(model.categoryId) forKey:@"categoryId"];
     
-    [self showProgressHUD:@"同步中..."];
     [AFNManager POST:bookDetailSaveRequest params:param complete:^(APPResult *result) {
-        [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:result.data];
             NSNumber *bookId = [dic objectForKey:@"bookId"];
             model.bookId = [bookId intValue];
             // 添加记账
-            [NSUserDefaults insertBookModel:model];
+            [NSUserDefaults replaceWithBookId:oldBookId model:model];
             
             // 判断添加的记账年月是否是当前页面显示的记账年月
             if (model.year == self.date.year && model.month == self.date.month) {
-                [self getMonthBookRequest:self.date.year month:self.date.month];
+                [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
             }
         } else {
             [self showTextHUD:result.msg delay:1.f];
