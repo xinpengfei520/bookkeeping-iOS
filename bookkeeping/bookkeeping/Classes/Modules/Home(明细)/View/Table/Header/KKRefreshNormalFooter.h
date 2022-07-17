@@ -6,11 +6,11 @@
 //  Copyright © 2018年 kk. All rights reserved.
 //
 
-#import "MJRefreshBackFooter.h"
+#import "MJRefreshBackNormalFooter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface KKRefreshNormalFooter : MJRefreshBackFooter
+@interface KKRefreshNormalFooter : MJRefreshBackNormalFooter
 
 @end
 
