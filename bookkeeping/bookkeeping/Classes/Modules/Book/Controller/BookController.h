@@ -1,5 +1,5 @@
 /**
- * 记账分类
+ * BookController: 记账
  * @author 郑业强 2018-12-16 创建文件
  */
 
@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BKCController : BaseViewController
+@interface BookController : BaseViewController
 
 @property (nonatomic, strong) BookDetailModel *model;
 

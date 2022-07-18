@@ -396,7 +396,7 @@
 
 - (void)pushToBookController{
     if ([UserInfo isLogin]) {
-        BKCController *bookController = [[BKCController alloc] init];
+        BookController *bookController = [[BookController alloc] init];
         BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:bookController];
         // Modal Presentation Styles（弹出风格）
         nav.modalPresentationStyle = UIModalPresentationCurrentContext;

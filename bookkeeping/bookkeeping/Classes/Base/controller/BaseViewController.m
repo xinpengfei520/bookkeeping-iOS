@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     self.navigationItem.backButtonTitle = @"返回";
 
     // 主页、记账页面隐藏左边返回按钮
-    if ([self isKindOfClass:[HomeController class]] || [self isKindOfClass:[BKCController class]]) {
+    if ([self isKindOfClass:[HomeController class]] || [self isKindOfClass:[BookController class]]) {
         self.leftButton.hidden = YES;
     } else {
         self.leftButton.hidden = NO;

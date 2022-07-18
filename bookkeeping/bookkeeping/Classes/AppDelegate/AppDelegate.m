@@ -63,9 +63,9 @@
     if ([url.absoluteString isEqualToString:@"kbook://month"]) {
         BaseNavigationController *tab = (BaseNavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
         BOOL condition1 = [tab isKindOfClass:[BaseNavigationController class]];
-        BOOL condition2 = ![[UIViewController getCurrentVC] isKindOfClass:[BKCController class]];
+        BOOL condition2 = ![[UIViewController getCurrentVC] isKindOfClass:[BookController class]];
         if (condition1 && condition2) {
-            BKCController *vc = [[BKCController alloc] init];
+            BookController *vc = [[BookController alloc] init];
             UIViewController *current = [UIViewController getCurrentVC];
             if (current.presentedViewController) {
                 [current.navigationController pushViewController:vc animated:true];

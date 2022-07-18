@@ -94,7 +94,7 @@
 //================================= Controller ===============================//
 #import "HomeController.h"
 #import "ChartController.h"
-#import "BKCController.h"
+#import "BookController.h"
 #import "MineController.h"
 #import "LoginController.h"
 #import "VerifyController.h"

@@ -1,9 +1,4 @@
-/**
- * 记账分类
- * @author 郑业强 2018-12-16 创建文件
- */
-
-#import "BKCController.h"
+#import "BookController.h"
 #import "BKCCollection.h"
 #import "BKCNavigation.h"
 #import "BKCKeyboard.h"
@@ -15,7 +10,7 @@
 #import "UIViewController+HBD.h"
 
 #pragma mark - 声明
-@interface BKCController()<UIScrollViewDelegate>
+@interface BookController()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) BKCNavigation *navigation;
 @property (nonatomic, strong) UIScrollView *scroll;
@@ -28,7 +23,7 @@
 
 
 #pragma mark - 实现
-@implementation BKCController
+@implementation BookController
 
 
 - (void)viewDidLoad {
@@ -39,7 +34,7 @@
     [self collections];
     [self keyboard];
 //    [self getCategoryListRequest];
-    [self bendiData];
+    [self initData];
     
     if (_model) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -67,7 +62,7 @@
     
 }
 
-- (void)bendiData {
+- (void)initData{
     BKCIncomeModel *model1 = [[BKCIncomeModel alloc] init];
     model1.is_income = false;
     model1.list = ({
@@ -205,7 +200,7 @@
         CAController *vc = [[CAController alloc] init];
         [vc setIs_income:collection.tag];
         [vc setComplete:^{
-            [self bendiData];
+            [self initData];
         }];
         [self.navigationController pushViewController:vc animated:YES];
     }

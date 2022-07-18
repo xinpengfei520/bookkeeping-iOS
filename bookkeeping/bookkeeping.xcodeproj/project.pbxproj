@@ -184,7 +184,7 @@
 		4BC7820221C918F200760DF9 /* BKCKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC7820121C918F200760DF9 /* BKCKeyboard.xib */; };
 		4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7845F21C6791E00B8EC46 /* HomeController.m */; };
 		4BE7846321C6796900B8EC46 /* ChartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846221C6796900B8EC46 /* ChartController.m */; };
-		4BE7846621C6799200B8EC46 /* BKCController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846521C6799200B8EC46 /* BKCController.m */; };
+		4BE7846621C6799200B8EC46 /* BookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846521C6799200B8EC46 /* BookController.m */; };
 		4BE7846C21C679F500B8EC46 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846B21C679F500B8EC46 /* MineController.m */; };
 		4BE8CC1921C93F21007935E2 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8CC1621C93F21007935E2 /* NSDate+Extension.m */; };
 		4BEB72DD21CE033300BEF013 /* RequestTipRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB729A21CE033300BEF013 /* RequestTipRefreshFooter.m */; };
@@ -658,8 +658,8 @@
 		4BE7845F21C6791E00B8EC46 /* HomeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeController.m; sourceTree = "<group>"; };
 		4BE7846121C6796900B8EC46 /* ChartController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartController.h; sourceTree = "<group>"; };
 		4BE7846221C6796900B8EC46 /* ChartController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartController.m; sourceTree = "<group>"; };
-		4BE7846421C6799200B8EC46 /* BKCController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCController.h; sourceTree = "<group>"; };
-		4BE7846521C6799200B8EC46 /* BKCController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCController.m; sourceTree = "<group>"; };
+		4BE7846421C6799200B8EC46 /* BookController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookController.h; sourceTree = "<group>"; };
+		4BE7846521C6799200B8EC46 /* BookController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookController.m; sourceTree = "<group>"; };
 		4BE7846A21C679F500B8EC46 /* MineController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineController.h; sourceTree = "<group>"; };
 		4BE7846B21C679F500B8EC46 /* MineController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineController.m; sourceTree = "<group>"; };
 		4BE8CC1421C93F21007935E2 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
@@ -991,7 +991,7 @@
 				F35310802875EF1F00D297A9 /* About (关于) */,
 				F3AE5FD22847C95900E95086 /* Search */,
 				4BE7844A21C678FB00B8EC46 /* Home(明细) */,
-				4BE7845621C678FB00B8EC46 /* Book(记账) */,
+				4BE7845621C678FB00B8EC46 /* Book */,
 				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
 				3244849C21C726570051B8B6 /* Mine */,
 				4BA68ADA21C7EA930063A5C2 /* Timing(定时提醒) */,
@@ -1923,7 +1923,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BE7845621C678FB00B8EC46 /* Book(记账) */ = {
+		4BE7845621C678FB00B8EC46 /* Book */ = {
 			isa = PBXGroup;
 			children = (
 				32D0B2BA21C772EB0030F5B2 /* BOOK_EVENT.h */,
@@ -1931,14 +1931,14 @@
 				4BE7845821C678FB00B8EC46 /* Model */,
 				4BE7845921C678FB00B8EC46 /* View */,
 			);
-			path = "Book(记账)";
+			path = Book;
 			sourceTree = "<group>";
 		};
 		4BE7845721C678FB00B8EC46 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4BE7846421C6799200B8EC46 /* BKCController.h */,
-				4BE7846521C6799200B8EC46 /* BKCController.m */,
+				4BE7846421C6799200B8EC46 /* BookController.h */,
+				4BE7846521C6799200B8EC46 /* BookController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2935,7 +2935,7 @@
 				F3A0525A2856125B00DB2E99 /* SearchListSubCell.m in Sources */,
 				F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */,
 				4B35F1BF21CCC694007271BE /* KKGoodsEmpty.m in Sources */,
-				4BE7846621C6799200B8EC46 /* BKCController.m in Sources */,
+				4BE7846621C6799200B8EC46 /* BookController.m in Sources */,
 				4B4852FD21C6974800891096 /* MineTableView.m in Sources */,
 				4B9798FD21CE744A0020B207 /* CountDown.m in Sources */,
 				321983FC21C6460100311885 /* UIButton+BarButtonItem.m in Sources */,

@@ -87,7 +87,7 @@
             @strongify(self)
             // 记账
             if (index == 1) {
-                BKCController *vc = [[BKCController alloc] init];
+                BookController *vc = [[BookController alloc] init];
                 BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
                 // Modal Presentation Styles（弹出风格）
                 nav.modalPresentationStyle = UIModalPresentationCurrentContext;

@@ -77,7 +77,7 @@
 - (void)bdBottomClick:(NSNumber *)number {
     // 编辑
     if ([number integerValue] == 0) {
-        BKCController *vc = [[BKCController alloc] init];
+        BookController *vc = [[BookController alloc] init];
         vc.model = _model;
         [self.navigationController pushViewController:vc animated:true];
     }
