@@ -114,12 +114,11 @@
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
-        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
-        CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
-        NSLog(@"方法耗时: %f ms", endTime * 1000.0);
-        
         BookDetailModel *model = x.object;
+        // 判断添加的记账年月是否是当前页面显示的记账年月
+        if (model.year == self.date.year && model.month == self.date.month) {
+            [self setModels:[BookMonthModel reloadData:self.models model:model]];
+        }
         [self addBookRequest:model];
     }];
     // 删除记账
@@ -196,13 +195,14 @@
             NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:result.data];
             NSNumber *bookId = [dic objectForKey:@"bookId"];
             model.bookId = [bookId intValue];
-            // 添加记账
-            [NSUserDefaults replaceWithBookId:oldBookId model:model];
             
             // 判断添加的记账年月是否是当前页面显示的记账年月
             if (model.year == self.date.year && model.month == self.date.month) {
-                [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+                [self setModels:[BookMonthModel replaceData:self.models model:model bookId:oldBookId]];
             }
+            
+            // 添加记账
+            [NSUserDefaults insertBookModel:model];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }

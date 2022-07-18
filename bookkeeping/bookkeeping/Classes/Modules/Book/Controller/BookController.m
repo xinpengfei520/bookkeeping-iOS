@@ -122,7 +122,7 @@
     
     // 新增
     if (!_model) {
-        [NSUserDefaults insertBookModel:model];
+        //[NSUserDefaults insertBookModel:model];
     }
     // 修改
     else {

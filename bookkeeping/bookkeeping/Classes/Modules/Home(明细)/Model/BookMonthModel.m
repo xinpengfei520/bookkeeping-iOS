@@ -142,4 +142,82 @@
     return arrm;
 }
 
+/**
+ * 重装数据 (将新数据添加到内存中旧数据的集合中)
+ * 内存级别操作，毫秒级，缩短耗时，提升用户体验
+ * @param models 内存中旧数据集合
+ * @param model   新增记账的新数据
+ */
++(NSMutableArray<BookMonthModel *> *)reloadData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model {
+    NSString *modelDate = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
+    
+    BOOL isFind = NO;
+    for (BookMonthModel *monthModel in models) {
+        NSString *date = [NSString stringWithFormat:@"%ld-%02ld-%02ld", monthModel.year, monthModel.month, monthModel.day];
+        if ([date isEqualToString:modelDate]) {
+            // 添加数据
+            [monthModel.array addObject:model];
+            // 收入
+            if (model.categoryId >= 33) {
+                [monthModel setIncome:monthModel.income + model.price];
+            }else { // 支出
+                [monthModel setPay:monthModel.pay + model.price];
+            }
+            
+            isFind = YES;
+            break;
+        }
+    }
+    
+    if (!isFind) {
+        BookMonthModel *monthModel = [[BookMonthModel alloc] init];
+        monthModel.year = model.year;
+        monthModel.month = model.month;
+        monthModel.day = model.day;
+        monthModel.array = [NSMutableArray array];
+        monthModel.income = 0;
+        monthModel.pay = 0;
+        
+        // 添加数据
+        [monthModel.array addObject:model];
+        // 收入
+        if (model.categoryId >= 33) {
+            [monthModel setIncome:monthModel.income + model.price];
+        }else { // 支出
+            [monthModel setPay:monthModel.pay + model.price];
+        }
+        
+        [models addObject:monthModel];
+    }
+    
+    // 排序，按照 day 的倒序排
+    models = [NSMutableArray arrayWithArray:[models sortedArrayUsingComparator:^NSComparisonResult(BookMonthModel *obj1, BookMonthModel *obj2) {
+        return obj2.day - obj1.day;
+    }]];
+    
+    return models;
+}
+
+/**
+ * 替换数据：内存级别操作
+ */
++(NSMutableArray<BookMonthModel *> *)replaceData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model bookId:(NSInteger)bookId {
+    NSString *modelDate = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
+    
+    for (BookMonthModel *monthModel in models) {
+        NSString *date = [NSString stringWithFormat:@"%ld-%02ld-%02ld", monthModel.year, monthModel.month, monthModel.day];
+        if ([date isEqualToString:modelDate]) {
+            for (BookDetailModel *detailModel in monthModel.array) {
+                if (detailModel.bookId == bookId) {
+                    detailModel.bookId = model.bookId;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    
+    return models;
+}
+
 @end

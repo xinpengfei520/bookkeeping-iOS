@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 统计数据
 +(NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month;
 +(NSMutableArray<BookMonthModel *> *)searchWithKeyword:(NSString*)keyword;
++(NSMutableArray<BookMonthModel *> *)reloadData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
++(NSMutableArray<BookMonthModel *> *)replaceData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model bookId:(NSInteger)bookId;
 -(NSString*)getMoneyDescribe;
 -(NSString*)getDateDescribe;
 -(NSString *)getDateDescribeWithYear;
