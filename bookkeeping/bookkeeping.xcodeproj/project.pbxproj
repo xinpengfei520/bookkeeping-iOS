@@ -986,26 +986,26 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				F3581D9C287ADC89007B17CD /* Verify(验证码) */,
-				F35310A42876D82400D297A9 /* Share(分享) */,
-				F35310A02876C90400D297A9 /* Feedback(反馈) */,
-				F353109C2876C8A800D297A9 /* Siri(捷径) */,
-				F35310982876C86500D297A9 /* Export(导出) */,
-				F35310942876C7F000D297A9 /* AutoBook(定时记账) */,
-				F35310902876C72600D297A9 /* Books(账本) */,
-				F35310852875F86E00D297A9 /* Assets(资产) */,
-				F35310802875EF1F00D297A9 /* About (关于) */,
+				F3581D9C287ADC89007B17CD /* Verify */,
+				F35310A42876D82400D297A9 /* Share */,
+				F35310A02876C90400D297A9 /* Feedback */,
+				F353109C2876C8A800D297A9 /* Siri */,
+				F35310982876C86500D297A9 /* Export */,
+				F35310942876C7F000D297A9 /* AutoBook */,
+				F35310902876C72600D297A9 /* Books */,
+				F35310852875F86E00D297A9 /* Assets */,
+				F35310802875EF1F00D297A9 /* About */,
 				F3AE5FD22847C95900E95086 /* Search */,
 				4BE7844A21C678FB00B8EC46 /* Home */,
 				4BE7845621C678FB00B8EC46 /* Book */,
-				4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */,
+				4BA68AF121C7F1A70063A5C2 /* AddCategory */,
 				3244849C21C726570051B8B6 /* Mine */,
-				4BA68ADA21C7EA930063A5C2 /* Timing(定时提醒) */,
-				4BA68AD221C7EA930063A5C2 /* CA (类别) */,
-				4BEB732121CE375F00BEF013 /* Info(个人信息) */,
-				4B229A6821E6183500152030 /* Bill(账单) */,
-				4BE7845A21C678FB00B8EC46 /* Chart(图表) */,
-				32EAB40121D0E99D0069DF99 /* CP(修改密码) */,
+				4BA68ADA21C7EA930063A5C2 /* Timing */,
+				4BA68AD221C7EA930063A5C2 /* Category */,
+				4BEB732121CE375F00BEF013 /* Info */,
+				4B229A6821E6183500152030 /* Bill */,
+				4BE7845A21C678FB00B8EC46 /* Chart */,
+				32EAB40121D0E99D0069DF99 /* Password */,
 				4BF0648721E10A50005F1665 /* Detail */,
 				F35310892875FC6D00D297A9 /* WebView */,
 				4BAF976721CE6182006EEF93 /* Register */,
@@ -1452,14 +1452,14 @@
 			path = HUD;
 			sourceTree = "<group>";
 		};
-		32EAB40121D0E99D0069DF99 /* CP(修改密码) */ = {
+		32EAB40121D0E99D0069DF99 /* Password */ = {
 			isa = PBXGroup;
 			children = (
 				32EAB40221D0E99D0069DF99 /* Controller */,
 				32EAB40321D0E99D0069DF99 /* Model */,
 				32EAB40421D0E99D0069DF99 /* View */,
 			);
-			path = "CP(修改密码)";
+			path = Password;
 			sourceTree = "<group>";
 		};
 		32EAB40221D0E99D0069DF99 /* Controller */ = {
@@ -1521,14 +1521,14 @@
 			path = ScreenBlurry;
 			sourceTree = "<group>";
 		};
-		4B229A6821E6183500152030 /* Bill(账单) */ = {
+		4B229A6821E6183500152030 /* Bill */ = {
 			isa = PBXGroup;
 			children = (
 				4B229A6921E6183500152030 /* Controller */,
 				4B229A6A21E6183500152030 /* Model */,
 				4B229A6B21E6183500152030 /* View */,
 			);
-			path = "Bill(账单)";
+			path = Bill;
 			sourceTree = "<group>";
 		};
 		4B229A6921E6183500152030 /* Controller */ = {
@@ -1665,7 +1665,7 @@
 			path = CountDown;
 			sourceTree = "<group>";
 		};
-		4BA68AD221C7EA930063A5C2 /* CA (类别) */ = {
+		4BA68AD221C7EA930063A5C2 /* Category */ = {
 			isa = PBXGroup;
 			children = (
 				4BA68AF921C7F3630063A5C2 /* CA_EVENT.h */,
@@ -1673,7 +1673,7 @@
 				4BA68AD421C7EA930063A5C2 /* Model */,
 				4BA68AD521C7EA930063A5C2 /* View */,
 			);
-			path = "CA (类别)";
+			path = Category;
 			sourceTree = "<group>";
 		};
 		4BA68AD321C7EA930063A5C2 /* Controller */ = {
@@ -1712,7 +1712,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BA68ADA21C7EA930063A5C2 /* Timing(定时提醒) */ = {
+		4BA68ADA21C7EA930063A5C2 /* Timing */ = {
 			isa = PBXGroup;
 			children = (
 				326F8F2521D4CA470030B329 /* TIMING_EVENT.h */,
@@ -1720,7 +1720,7 @@
 				4BA68ADC21C7EA930063A5C2 /* Model */,
 				4BA68ADD21C7EA930063A5C2 /* View */,
 			);
-			path = "Timing(定时提醒)";
+			path = Timing;
 			sourceTree = "<group>";
 		};
 		4BA68ADB21C7EA930063A5C2 /* Controller */ = {
@@ -1753,7 +1753,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BA68AF121C7F1A70063A5C2 /* ACA (添加类别) */ = {
+		4BA68AF121C7F1A70063A5C2 /* AddCategory */ = {
 			isa = PBXGroup;
 			children = (
 				4B35F1D621CD10B1007271BE /* ACA_EVENT_MANAGER.h */,
@@ -1761,7 +1761,7 @@
 				4BA68AF321C7F1A70063A5C2 /* Model */,
 				4BA68AF421C7F1A70063A5C2 /* View */,
 			);
-			path = "ACA (添加类别)";
+			path = AddCategory;
 			sourceTree = "<group>";
 		};
 		4BA68AF221C7F1A70063A5C2 /* Controller */ = {
@@ -1979,7 +1979,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		4BE7845A21C678FB00B8EC46 /* Chart(图表) */ = {
+		4BE7845A21C678FB00B8EC46 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
 				4B8D635C21D8CF03002AEB4A /* CHART_EVENT.h */,
@@ -1987,7 +1987,7 @@
 				4BE7845C21C678FB00B8EC46 /* Model */,
 				4BE7845D21C678FB00B8EC46 /* View */,
 			);
-			path = "Chart(图表)";
+			path = Chart;
 			sourceTree = "<group>";
 		};
 		4BE7845B21C678FB00B8EC46 /* Controller */ = {
@@ -2112,7 +2112,7 @@
 			path = img;
 			sourceTree = "<group>";
 		};
-		4BEB732121CE375F00BEF013 /* Info(个人信息) */ = {
+		4BEB732121CE375F00BEF013 /* Info */ = {
 			isa = PBXGroup;
 			children = (
 				4BEB733521CE428F00BEF013 /* INFO_EVENT_MANAGER.h */,
@@ -2120,7 +2120,7 @@
 				4BEB732221CE377800BEF013 /* Model */,
 				4BEB732421CE377800BEF013 /* View */,
 			);
-			path = "Info(个人信息)";
+			path = Info;
 			sourceTree = "<group>";
 		};
 		4BEB732221CE377800BEF013 /* Model */ = {
@@ -2262,12 +2262,12 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		F35310802875EF1F00D297A9 /* About (关于) */ = {
+		F35310802875EF1F00D297A9 /* About */ = {
 			isa = PBXGroup;
 			children = (
 				F35310812875EF1F00D297A9 /* Controller */,
 			);
-			path = "About (关于)";
+			path = About;
 			sourceTree = "<group>";
 		};
 		F35310812875EF1F00D297A9 /* Controller */ = {
@@ -2279,14 +2279,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		F35310852875F86E00D297A9 /* Assets(资产) */ = {
+		F35310852875F86E00D297A9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				F3B1DFFF28783ED500B13A90 /* View */,
 				F3B1DFFE28783ECC00B13A90 /* Model */,
 				F3B1DFFD28783EC500B13A90 /* Controller */,
 			);
-			path = "Assets(资产)";
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		F35310892875FC6D00D297A9 /* WebView */ = {
@@ -2298,58 +2298,58 @@
 			path = WebView;
 			sourceTree = "<group>";
 		};
-		F35310902876C72600D297A9 /* Books(账本) */ = {
+		F35310902876C72600D297A9 /* Books */ = {
 			isa = PBXGroup;
 			children = (
 				F35310912876C76700D297A9 /* BooksController.h */,
 				F35310922876C76700D297A9 /* BooksController.m */,
 			);
-			path = "Books(账本)";
+			path = Books;
 			sourceTree = "<group>";
 		};
-		F35310942876C7F000D297A9 /* AutoBook(定时记账) */ = {
+		F35310942876C7F000D297A9 /* AutoBook */ = {
 			isa = PBXGroup;
 			children = (
 				F35310952876C82B00D297A9 /* AutoBookController.h */,
 				F35310962876C82B00D297A9 /* AutoBookController.m */,
 			);
-			path = "AutoBook(定时记账)";
+			path = AutoBook;
 			sourceTree = "<group>";
 		};
-		F35310982876C86500D297A9 /* Export(导出) */ = {
+		F35310982876C86500D297A9 /* Export */ = {
 			isa = PBXGroup;
 			children = (
 				F35310992876C88D00D297A9 /* ExportController.h */,
 				F353109A2876C88D00D297A9 /* ExportController.m */,
 			);
-			path = "Export(导出)";
+			path = Export;
 			sourceTree = "<group>";
 		};
-		F353109C2876C8A800D297A9 /* Siri(捷径) */ = {
+		F353109C2876C8A800D297A9 /* Siri */ = {
 			isa = PBXGroup;
 			children = (
 				F353109D2876C8E200D297A9 /* SiriController.h */,
 				F353109E2876C8E200D297A9 /* SiriController.m */,
 			);
-			path = "Siri(捷径)";
+			path = Siri;
 			sourceTree = "<group>";
 		};
-		F35310A02876C90400D297A9 /* Feedback(反馈) */ = {
+		F35310A02876C90400D297A9 /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
 				F35310A12876C94000D297A9 /* FeedbackController.h */,
 				F35310A22876C94000D297A9 /* FeedbackController.m */,
 			);
-			path = "Feedback(反馈)";
+			path = Feedback;
 			sourceTree = "<group>";
 		};
-		F35310A42876D82400D297A9 /* Share(分享) */ = {
+		F35310A42876D82400D297A9 /* Share */ = {
 			isa = PBXGroup;
 			children = (
 				F35310A52876D82400D297A9 /* Controller */,
 				F35310A82876D82400D297A9 /* View */,
 			);
-			path = "Share(分享)";
+			path = Share;
 			sourceTree = "<group>";
 		};
 		F35310A52876D82400D297A9 /* Controller */ = {
@@ -2397,14 +2397,14 @@
 			path = UITableViewHeaderFooterView;
 			sourceTree = "<group>";
 		};
-		F3581D9C287ADC89007B17CD /* Verify(验证码) */ = {
+		F3581D9C287ADC89007B17CD /* Verify */ = {
 			isa = PBXGroup;
 			children = (
 				F3581D9D287ADD2C007B17CD /* VerifyController.h */,
 				F3581D9E287ADD2C007B17CD /* VerifyController.m */,
 				F3581D9F287ADD2C007B17CD /* VerifyController.xib */,
 			);
-			path = "Verify(验证码)";
+			path = Verify;
 			sourceTree = "<group>";
 		};
 		F3581DA2287C0F6F007B17CD /* BaseViewController */ = {

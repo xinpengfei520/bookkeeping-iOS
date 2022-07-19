@@ -347,12 +347,10 @@
 
 // 点击Cell
 - (void)homeTableCellClick:(BookDetailModel *)model {
-    @weakify(self)
     BookDetailController *vc = [[BookDetailController alloc] init];
     vc.model = model;
     vc.complete = ^{
-//        @strongify(self)
-//        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+
     };
     [self.navigationController pushViewController:vc animated:true];
 }
