@@ -7,6 +7,7 @@
 //
 
 #import "BaseModel.h"
+#import "UpdateBookModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,9 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 统计数据
 +(NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month;
 +(NSMutableArray<BookMonthModel *> *)searchWithKeyword:(NSString*)keyword;
-+(NSMutableArray<BookMonthModel *> *)reloadData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
++(NSMutableArray<BookMonthModel *> *)addData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
 +(NSMutableArray<BookMonthModel *> *)replaceData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model bookId:(NSInteger)bookId;
 +(NSMutableArray<BookMonthModel *> *)removeData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
++(NSMutableArray<BookMonthModel *> *)updateData:(NSMutableArray<BookMonthModel *> *)models updateBookModel:(UpdateBookModel *)updateBookModel;
 -(NSString*)getMoneyDescribe;
 -(NSString*)getDateDescribe;
 -(NSString *)getDateDescribeWithYear;

@@ -12,6 +12,7 @@
 #import "MINE_EVENT_MANAGER.h"
 #import "BookDetailModel.h"
 #import "BookMonthModel.h"
+#import "UpdateBookModel.h"
 #import "BookDetailController.h"
 #import "SearchViewController.h"
 #import "MineController.h"
@@ -115,10 +116,6 @@
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
         BookDetailModel *model = x.object;
-        // 判断添加的记账年月是否是当前页面显示的记账年月
-        if (model.year == self.date.year && model.month == self.date.month) {
-            [self setModels:[BookMonthModel reloadData:self.models model:model]];
-        }
         [self addBookRequest:model];
     }];
     // 删除记账
@@ -128,9 +125,10 @@
         [self deleteBookRequest:model];
     }];
     // 修改记账
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE_HOME object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE_HOME object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+        UpdateBookModel *model = x.object;
+        [self updateBookRequest:model];
     }];
     // 登录成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
@@ -181,6 +179,11 @@
 }
 
 - (void)addBookRequest:(BookDetailModel *)model {
+    // 判断添加的记账年月是否是当前页面显示的记账年月
+    if (model.year == self.date.year && model.month == self.date.month) {
+        [self setModels:[BookMonthModel addData:self.models model:model]];
+    }
+    
     NSInteger oldBookId = model.bookId;
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];
@@ -219,9 +222,34 @@
     [param setValue:@(model.bookId) forKey:@"bookId"];
     
     [AFNManager POST:bookDetailDeleteRequest params:param complete:^(APPResult *result) {
-        //[self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             [NSUserDefaults removeBookModel:model];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
+        }
+    }];
+}
+
+- (void)updateBookRequest:(UpdateBookModel *)updateBookModel {
+    BookDetailModel *model = updateBookModel.model;
+    // 判断添加的记账年月是否是当前页面显示的记账年月
+    if (model.year == self.date.year && model.month == self.date.month) {
+        [self setModels:[BookMonthModel updateData:self.models updateBookModel:updateBookModel]];
+    }
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:@(model.bookId) forKey:@"bookId"];
+    [param setValue:@(model.year) forKey:@"year"];
+    [param setValue:@(model.month) forKey:@"month"];
+    [param setValue:@(model.day) forKey:@"day"];
+    [param setValue:@(model.price) forKey:@"price"];
+    [param setValue:model.mark forKey:@"mark"];
+    [param setValue:@(model.categoryId) forKey:@"categoryId"];
+    
+    [AFNManager POST:bookDetailUpdateRequest params:param complete:^(APPResult *result) {
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            // 修改本地所有记账
+            [NSUserDefaults replaceBookModel:model];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }

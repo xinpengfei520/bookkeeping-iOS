@@ -7,6 +7,7 @@
 #import "KKRefreshGifHeader.h"
 #import "BOOK_EVENT.h"
 #import "BookDetailModel.h"
+#import "UpdateBookModel.h"
 #import "UIViewController+HBD.h"
 
 #pragma mark - 声明
@@ -119,13 +120,14 @@
     // 去掉备注中的空格并判空，如果为空则使用类别名作为备注
     model.mark = ([allTrim(mark)length] == 0)?cmodel.name:mark;
     model.categoryId = cmodel.Id;
-    
+    CGFloat oldPrice = .0f;
     // 新增
     if (!_model) {
         //[NSUserDefaults insertBookModel:model];
     }
     // 修改
     else {
+        oldPrice = _model.price;
         _model.price = [price floatValue];
         _model.year = date.year;
         _model.month = date.month;
@@ -135,10 +137,13 @@
         model = _model;
     }
     
+    UpdateBookModel *updateBookModel = [[UpdateBookModel alloc]init];
+    updateBookModel.oldPrice = oldPrice;
+    updateBookModel.model = model;
     // 编辑修改完成
     if (self.navigationController.viewControllers.count != 1) {
         [self.navigationController popViewControllerAnimated:true];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE object:model];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE object:updateBookModel];
     } else {
         // 记账完成
         [self.navigationController dismissViewControllerAnimated:YES completion:^{

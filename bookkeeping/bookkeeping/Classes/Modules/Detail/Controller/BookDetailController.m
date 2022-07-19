@@ -8,6 +8,7 @@
 #import "BDTable.h"
 #import "BDBottom.h"
 #import "BD_EVENT.h"
+#import "UpdateBookModel.h"
 #import "UIViewController+HBD.h"
 
 #pragma mark - 声明
@@ -44,9 +45,9 @@
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        BookDetailModel *model = x.object;
-        [self setModel:model];
-        [self updateBookRequest:model];
+        UpdateBookModel *model = x.object;
+        [self setModel:model.model];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE_HOME object:model];
     }];
 }
 
@@ -132,29 +133,5 @@
     return _eventStrategy;
 }
 
-#pragma mark - request
-- (void) updateBookRequest: (BookDetailModel *)model {
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setValue:@(model.bookId) forKey:@"bookId"];
-    [param setValue:@(model.year) forKey:@"year"];
-    [param setValue:@(model.month) forKey:@"month"];
-    [param setValue:@(model.day) forKey:@"day"];
-    [param setValue:@(model.price) forKey:@"price"];
-    [param setValue:model.mark forKey:@"mark"];
-    [param setValue:@(model.categoryId) forKey:@"categoryId"];
-    
-    [self showProgressHUD:@"修改中..."];
-    [AFNManager POST:bookDetailUpdateRequest params:param complete:^(APPResult *result) {
-        [self hideHUD];
-        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            // 修改本地所有记账
-            [NSUserDefaults replaceBookModel:model];
-            [self showTextHUD:@"修改成功" delay:1.f];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE_HOME object:model];
-        } else {
-            [self showTextHUD:result.msg delay:1.f];
-        }
-    }];
-}
 
 @end

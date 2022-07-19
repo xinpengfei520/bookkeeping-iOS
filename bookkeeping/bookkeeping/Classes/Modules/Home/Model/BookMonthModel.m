@@ -8,6 +8,7 @@
 
 #import "BookMonthModel.h"
 #import "BookDetailModel.h"
+#import "UpdateBookModel.h"
 
 @implementation BookMonthModel
 
@@ -148,7 +149,7 @@
  * @param models 内存中旧数据集合
  * @param model   新增记账的新数据
  */
-+(NSMutableArray<BookMonthModel *> *)reloadData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model {
++(NSMutableArray<BookMonthModel *> *)addData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model {
     NSString *modelDate = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
     
     BOOL isFind = NO;
@@ -240,6 +241,30 @@
                 [monthModel setIncome:monthModel.income - model.price];
             }else { // 支出
                 [monthModel setPay:monthModel.pay - model.price];
+            }
+            break;
+        }
+    }
+    
+    return models;
+}
+
+/**
+ * 更新数据：内存级别操作
+ */
++(NSMutableArray<BookMonthModel *> *)updateData:(NSMutableArray<BookMonthModel *> *)models updateBookModel:(UpdateBookModel *)updateBookModel {
+    BookDetailModel *model = updateBookModel.model;
+    CGFloat oldPrice = updateBookModel.oldPrice;
+    NSString *modelDate = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
+    
+    for (BookMonthModel *monthModel in models) {
+        NSString *date = [NSString stringWithFormat:@"%ld-%02ld-%02ld", monthModel.year, monthModel.month, monthModel.day];
+        if ([date isEqualToString:modelDate]) {
+            // 收入
+            if (model.categoryId >= 33) {
+                [monthModel setIncome:monthModel.income + model.price - oldPrice];
+            }else { // 支出
+                [monthModel setPay:monthModel.pay + model.price - oldPrice];
             }
             break;
         }
