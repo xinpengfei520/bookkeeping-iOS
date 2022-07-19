@@ -220,4 +220,32 @@
     return models;
 }
 
+/**
+ * 替换数据：内存级别操作
+ */
++(NSMutableArray<BookMonthModel *> *)removeData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model {
+    NSString *modelDate = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
+    
+    for (BookMonthModel *monthModel in models) {
+        NSString *date = [NSString stringWithFormat:@"%ld-%02ld-%02ld", monthModel.year, monthModel.month, monthModel.day];
+        if ([date isEqualToString:modelDate]) {
+            for (BookDetailModel *detailModel in monthModel.array) {
+                if (detailModel.bookId == model.bookId) {
+                    [monthModel.array removeObject:detailModel];
+                    break;
+                }
+            }
+            // 收入
+            if (model.categoryId >= 33) {
+                [monthModel setIncome:monthModel.income - model.price];
+            }else { // 支出
+                [monthModel setPay:monthModel.pay - model.price];
+            }
+            break;
+        }
+    }
+    
+    return models;
+}
+
 @end

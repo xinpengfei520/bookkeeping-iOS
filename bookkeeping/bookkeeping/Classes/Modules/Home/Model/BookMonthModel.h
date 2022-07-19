@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSMutableArray<BookMonthModel *> *)searchWithKeyword:(NSString*)keyword;
 +(NSMutableArray<BookMonthModel *> *)reloadData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
 +(NSMutableArray<BookMonthModel *> *)replaceData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model bookId:(NSInteger)bookId;
++(NSMutableArray<BookMonthModel *> *)removeData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
 -(NSString*)getMoneyDescribe;
 -(NSString*)getDateDescribe;
 -(NSString *)getDateDescribeWithYear;

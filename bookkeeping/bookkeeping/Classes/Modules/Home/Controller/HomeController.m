@@ -210,17 +210,18 @@
 }
 
 - (void)deleteBookRequest:(BookDetailModel *)model {
+    // 判断添加的记账年月是否是当前页面显示的记账年月
+    if (model.year == self.date.year && model.month == self.date.month) {
+        [self setModels:[BookMonthModel removeData:self.models model:model]];
+    }
+    
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.bookId) forKey:@"bookId"];
     
-    [self showProgressHUD:@"删除中..."];
     [AFNManager POST:bookDetailDeleteRequest params:param complete:^(APPResult *result) {
-        [self hideHUD];
+        //[self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            // 从本地所有记账中移除
             [NSUserDefaults removeBookModel:model];
-            [self showTextHUD:@"已删除" delay:1.f];
-            [self getMonthBookRequest:self.date.year month:self.date.month];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
@@ -322,8 +323,8 @@
     BookDetailController *vc = [[BookDetailController alloc] init];
     vc.model = model;
     vc.complete = ^{
-        @strongify(self)
-        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
+//        @strongify(self)
+//        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     };
     [self.navigationController pushViewController:vc animated:true];
 }
