@@ -133,6 +133,11 @@
     _status = HomeListStatusNormal;
 }
 
+- (void)refresh:(NSIndexPath *)indexPath{
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+    HomeListCell *cell = [self.table cellForRowAtIndexPath:index];
+    [cell refresh:indexPath];
+}
 
 #pragma mark - 事件
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {

@@ -80,7 +80,7 @@
 /**
  * 设置金额是否可见
  */
-- (void) setMoneyDesensitization {
+- (void)setMoneyDesensitization {
     // 从缓存中取出 PIN_DESENSITIZATION 的值，如果没有则默认为 0
     NSNumber *desensitization = [NSUserDefaults objectForKey:PIN_DESENSITIZATION];
     // 当点击后，取反并重新保存
@@ -124,6 +124,10 @@
         [_incomeLab setAttributedText:[NSAttributedString createMath:income integer:integer decimal:decimal color:kColor_Text_White]];
         [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_show"] forState:UIControlStateNormal];
     }
+}
+
+- (void)refresh {
+    [self setModels:self.models];
 }
 
 //- (void)setModel:(BKModel *)model {

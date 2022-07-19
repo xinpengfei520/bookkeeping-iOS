@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, HomeListStatus) {
 //@property (nonatomic, strong) BKModel *model;
 @property (nonatomic, strong) NSMutableArray<BookMonthModel *> *models;
 
+- (void)refresh:(NSIndexPath *)indexPath;
+
 @end
 
 

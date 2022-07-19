@@ -293,7 +293,6 @@
 		F35310BB2876D82400D297A9 /* ShareOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310B32876D82400D297A9 /* ShareOrder.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F3570A1A2886995600B10976 /* UITableViewHeaderFooterView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */; };
-		F3570A1D2886CBFD00B10976 /* UpdateBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3570A1C2886CBFD00B10976 /* UpdateBookModel.m */; };
 		F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3581D9E287ADD2C007B17CD /* VerifyController.m */; };
 		F3581DA1287ADD2C007B17CD /* VerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3581D9F287ADD2C007B17CD /* VerifyController.xib */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
@@ -803,8 +802,6 @@
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
 		F3570A182886995600B10976 /* UITableViewHeaderFooterView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Extension.h"; sourceTree = "<group>"; };
 		F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Extension.m"; sourceTree = "<group>"; };
-		F3570A1B2886CBFD00B10976 /* UpdateBookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UpdateBookModel.h; path = bookkeeping/Classes/Categorys/UITableViewHeaderFooterView/UpdateBookModel.h; sourceTree = SOURCE_ROOT; };
-		F3570A1C2886CBFD00B10976 /* UpdateBookModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = UpdateBookModel.m; path = bookkeeping/Classes/Categorys/UITableViewHeaderFooterView/UpdateBookModel.m; sourceTree = SOURCE_ROOT; };
 		F3581D9D287ADD2C007B17CD /* VerifyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyController.h; sourceTree = "<group>"; };
 		F3581D9E287ADD2C007B17CD /* VerifyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyController.m; sourceTree = "<group>"; };
 		F3581D9F287ADD2C007B17CD /* VerifyController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyController.xib; sourceTree = "<group>"; };
@@ -2179,8 +2176,6 @@
 		4BF0648921E10A50005F1665 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F3570A1B2886CBFD00B10976 /* UpdateBookModel.h */,
-				F3570A1C2886CBFD00B10976 /* UpdateBookModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2949,7 +2944,6 @@
 				32D0B2BD21C778C20030F5B2 /* ChartNavigation.m in Sources */,
 				4B48530B21C69F2800891096 /* MineHeader.m in Sources */,
 				32E35B1E21D703BA003B3040 /* ChartSubModel.m in Sources */,
-				F3570A1D2886CBFD00B10976 /* UpdateBookModel.m in Sources */,
 				4B229A7921E622F900152030 /* BillHeader.m in Sources */,
 				4BF0649621E10FD2005F1665 /* HomeNavigation.m in Sources */,
 				F3A0525A2856125B00DB2E99 /* SearchListSubCell.m in Sources */,

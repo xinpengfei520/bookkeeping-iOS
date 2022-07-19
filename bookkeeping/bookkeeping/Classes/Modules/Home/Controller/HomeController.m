@@ -12,7 +12,6 @@
 #import "MINE_EVENT_MANAGER.h"
 #import "BookDetailModel.h"
 #import "BookMonthModel.h"
-#import "UpdateBookModel.h"
 #import "BookDetailController.h"
 #import "SearchViewController.h"
 #import "MineController.h"
@@ -127,7 +126,7 @@
     // 修改记账
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE_HOME object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        UpdateBookModel *model = x.object;
+        BookDetailModel *model = x.object;
         [self updateBookRequest:model];
     }];
     // 登录成功
@@ -230,13 +229,7 @@
     }];
 }
 
-- (void)updateBookRequest:(UpdateBookModel *)updateBookModel {
-    BookDetailModel *model = updateBookModel.model;
-    // 判断添加的记账年月是否是当前页面显示的记账年月
-    if (model.year == self.date.year && model.month == self.date.month) {
-        [self setModels:[BookMonthModel updateData:self.models updateBookModel:updateBookModel]];
-    }
-    
+- (void)updateBookRequest:(BookDetailModel *)model {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.bookId) forKey:@"bookId"];
     [param setValue:@(model.year) forKey:@"year"];
@@ -346,11 +339,18 @@
 }
 
 // 点击Cell
-- (void)homeTableCellClick:(BookDetailModel *)model {
+- (void)homeTableCellClick:(NSIndexPath *)indexPath {
+    @weakify(self)
+    BookDetailModel *model = self.models[indexPath.section].array[indexPath.row];
     BookDetailController *vc = [[BookDetailController alloc] init];
     vc.model = model;
     vc.complete = ^{
-
+    };
+    vc.refresh = ^{
+        @strongify(self)
+        [self.models[indexPath.section] refresh];
+        [self.list refresh:indexPath];
+        [self.header refresh];
     };
     [self.navigationController pushViewController:vc animated:true];
 }

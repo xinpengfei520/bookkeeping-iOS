@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, assign) CGFloat income;
 //@property (nonatomic, strong) BookDetailModel *model;
 @property (nonatomic, strong) NSMutableArray<BookMonthModel *> *models;
+- (void)refresh;
 
 @end
 

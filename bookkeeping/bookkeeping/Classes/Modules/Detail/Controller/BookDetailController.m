@@ -8,7 +8,6 @@
 #import "BDTable.h"
 #import "BDBottom.h"
 #import "BD_EVENT.h"
-#import "UpdateBookModel.h"
 #import "UIViewController+HBD.h"
 
 #pragma mark - 声明
@@ -45,8 +44,11 @@
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
         @strongify(self)
-        UpdateBookModel *model = x.object;
-        [self setModel:model.model];
+        BookDetailModel *model = x.object;
+        [self setModel:model];
+        if (self.refresh) {
+            self.refresh();
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_UPDATE_HOME object:model];
     }];
 }

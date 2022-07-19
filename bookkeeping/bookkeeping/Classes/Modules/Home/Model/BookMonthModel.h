@@ -7,7 +7,6 @@
 //
 
 #import "BaseModel.h"
-#import "UpdateBookModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,11 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSMutableArray<BookMonthModel *> *)addData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
 +(NSMutableArray<BookMonthModel *> *)replaceData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model bookId:(NSInteger)bookId;
 +(NSMutableArray<BookMonthModel *> *)removeData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
-+(NSMutableArray<BookMonthModel *> *)updateData:(NSMutableArray<BookMonthModel *> *)models updateBookModel:(UpdateBookModel *)updateBookModel;
 -(NSString*)getMoneyDescribe;
 -(NSString*)getDateDescribe;
 -(NSString *)getDateDescribeWithYear;
 -(NSMutableArray<BookDetailModel *> *)array;
+-(void)refresh;
 
 @end
 

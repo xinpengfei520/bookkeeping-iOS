@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - typedef
 typedef void (^BDComplete)(void);
+typedef void (^BDRefresh)(void);
 
 
 #pragma mark - 声明
@@ -18,6 +19,7 @@ typedef void (^BDComplete)(void);
 
 @property (nonatomic, strong) BookDetailModel *model;
 @property (nonatomic, copy  ) BDComplete complete;
+@property (nonatomic, copy  ) BDRefresh refresh;
 
 @end
 

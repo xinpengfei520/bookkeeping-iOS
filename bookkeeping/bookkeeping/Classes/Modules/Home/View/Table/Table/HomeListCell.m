@@ -95,8 +95,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BookDetailModel *model = self.models[indexPath.section].array[indexPath.row];
-    [self routerEventWithName:HOME_CELL_CLICK data:model];
+    //BookDetailModel *model = self.models[indexPath.section].array[indexPath.row];
+    [self routerEventWithName:HOME_CELL_CLICK data:indexPath];
 }
 
 - (void)endRefresh {
@@ -104,6 +104,14 @@
     [self.table.mj_footer endRefreshing];
 }
 
+- (void)refresh:(NSIndexPath *)indexPath {
+    // 刷新单个 cell
+    NSArray <NSIndexPath *> *indexPathArray = @[indexPath];
+    [self.table reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
+    // 刷新单个 section
+    NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:indexPath.section];
+    [self.table reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 
 #pragma mark - get
 - (KKRefreshNormalHeader *)header {

@@ -8,7 +8,6 @@
 
 #import "BookMonthModel.h"
 #import "BookDetailModel.h"
-#import "UpdateBookModel.h"
 
 @implementation BookMonthModel
 
@@ -249,28 +248,16 @@
     return models;
 }
 
-/**
- * 更新数据：内存级别操作
- */
-+(NSMutableArray<BookMonthModel *> *)updateData:(NSMutableArray<BookMonthModel *> *)models updateBookModel:(UpdateBookModel *)updateBookModel {
-    BookDetailModel *model = updateBookModel.model;
-    CGFloat oldPrice = updateBookModel.oldPrice;
-    NSString *modelDate = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
-    
-    for (BookMonthModel *monthModel in models) {
-        NSString *date = [NSString stringWithFormat:@"%ld-%02ld-%02ld", monthModel.year, monthModel.month, monthModel.day];
-        if ([date isEqualToString:modelDate]) {
-            // 收入
-            if (model.categoryId >= 33) {
-                [monthModel setIncome:monthModel.income + model.price - oldPrice];
-            }else { // 支出
-                [monthModel setPay:monthModel.pay + model.price - oldPrice];
-            }
-            break;
+-(void)refresh {
+    self.income = 0;
+    self.pay = 0;
+    for (BookDetailModel *model in self.array) {
+        if (model.categoryId >= 33) {
+            [self setIncome:self.income + model.price];
+        }else {
+            [self setPay:self.pay + model.price];
         }
     }
-    
-    return models;
 }
 
 @end
