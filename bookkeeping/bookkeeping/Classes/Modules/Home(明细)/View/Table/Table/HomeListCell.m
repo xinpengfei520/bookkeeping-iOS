@@ -57,6 +57,11 @@
     return self.models[section].array.count;
 }
 
+/**
+ * 关于 UITableViewCell 复用优化
+ * HomeListSubCell 继承自 MGSwipeTableCell，而 MGSwipeTableCell 内部实现了复用逻辑，所以在这里可以不调用 dequeueReusableCellWithIdentifier
+ * 只需要在 UITableView 初始化的时候注册 就可以了
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeListSubCell *cell = [HomeListSubCell loadFirstNib:tableView];
     cell.model = self.models[indexPath.section].array[indexPath.row];
@@ -134,6 +139,7 @@
         [_table setSeparatorColor:kColor_Line_Color];
         [_table setBackgroundColor:kColor_White];
         [_table setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)]];
+        [_table registerNib:[UINib nibWithNibName:@"HomeListSubCell" bundle:nil] forCellReuseIdentifier:@"HomeListSubCell"];
         [self.contentView addSubview:_table];
     }
     return _table;
