@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CPAController : BaseViewController
+@interface PasswordController : BaseViewController
 
 @end
 

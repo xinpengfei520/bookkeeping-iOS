@@ -221,7 +221,7 @@
 }
 
 /**
- * 替换数据：内存级别操作
+ * 移除数据：内存级别操作
  */
 +(NSMutableArray<BookMonthModel *> *)removeData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model {
     NSString *modelDate = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
@@ -235,12 +235,7 @@
                     break;
                 }
             }
-            // 收入
-            if (model.categoryId >= 33) {
-                [monthModel setIncome:monthModel.income - model.price];
-            }else { // 支出
-                [monthModel setPay:monthModel.pay - model.price];
-            }
+            [monthModel refresh];
             break;
         }
     }

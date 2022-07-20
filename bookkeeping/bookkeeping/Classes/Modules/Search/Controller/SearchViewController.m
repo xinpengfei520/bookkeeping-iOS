@@ -7,11 +7,9 @@
 //
 
 #import "SearchViewController.h"
-#import "UIViewController+HBD.h"
 #import "SearchNavigation.h"
 #import "SearchList.h"
 #import "SearchListSubCell.h"
-#import "BookDetailController.h"
 #import "SEARCH_EVENT.h"
 
 @interface SearchViewController ()

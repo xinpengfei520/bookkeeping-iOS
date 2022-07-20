@@ -4,8 +4,6 @@
  */
 
 #import "AboutController.h"
-#import "UIViewController+HBD.h"
-
 
 #pragma mark - 声明
 @interface AboutController()

@@ -12,8 +12,6 @@
 #import "ChartTableCell.h"
 #import "CHART_EVENT.h"
 #import "LOGIN_NOTIFICATION.h"
-#import "BookDetailController.h"
-#import "UIViewController+HBD.h"
 #import "BookChartModel.h"
 
 #pragma mark - 声明

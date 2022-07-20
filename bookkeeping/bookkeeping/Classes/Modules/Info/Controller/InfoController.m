@@ -5,10 +5,8 @@
 
 #import "InfoController.h"
 #import "InfoTableView.h"
-#import "CPAController.h"
 #import "INFO_EVENT_MANAGER.h"
 #import "LOGIN_NOTIFICATION.h"
-#import "UIViewController+HBD.h"
 #import "AlertViewManager.h"
 
 #pragma mark - 声明
@@ -161,7 +159,7 @@
             
         }
     } else {
-        CPAController *vc = [[CPAController alloc] init];
+        PasswordController *vc = [[PasswordController alloc] init];
         [self.navigationController pushViewController:vc animated:true];
     }
 }

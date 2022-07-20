@@ -25,10 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSMutableArray<BookMonthModel *> *)addData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
 +(NSMutableArray<BookMonthModel *> *)replaceData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model bookId:(NSInteger)bookId;
 +(NSMutableArray<BookMonthModel *> *)removeData:(NSMutableArray<BookMonthModel *> *)models model:(BookDetailModel *)model;
--(NSString*)getMoneyDescribe;
--(NSString*)getDateDescribe;
+-(NSString *)getMoneyDescribe;
+-(NSString *)getDateDescribe;
 -(NSString *)getDateDescribeWithYear;
--(NSMutableArray<BookDetailModel *> *)array;
 -(void)refresh;
 
 @end

@@ -3,11 +3,9 @@
 #import "BKCNavigation.h"
 #import "BKCKeyboard.h"
 #import "BKCIncomeModel.h"
-#import "CAController.h"
 #import "KKRefreshGifHeader.h"
 #import "BOOK_EVENT.h"
 #import "BookDetailModel.h"
-#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface BookController()<UIScrollViewDelegate>

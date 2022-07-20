@@ -10,7 +10,6 @@
 #import "TITableCell.h"
 #import "CA_EVENT.h"
 #import "TIMING_EVENT.h"
-#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface TimeRemindController()<UNUserNotificationCenterDelegate>

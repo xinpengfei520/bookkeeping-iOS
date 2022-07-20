@@ -3,11 +3,10 @@
  * @author 郑业强 2018-12-22 创建文件
  */
 
-#import "RE2Controller.h"
-#import "UIViewController+HBD.h"
+#import "RegisterController.h"
 
 #pragma mark - 声明
-@interface RE2Controller()
+@interface RegisterController()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab1;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab2;
@@ -27,7 +26,7 @@
 
 
 #pragma mark - 实现
-@implementation RE2Controller
+@implementation RegisterController
 
 
 - (void)viewDidLoad {

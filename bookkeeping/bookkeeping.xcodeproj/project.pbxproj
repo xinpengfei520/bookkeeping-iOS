@@ -89,8 +89,8 @@
 		32D0B2CC21C782270030F5B2 /* ChartDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D0B2CA21C782270030F5B2 /* ChartDateCell.xib */; };
 		32E2A27921EDBBF0009AD84C /* UIView+SyncedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E2A27821EDBBF0009AD84C /* UIView+SyncedData.m */; };
 		32E35B1E21D703BA003B3040 /* ChartSubModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E35B1D21D703BA003B3040 /* ChartSubModel.m */; };
-		32EAB40B21D0EA820069DF99 /* CPAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EAB40921D0EA820069DF99 /* CPAController.m */; };
-		32EAB40C21D0EA820069DF99 /* CPAController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EAB40A21D0EA820069DF99 /* CPAController.xib */; };
+		32EAB40B21D0EA820069DF99 /* PasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EAB40921D0EA820069DF99 /* PasswordController.m */; };
+		32EAB40C21D0EA820069DF99 /* PasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EAB40A21D0EA820069DF99 /* PasswordController.xib */; };
 		32FA228921D61BC40000BC0E /* KKRefreshNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA228821D61BC40000BC0E /* KKRefreshNormalFooter.m */; };
 		32FA228C21D62ACB0000BC0E /* HomeListEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA228B21D62ACB0000BC0E /* HomeListEmpty.m */; };
 		32FA228E21D62AEC0000BC0E /* HomeListEmpty.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32FA228D21D62AEC0000BC0E /* HomeListEmpty.xib */; };
@@ -160,8 +160,8 @@
 		4B8D636A21D8D507002AEB4A /* BCHUDContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8D636821D8D507002AEB4A /* BCHUDContentCell.m */; };
 		4B8D636B21D8D507002AEB4A /* BCHUDContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B8D636921D8D507002AEB4A /* BCHUDContentCell.xib */; };
 		4B93DC70220C75E5003D3102 /* ASBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B93DC6F220C75E5003D3102 /* ASBaseViewController.m */; };
-		4B9798F821CE69DB0020B207 /* RE2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798F621CE69DB0020B207 /* RE2Controller.m */; };
-		4B9798F921CE69DB0020B207 /* RE2Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B9798F721CE69DB0020B207 /* RE2Controller.xib */; };
+		4B9798F821CE69DB0020B207 /* RegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798F621CE69DB0020B207 /* RegisterController.m */; };
+		4B9798F921CE69DB0020B207 /* RegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B9798F721CE69DB0020B207 /* RegisterController.xib */; };
 		4B9798FD21CE744A0020B207 /* CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798FC21CE744A0020B207 /* CountDown.m */; };
 		4BA68AE021C7EAAA0063A5C2 /* CAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA68ADF21C7EAAA0063A5C2 /* CAController.m */; };
 		4BA68AE321C7EB1D0063A5C2 /* CAHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA68AE221C7EB1D0063A5C2 /* CAHeader.m */; };
@@ -497,9 +497,9 @@
 		32E2A27821EDBBF0009AD84C /* UIView+SyncedData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SyncedData.m"; sourceTree = "<group>"; };
 		32E35B1C21D703BA003B3040 /* ChartSubModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartSubModel.h; sourceTree = "<group>"; };
 		32E35B1D21D703BA003B3040 /* ChartSubModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartSubModel.m; sourceTree = "<group>"; };
-		32EAB40821D0EA820069DF99 /* CPAController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPAController.h; sourceTree = "<group>"; };
-		32EAB40921D0EA820069DF99 /* CPAController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPAController.m; sourceTree = "<group>"; };
-		32EAB40A21D0EA820069DF99 /* CPAController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPAController.xib; sourceTree = "<group>"; };
+		32EAB40821D0EA820069DF99 /* PasswordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordController.h; sourceTree = "<group>"; };
+		32EAB40921D0EA820069DF99 /* PasswordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordController.m; sourceTree = "<group>"; };
+		32EAB40A21D0EA820069DF99 /* PasswordController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasswordController.xib; sourceTree = "<group>"; };
 		32EAB40D21D0F85C0069DF99 /* LOGIN_NOTIFICATION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LOGIN_NOTIFICATION.h; sourceTree = "<group>"; };
 		32FA228721D61BC40000BC0E /* KKRefreshNormalFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKRefreshNormalFooter.h; sourceTree = "<group>"; };
 		32FA228821D61BC40000BC0E /* KKRefreshNormalFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KKRefreshNormalFooter.m; sourceTree = "<group>"; };
@@ -618,9 +618,9 @@
 		4B8D636921D8D507002AEB4A /* BCHUDContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BCHUDContentCell.xib; sourceTree = "<group>"; };
 		4B93DC6E220C75E5003D3102 /* ASBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASBaseViewController.h; sourceTree = "<group>"; };
 		4B93DC6F220C75E5003D3102 /* ASBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASBaseViewController.m; sourceTree = "<group>"; };
-		4B9798F521CE69DB0020B207 /* RE2Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RE2Controller.h; sourceTree = "<group>"; };
-		4B9798F621CE69DB0020B207 /* RE2Controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RE2Controller.m; sourceTree = "<group>"; };
-		4B9798F721CE69DB0020B207 /* RE2Controller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RE2Controller.xib; sourceTree = "<group>"; };
+		4B9798F521CE69DB0020B207 /* RegisterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterController.h; sourceTree = "<group>"; };
+		4B9798F621CE69DB0020B207 /* RegisterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterController.m; sourceTree = "<group>"; };
+		4B9798F721CE69DB0020B207 /* RegisterController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterController.xib; sourceTree = "<group>"; };
 		4B9798FB21CE744A0020B207 /* CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDown.h; sourceTree = "<group>"; };
 		4B9798FC21CE744A0020B207 /* CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDown.m; sourceTree = "<group>"; };
 		4BA68ADE21C7EAAA0063A5C2 /* CAController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAController.h; sourceTree = "<group>"; };
@@ -1462,9 +1462,9 @@
 		32EAB40221D0E99D0069DF99 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				32EAB40821D0EA820069DF99 /* CPAController.h */,
-				32EAB40921D0EA820069DF99 /* CPAController.m */,
-				32EAB40A21D0EA820069DF99 /* CPAController.xib */,
+				32EAB40821D0EA820069DF99 /* PasswordController.h */,
+				32EAB40921D0EA820069DF99 /* PasswordController.m */,
+				32EAB40A21D0EA820069DF99 /* PasswordController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1810,9 +1810,9 @@
 		4BAF976821CE6182006EEF93 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4B9798F521CE69DB0020B207 /* RE2Controller.h */,
-				4B9798F621CE69DB0020B207 /* RE2Controller.m */,
-				4B9798F721CE69DB0020B207 /* RE2Controller.xib */,
+				4B9798F521CE69DB0020B207 /* RegisterController.h */,
+				4B9798F621CE69DB0020B207 /* RegisterController.m */,
+				4B9798F721CE69DB0020B207 /* RegisterController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2617,7 +2617,7 @@
 				4BEB72F921CE033300BEF013 /* dropdown_anim__00030@2x.png in Resources */,
 				4BEB731021CE033300BEF013 /* dropdown_anim__00013@2x.png in Resources */,
 				4B1893C621D67081005002E2 /* ChartHUDCell.xib in Resources */,
-				32EAB40C21D0EA820069DF99 /* CPAController.xib in Resources */,
+				32EAB40C21D0EA820069DF99 /* PasswordController.xib in Resources */,
 				4BEB72EC21CE033300BEF013 /* dropdown_anim__00047@2x.png in Resources */,
 				4B35F1BE21CCC694007271BE /* KKGoodsEmpty.xib in Resources */,
 				4BEB72FF21CE033300BEF013 /* dropdown_anim__00056@2x.png in Resources */,
@@ -2625,7 +2625,7 @@
 				4BEB72F621CE033300BEF013 /* dropdown_anim__00041@2x.png in Resources */,
 				4BF064A021E112C6005F1665 /* BDBottom.xib in Resources */,
 				4BEB731421CE033300BEF013 /* dropdown_anim__00033@2x.png in Resources */,
-				4B9798F921CE69DB0020B207 /* RE2Controller.xib in Resources */,
+				4B9798F921CE69DB0020B207 /* RegisterController.xib in Resources */,
 				4B68DC3E21E1C0BF00CBF20C /* BDTableCell.xib in Resources */,
 				4BEB730321CE033300BEF013 /* dropdown_anim__0004@2x.png in Resources */,
 				3219837E21C642BC00311885 /* Assets.xcassets in Resources */,
@@ -2827,7 +2827,7 @@
 				4B93DC70220C75E5003D3102 /* ASBaseViewController.m in Sources */,
 				321983B721C6459B00311885 /* BaseViewController.m in Sources */,
 				4B1917B321CD391000137215 /* CategoryListModel.m in Sources */,
-				32EAB40B21D0EA820069DF99 /* CPAController.m in Sources */,
+				32EAB40B21D0EA820069DF99 /* PasswordController.m in Sources */,
 				3219840321C6460100311885 /* UIFont+Extension.m in Sources */,
 				F35310932876C76700D297A9 /* BooksController.m in Sources */,
 				3219840D21C6460100311885 /* CALayer+Extension.m in Sources */,
@@ -2937,7 +2937,7 @@
 				3257AEDC21C877E500787A34 /* TITableCell.m in Sources */,
 				32D0B2CB21C782270030F5B2 /* ChartDateCell.m in Sources */,
 				F35310B92876D82400D297A9 /* ShareShot.m in Sources */,
-				4B9798F821CE69DB0020B207 /* RE2Controller.m in Sources */,
+				4B9798F821CE69DB0020B207 /* RegisterController.m in Sources */,
 				4B132AA521C68DE500D5B489 /* BKCCollection.m in Sources */,
 				F35310B62876D82400D297A9 /* ShareBottom.m in Sources */,
 				4B1917D021CD45C900137215 /* NSObject+JGRuntime.m in Sources */,

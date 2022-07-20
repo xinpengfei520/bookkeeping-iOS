@@ -3,11 +3,10 @@
  * @author 郑业强 2018-12-24 创建文件
  */
 
-#import "CPAController.h"
-#import "UIViewController+HBD.h"
+#import "PasswordController.h"
 
 #pragma mark - 声明
-@interface CPAController()
+@interface PasswordController()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab1;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab2;
@@ -21,7 +20,7 @@
 
 
 #pragma mark - 实现
-@implementation CPAController
+@implementation PasswordController
 
 
 - (void)viewDidLoad {

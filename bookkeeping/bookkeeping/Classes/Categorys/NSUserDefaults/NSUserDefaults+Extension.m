@@ -85,19 +85,6 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
 }
 
-+ (void)replaceWithBookId:(NSInteger)bookId model:(BookDetailModel *)model{
-    NSMutableArray *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
-    for (int i= 0; i<bookArr.count; i++) {
-        BookDetailModel *subModel = bookArr[i];
-        if (subModel.bookId == bookId) {
-            [bookArr replaceObjectAtIndex:i withObject:model];
-            NSLog(@"找到了 bookId 对应的数据并替换成功");
-            break;
-        }
-    }
-    [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
-}
-
 // 添加分类
 + (void)insertCategoryModel:(BKCModel *)model is_income:(BOOL)is_income {
     if (is_income == 0) {

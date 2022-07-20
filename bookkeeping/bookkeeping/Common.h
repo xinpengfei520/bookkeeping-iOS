@@ -101,6 +101,7 @@
 #import "AssetsController.h"
 #import "AboutController.h"
 #import "CAController.h"
+#import "ACAController.h"
 #import "TimeRemindController.h"
 #import "InfoController.h"
 #import "BillController.h"
@@ -111,6 +112,9 @@
 #import "AutoBookController.h"
 #import "BooksController.h"
 #import "ShareController.h"
+#import "BookDetailController.h"
+#import "SearchViewController.h"
+#import "PasswordController.h"
 
 #endif
 

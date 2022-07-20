@@ -8,11 +8,9 @@
 #import "CAHeader.h"
 #import "CategoryTable.h"
 #import "BottomButton.h"
-#import "ACAController.h"
 #import "CategoryCell.h"
 #import "CategoryListModel.h"
 #import "CA_EVENT.h"
-#import "UIViewController+HBD.h"
 
 #pragma mark - 声明
 @interface CAController()
