@@ -39,14 +39,20 @@
             lab.textColor = kColor_Text_Gary;
         }
     }
+    
     [self.lab1 setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.lab1 setTextColor:kColor_Text_White];
     [self.lab2 setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.lab2 setTextColor:kColor_Text_White];
     [self.lab3 setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.lab3 setTextColor:kColor_Text_White];
+    
     [self.money1Lab setFont:[UIFont systemFontOfSize:AdjustFont(30) weight:UIFontWeightLight]];
     [self.money1Lab setTextColor:kColor_Text_White];
+    [self.money2Lab setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
+    [self.money2Lab setTextColor:kColor_Text_White];
+    [self.money3Lab setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
+    [self.money3Lab setTextColor:kColor_Text_White];
 }
 
 
@@ -59,6 +65,7 @@
     NSString *money = [NSString stringWithFormat:@"%.2f", income - _pay];
     [self.money1Lab setAttributedText:[NSAttributedString createMath:money integer:[UIFont systemFontOfSize:AdjustFont(30) weight:UIFontWeightLight] decimal:[UIFont systemFontOfSize:AdjustFont(26) weight:UIFontWeightLight] color:kColor_Text_White]];
 }
+
 - (void)setPay:(CGFloat)pay {
     _pay = pay;
     NSString *payStr = [NSString stringWithFormat:@"%.2f", pay];

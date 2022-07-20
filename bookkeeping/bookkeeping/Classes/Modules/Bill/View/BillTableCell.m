@@ -42,7 +42,6 @@
     [self.lab2 setAttributedText:[NSAttributedString createMath:model[@"income"] integer:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight] decimal:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]]];
     [self.lab3 setAttributedText:[NSAttributedString createMath:model[@"pay"] integer:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight] decimal:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]]];
     [self.lab4 setAttributedText:[NSAttributedString createMath:model[@"sum"] integer:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight] decimal:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]]];
-    
 }
 
 
