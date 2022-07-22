@@ -1972,24 +1972,10 @@
 		4BE7845921C678FB00B8EC46 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				32751F0721C8E93000D9F415 /* BKCNavigation.h */,
-				32751F0821C8E93000D9F415 /* BKCNavigation.m */,
-				32751F0A21C8E97300D9F415 /* BKCNavigation.xib */,
-				4B132AA321C68DE500D5B489 /* BKCCollection.h */,
-				4B132AA421C68DE500D5B489 /* BKCCollection.m */,
-				4B132AA621C68F4300D5B489 /* BKCCollectionCell.h */,
-				4B132AA721C68F4300D5B489 /* BKCCollectionCell.m */,
-				4B132AA821C68F4300D5B489 /* BKCCollectionCell.xib */,
-				4BC781FE21C917FA00760DF9 /* BKCKeyboard.h */,
-				4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */,
-				4BC7820121C918F200760DF9 /* BKCKeyboard.xib */,
-				3299035821CA6895000F4C14 /* BKCRefreshHeader.h */,
-				3299035921CA6895000F4C14 /* BKCRefreshHeader.m */,
-				F3CD73E62889CA4F008EBBEE /* MarkCollectionView.h */,
-				F3CD73E72889CA4F008EBBEE /* MarkCollectionView.m */,
-				F3CD73E92889CD46008EBBEE /* MarkCollectionViewCell.h */,
-				F3CD73EA2889CD46008EBBEE /* MarkCollectionViewCell.m */,
-				F3CD73EB2889CD46008EBBEE /* MarkCollectionViewCell.xib */,
+				F3CD73F1288B2F5E008EBBEE /* Navigation */,
+				F3CD73F4288B2FE9008EBBEE /* Collection */,
+				F3CD73F3288B2FB0008EBBEE /* Keyboard */,
+				F3CD73F2288B2F81008EBBEE /* Mark */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2510,6 +2496,52 @@
 				F3B1E003287849A500B13A90 /* AssetsHeader.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F3CD73F1288B2F5E008EBBEE /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				32751F0721C8E93000D9F415 /* BKCNavigation.h */,
+				32751F0821C8E93000D9F415 /* BKCNavigation.m */,
+				32751F0A21C8E97300D9F415 /* BKCNavigation.xib */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		F3CD73F2288B2F81008EBBEE /* Mark */ = {
+			isa = PBXGroup;
+			children = (
+				F3CD73E62889CA4F008EBBEE /* MarkCollectionView.h */,
+				F3CD73E72889CA4F008EBBEE /* MarkCollectionView.m */,
+				F3CD73E92889CD46008EBBEE /* MarkCollectionViewCell.h */,
+				F3CD73EA2889CD46008EBBEE /* MarkCollectionViewCell.m */,
+				F3CD73EB2889CD46008EBBEE /* MarkCollectionViewCell.xib */,
+			);
+			path = Mark;
+			sourceTree = "<group>";
+		};
+		F3CD73F3288B2FB0008EBBEE /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4BC781FE21C917FA00760DF9 /* BKCKeyboard.h */,
+				4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */,
+				4BC7820121C918F200760DF9 /* BKCKeyboard.xib */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		F3CD73F4288B2FE9008EBBEE /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				4B132AA321C68DE500D5B489 /* BKCCollection.h */,
+				4B132AA421C68DE500D5B489 /* BKCCollection.m */,
+				4B132AA621C68F4300D5B489 /* BKCCollectionCell.h */,
+				4B132AA721C68F4300D5B489 /* BKCCollectionCell.m */,
+				4B132AA821C68F4300D5B489 /* BKCCollectionCell.xib */,
+				3299035821CA6895000F4C14 /* BKCRefreshHeader.h */,
+				3299035921CA6895000F4C14 /* BKCRefreshHeader.m */,
+			);
+			path = Collection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

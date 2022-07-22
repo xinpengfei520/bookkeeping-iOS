@@ -51,8 +51,8 @@
     [self setIsLess:NO];
     [self setCurrentDate:[NSDate date]];
     
-    [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
-    [self.nameLab setTextColor:kColor_Text_Gary];
+    [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(10)]];
+    [self.nameLab setTextColor:kColor_Text_Black];
     
     [self.moneyLab setFont:[UIFont systemFontOfSize:AdjustFont(18)]];
     [self.markField setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];

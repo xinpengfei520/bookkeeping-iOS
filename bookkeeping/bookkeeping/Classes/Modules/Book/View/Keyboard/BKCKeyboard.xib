@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +25,6 @@
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="点击写备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sUN-UY-JNc">
                             <rect key="frame" x="65" y="0.0" width="194" height="60"/>
-                            <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             <connections>
@@ -124,7 +121,8 @@
                     <color key="backgroundColor" red="1" green="0.16876094059999999" blue="0.11974024599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <viewLayoutGuide key="safeArea" id="uMx-pv-fFM"/>
+            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="mM1-KS-nBh" firstAttribute="width" secondItem="K3y-X2-4ge" secondAttribute="width" id="0vr-bl-FER"/>
                 <constraint firstItem="qSa-3C-HLT" firstAttribute="centerY" secondItem="K3y-X2-4ge" secondAttribute="centerY" id="1IA-iS-EfJ"/>
@@ -196,7 +194,6 @@
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="uMx-pv-fFM"/>
             <connections>
                 <outlet property="keyConstraintB" destination="hAD-3A-b0v" id="0fB-Gp-mz1"/>
                 <outlet property="markField" destination="sUN-UY-JNc" id="xfB-80-OU1"/>
@@ -208,4 +205,9 @@
             <point key="canvasLocation" x="62" y="-171"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
