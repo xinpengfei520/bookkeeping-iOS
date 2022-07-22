@@ -116,4 +116,7 @@
 #import "SearchViewController.h"
 #import "PasswordController.h"
 
+//================================= Model ===============================//
+#import "MarkModel.h"
+
 #endif

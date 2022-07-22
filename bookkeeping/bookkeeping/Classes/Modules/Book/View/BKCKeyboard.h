@@ -23,6 +23,7 @@ typedef void (^BookComplete)(NSString *price, NSString *mark, NSDate *date);
 
 - (void)show;
 - (void)hide;
+- (void)setMark:(MarkModel *)model;
 
 @end
 

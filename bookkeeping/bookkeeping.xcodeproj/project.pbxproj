@@ -314,6 +314,10 @@
 		F3AE5FEA284A42CF00E95086 /* BookMonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE1284A28C700E95086 /* BookMonthModel.m */; };
 		F3B1E00128783F4900B13A90 /* AssetsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B1E00028783F4900B13A90 /* AssetsHeader.xib */; };
 		F3B1E004287849A500B13A90 /* AssetsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B1E003287849A500B13A90 /* AssetsHeader.m */; };
+		F3CD73E82889CA4F008EBBEE /* MarkCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73E72889CA4F008EBBEE /* MarkCollectionView.m */; };
+		F3CD73EC2889CD46008EBBEE /* MarkCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EA2889CD46008EBBEE /* MarkCollectionViewCell.m */; };
+		F3CD73ED2889CD46008EBBEE /* MarkCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3CD73EB2889CD46008EBBEE /* MarkCollectionViewCell.xib */; };
+		F3CD73F02889D102008EBBEE /* MarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EF2889D102008EBBEE /* MarkModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -837,6 +841,13 @@
 		F3B1E00028783F4900B13A90 /* AssetsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetsHeader.xib; sourceTree = "<group>"; };
 		F3B1E002287849A500B13A90 /* AssetsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetsHeader.h; sourceTree = "<group>"; };
 		F3B1E003287849A500B13A90 /* AssetsHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetsHeader.m; sourceTree = "<group>"; };
+		F3CD73E62889CA4F008EBBEE /* MarkCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkCollectionView.h; sourceTree = "<group>"; };
+		F3CD73E72889CA4F008EBBEE /* MarkCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkCollectionView.m; sourceTree = "<group>"; };
+		F3CD73E92889CD46008EBBEE /* MarkCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkCollectionViewCell.h; sourceTree = "<group>"; };
+		F3CD73EA2889CD46008EBBEE /* MarkCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkCollectionViewCell.m; sourceTree = "<group>"; };
+		F3CD73EB2889CD46008EBBEE /* MarkCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkCollectionViewCell.xib; sourceTree = "<group>"; };
+		F3CD73EE2889D102008EBBEE /* MarkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkModel.h; sourceTree = "<group>"; };
+		F3CD73EF2889D102008EBBEE /* MarkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1952,6 +1963,8 @@
 			children = (
 				4B1917AE21CD333000137215 /* BKCIncomeModel.h */,
 				4B1917AF21CD333000137215 /* BKCIncomeModel.m */,
+				F3CD73EE2889D102008EBBEE /* MarkModel.h */,
+				F3CD73EF2889D102008EBBEE /* MarkModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1972,6 +1985,11 @@
 				4BC7820121C918F200760DF9 /* BKCKeyboard.xib */,
 				3299035821CA6895000F4C14 /* BKCRefreshHeader.h */,
 				3299035921CA6895000F4C14 /* BKCRefreshHeader.m */,
+				F3CD73E62889CA4F008EBBEE /* MarkCollectionView.h */,
+				F3CD73E72889CA4F008EBBEE /* MarkCollectionView.m */,
+				F3CD73E92889CD46008EBBEE /* MarkCollectionViewCell.h */,
+				F3CD73EA2889CD46008EBBEE /* MarkCollectionViewCell.m */,
+				F3CD73EB2889CD46008EBBEE /* MarkCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2359,17 +2377,17 @@
 		F35310A82876D82400D297A9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F35310A92876D82400D297A9 /* ShareShot.xib */,
-				F35310AA2876D82400D297A9 /* ShareBottom.m */,
-				F35310AB2876D82400D297A9 /* ShareShot.h */,
-				F35310AC2876D82400D297A9 /* ShareBadge.m */,
-				F35310AD2876D82400D297A9 /* ShareOrder.xib */,
-				F35310AE2876D82400D297A9 /* ShareOrder.h */,
 				F35310AF2876D82400D297A9 /* ShareBottom.h */,
-				F35310B02876D82400D297A9 /* ShareShot.m */,
-				F35310B12876D82400D297A9 /* ShareBadge.xib */,
-				F35310B22876D82400D297A9 /* ShareBadge.h */,
+				F35310AA2876D82400D297A9 /* ShareBottom.m */,
+				F35310AE2876D82400D297A9 /* ShareOrder.h */,
 				F35310B32876D82400D297A9 /* ShareOrder.m */,
+				F35310AD2876D82400D297A9 /* ShareOrder.xib */,
+				F35310AB2876D82400D297A9 /* ShareShot.h */,
+				F35310B02876D82400D297A9 /* ShareShot.m */,
+				F35310A92876D82400D297A9 /* ShareShot.xib */,
+				F35310B22876D82400D297A9 /* ShareBadge.h */,
+				F35310AC2876D82400D297A9 /* ShareBadge.m */,
+				F35310B12876D82400D297A9 /* ShareBadge.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2627,6 +2645,7 @@
 				4BEB731421CE033300BEF013 /* dropdown_anim__00033@2x.png in Resources */,
 				4B9798F921CE69DB0020B207 /* RegisterController.xib in Resources */,
 				4B68DC3E21E1C0BF00CBF20C /* BDTableCell.xib in Resources */,
+				F3CD73ED2889CD46008EBBEE /* MarkCollectionViewCell.xib in Resources */,
 				4BEB730321CE033300BEF013 /* dropdown_anim__0004@2x.png in Resources */,
 				3219837E21C642BC00311885 /* Assets.xcassets in Resources */,
 				4BEB731521CE033300BEF013 /* dropdown_anim__00042@2x.png in Resources */,
@@ -2788,12 +2807,14 @@
 				4B48530121C6984400891096 /* MineTableCell.m in Sources */,
 				327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */,
 				F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */,
+				F3CD73F02889D102008EBBEE /* MarkModel.m in Sources */,
 				32E2A27921EDBBF0009AD84C /* UIView+SyncedData.m in Sources */,
 				F35310B42876D82400D297A9 /* ShareController.m in Sources */,
 				4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */,
 				4B7560B321D1224A00E63744 /* BaseViewController+Extension.m in Sources */,
 				327CEC1D21C88A04001D0086 /* HomeListHeader.m in Sources */,
 				4B8D636A21D8D507002AEB4A /* BCHUDContentCell.m in Sources */,
+				F3CD73EC2889CD46008EBBEE /* MarkCollectionViewCell.m in Sources */,
 				321983B921C6459B00311885 /* BaseTabBarController.m in Sources */,
 				321983FF21C6460100311885 /* UIView+Visuals.m in Sources */,
 				32D0B2C521C77AD70030F5B2 /* ChartDate.m in Sources */,
@@ -2873,6 +2894,7 @@
 				4B2214FE21E9E4A8000F619F /* ScreenBlurry.m in Sources */,
 				4B1E128321CA8BD3001F5B36 /* UIScrollView+Extension.m in Sources */,
 				F353109B2876C88D00D297A9 /* ExportController.m in Sources */,
+				F3CD73E82889CA4F008EBBEE /* MarkCollectionView.m in Sources */,
 				4B1917B021CD333000137215 /* BKCIncomeModel.m in Sources */,
 				4B48530821C69A2E00891096 /* MineTableHeader.m in Sources */,
 				4B1893C521D67081005002E2 /* ChartHUDCell.m in Sources */,

@@ -24,7 +24,7 @@
     [self setBackgroundColor:kColor_White];
     [self collection];
     [self line];
-    [self borderForColor:kColor_Line_Color borderWidth:1.f borderType:UIBorderSideTypeBottom];
+    [self borderForColor:kColor_Line_Gray borderWidth:1.f borderType:UIBorderSideTypeBottom];
 }
 
 

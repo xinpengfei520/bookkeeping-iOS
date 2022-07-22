@@ -6,6 +6,7 @@
 #import "KKRefreshGifHeader.h"
 #import "BOOK_EVENT.h"
 #import "BookDetailModel.h"
+#import "MarkCollectionView.h"
 
 #pragma mark - 声明
 @interface BookController()<UIScrollViewDelegate>
@@ -14,7 +15,9 @@
 @property (nonatomic, strong) UIScrollView *scroll;
 @property (nonatomic, strong) NSMutableArray<BKCCollection *> *collections;
 @property (nonatomic, strong) BKCKeyboard *keyboard;
+@property (nonatomic, strong) MarkCollectionView *markView;
 @property (nonatomic, strong) NSArray<BKCIncomeModel *> *models;
+@property (nonatomic, strong) NSMutableArray<MarkModel *> *markModels;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
 
 @end
@@ -31,6 +34,7 @@
     [self scroll];
     [self collections];
     [self keyboard];
+    [self markView];
 //    [self getCategoryListRequest];
     [self initData];
     
@@ -58,6 +62,10 @@
         });
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self getBookMarkListRequest];
 }
 
 - (void)initData{
@@ -92,13 +100,25 @@
 }
 
 
-#pragma mark - 请求
+#pragma mark - request
 // 获取我的分类
 - (void)getCategoryListRequest {
     @weakify(self)
     [self.scroll createRequest:CategoryListRequest params:@{} complete:^(APPResult *result) {
         @strongify(self)
         [self setModels:[BKCIncomeModel mj_objectArrayWithKeyValuesArray:result.data]];
+    }];
+}
+
+- (void)getBookMarkListRequest {
+    @weakify(self)
+    [self.scroll createRequest:bookMarkListRequest params:@{} complete:^(APPResult *result) {
+        @strongify(self)
+        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+            [self setMarkModels:[MarkModel mj_objectArrayWithKeyValuesArray:result.data]];
+        } else {
+            [self showTextHUD:result.msg delay:1.f];
+        }
     }];
 }
 
@@ -152,6 +172,11 @@
     for (int i=0; i<models.count; i++) {
         self.collections[i].model = models[i];
     }
+}
+
+- (void)setMarkModels:(NSMutableArray<MarkModel *> *)models {
+    _markModels = models;
+    self.markView.models = models;
 }
 
 
@@ -274,6 +299,21 @@
     return _keyboard;
 }
 
+- (MarkCollectionView *)markView {
+    if (!_markView) {
+        @weakify(self)
+        _markView = [MarkCollectionView initWithFrame:({
+            CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, countcoordinatesX(44));
+        })];
+        [_markView setComplete:^(MarkModel *model) {
+            @strongify(self)
+            [self.keyboard setMark:model];
+        }];
+        [self.view addSubview:_markView];
+    }
+    return _markView;
+}
+
 - (NSDictionary<NSString *, NSInvocation *> *)eventStrategy {
     if (!_eventStrategy) {
         _eventStrategy = @{
@@ -284,6 +324,30 @@
     return _eventStrategy;
 }
 
+#pragma mark - 系统键盘通知
+- (void)showKeyboard:(NSNotification *)not {
+    NSTimeInterval time = [not.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGFloat keyHeight = [not.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.markView show:keyHeight];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 
+- (void)hideKeyboard:(NSNotification *)not {
+    NSTimeInterval time = [not.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.markView hide];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
+#pragma mark - 系统
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

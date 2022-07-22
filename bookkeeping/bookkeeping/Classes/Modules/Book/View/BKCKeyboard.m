@@ -53,11 +53,11 @@
     
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
     [self.nameLab setTextColor:kColor_Text_Gary];
-    [self.markField setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
+    
     [self.moneyLab setFont:[UIFont systemFontOfSize:AdjustFont(18)]];
-    [self.markField setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
+    [self.markField setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.markField setTintColor:kColor_Main_Color];
-    [self.markField setTextColor:kColor_Text_Gary];
+    [self.markField setTextColor:kColor_Text_Black];
     
     [self.textConstraintH setConstant:countcoordinatesX(60)];
     [self.keyConstraintB setConstant:SafeAreaBottomHeight];
@@ -544,6 +544,9 @@
     [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
 }
 
+- (void)setMark:(MarkModel *)model {
+    [self.markField setText:model.markName];
+}
 
 #pragma mark - 系统键盘通知
 - (void)showKeyboard:(NSNotification *)not {
@@ -554,7 +557,8 @@
     CGFloat keyHeight = [not.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     
     [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.textContent setTop:(self.height - keyHeight) - countcoordinatesX(60)];
+        // countcoordinatesX(44) 是 markView 的高度
+        [self.textContent setTop:(self.height - keyHeight) - countcoordinatesX(60) - countcoordinatesX(44)];
     } completion:^(BOOL finished) {
         
     }];
