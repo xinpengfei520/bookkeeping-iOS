@@ -199,6 +199,8 @@
             
             // 添加记账
             [NSUserDefaults insertBookModel:model];
+            // 更新备注
+            [MarkModel update:model];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }

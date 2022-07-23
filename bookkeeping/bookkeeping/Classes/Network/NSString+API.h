@@ -71,6 +71,10 @@
 #define allBookListRequest Request(@"/book/detail/list/all")
 // 获取所有记账备注列表
 #define bookMarkListRequest Request(@"/book/mark/list")
+// 保存备注
+#define saveMarkRequest Request(@"/book/mark/save")
+// 修改备注
+#define updateMarkRequest Request(@"/book/mark/update")
 // 个人信息
 #define userInfoRequest Request(@"/book/user/info")
 // 修改个人信息

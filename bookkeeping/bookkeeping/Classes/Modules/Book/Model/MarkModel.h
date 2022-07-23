@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger frequency;
 @property (nonatomic, assign) NSInteger categoryId;
 
++ (void)update:(BookDetailModel *)model;
+
 @end
 
 NS_ASSUME_NONNULL_END
