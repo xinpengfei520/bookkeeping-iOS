@@ -26,6 +26,7 @@
         flow.itemSize = CGSizeMake(countcoordinatesX(58), frame.size.height-18);
         flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         flow.minimumLineSpacing = countcoordinatesX(6);
+        flow.headerReferenceSize = CGSizeMake(countcoordinatesX(78), frame.size.height-18);
         flow;
     })];
     [collection setShowsHorizontalScrollIndicator:NO];
@@ -33,6 +34,7 @@
     [collection setDelegate:collection];
     [collection setDataSource:collection];
     [collection registerNib:[UINib nibWithNibName:@"MarkCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"MarkCollectionViewCell"];
+    [collection registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MarkCollectionViewHeader"];
     return collection;
 }
 
@@ -107,6 +109,27 @@
     [indexPaths addObject:indexPath];
     _selectIndex = indexPath;
     [self reloadItemsAtIndexPaths:indexPaths];
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 0, 0, countcoordinatesX(10));
+}
+
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    // 视图添加到 UICollectionReusableView 创建的对象中
+    if (kind == UICollectionElementKindSectionHeader) {
+        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MarkCollectionViewHeader" forIndexPath:indexPath];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, headerView.width, headerView.height)];
+        label.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];
+        label.textColor = kColor_Text_Black;
+        label.text = @"推荐备注";
+        label.clipsToBounds = YES;
+        label.textAlignment = NSTextAlignmentCenter;
+        [headerView addSubview:label];
+        return headerView;
+    }else {
+        return nil;
+    }
 }
 
 
