@@ -17,13 +17,10 @@ typedef void (^OnSelectComplete)(MarkModel *model);
 @interface MarkCollectionView : UICollectionView
 
 @property (nonatomic, strong) NSMutableArray<MarkModel *> *models;
-@property (nonatomic, strong) NSIndexPath *selectIndex;
 @property (nonatomic, copy  ) OnSelectComplete complete;
 
 // 初始化
 + (instancetype)initWithFrame:(CGRect)frame;
-// 刷新当前选中
-- (void)reloadSelectIndex;
 - (void)show:(CGFloat)keyboardHeight;
 - (void)hide;
 

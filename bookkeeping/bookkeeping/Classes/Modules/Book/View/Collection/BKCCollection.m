@@ -108,6 +108,8 @@
         _selectIndex = indexPath;
         [self routerEventWithName:BOOK_CLICK_ITEM data:self];
     }
+    // Item 被选中
+    [self routerEventWithName:BOOK_ITEM_SELECT data:nil];
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(countcoordinatesX(10), countcoordinatesX(10), countcoordinatesX(10), countcoordinatesX(10));

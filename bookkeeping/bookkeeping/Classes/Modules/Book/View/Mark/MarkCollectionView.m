@@ -13,6 +13,7 @@
 @interface MarkCollectionView()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, assign) BOOL animation;
+@property (nonatomic, strong) NSIndexPath *selectIndex;
 
 @end
 
@@ -68,16 +69,10 @@
 #pragma mark - set
 - (void)setModels:(NSMutableArray<MarkModel *> *)models {
     _models = models;
-    [self reloadData];
-}
-
-
-#pragma mark - reload
-- (void)reloadSelectIndex {
     if (_selectIndex) {
         _selectIndex = nil;
-        [self reloadData];
     }
+    [self reloadData];
 }
 
 
@@ -104,9 +99,14 @@
 }
 
 - (void)collectionDidSelect:(NSIndexPath *)indexPath animation:(BOOL)animation {
-    _selectIndex = indexPath;
     [self scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animation];
-    [self reloadData];
+    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
+    if (_selectIndex) {
+        [indexPaths addObject:_selectIndex];
+    }
+    [indexPaths addObject:indexPath];
+    _selectIndex = indexPath;
+    [self reloadItemsAtIndexPaths:indexPaths];
 }
 
 

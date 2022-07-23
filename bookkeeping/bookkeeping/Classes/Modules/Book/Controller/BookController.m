@@ -197,6 +197,23 @@
     [self.scroll setContentOffset:CGPointMake(SCREEN_WIDTH * [index integerValue], 0) animated:YES];
 }
 
+- (void)bookItemSelect:(id *)data {
+    NSInteger index = self.scroll.contentOffset.x / SCREEN_WIDTH;
+    BKCCollection *collection = self.collections[index];
+    BKCModel *cmodel = collection.model.list[collection.selectIndex.row];
+    NSInteger categoryId = cmodel.Id;
+    
+    // 根据 categoryId 过滤
+    NSString *preStr = [NSString stringWithFormat:@"categoryId == %ld", categoryId];
+    NSMutableArray<MarkModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:_markModels];
+    
+    // 根据 frequency 倒叙排序
+    models = [NSMutableArray arrayWithArray:[models sortedArrayUsingComparator:^NSComparisonResult(MarkModel *obj1, MarkModel *obj2) {
+        return obj2.frequency - obj1.frequency;
+    }]];
+    self.markView.models = models;
+}
+
 // 点击item
 - (void)bookClickItem:(BKCCollection *)collection {
     NSIndexPath *indexPath = collection.selectIndex;
@@ -318,6 +335,7 @@
     if (!_eventStrategy) {
         _eventStrategy = @{
             BOOK_CLICK_ITEM: [self createInvocationWithSelector:@selector(bookClickItem:)],
+            BOOK_ITEM_SELECT: [self createInvocationWithSelector:@selector(bookItemSelect:)],
             BOOK_CLICK_NAVIGATION: [self createInvocationWithSelector:@selector(bookClickNavigation:)],
         };
     }
