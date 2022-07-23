@@ -111,11 +111,20 @@
 }
 
 - (void)getBookMarkListRequest {
+    // 先从本地缓存中取
+    NSMutableArray<MarkModel *> *list = [NSUserDefaults getAllMarkList];
+    if (list && list.count > 0) {
+        [self setMarkModels:list];
+        return;
+    }
+    
     @weakify(self)
     [self.scroll createRequest:bookMarkListRequest params:@{} complete:^(APPResult *result) {
         @strongify(self)
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [self setMarkModels:[MarkModel mj_objectArrayWithKeyValuesArray:result.data]];
+            NSMutableArray<MarkModel *> *markArray = [MarkModel mj_objectArrayWithKeyValuesArray:result.data];
+            [NSUserDefaults saveAllMarkList:markArray];
+            [self setMarkModels:markArray];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }

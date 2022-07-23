@@ -8,7 +8,7 @@
 #import "BookMonthModel.h"
 #import "CategoryListModel.h"
 #import "ACAListModel.h"
-
+#import "MarkModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,10 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (BKCModel *) getCategoryModel:(NSInteger)categoryId;
 // 获取分类 Model 的 categoryId，通过 keyword
 + (NSInteger)getCategoryId:(NSString*)keyword;
-// 保存所有账列表
+// 保存所有记账列表
 + (void)saveAllBookList:(NSMutableArray *)array;
-// 获取所有账列表
+// 获取所有记账列表
 + (NSMutableArray<BookDetailModel *> *)getAllBookList;
+// 保存所有备注列表
++ (void)saveAllMarkList:(NSMutableArray *)array;
+// 获取所有备注列表
++ (NSMutableArray<MarkModel *> *)getAllMarkList;
 // 保存月记账列表
 + (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array;
 // 获取月记账列表

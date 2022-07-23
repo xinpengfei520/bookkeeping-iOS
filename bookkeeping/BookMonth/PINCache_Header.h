@@ -38,6 +38,7 @@
 
 #pragma mark - 记账
 #define All_BOOK_LIST      @"All_BOOK_LIST"       // 所有记账
+#define All_MARK_LIST      @"All_MARK_LIST"       // 所有备注
 #define PIN_BOOK_FAILED    @"PIN_BOOK_FAILED"     // 记账失败列表(先保存到本地，等网络好的时候再同步)
 
 #pragma mark - 个人设置

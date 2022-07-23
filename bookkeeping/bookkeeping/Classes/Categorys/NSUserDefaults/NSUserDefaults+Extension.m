@@ -60,6 +60,15 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     return models;
 }
 
++ (void)saveAllMarkList:(NSMutableArray *)array {
+    [NSUserDefaults setObject:array forKey:All_MARK_LIST];
+}
+
++ (NSMutableArray<MarkModel *> *)getAllMarkList {
+    NSMutableArray<MarkModel *> *models = [NSUserDefaults objectForKey:All_MARK_LIST];
+    return models;
+}
+
 + (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array {
     // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
     NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];

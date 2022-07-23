@@ -55,7 +55,7 @@
 
 - (void)getData{
     if ([UserInfo isLogin]) {
-        [self getMonthBookRequest:_date.year month:_date.month];
+        [self syncDataRequest:_date.year month:_date.month];
         //[self.view syncedDataRequest];
         [self refreshToken];
     }else{
@@ -126,7 +126,7 @@
     // 登录成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
-        [self getMonthBookRequest:self.date.year month:self.date.month];
+        [self syncDataRequest:self.date.year month:self.date.month];
     }];
     // 退出登录
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGOUT_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
@@ -243,7 +243,7 @@
     }];
 }
 
-- (void)getMonthBookRequest:(NSInteger)year month:(NSInteger)month {
+- (void)syncDataRequest:(NSInteger)year month:(NSInteger)month {
     // 先从本地缓存中取
     NSMutableArray<BookMonthModel *> *list = [BookMonthModel statisticalMonthWithYear:_date.year month:_date.month];
     if (list && list.count > 0) {
@@ -252,7 +252,7 @@
     }
     
     // 从网络取
-    [self showProgressHUD:@"同步中..."];
+    [self showProgressHUD:@"同步数据..."];
     @weakify(self)
     [AFNManager POST:allBookListRequest params:nil complete:^(APPResult *result) {
         @strongify(self)
@@ -448,7 +448,7 @@
     LoginController *vc = [[LoginController alloc] init];
     [vc setComplete:^{
         @strongify(self)
-        [self getMonthBookRequest:self.date.year month:self.date.month];
+        [self syncDataRequest:self.date.year month:self.date.month];
     }];
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
