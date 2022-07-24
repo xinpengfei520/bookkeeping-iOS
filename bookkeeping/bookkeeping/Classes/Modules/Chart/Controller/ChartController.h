@@ -12,9 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 导航栏下标：0 支出 1 收入
 @property (nonatomic, assign) NSInteger navIndex;
-@property (nonatomic, strong) BookDetailModel *cmodel;  // 单分类(支出/收入)
+// 单分类(支出/收入)
+@property (nonatomic, strong) BookDetailModel *cmodel;
 // 是否是记账详情，如果是记账详情，则显示记账备注，否则显示记账类别名
 @property (nonatomic, assign, readwrite) BOOL isBookDetail;
+
 @end
 
 NS_ASSUME_NONNULL_END

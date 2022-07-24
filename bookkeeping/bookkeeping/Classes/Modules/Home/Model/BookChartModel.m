@@ -24,7 +24,7 @@
 }
 
 // 统计数据(图表首页)
-+ (BookChartModel *)statisticalChart:(NSInteger)segmentIndex isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date arrm:(NSMutableArray<BookDetailModel *> *)arrm{
++ (BookChartModel *)statisticalChart:(NSInteger)segmentIndex isIncome:(BOOL)isIncome cmodel:(BookDetailModel *)cmodel date:(NSDate *)date arrm:(NSMutableArray<BookDetailModel *> *)arrm {
     
     NSMutableString *preStr = [NSMutableString string];
     if (cmodel) {

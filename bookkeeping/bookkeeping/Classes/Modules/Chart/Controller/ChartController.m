@@ -55,7 +55,7 @@
     [self setNavigationIndex:_navigationIndex];
     [self updateDateRangeWithAsync];
     [self monitorNotification];
-    [self getYearBookRequestWithAsync];
+    [self updateDataWithAsync];
 }
 
 // 监听通知
@@ -65,21 +65,21 @@
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self getYearBookRequestWithAsync];
+        [self updateDataWithAsync];
         [self updateDateRangeWithAsync];
     }];
     // 修改记账(接受图表页面子类别页面修改操作)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self getYearBookRequestWithAsync];
+        [self updateDataWithAsync];
         [self updateDateRangeWithAsync];
     }];
     // 同步数据成功
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:SYNCED_DATA_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
-        [self getYearBookRequestWithAsync];
+        [self updateDataWithAsync];
         [self updateDateRangeWithAsync];
     }];
 }
@@ -141,47 +141,18 @@
     _chartDate.maxModel = _maxModel;
 }
 
-- (void) getYearBookRequestWithAsync {
+- (void)updateDataWithAsync {
     @weakify(self)
     NSBlockOperation *operation = [[NSBlockOperation alloc]init];
     [operation addExecutionBlock:^{
         @strongify(self)
-        // 先从本地缓存中取
         NSMutableArray<BookDetailModel *> *list = [NSUserDefaults getAllBookList];
-        if (list && list.count > 0) {
-            NSLog(@"这是从缓存中读取的数据");
-            BookChartModel *chartModel=[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date arrm:list];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setModel:chartModel];
-            });
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self getYearBookRequest];
-            });
-        }
+        BookChartModel *chartModel = [BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date arrm:list];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setModel:chartModel];
+        });
     }];
     [self.queue addOperation:operation];
-}
-
-#pragma mark - request
-- (void) getYearBookRequest {
-    [self showProgressHUD:@"获取中..."];
-    @weakify(self)
-    [AFNManager POST:allBookListRequest params:nil complete:^(APPResult *result) {
-        @strongify(self)
-        [self hideHUD];
-        if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            NSMutableArray<BookDetailModel *> *bookArray = [BookDetailModel mj_objectArrayWithKeyValuesArray:result.data];
-            [NSUserDefaults saveAllBookList:bookArray];
-            BookChartModel *chartModel=[BookChartModel statisticalChart:self.segmentIndex isIncome:self.navigationIndex cmodel:self.cmodel date:self.date arrm:bookArray];
-            [self setModel:chartModel];
-        } else {
-            // 当请求失败时，清空当前显示的列表数据
-            // TODO 增加点击重试按钮
-            //[self setModels:nil];
-            [self showTextHUD:result.msg delay:1.f];
-        }
-    }];
 }
 
 #pragma mark - event
@@ -266,7 +237,7 @@
                 date;
             })];
             [self setSegmentIndex:seg.selectedSegmentIndex];
-            [self getYearBookRequestWithAsync];
+            [self updateDataWithAsync];
         }];
         // 设置选中的 segment 下标
         _segment.seg.selectedSegmentIndex = _segmentIndex;
@@ -285,7 +256,7 @@
             NSInteger day = model.day == -1 ? 1 : model.day;
             NSString *str = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, month, day];
             [self setDate:[NSDate dateWithYMD:str]];
-            [self getYearBookRequestWithAsync];
+            [self updateDataWithAsync];
         }];
         [self.view addSubview:_chartDate];
     }
@@ -314,7 +285,7 @@
             @strongify(self)
             [self setNavigationIndex:index];
             [self updateDateRangeWithAsync];
-            [self getYearBookRequestWithAsync];
+            [self updateDataWithAsync];
         }];
         [self.view addSubview:_chartHUD];
     }

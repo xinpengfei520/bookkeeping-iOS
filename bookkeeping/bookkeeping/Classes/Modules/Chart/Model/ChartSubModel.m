@@ -17,7 +17,6 @@
 }
 
 - (NSString *)detail {
-//    NSDate *date = [NSDate createZeroDate:[NSDate date]];
     NSDate *date = [NSDate date];
     
     // 周
