@@ -90,8 +90,10 @@
     [operation addExecutionBlock:^{
         @strongify(self)
         [self updateDateRange];
+        [self.chartDate setSegmentIndex:self.segmentIndex];
     }];
     [self.queue addOperation:operation];
+    
 }
 
 // 更新时间范围

@@ -193,7 +193,6 @@
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self.selectIndexs replaceObjectAtIndex:self.segmentIndex withObject:indexPath];
     [self collectionDidSelect:indexPath animation:true];
     // 回调
     if (self.complete) {
@@ -207,16 +206,15 @@
     [self.collection scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animation];
     // 刷新
     [self.collection reloadItemsAtIndexPaths:({
-        NSIndexPath *selectIndex = self.selectIndexs[self.segmentIndex];
-        NSIndexPath *lastIndex = selectIndex;
-        selectIndex = indexPath;
-        NSMutableArray *arr = [NSMutableArray array];
-        if (lastIndex && ![lastIndex isEqual:selectIndex]) {
-            [arr addObject:lastIndex];
+        NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
+        if (self.selectIndexs[self.segmentIndex]) {
+            [indexPaths addObject:self.selectIndexs[self.segmentIndex]];
         }
-        [arr addObject:indexPath];
-        arr;
+        [indexPaths addObject:indexPath];
+        [self.selectIndexs replaceObjectAtIndex:self.segmentIndex withObject:indexPath];
+        indexPaths;
     })];
+    
     // 移动
     NSTimeInterval duration = animation == true ? 0.3f : 0;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{

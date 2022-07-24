@@ -102,13 +102,15 @@
 
 - (void)collectionDidSelect:(NSIndexPath *)indexPath animation:(BOOL)animation {
     [self scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animation];
-    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
-    if (_selectIndex) {
-        [indexPaths addObject:_selectIndex];
-    }
-    [indexPaths addObject:indexPath];
-    _selectIndex = indexPath;
-    [self reloadItemsAtIndexPaths:indexPaths];
+    [self reloadItemsAtIndexPaths:({
+        NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
+        if (_selectIndex) {
+            [indexPaths addObject:_selectIndex];
+        }
+        [indexPaths addObject:indexPath];
+        _selectIndex = indexPath;
+        indexPaths;
+    })];
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
