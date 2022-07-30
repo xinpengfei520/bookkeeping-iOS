@@ -34,7 +34,7 @@
     [self.nameLab setTextColor:kColor_Text_Black];
     [self.percentLab setFont:[UIFont systemFontOfSize:AdjustFont(8) weight:UIFontWeightLight]];
     [self.percentLab setTextColor:kColor_Text_Black];
-    [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(12)]];
+    [self.detailLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.detailLab setTextColor:kColor_Text_Black];
     [self.line setImage:[UIColor createImageWithColor:kColor_Main_Color]];
     
