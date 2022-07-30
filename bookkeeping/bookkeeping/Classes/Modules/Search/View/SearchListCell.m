@@ -9,7 +9,6 @@
 #import "SearchListCell.h"
 #import "SearchListHeader.h"
 #import "SearchListSubCell.h"
-#import "SEARCH_EVENT.h"
 
 #pragma mark - 声明
 @interface SearchListCell()<UITableViewDelegate, UITableViewDataSource>

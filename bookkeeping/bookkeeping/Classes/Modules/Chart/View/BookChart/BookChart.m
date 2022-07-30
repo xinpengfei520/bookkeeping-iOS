@@ -4,7 +4,6 @@
  */
 
 #import "BookChart.h"
-#import "CHART_EVENT.h"
 #import "BookChartHUD.h"
 
 // 图表left

@@ -4,7 +4,6 @@
  */
 
 #import "TITableCell.h"
-#import "TIMING_EVENT.h"
 
 #pragma mark - 声明
 @interface TITableCell()

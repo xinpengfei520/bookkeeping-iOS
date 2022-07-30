@@ -4,7 +4,6 @@
  */
 
 #import "InfoFooter.h"
-#import "INFO_EVENT_MANAGER.h"
 
 #pragma mark - 声明
 @interface InfoFooter()

@@ -420,7 +420,6 @@
 		3219841321C6474500311885 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		32258E7C21CA29AC0017254D /* NSString+Calculation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		32258E7D21CA29AC0017254D /* NSString+Calculation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
-		3244849B21C721B90051B8B6 /* MINE_EVENT_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MINE_EVENT_MANAGER.h; sourceTree = "<group>"; };
 		324484B321C74BDD0051B8B6 /* HomeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
 		324484B421C74BDD0051B8B6 /* HomeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
 		324484B521C74BDD0051B8B6 /* HomeListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
@@ -433,7 +432,6 @@
 		3257AEDB21C877E500787A34 /* TITableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TITableCell.xib; sourceTree = "<group>"; };
 		326F8F2221D4BFCA0030B329 /* TIModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TIModel.h; sourceTree = "<group>"; };
 		326F8F2321D4BFCA0030B329 /* TIModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TIModel.m; sourceTree = "<group>"; };
-		326F8F2521D4CA470030B329 /* TIMING_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TIMING_EVENT.h; sourceTree = "<group>"; };
 		32751F0721C8E93000D9F415 /* BKCNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCNavigation.h; sourceTree = "<group>"; };
 		32751F0821C8E93000D9F415 /* BKCNavigation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCNavigation.m; sourceTree = "<group>"; };
 		32751F0A21C8E97300D9F415 /* BKCNavigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BKCNavigation.xib; sourceTree = "<group>"; };
@@ -484,7 +482,6 @@
 		32BFA80F21E4A2B600B926F3 /* MonthController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonthController.m; sourceTree = "<group>"; };
 		32D0B2B621C76D0B0030F5B2 /* KKRefreshNormalHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKRefreshNormalHeader.h; sourceTree = "<group>"; };
 		32D0B2B721C76D0B0030F5B2 /* KKRefreshNormalHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KKRefreshNormalHeader.m; sourceTree = "<group>"; };
-		32D0B2B921C76F570030F5B2 /* HOME_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOME_EVENT.h; sourceTree = "<group>"; };
 		32D0B2BA21C772EB0030F5B2 /* BOOK_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOOK_EVENT.h; sourceTree = "<group>"; };
 		32D0B2BB21C778C20030F5B2 /* ChartNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartNavigation.h; sourceTree = "<group>"; };
 		32D0B2BC21C778C20030F5B2 /* ChartNavigation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartNavigation.m; sourceTree = "<group>"; };
@@ -504,7 +501,6 @@
 		32EAB40821D0EA820069DF99 /* PasswordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordController.h; sourceTree = "<group>"; };
 		32EAB40921D0EA820069DF99 /* PasswordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordController.m; sourceTree = "<group>"; };
 		32EAB40A21D0EA820069DF99 /* PasswordController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasswordController.xib; sourceTree = "<group>"; };
-		32EAB40D21D0F85C0069DF99 /* LOGIN_NOTIFICATION.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LOGIN_NOTIFICATION.h; sourceTree = "<group>"; };
 		32FA228721D61BC40000BC0E /* KKRefreshNormalFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKRefreshNormalFooter.h; sourceTree = "<group>"; };
 		32FA228821D61BC40000BC0E /* KKRefreshNormalFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KKRefreshNormalFooter.m; sourceTree = "<group>"; };
 		32FA228A21D62ACB0000BC0E /* HomeListEmpty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListEmpty.h; sourceTree = "<group>"; };
@@ -590,7 +586,6 @@
 		4B35F1BB21CCC694007271BE /* KKEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKEmpty.m; sourceTree = "<group>"; };
 		4B35F1D321CD0798007271BE /* ACAListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACAListModel.h; sourceTree = "<group>"; };
 		4B35F1D421CD0798007271BE /* ACAListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACAListModel.m; sourceTree = "<group>"; };
-		4B35F1D621CD10B1007271BE /* ACA_EVENT_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACA_EVENT_MANAGER.h; sourceTree = "<group>"; };
 		4B38C07C21E4E5D400D28B34 /* PINCache_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PINCache_Header.h; sourceTree = "<group>"; };
 		4B47931021E9DB4D0062879D /* NSUserDefaults+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Extension.h"; sourceTree = "<group>"; };
 		4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Extension.m"; sourceTree = "<group>"; };
@@ -609,10 +604,8 @@
 		4B68DC3A21E1C0BF00CBF20C /* BDTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDTableCell.h; sourceTree = "<group>"; };
 		4B68DC3B21E1C0BF00CBF20C /* BDTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDTableCell.m; sourceTree = "<group>"; };
 		4B68DC3C21E1C0BF00CBF20C /* BDTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BDTableCell.xib; sourceTree = "<group>"; };
-		4B68DC3F21E1C90100CBF20C /* BD_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BD_EVENT.h; sourceTree = "<group>"; };
 		4B7560B121D1224A00E63744 /* BaseViewController+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseViewController+Extension.h"; sourceTree = "<group>"; };
 		4B7560B221D1224A00E63744 /* BaseViewController+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BaseViewController+Extension.m"; sourceTree = "<group>"; };
-		4B8D635C21D8CF03002AEB4A /* CHART_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHART_EVENT.h; sourceTree = "<group>"; };
 		4B8D635D21D8D215002AEB4A /* BookChartHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookChartHUD.h; sourceTree = "<group>"; };
 		4B8D635E21D8D215002AEB4A /* BookChartHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookChartHUD.m; sourceTree = "<group>"; };
 		4B8D636221D8D38C002AEB4A /* BCHUDContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCHUDContent.h; sourceTree = "<group>"; };
@@ -641,7 +634,6 @@
 		4BA68AEE21C7EEAA0063A5C2 /* CategoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		4BA68AF521C7F1D10063A5C2 /* ACAController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACAController.h; sourceTree = "<group>"; };
 		4BA68AF621C7F1D10063A5C2 /* ACAController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACAController.m; sourceTree = "<group>"; };
-		4BA68AF921C7F3630063A5C2 /* CA_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CA_EVENT.h; sourceTree = "<group>"; };
 		4BA68AFA21C7F5DB0063A5C2 /* ACATextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACATextField.h; sourceTree = "<group>"; };
 		4BA68AFB21C7F5DB0063A5C2 /* ACATextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACATextField.m; sourceTree = "<group>"; };
 		4BA68AFD21C7F61E0063A5C2 /* ACACollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACACollection.h; sourceTree = "<group>"; };
@@ -746,7 +738,6 @@
 		4BEB733021CE3F9C00BEF013 /* InfoFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoFooter.h; sourceTree = "<group>"; };
 		4BEB733121CE3F9C00BEF013 /* InfoFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoFooter.m; sourceTree = "<group>"; };
 		4BEB733321CE3FC800BEF013 /* InfoFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoFooter.xib; sourceTree = "<group>"; };
-		4BEB733521CE428F00BEF013 /* INFO_EVENT_MANAGER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INFO_EVENT_MANAGER.h; sourceTree = "<group>"; };
 		4BF0648B21E10A80005F1665 /* BookDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailController.h; sourceTree = "<group>"; };
 		4BF0648C21E10A80005F1665 /* BookDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookDetailController.m; sourceTree = "<group>"; };
 		4BF0648E21E10BAD005F1665 /* BDHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDHeader.h; sourceTree = "<group>"; };
@@ -822,7 +813,6 @@
 		F3A052582856125B00DB2E99 /* SearchListSubCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchListSubCell.h; sourceTree = "<group>"; };
 		F3A052592856125B00DB2E99 /* SearchListSubCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchListSubCell.m; sourceTree = "<group>"; };
 		F3A0525B2856127700DB2E99 /* SearchListSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchListSubCell.xib; sourceTree = "<group>"; };
-		F3A0525D285618FD00DB2E99 /* SEARCH_EVENT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEARCH_EVENT.h; sourceTree = "<group>"; };
 		F3A052622858FDED00DB2E99 /* AlertViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertViewManager.h; sourceTree = "<group>"; };
 		F3A052632858FDED00DB2E99 /* AlertViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertViewManager.m; sourceTree = "<group>"; };
 		F3AE5FC928466E0D00E95086 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
@@ -898,6 +888,7 @@
 				32BFA7F821E4847E00B926F3 /* bookkeeping.entitlements */,
 				3219838A21C642F400311885 /* KKPrefixHeader.pch */,
 				3219839521C6446300311885 /* Common.h */,
+				32D0B2BA21C772EB0030F5B2 /* BOOK_EVENT.h */,
 				3219838B21C6436A00311885 /* Classes */,
 				3219837A21C642BB00311885 /* Main.storyboard */,
 				3219837D21C642BC00311885 /* Assets.xcassets */,
@@ -1237,7 +1228,6 @@
 		3244849C21C726570051B8B6 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				3244849B21C721B90051B8B6 /* MINE_EVENT_MANAGER.h */,
 				4BE7844F21C678FB00B8EC46 /* Controller */,
 				4BE7845021C678FB00B8EC46 /* Model */,
 				4BE7845121C678FB00B8EC46 /* View */,
@@ -1249,7 +1239,6 @@
 		324484A421C727810051B8B6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				32EAB40D21D0F85C0069DF99 /* LOGIN_NOTIFICATION.h */,
 				4BC41CF821CF92F800B397BD /* Controller */,
 				4BC41CF921CF92F800B397BD /* Model */,
 				4BC41CFA21CF92F800B397BD /* View */,
@@ -1676,7 +1665,6 @@
 		4BA68AD221C7EA930063A5C2 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				4BA68AF921C7F3630063A5C2 /* CA_EVENT.h */,
 				4BA68AD321C7EA930063A5C2 /* Controller */,
 				4BA68AD421C7EA930063A5C2 /* Model */,
 				4BA68AD521C7EA930063A5C2 /* View */,
@@ -1723,7 +1711,6 @@
 		4BA68ADA21C7EA930063A5C2 /* Timing */ = {
 			isa = PBXGroup;
 			children = (
-				326F8F2521D4CA470030B329 /* TIMING_EVENT.h */,
 				4BA68ADB21C7EA930063A5C2 /* Controller */,
 				4BA68ADC21C7EA930063A5C2 /* Model */,
 				4BA68ADD21C7EA930063A5C2 /* View */,
@@ -1764,7 +1751,6 @@
 		4BA68AF121C7F1A70063A5C2 /* AddCategory */ = {
 			isa = PBXGroup;
 			children = (
-				4B35F1D621CD10B1007271BE /* ACA_EVENT_MANAGER.h */,
 				4BA68AF221C7F1A70063A5C2 /* Controller */,
 				4BA68AF321C7F1A70063A5C2 /* Model */,
 				4BA68AF421C7F1A70063A5C2 /* View */,
@@ -1871,7 +1857,6 @@
 		4BE7844A21C678FB00B8EC46 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				32D0B2B921C76F570030F5B2 /* HOME_EVENT.h */,
 				4BE7844B21C678FB00B8EC46 /* Controller */,
 				4BE7844C21C678FB00B8EC46 /* Model */,
 				4BE7844D21C678FB00B8EC46 /* View */,
@@ -1941,7 +1926,6 @@
 		4BE7845621C678FB00B8EC46 /* Book */ = {
 			isa = PBXGroup;
 			children = (
-				32D0B2BA21C772EB0030F5B2 /* BOOK_EVENT.h */,
 				4BE7845721C678FB00B8EC46 /* Controller */,
 				4BE7845821C678FB00B8EC46 /* Model */,
 				4BE7845921C678FB00B8EC46 /* View */,
@@ -1983,7 +1967,6 @@
 		4BE7845A21C678FB00B8EC46 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
-				4B8D635C21D8CF03002AEB4A /* CHART_EVENT.h */,
 				4BE7845B21C678FB00B8EC46 /* Controller */,
 				4BE7845C21C678FB00B8EC46 /* Model */,
 				4BE7845D21C678FB00B8EC46 /* View */,
@@ -2116,7 +2099,6 @@
 		4BEB732121CE375F00BEF013 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				4BEB733521CE428F00BEF013 /* INFO_EVENT_MANAGER.h */,
 				4BEB732321CE377800BEF013 /* Controller */,
 				4BEB732221CE377800BEF013 /* Model */,
 				4BEB732421CE377800BEF013 /* View */,
@@ -2160,7 +2142,6 @@
 		4BF0648721E10A50005F1665 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				4B68DC3F21E1C90100CBF20C /* BD_EVENT.h */,
 				4BF0648821E10A50005F1665 /* Controller */,
 				4BF0648921E10A50005F1665 /* Model */,
 				4BF0648A21E10A50005F1665 /* View */,
@@ -2427,7 +2408,6 @@
 		F3AE5FD22847C95900E95086 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				F3A0525D285618FD00DB2E99 /* SEARCH_EVENT.h */,
 				F3AE5FD52847C9AE00E95086 /* View */,
 				F3AE5FD42847C99B00E95086 /* Model */,
 				F3AE5FD32847C98D00E95086 /* Controller */,

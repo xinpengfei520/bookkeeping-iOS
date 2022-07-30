@@ -7,8 +7,6 @@
 //
 
 #import "VerifyController.h"
-#import "LOGIN_NOTIFICATION.h"
-
 
 @interface VerifyController ()
 

@@ -5,8 +5,6 @@
 
 #import "InfoController.h"
 #import "InfoTableView.h"
-#import "INFO_EVENT_MANAGER.h"
-#import "LOGIN_NOTIFICATION.h"
 #import "AlertViewManager.h"
 
 #pragma mark - 声明

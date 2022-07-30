@@ -7,7 +7,6 @@
 #import "BDHeader.h"
 #import "BDTable.h"
 #import "BDBottom.h"
-#import "BD_EVENT.h"
 
 #pragma mark - 声明
 @interface BookDetailController()

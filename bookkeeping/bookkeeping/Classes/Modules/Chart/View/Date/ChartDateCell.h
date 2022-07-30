@@ -6,8 +6,6 @@
 #import "BaseCollectionCell.h"
 #import "ChartSubModel.h"
 
-#define LAB_FONT [UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChartDateCell : BaseCollectionCell

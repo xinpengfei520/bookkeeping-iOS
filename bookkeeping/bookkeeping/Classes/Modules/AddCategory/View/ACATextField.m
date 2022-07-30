@@ -4,7 +4,6 @@
  */
 
 #import "ACATextField.h"
-#import "ACA_EVENT_MANAGER.h"
 
 #pragma mark - 声明
 @interface ACATextField()<UITextFieldDelegate>

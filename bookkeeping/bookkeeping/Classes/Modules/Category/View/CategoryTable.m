@@ -7,8 +7,6 @@
 #import "CategoryCell.h"
 #import "CategorySectionHeader.h"
 #import "KKRefreshGifHeader.h"
-#import "CA_EVENT.h"
-
 
 typedef NS_ENUM(NSInteger, LYFTableViewType) {
     /// 顶部

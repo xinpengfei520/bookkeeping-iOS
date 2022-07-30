@@ -6,8 +6,6 @@
 #import "ACACollection.h"
 #import "ACACollectionCell.h"
 #import "ACAReusableHeader.h"
-#import "ACA_EVENT_MANAGER.h"
-
 
 #pragma mark - 声明
 @interface ACACollection()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>

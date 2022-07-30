@@ -8,7 +8,6 @@
 
 #import "AFNManager.h"
 #import <AFNetworking/AFNetworking.h>
-#import "MINE_EVENT_MANAGER.h"
 
 #pragma mark - 声明
 @interface AFNManager()

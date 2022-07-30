@@ -4,8 +4,6 @@
  */
 
 #import "CategoryCell.h"
-#import "CA_EVENT.h"
-
 
 #pragma mark - 声明
 @interface CategoryCell()

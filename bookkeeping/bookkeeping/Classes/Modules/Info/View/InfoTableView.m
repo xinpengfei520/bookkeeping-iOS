@@ -6,8 +6,6 @@
 #import "InfoTableView.h"
 #import "InfoTableCell.h"
 #import "InfoFooter.h"
-#import "INFO_EVENT_MANAGER.h"
-
 
 #pragma mark - 声明
 @interface InfoTableView()<UITableViewDataSource, UITableViewDelegate>

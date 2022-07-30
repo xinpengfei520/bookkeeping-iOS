@@ -6,8 +6,6 @@
 #import "MineTableView.h"
 #import "MineTableCell.h"
 #import "MineTableHeader.h"
-#import "MINE_EVENT_MANAGER.h"
-
 
 #pragma mark - 声明
 @interface MineTableView()<UITableViewDelegate, UITableViewDataSource>

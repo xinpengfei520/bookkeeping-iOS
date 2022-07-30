@@ -4,7 +4,6 @@
  */
 
 #import "MineTableCell.h"
-#import "MINE_EVENT_MANAGER.h"
 
 #pragma mark - 声明
 @interface MineTableCell()

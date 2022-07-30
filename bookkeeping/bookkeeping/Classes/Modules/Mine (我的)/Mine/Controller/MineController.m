@@ -4,9 +4,7 @@
  */
 
 #import "MineController.h"
-#import "MINE_EVENT_MANAGER.h"
 #import "LAContextManager.h"
-
 
 #pragma mark - 声明
 @interface MineController()

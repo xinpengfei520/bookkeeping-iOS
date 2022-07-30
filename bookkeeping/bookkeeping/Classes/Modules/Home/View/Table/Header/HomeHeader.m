@@ -4,7 +4,6 @@
  */
 
 #import "HomeHeader.h"
-#import "HOME_EVENT.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "BookMonthModel.h"
 

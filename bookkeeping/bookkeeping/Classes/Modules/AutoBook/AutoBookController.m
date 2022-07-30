@@ -8,7 +8,6 @@
 
 #import "AutoBookController.h"
 #import "BottomButton.h"
-#import "CA_EVENT.h"
 
 @interface AutoBookController ()
 

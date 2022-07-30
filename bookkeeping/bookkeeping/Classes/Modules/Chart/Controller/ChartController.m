@@ -10,8 +10,6 @@
 #import "ChartTableView.h"
 #import "ChartHUD.h"
 #import "ChartTableCell.h"
-#import "CHART_EVENT.h"
-#import "LOGIN_NOTIFICATION.h"
 #import "BookChartModel.h"
 
 #pragma mark - 声明

@@ -9,7 +9,6 @@
 #import "AssetsController.h"
 #import "BottomButton.h"
 #import "AssetsHeader.h"
-#import "CA_EVENT.h"
 
 @interface AssetsController ()
 

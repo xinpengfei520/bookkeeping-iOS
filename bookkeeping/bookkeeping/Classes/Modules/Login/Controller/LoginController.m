@@ -4,7 +4,6 @@
  */
 
 #import "LoginController.h"
-#import "LOGIN_NOTIFICATION.h"
 
 #pragma mark - 声明
 @interface LoginController() {

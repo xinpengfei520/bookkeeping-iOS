@@ -10,7 +10,6 @@
 #import "BottomButton.h"
 #import "CategoryCell.h"
 #import "CategoryListModel.h"
-#import "CA_EVENT.h"
 
 #pragma mark - 声明
 @interface CAController()

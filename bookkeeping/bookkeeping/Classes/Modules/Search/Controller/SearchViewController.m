@@ -10,7 +10,6 @@
 #import "SearchNavigation.h"
 #import "SearchList.h"
 #import "SearchListSubCell.h"
-#import "SEARCH_EVENT.h"
 
 @interface SearchViewController ()
 

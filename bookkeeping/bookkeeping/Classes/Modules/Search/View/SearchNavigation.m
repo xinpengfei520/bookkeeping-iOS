@@ -7,7 +7,6 @@
 //
 
 #import "SearchNavigation.h"
-#import "SEARCH_EVENT.h"
 
 @interface SearchNavigation ()<UITextFieldDelegate>
 

@@ -7,8 +7,6 @@
 #import "ChartTableCell.h"
 #import "ChartTableHeader.h"
 #import "ChartSectionHeader.h"
-#import "CHART_EVENT.h"
-
 
 #pragma mark - 声明
 @interface ChartTableView()<UITableViewDelegate, UITableViewDataSource>

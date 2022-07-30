@@ -7,7 +7,6 @@
 //
 
 #import "SearchListSubCell.h"
-#import "HOME_EVENT.h"
 
 @interface SearchListSubCell()
 

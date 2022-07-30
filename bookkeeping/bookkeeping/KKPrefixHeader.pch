@@ -1,5 +1,6 @@
 /**
- * 全局配置
+ * 全局配置：在 build settings 里设置 Prefix Header 的值为当前文件的路径，
+ * 然后在这个文件中导入 "Common.h" 头文件就可以实现将它里面的头文件自动导入了
  * @author 郑业强 2018-12-16 创建文件
  */
 
@@ -104,6 +105,7 @@
 
 // 字体
 #define AdjustFont(A) [UIFont adjustFontSize:A]
+#define LAB_FONT [UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]
 
 // 字符串判空
 #define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]

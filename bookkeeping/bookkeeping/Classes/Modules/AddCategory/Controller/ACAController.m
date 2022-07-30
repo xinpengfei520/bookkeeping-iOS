@@ -9,7 +9,6 @@
 #import "ACACollection.h"
 #import "ACAListModel.h"
 #import "BKCIncomeModel.h"
-#import "ACA_EVENT_MANAGER.h"
 
 #pragma mark - 声明
 @interface ACAController()

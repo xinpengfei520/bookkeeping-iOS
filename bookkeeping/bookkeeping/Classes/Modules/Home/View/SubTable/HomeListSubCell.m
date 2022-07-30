@@ -4,7 +4,6 @@
  */
 
 #import "HomeListSubCell.h"
-#import "HOME_EVENT.h"
 
 #pragma mark - 声明
 @interface HomeListSubCell()
