@@ -396,7 +396,7 @@
     return _list;
 }
 
-- (void) addButton {
+- (void)addButton {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height-120, 80, 80);
     [button setImage:[UIImage imageNamed:@"tabbar_add_n.png"] forState:0];

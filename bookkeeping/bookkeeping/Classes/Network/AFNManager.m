@@ -8,6 +8,7 @@
 
 #import "AFNManager.h"
 #import <AFNetworking/AFNetworking.h>
+#import "MINE_EVENT_MANAGER.h"
 
 #pragma mark - 声明
 @interface AFNManager()
@@ -68,9 +69,13 @@ static AFHTTPSessionManager *_manager;
         
         if (complete) {
             APPResult *result = [APPResult mj_objectWithKeyValues:responseObject];
-            result.status = HttpStatusSuccess;
-            result.cache = CacheStatusSuccess;
-            complete(result);
+            if(result.code == TOKEN_EXPIRED){
+                [[NSNotificationCenter defaultCenter] postNotificationName:MINE_TOKEN_EXPIRED object:nil];
+            }else{
+                result.status = HttpStatusSuccess;
+                result.cache = CacheStatusSuccess;
+                complete(result);
+            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull err) {
         if (complete) {
@@ -116,9 +121,13 @@ static AFHTTPSessionManager *_manager;
         // 回调
         if (complete) {
             APPResult *result = [APPResult mj_objectWithKeyValues:responseObject];
-            result.status = HttpStatusSuccess;
-            result.cache = CacheStatusSuccess;
-            complete(result);
+            if(result.code == TOKEN_EXPIRED){
+                [[NSNotificationCenter defaultCenter] postNotificationName:MINE_TOKEN_EXPIRED object:nil];
+            }else{
+                result.status = HttpStatusSuccess;
+                result.cache = CacheStatusSuccess;
+                complete(result);
+            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 回调
