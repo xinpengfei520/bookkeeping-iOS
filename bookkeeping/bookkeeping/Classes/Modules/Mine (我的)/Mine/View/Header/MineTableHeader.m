@@ -93,8 +93,7 @@
     
     if (model.userAvatar) {
         [_icon sd_setImageWithURL:[NSURL URLWithString:model.userAvatar]];
-    }
-    else {
+    }else {
         [_icon setImage:[UIImage imageNamed:@"default_header"]];
     }
     [_nameLab setText:model.nickname];

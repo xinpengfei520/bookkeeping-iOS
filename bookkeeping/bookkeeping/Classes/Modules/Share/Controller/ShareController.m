@@ -36,13 +36,18 @@
     [self.view setBackgroundColor:kColor_Line_Color];
     [self scroll];
     [self shot1];
-    [self shot2];
-    [self shot3];
+//    [self shot2];
+//    [self shot3];
     [self bottom];
-    _shot1.hidden = YES;
-    _shot2.hidden = YES;
+//    _shot1.hidden = YES;
+//    _shot2.hidden = YES;
+    
+    [self setData];
 }
 
+- (void)setData {
+    [self.shot1 setModel:_model];
+}
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {

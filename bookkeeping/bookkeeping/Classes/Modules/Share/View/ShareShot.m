@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipLab2;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *tipBtn;
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numLabel;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraintH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *moneyConstraintH;
@@ -29,13 +31,16 @@
 - (void)initUI {
     [self.titleLab setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
     [self.titleLab setTextColor:kColor_Text_Black];
+    
     [self.icon.layer setCornerRadius:self.icon.height / 2];
     [self.icon.layer setBorderWidth:1.f / [UIScreen mainScreen].scale];
     [self.icon.layer setBorderColor:kColor_BG.CGColor];
+    [self.icon.layer setMasksToBounds:true];
+    
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];
     [self.tipLab1 setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
-    [self.tipLab1 setTextColor:kColor_Text_Black];
+    [self.tipLab1 setTextColor:kColor_Text_White];
     [self.tipLab2 setFont:[UIFont systemFontOfSize:AdjustFont(6) weight:UIFontWeightLight]];
     [self.tipLab2 setTextColor:kColor_Text_Black];
     [self.bottomView setBackgroundColor:kColor_Main_Color];
@@ -65,5 +70,16 @@
     }
 }
 
+- (void)setModel:(UserModel *)model {
+    _model = model;
+    [self.nameLab setText:model.nickname];
+    [self.dayLabel setText:model.bookDays];
+    [self.numLabel setText:model.bookCounts];
+    if (model.userAvatar) {
+        [_icon sd_setImageWithURL:[NSURL URLWithString:model.userAvatar]];
+    }else {
+        [_icon setImage:[UIImage imageNamed:@"default_header"]];
+    }
+}
 
 @end

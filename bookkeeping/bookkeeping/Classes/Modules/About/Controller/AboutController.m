@@ -63,14 +63,14 @@
     if (!_share) {
         _share = [UIButton buttonWithType:UIButtonTypeCustom];
         _share.frame = ({
-            CGFloat left = SCREEN_WIDTH / 4;
+            CGFloat left = SCREEN_WIDTH / 3;
             CGFloat width = SCREEN_WIDTH - left * 2;
             CGFloat height = countcoordinatesX(40);
             CGFloat top = SCREEN_HEIGHT - SafeAreaBottomHeight - countcoordinatesX(100) - height - NavigationBarHeight;
             CGRectMake(left, top, width, height);
         });
-        [_share setTitle:@"关注「记呀」微信公众号" forState:UIControlStateNormal];
-        [_share setTitle:@"关注「记呀」微信公众号" forState:UIControlStateHighlighted];
+        [_share setTitle:@"检查更新" forState:UIControlStateNormal];
+        [_share setTitle:@"检查更新" forState:UIControlStateHighlighted];
         [_share setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
         [_share setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
         [_share.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];

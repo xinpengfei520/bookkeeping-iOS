@@ -124,8 +124,7 @@
     else if (indexPath.section == 2) {
         // 邀请好友
         if (indexPath.row == 0) {
-            ShareController *vc = [[ShareController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            [self showTextHUD:@"敬请期待" delay:1.5f];
         }
         // 意见反馈
         else if (indexPath.row == 1) {
@@ -171,14 +170,11 @@
     }
 }
 
-// 记账总天数
-- (void)headerDayClick:(id)data {
-    [self showTextHUD:@"你真棒！" delay:1.5f];
-}
-
-// 记账总笔数
+// 记账总天数、笔数
 - (void)headerNumberClick:(id)data {
-    [self showTextHUD:@"继续加油哦！" delay:1.5f];
+    ShareController *vc = [[ShareController alloc] init];
+    vc.model = _model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 // FaceID 开关点击事件
@@ -241,7 +237,7 @@
         _eventStrategy = @{
             MINE_CELL_CLICK: [self createInvocationWithSelector:@selector(mineCellClick:)],
             MINE_HEADER_ICON_CLICK: [self createInvocationWithSelector:@selector(headerIconClick:)],
-            MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerDayClick:)],
+            MINE_HEADER_DAY_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
             MINE_HEADER_NUMBER_CLICK: [self createInvocationWithSelector:@selector(headerNumberClick:)],
             MINE_FACE_ID_CLICK: [self createInvocationWithSelector:@selector(faceIdClick:)]
         };

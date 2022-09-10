@@ -9,6 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ShareController : BaseViewController
 
+@property (nonatomic, strong) UserModel *model;
+
 @end
 
 NS_ASSUME_NONNULL_END
