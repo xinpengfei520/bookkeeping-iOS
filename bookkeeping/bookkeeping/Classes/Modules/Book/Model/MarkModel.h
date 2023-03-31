@@ -9,6 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma typeof
+typedef void (^ErrorMsgBlock)(NSString *errorMsg);
+
 @interface MarkModel : BaseModel<NSCoding, NSCopying>
 
 @property (nonatomic, assign) NSInteger markId;
@@ -16,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger frequency;
 @property (nonatomic, assign) NSInteger categoryId;
 
-+ (void)update:(BookDetailModel *)model;
++ (void)update:(BookDetailModel *)model errorMsg:(ErrorMsgBlock)errorMsgBlock;
 
 @end
 

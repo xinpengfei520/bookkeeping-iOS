@@ -33,7 +33,7 @@
     return model;
 }
 
-+ (void)update:(BookDetailModel *)model {
++ (void)update:(BookDetailModel *)model errorMsg:(ErrorMsgBlock)errorMsgBlock {
     NSMutableArray<MarkModel *> *markList = [NSUserDefaults getAllMarkList];
     MarkModel *findModel = nil;
     for (MarkModel *markModel in markList) {
@@ -55,6 +55,9 @@
                 [NSUserDefaults saveAllMarkList:markList];
             } else {
                 NSLog(@"[MarkModel update()] -> msg1: %@",result.msg);
+                if (errorMsgBlock) {
+                    errorMsgBlock(result.msg);
+                }
             }
         }];
     }else { // 新增
@@ -79,6 +82,9 @@
                 [NSUserDefaults saveAllMarkList:markList];
             } else {
                 NSLog(@"[MarkModel update()] -> msg2: %@",result.msg);
+                if (errorMsgBlock) {
+                    errorMsgBlock(result.msg);
+                }
             }
         }];
     }
