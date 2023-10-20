@@ -63,7 +63,11 @@
     NSDate *date = [NSDate date];
     NSString *month = [@(date.month) description];
     [_monthLab setText:month];
-    [_monthConstraintW setConstant:[month sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:_monthLab.font].width];
+    CGSize size = [month sizeWithAttributes:@{NSFontAttributeName:_monthLab.font}];
+    if (size.width > _monthLab.bounds.size.width) {
+        [_monthLab setAdjustsFontSizeToFitWidth:YES];
+    }
+    [_monthConstraintW setConstant:size.width];
     
     // 数据
     NSMutableArray<BookMonthModel *> *monthModels = [BookMonthModel statisticalMonthWithYear:date.year month:date.month];
