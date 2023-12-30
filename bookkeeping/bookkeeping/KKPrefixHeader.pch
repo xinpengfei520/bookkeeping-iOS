@@ -50,11 +50,11 @@
 #define SCREEN_BOUNDS ([UIScreen mainScreen].bounds)
 
 
-// 比例
+// 屏幕比例
 #define countcoordinatesX(A) [UIScreen mainScreen].bounds.size.width * (A / 375.f)
 
 
-// 版本
+// 系统版本
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 #define iOS7Later ([UIDevice currentDevice].systemVersion.floatValue >= 7.0f)
 #define iOS8Later ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f)
@@ -66,6 +66,8 @@
 #define iOS14Later ([UIDevice currentDevice].systemVersion.floatValue >= 14.0f)
 #define iOS15Later ([UIDevice currentDevice].systemVersion.floatValue >= 15.0f)
 #define iOS16Later ([UIDevice currentDevice].systemVersion.floatValue >= 16.0f)
+#define iOS17Later ([UIDevice currentDevice].systemVersion.floatValue >= 17.0f)
+#define iOS18Later ([UIDevice currentDevice].systemVersion.floatValue >= 18.0f)
 
 #define iOS7 (iOS7Later) && !(iOS8Later)
 #define iOS8 (iOS8Later) && !(iOS9Later)
@@ -75,7 +77,9 @@
 #define iOS12 (iOS12Later) && !(iOS13Later)
 #define iOS13 (iOS13Later) && !(iOS14Later)
 #define iOS14 (iOS14Later) && !(iOS15Later)
-#define iOS15 (iOS14Later) && !(iOS16Later)
+#define iOS15 (iOS15Later) && !(iOS16Later)
+#define iOS16 (iOS16Later) && !(iOS17Later)
+#define iOS17 (iOS17Later) && !(iOS18Later)
 
 
 // 手机型号
