@@ -83,16 +83,6 @@
             BillController *vc = [[BillController alloc] init];
             [self.navigationController pushViewController:vc animated:true];
         }
-        // 账本管理
-        else if (indexPath.row == 1) {
-            BooksController *vc = [[BooksController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        // 资产管理
-        else if (indexPath.row == 2) {
-            AssetsController *vc = [[AssetsController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
     }
     else if (indexPath.section == 1) {
         // 类别设置
