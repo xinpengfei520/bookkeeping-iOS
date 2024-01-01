@@ -200,6 +200,14 @@
             [MarkModel update:model errorMsg:^(NSString *errorMsg) {
                 [self showTextHUD:errorMsg delay:1.f];
             }];
+            
+            // 如果没有在当前月份时，说明记的是其他月份的账，则加载记账年月的数据
+            if (model.month != self.date.month) {
+                NSString *yearMonth = [NSString stringWithFormat:@"%ld-%ld", (long)model.year,(long)model.month];
+                NSLog(@"当前记账的年月：%@", yearMonth);
+                [self setDate:[NSDate dateWithYM:yearMonth]];
+                [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
+            }
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
@@ -238,6 +246,12 @@
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             // 修改本地所有记账
             [NSUserDefaults replaceBookModel:model];
+            
+            // 修改完后重新加载数据，有可能修改的记账的年月时间等，需要加载修改后当月的数据
+            NSString *yearMonth = [NSString stringWithFormat:@"%ld-%ld", (long)model.year,(long)model.month];
+            NSLog(@"修改记账的年月：%@", yearMonth);
+            [self setDate:[NSDate dateWithYM:yearMonth]];
+            [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
