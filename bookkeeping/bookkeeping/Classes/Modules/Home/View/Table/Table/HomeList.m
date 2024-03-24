@@ -133,6 +133,7 @@
 }
 
 - (void)refresh:(NSIndexPath *)indexPath{
+    NSLog(@"refresh section: %ld, row: %ld", indexPath.section, indexPath.row);
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
     HomeListCell *cell = [self.table cellForRowAtIndexPath:index];
     [cell refresh:indexPath];

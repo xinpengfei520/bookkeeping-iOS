@@ -127,17 +127,17 @@
         @[
             @[@"我的账单"],
             @[@"类别设置",@"定时提醒",@"定时记账",@"面容解锁",@"导出数据",@"Siri 捷径"],
-            @[@"邀请好友",@"意见反馈",@"评分",@"帮助",@"关于"]
+            @[@"邀请好友",@"意见反馈",@"帮助",@"关于"]
         ],
         @[
             @[@"mine_bill"],
             @[@"mine_category",@"mine_remind",@"mine_recycle",@"mine_face_id",@"mine_export",@"mine_siri"],
-            @[@"mine_invite",@"mine_feedback",@"mine_rating",@"mine_help",@"mine_about"]
+            @[@"mine_invite",@"mine_feedback",@"mine_help",@"mine_about"]
         ],
         @[
             @[@(0)],
             @[@(0),@(0),@(0),@(1),@(0),@(0)],
-            @[@(0),@(0),@(0),@(0),@(0)]
+            @[@(0),@(0),@(0),@(0)]
         ]
     ];
     

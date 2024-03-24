@@ -121,19 +121,15 @@
             FeedbackController *vc = [[FeedbackController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
-        // 评分
-        else if (indexPath.row == 2) {
-            [self showTextHUD:@"敬请期待" delay:1.5f];
-        }
         // 帮助
-        else if (indexPath.row == 3) {
+        else if (indexPath.row == 2) {
             WebViewController *vc = [[WebViewController alloc] init];
             [vc setNavTitle:@"帮助"];
             [vc setUrl:@"https://book.vance.xin/help_ios.html"];
             [self.navigationController pushViewController:vc animated:YES];
         }
         // 关于
-        else if (indexPath.row == 4) {
+        else if (indexPath.row == 3) {
             AboutController *vc = [[AboutController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
