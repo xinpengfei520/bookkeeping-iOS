@@ -9,8 +9,9 @@
 #define KHost @"https://api.vance.xin"
 #define KStatic(str) [NSString stringWithFormat:@"https://api.vance.xin/media/%@", str]
 
-//#define KHost @"http://192.168.3.108:8001"
-//#define KStatic(str) [NSString stringWithFormat:@"http://192.168.3.108:8001/media/%@", str]
+// 测试环境
+//#define KHost @"http://139.224.162.55:80"
+//#define KStatic(str) [NSString stringWithFormat:@"http://139.224.162.55:80/media/%@", str]
 #define kUser  @"kUser"
 #define Request(A) [NSString stringWithFormat:@"%@%@", KHost, A]
 
