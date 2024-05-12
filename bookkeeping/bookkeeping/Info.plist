@@ -170,13 +170,6 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>139.224.162.55</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
 			<key>sina.cn</key>
 			<dict>
 				<key>NSExceptionMinimumTLSVersion</key>
