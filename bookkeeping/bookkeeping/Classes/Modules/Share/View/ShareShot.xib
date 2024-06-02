@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,20 +15,20 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记账成就" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPq-ce-26d">
-                    <rect key="frame" x="0.0" y="20" width="262" height="19.5"/>
+                    <rect key="frame" x="0.0" y="40" width="262" height="19.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_header" translatesAutoresizingMaskIntoConstraints="NO" id="0zp-kU-4vX">
-                    <rect key="frame" x="106" y="49.5" width="50" height="50"/>
+                    <rect key="frame" x="106" y="69.5" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="0zp-kU-4vX" secondAttribute="height" multiplier="1:1" id="Bao-IR-4gL"/>
                         <constraint firstAttribute="width" constant="50" id="ahT-o8-SbU"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDa-rZ-Lq8">
-                    <rect key="frame" x="0.0" y="104.5" width="262" height="20"/>
+                    <rect key="frame" x="0.0" y="124.5" width="262" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="JSM-jr-oU5"/>
                     </constraints>
@@ -39,7 +39,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EwK-zp-aaV">
                     <rect key="frame" x="0.0" y="300" width="262" height="70"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sigin_icon" translatesAutoresizingMaskIntoConstraints="NO" id="iRA-Md-UJ6">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="share_icon" translatesAutoresizingMaskIntoConstraints="NO" id="iRA-Md-UJ6">
                             <rect key="frame" x="20" y="15" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="iRA-Md-UJ6" secondAttribute="height" multiplier="1:1" id="KtC-Vg-haW"/>
@@ -70,7 +70,7 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEY-6e-Ydx">
-                    <rect key="frame" x="0.0" y="156" width="262" height="39"/>
+                    <rect key="frame" x="0.0" y="166" width="262" height="39"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gwz-Lk-dg4">
                             <rect key="frame" x="51" y="0.0" width="37.5" height="18"/>
@@ -112,10 +112,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8m-el-tWP">
-                    <rect key="frame" x="0.0" y="124.5" width="262" height="31.5"/>
+                    <rect key="frame" x="0.0" y="144.5" width="262" height="21.5"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dy0-GH-TTM">
-                    <rect key="frame" x="0.0" y="195" width="262" height="32"/>
+                    <rect key="frame" x="0.0" y="205" width="262" height="22"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Bj0-wC-wvJ"/>
@@ -164,7 +164,7 @@
     </objects>
     <resources>
         <image name="default_header" width="112.5" height="112.5"/>
+        <image name="share_icon" width="51" height="51"/>
         <image name="sigin_honor" width="223" height="133"/>
-        <image name="sigin_icon" width="56" height="56"/>
     </resources>
 </document>

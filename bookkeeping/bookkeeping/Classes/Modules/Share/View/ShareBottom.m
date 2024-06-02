@@ -101,13 +101,11 @@
 - (NSArray<NSArray<NSString *> *> *)arr {
     if (!_arr) {
         _arr =  @[
-            @[@"保存",@"微信",@"朋友圈",@"QQ",@"新浪微博",@"短信"],
+            @[@"保存",@"微信",@"朋友圈",@"QQ"],
             @[@"share_download",
               @"share_wx",
               @"share_wxfc",
-              @"share_qq",
-              @"share_sina",
-              @"share_sms"]
+              @"share_qq"]
         ];
     }
     return _arr;
