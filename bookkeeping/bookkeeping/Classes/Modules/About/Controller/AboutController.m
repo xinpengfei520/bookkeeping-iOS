@@ -37,9 +37,9 @@
 - (UIImageView *)image {
     if (!_image) {
         _image = [[UIImageView alloc] initWithFrame:({
-            CGFloat left = countcoordinatesX(30);
+            CGFloat left = countcoordinatesX(120);
             CGFloat width = SCREEN_WIDTH - left * 2;
-            CGRectMake(left, countcoordinatesX(30), width, width);
+            CGRectMake(left, countcoordinatesX(160), width, width);
         })];
         _image.contentMode = UIViewContentModeScaleAspectFit;
         _image.image = [UIImage imageNamed:@"icon_about"];
@@ -50,7 +50,7 @@
 
 - (UILabel *)nameLab {
     if (!_nameLab) {
-        _nameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, _image.bottom, SCREEN_WIDTH, countcoordinatesX(20))];
+        _nameLab = [[UILabel alloc] initWithFrame:CGRectMake(0, _image.bottom + countcoordinatesX(20), SCREEN_WIDTH, countcoordinatesX(20))];
         _nameLab.text = @"财务自由从「记呀」开始";
         _nameLab.textAlignment = NSTextAlignmentCenter;
         _nameLab.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
