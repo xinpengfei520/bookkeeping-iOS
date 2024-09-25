@@ -115,6 +115,16 @@ extension ZLPhotoBrowserWrapper where Base: UIColor {
         ZLPhotoUIConfiguration.default().bottomToolViewBgColorOfPreviewVC
     }
     
+    /// 小图界面原图大小label字体颜色
+    static var originalSizeLabelTextColor: UIColor {
+        ZLPhotoUIConfiguration.default().originalSizeLabelTextColor
+    }
+    
+    /// 预览大图界面原图大小label字体颜色
+    static var originalSizeLabelTextColorOfPreviewVC: UIColor {
+        ZLPhotoUIConfiguration.default().originalSizeLabelTextColorOfPreviewVC
+    }
+    
     /// 相册列表界面底部工具栏按钮 可交互 状态标题颜色
     static var bottomToolViewBtnNormalTitleColor: UIColor {
         ZLPhotoUIConfiguration.default().bottomToolViewBtnNormalTitleColor
@@ -223,5 +233,41 @@ extension ZLPhotoBrowserWrapper where Base: UIColor {
     /// 调整图片slider高亮色
     static var adjustSliderTintColor: UIColor {
         ZLPhotoUIConfiguration.default().adjustSliderTintColor
+    }
+    
+    /// 图片编辑器中各种工具下方标题普通状态下的颜色
+    static var imageEditorToolTitleNormalColor: UIColor {
+        ZLPhotoUIConfiguration.default().imageEditorToolTitleNormalColor
+    }
+    
+    /// 图片编辑器中各种工具下方标题高亮状态下的颜色
+    static var imageEditorToolTitleTintColor: UIColor {
+        ZLPhotoUIConfiguration.default().imageEditorToolTitleTintColor
+    }
+    
+    /// 图片编辑器中各种工具图标高亮状态下的颜色
+    static var imageEditorToolIconTintColor: UIColor? {
+        ZLPhotoUIConfiguration.default().imageEditorToolIconTintColor
+    }
+    
+    /// 编辑器中垃圾箱普通状态下的颜色
+    static var trashCanBackgroundNormalColor: UIColor {
+        ZLPhotoUIConfiguration.default().trashCanBackgroundNormalColor
+    }
+    
+    /// 编辑器中垃圾箱高亮状态下的颜色
+    static var trashCanBackgroundTintColor: UIColor {
+        ZLPhotoUIConfiguration.default().trashCanBackgroundTintColor
+    }
+}
+
+extension ZLPhotoBrowserWrapper where Base: UIColor {
+    /// - Parameters:
+    ///   - r: 0~255
+    ///   - g: 0~255
+    ///   - b: 0~255
+    ///   - a: 0~1
+    static func rgba(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1) -> UIColor {
+        return UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
     }
 }

@@ -182,7 +182,7 @@
     [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
         
         [ZLPhotoConfiguration default].allowSelectVideo = NO;
-        [ZLPhotoConfiguration default].allowRecordVideo = NO;
+        [ZLPhotoConfiguration default].maxVideoSelectCount = 0;
         [ZLPhotoConfiguration default].allowSelectGif = NO;
         [ZLPhotoConfiguration default].maxSelectCount = 1;
         
@@ -194,7 +194,7 @@
             cameraConfig.sessionPreset = CaptureSessionPresetVga640x480;
             cameraConfig.focusMode = FocusModeContinuousAutoFocus;
             cameraConfig.exposureMode = ExposureModeContinuousAutoExposure;
-            cameraConfig.flashMode = FlashModeOff;
+            //cameraConfig.exposureMode = FlashModeOff;
             cameraConfig.videoExportType = VideoExportTypeMov;
 
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
@@ -208,7 +208,7 @@
         else if (buttonTag == 1) {
             @weakify(self)
             ZLPhotoPreviewSheet *ps = [[ZLPhotoPreviewSheet alloc] initWithSelectedAssets:@[]];
-            ps.selectImageBlock = ^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
+            ps.selectImageBlock = ^(NSArray<UIImage *> * _Nonnull images, BOOL isOriginal) {
                 @strongify(self)
                 [self changeIconRequest:images[0]];
             };

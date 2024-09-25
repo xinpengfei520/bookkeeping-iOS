@@ -28,9 +28,8 @@ import UIKit
 import Foundation
 
 class ZLAddPhotoCell: UICollectionViewCell {
-    
     private lazy var imageView: UIImageView = {
-        let view = UIImageView(image: getImage("zl_addPhoto"))
+        let view = UIImageView(image: .zl.getImage("zl_addPhoto"))
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         return view
@@ -58,11 +57,12 @@ class ZLAddPhotoCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        layer.masksToBounds = true
-        layer.cornerRadius = ZLPhotoConfiguration.default().cellCornerRadio
+        if ZLPhotoUIConfiguration.default().cellCornerRadio > 0 {
+            layer.masksToBounds = true
+            layer.cornerRadius = ZLPhotoUIConfiguration.default().cellCornerRadio
+        }
         
         backgroundColor = .zl.cameraCellBgColor
         contentView.addSubview(imageView)
     }
-    
 }

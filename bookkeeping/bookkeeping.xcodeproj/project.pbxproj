@@ -3112,7 +3112,7 @@
 				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bookkeeping/KKPrefixHeader.pch";
 				INFOPLIST_FILE = bookkeeping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3136,7 +3136,7 @@
 				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/bookkeeping/KKPrefixHeader.pch";
 				INFOPLIST_FILE = bookkeeping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
