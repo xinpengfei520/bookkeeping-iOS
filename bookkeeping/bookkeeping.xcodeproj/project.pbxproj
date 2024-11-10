@@ -3154,6 +3154,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = BookMonth/BookMonth.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BookMonth/KKPrefixHeader.pch";
@@ -3164,8 +3165,9 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3177,6 +3179,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = BookMonth/BookMonthRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XZWU3TZ389;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BookMonth/KKPrefixHeader.pch";
@@ -3187,8 +3190,9 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

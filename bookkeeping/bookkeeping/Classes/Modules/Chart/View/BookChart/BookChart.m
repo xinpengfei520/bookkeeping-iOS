@@ -97,9 +97,12 @@
         // 周
         if (model.chartArr.count == 7) {
             NSInteger index = 7 - [submodel.date weekday];
-            CGFloat number = [arrm[index] floatValue];
-            number += submodel.price;
-            [arrm replaceObjectAtIndex:index withObject:@(number)];
+            // check index is valid weekday date
+            if (index >= 0 && index < 7) {
+                CGFloat number = [arrm[index] floatValue];
+                number += submodel.price;
+                [arrm replaceObjectAtIndex:index withObject:@(number)];
+            }
         }
         // 月
         else if (model.chartArr.count >= 20) {
