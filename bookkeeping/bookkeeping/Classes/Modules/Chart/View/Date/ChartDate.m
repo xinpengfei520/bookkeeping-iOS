@@ -221,9 +221,9 @@
         ChartSubModel *model = self.sModels[self.segmentIndex][indexPath.row];
         self.line.width = [model.detail sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:LAB_FONT].width;
         
-        CGFloat left = countcoordinatesX(70) * indexPath.row;
+        CGFloat left = countcoordinatesX(80) * indexPath.row;
         left += indexPath.row != 0 ? indexPath.row * countcoordinatesX(10) : 0;
-        left += countcoordinatesX(70) / 2;
+        left += countcoordinatesX(80) / 2;
         self.line.centerX = left;
     } completion:nil];
 }
@@ -234,7 +234,7 @@
     if (!_collection) {
         _collection = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.height) collectionViewLayout:({
             UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
-            flow.itemSize = CGSizeMake(countcoordinatesX(70), self.height);
+            flow.itemSize = CGSizeMake(countcoordinatesX(80), self.height);
             flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
             flow.minimumLineSpacing = countcoordinatesX(10);
             flow;
@@ -252,7 +252,8 @@
 - (UIView *)line {
     if (!_line) {
         _line = [[UIView alloc] initWithFrame:({
-            CGFloat width = 80;
+            // width = item width + item space (80 + 10)
+            CGFloat width = 90;
             CGFloat height = 2;
             CGFloat left = 0;
             CGFloat top = self.height - height;
