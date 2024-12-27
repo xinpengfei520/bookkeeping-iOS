@@ -18,6 +18,7 @@
 
 - (NSString *)detail {
     NSDate *date = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     
     // 周
     if (_selectIndex == 0) {
@@ -27,11 +28,12 @@
         } else if ([date year] == _year) {
             return [NSString stringWithFormat:@"%02ld周", _week];
         } else {
-            // 判断如果是今年的第一周，则不显示年份
-            // 请帮我修复 bug, 本来今年的第一周显示的是：“01周”，但是显示的是：“2023年01周”
-//            if (_week == 1) {
-//                return [NSString stringWithFormat:@"%02ld周", _week];
-//            }
+            // 解决跨年周的问题：判断如果是今年的第一周，则不显示年份
+            NSDateComponents *components = [calendar components:NSCalendarUnitWeekOfYear fromDate:date];
+            NSInteger weekOfYear = [components weekOfYear];
+            if (weekOfYear == 1 && _year == ([date year] - 1)) {
+                return [NSString stringWithFormat:@"%02ld周", _week];
+            }
             return [NSString stringWithFormat:@"%ld年%02ld周", _year, _week];
         }
     }
