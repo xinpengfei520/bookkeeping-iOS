@@ -23,7 +23,7 @@
     [header.stateLabel setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [header.stateLabel setTextColor:kColor_Text_Gary];
     [header.arrowView setHidden:YES];
-    [header setOnlyText:NO];
+    //[header setOnlyText:NO];
     return header;
 }
 

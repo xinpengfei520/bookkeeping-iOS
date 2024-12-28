@@ -50,11 +50,18 @@ static AFHTTPSessionManager *_manager;
         [manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
     }
     
-    [manager POST:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+    // 使用新版 API
+    [manager POST:url 
+       parameters:params 
+          headers:nil 
+         progress:^(NSProgress * _Nonnull downloadProgress) {
         if (progress) {
-            progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount, downloadProgress.fractionCompleted);
+            progress(downloadProgress.completedUnitCount, 
+                    downloadProgress.totalUnitCount, 
+                    downloadProgress.fractionCompleted);
         }
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    } 
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         // 获取 header 中的 Authorization 并保存
         if ([task.response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *headers = (NSHTTPURLResponse *)task.response;
@@ -76,7 +83,8 @@ static AFHTTPSessionManager *_manager;
                 complete(result);
             }
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull err) {
+    } 
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (complete) {
             APPResult *result = [[APPResult alloc] init];
             result.data = nil;
@@ -96,8 +104,11 @@ static AFHTTPSessionManager *_manager;
         [manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
     }
     
-    // 请求
-    [manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    // 使用新版 API
+    [manager POST:url 
+       parameters:params 
+          headers:nil 
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // 图片
         if (images && [images count] > 0) {
             for (NSInteger index = 0; index < images.count; index++) {
@@ -111,13 +122,15 @@ static AFHTTPSessionManager *_manager;
                 [formData appendPartWithFileData:data name:@"file" fileName:imgName mimeType:@"image/png"];
             }
         }
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        // 过程
+    } 
+         progress:^(NSProgress * _Nonnull uploadProgress) {
         if (progress) {
-            progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount, uploadProgress.fractionCompleted);
+            progress(uploadProgress.completedUnitCount, 
+                    uploadProgress.totalUnitCount, 
+                    uploadProgress.fractionCompleted);
         }
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        // 回调
+    } 
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complete) {
             APPResult *result = [APPResult mj_objectWithKeyValues:responseObject];
             if(result.code == TOKEN_EXPIRED){
@@ -128,8 +141,8 @@ static AFHTTPSessionManager *_manager;
                 complete(result);
             }
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        // 回调
+    } 
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (complete) {
             APPResult *result = [[APPResult alloc] init];
             result.data = nil;

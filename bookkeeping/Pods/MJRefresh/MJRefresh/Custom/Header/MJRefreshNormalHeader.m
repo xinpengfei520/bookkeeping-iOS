@@ -24,7 +24,6 @@
         UIImageView *arrowView = [[UIImageView alloc] initWithImage:[NSBundle mj_arrowImage]];
         [self addSubview:_arrowView = arrowView];
     }
-    _arrowView.hidden = !_onlyText;
     return _arrowView;
 }
 
@@ -35,7 +34,6 @@
         loadingView.hidesWhenStopped = YES;
         [self addSubview:_loadingView = loadingView];
     }
-    _loadingView.hidden = !_onlyText;
     return _loadingView;
 }
 
@@ -126,11 +124,4 @@
         self.arrowView.hidden = YES;
     }
 }
-
-- (void)setOnlyText:(BOOL)onlyText {
-    _onlyText = onlyText;
-    _loadingView.hidden = !onlyText;
-    _arrowView.hidden = !onlyText;
-}
-
 @end

@@ -10,7 +10,6 @@
 
 @interface MJRefreshNormalHeader : MJRefreshStateHeader
 @property (weak, nonatomic, readonly) UIImageView *arrowView;
-@property (nonatomic, assign) BOOL onlyText;
 /** 菊花的样式 */
 @property (assign, nonatomic) UIActivityIndicatorViewStyle activityIndicatorViewStyle;
 @end
