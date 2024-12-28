@@ -170,6 +170,13 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>github.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>sina.cn</key>
 			<dict>
 				<key>NSExceptionMinimumTLSVersion</key>
@@ -205,6 +212,13 @@
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
+			</dict>
+			<key>twitter.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
 			</dict>
 			<key>vance.xin</key>
 			<dict>
