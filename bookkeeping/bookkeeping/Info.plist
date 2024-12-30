@@ -163,6 +163,8 @@
 		<string>vkauthorize</string>
 		<string>twitter</string>
 		<string>twitterauth</string>
+		<string>https</string>
+		<string>http</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
