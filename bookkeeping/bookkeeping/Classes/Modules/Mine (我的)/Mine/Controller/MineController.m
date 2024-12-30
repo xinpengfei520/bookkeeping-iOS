@@ -115,13 +115,10 @@
     else if (indexPath.section == 2) {
         // 邀请好友
         if (indexPath.row == 0) {
-            //[self showTextHUD:@"敬请期待" delay:1.5f];
             [self inviteFriendsClick];
         }
         // 意见反馈
         else if (indexPath.row == 1) {
-            // FeedbackController *vc = [[FeedbackController alloc] init];
-            // [self.navigationController pushViewController:vc animated:YES];
             [self feedbackClick];
         }
         // 帮助
@@ -246,59 +243,58 @@
 
 #pragma mark - 意见反馈
 - (void)feedbackClick {
-    if (![MFMailComposeViewController canSendMail]) {
-        [self showTextHUD:@"设备不支持发送邮件" delay:2.f];
-        return;
-    }
+    // 准备邮件内容
+    NSString *toEmail = @"542270559@qq.com";
+    NSString *subject = @"记呀 - 意见反馈";
     
-    MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
-    mailVC.mailComposeDelegate = self;
-    
-    // 设置收件人
-    [mailVC setToRecipients:@[@"your-email@example.com"]];
-    
-    // 设置主题
-    [mailVC setSubject:@"记呀 - 意见反馈"];
-    
-    // 设置邮件内容
+    // 获取设备信息
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
     NSString *deviceModel = [[UIDevice currentDevice] model];
     
-    NSString *emailBody = [NSString stringWithFormat:@"\n\n\n\n\n\n"
-                          @"----------\n"
-                          @"App版本：%@\n"
-                          @"系统版本：iOS %@\n"
-                          @"设备型号：%@\n",
-                          appVersion, systemVersion, deviceModel];
+    NSString *body = [NSString stringWithFormat:@"\n\n\n\n\n\n"
+                     @"----------\n"
+                     @"App版本：%@\n"
+                     @"系统版本：iOS %@\n"
+                     @"设备型号：%@\n",
+                     appVersion, systemVersion, deviceModel];
     
-    [mailVC setMessageBody:emailBody isHTML:NO];
+    // URL 编码
+    subject = [subject stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    body = [body stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    [self presentViewController:mailVC animated:YES completion:nil];
+    // 构造邮件 URL
+    NSString *mailtoUrl = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", 
+                          toEmail, subject, body];
+    
+    NSURL *url = [NSURL URLWithString:mailtoUrl];
+    
+    // 检查是否可以打开邮件
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:url 
+                                            options:@{} 
+                                  completionHandler:^(BOOL success) {
+                if (!success) {
+                    [self showTextHUD:@"无法打开邮件应用" delay:2.f];
+                }
+            }];
+        } else {
+            #pragma clang diagnostic push
+            #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [[UIApplication sharedApplication] openURL:url];
+            #pragma clang diagnostic pop
+        }
+    } else {
+        [self showTextHUD:@"设备不支持发送邮件" delay:2.f];
+    }
 }
 
-#pragma mark - MFMailComposeViewControllerDelegate
+// 移除不需要的代理方法
 - (void)mailComposeController:(MFMailComposeViewController *)controller 
           didFinishWithResult:(MFMailComposeResult)result 
                         error:(NSError *)error {
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    
-    switch (result) {
-        case MFMailComposeResultCancelled:
-            NSLog(@"取消发送");
-            break;
-        case MFMailComposeResultSaved:
-            [self showTextHUD:@"邮件已保存" delay:2.f];
-            break;
-        case MFMailComposeResultSent:
-            [self showTextHUD:@"发送成功" delay:2.f];
-            break;
-        case MFMailComposeResultFailed:
-            [self showTextHUD:@"发送失败" delay:2.f];
-            break;
-        default:
-            break;
-    }
+    // 移除这个方法
 }
 
 #pragma mark - 邀请好友

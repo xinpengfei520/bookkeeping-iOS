@@ -280,7 +280,6 @@
 		F35310972876C82B00D297A9 /* AutoBookController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310962876C82B00D297A9 /* AutoBookController.m */; };
 		F353109B2876C88D00D297A9 /* ExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109A2876C88D00D297A9 /* ExportController.m */; };
 		F353109F2876C8E200D297A9 /* SiriController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109E2876C8E200D297A9 /* SiriController.m */; };
-		F35310A32876C94000D297A9 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310A22876C94000D297A9 /* FeedbackController.m */; };
 		F35310B42876D82400D297A9 /* ShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310A62876D82400D297A9 /* ShareController.m */; };
 		F35310B52876D82400D297A9 /* ShareShot.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35310A92876D82400D297A9 /* ShareShot.xib */; };
 		F35310B62876D82400D297A9 /* ShareBottom.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310AA2876D82400D297A9 /* ShareBottom.m */; };
@@ -770,8 +769,6 @@
 		F353109A2876C88D00D297A9 /* ExportController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportController.m; sourceTree = "<group>"; };
 		F353109D2876C8E200D297A9 /* SiriController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiriController.h; sourceTree = "<group>"; };
 		F353109E2876C8E200D297A9 /* SiriController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiriController.m; sourceTree = "<group>"; };
-		F35310A12876C94000D297A9 /* FeedbackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackController.h; sourceTree = "<group>"; };
-		F35310A22876C94000D297A9 /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
 		F35310A62876D82400D297A9 /* ShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareController.m; sourceTree = "<group>"; };
 		F35310A72876D82400D297A9 /* ShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareController.h; sourceTree = "<group>"; };
 		F35310A92876D82400D297A9 /* ShareShot.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareShot.xib; sourceTree = "<group>"; };
@@ -976,7 +973,6 @@
 			children = (
 				F3581D9C287ADC89007B17CD /* Verify */,
 				F35310A42876D82400D297A9 /* Share */,
-				F35310A02876C90400D297A9 /* Feedback */,
 				F353109C2876C8A800D297A9 /* Siri */,
 				F35310982876C86500D297A9 /* Export */,
 				F35310942876C7F000D297A9 /* AutoBook */,
@@ -2282,15 +2278,6 @@
 			path = Siri;
 			sourceTree = "<group>";
 		};
-		F35310A02876C90400D297A9 /* Feedback */ = {
-			isa = PBXGroup;
-			children = (
-				F35310A12876C94000D297A9 /* FeedbackController.h */,
-				F35310A22876C94000D297A9 /* FeedbackController.m */,
-			);
-			path = Feedback;
-			sourceTree = "<group>";
-		};
 		F35310A42876D82400D297A9 /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -2783,7 +2770,6 @@
 				321983BC21C6459B00311885 /* BaseTableCell.m in Sources */,
 				321983C121C6459B00311885 /* BaseCollectionReusableView.m in Sources */,
 				4B1893C121D66F7E005002E2 /* ChartHUD.m in Sources */,
-				F35310A32876C94000D297A9 /* FeedbackController.m in Sources */,
 				F3AE5FE5284A299F00E95086 /* BookChartModel.m in Sources */,
 				3257AED421C8750800787A34 /* TimeRemindController.m in Sources */,
 				4B1E128621CA93C1001F5B36 /* CategorySectionHeader.m in Sources */,
