@@ -76,7 +76,7 @@
     
     // 隐私协议按钮
     _privacyAgreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_privacyAgreementBtn setTitle:@"隐私协议" forState:UIControlStateNormal];
+    [_privacyAgreementBtn setTitle:@"隐私政策" forState:UIControlStateNormal];
     [_privacyAgreementBtn setTitleColor:kColor_Main_Color forState:UIControlStateNormal];
     _privacyAgreementBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_privacyAgreementBtn addTarget:self action:@selector(privacyAgreementClick) forControlEvents:UIControlEventTouchUpInside];
@@ -104,7 +104,7 @@
     
     // 修改文本标签的约束
     [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(checkBoxContainer.mas_right).offset(5);
+        make.left.equalTo(checkBoxContainer.mas_right).offset(2);
         make.centerY.equalTo(containerView);
     }];
     

@@ -12,6 +12,7 @@
 		247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8872D30221900B5F323 /* PasswordLoginController2.m */; };
 		247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8852D30221900B5F323 /* PasswordLoginController1.m */; };
 		247AB88C2D30238300B5F323 /* AgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88B2D30238300B5F323 /* AgreementView.m */; };
+		247AB8922D302ECD00B5F323 /* AgreementWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */; };
 		3219837621C642BB00311885 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219837521C642BB00311885 /* AppDelegate.m */; };
 		3219837C21C642BB00311885 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3219837A21C642BB00311885 /* Main.storyboard */; };
 		3219837E21C642BC00311885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3219837D21C642BC00311885 /* Assets.xcassets */; };
@@ -355,6 +356,8 @@
 		247AB88A2D30238300B5F323 /* AgreementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AgreementView.h; path = bookkeeping/Classes/Modules/Login/View/AgreementView.h; sourceTree = SOURCE_ROOT; };
 		247AB88B2D30238300B5F323 /* AgreementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AgreementView.m; path = bookkeeping/Classes/Modules/Login/View/AgreementView.m; sourceTree = SOURCE_ROOT; };
 		247AB88D2D3023DD00B5F323 /* AgreementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AgreementView.m; path = bookkeeping/Classes/Modules/Login/View/AgreementView.m; sourceTree = "<group>"; };
+		247AB88E2D302ECD00B5F323 /* AgreementWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgreementWebViewController.h; sourceTree = "<group>"; };
+		247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgreementWebViewController.m; sourceTree = "<group>"; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -861,6 +864,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		247AB8902D302ECD00B5F323 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				247AB88E2D302ECD00B5F323 /* AgreementWebViewController.h */,
+				247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		247AB8912D302ECD00B5F323 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				247AB8902D302ECD00B5F323 /* Controller */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		3219836821C642BB00311885 = {
 			isa = PBXGroup;
 			children = (
@@ -988,6 +1008,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				247AB8912D302ECD00B5F323 /* Common */,
 				F3581D9C287ADC89007B17CD /* Verify */,
 				F35310A42876D82400D297A9 /* Share */,
 				F353109C2876C8A800D297A9 /* Siri */,
@@ -2839,6 +2860,7 @@
 				4B2214FD21E9E4A8000F619F /* UIImage+BlurGlass.m in Sources */,
 				4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */,
 				F3AE5FDF2847CDBB00E95086 /* SearchNavigation.m in Sources */,
+				247AB8922D302ECD00B5F323 /* AgreementWebViewController.m in Sources */,
 				32AF269821ED63C1004F46A2 /* NSMutableArray+Extension.m in Sources */,
 				4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */,
 				247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */,

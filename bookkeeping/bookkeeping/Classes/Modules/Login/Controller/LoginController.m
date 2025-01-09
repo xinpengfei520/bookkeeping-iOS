@@ -7,6 +7,7 @@
 #import "PasswordLoginController1.h"
 #import <Masonry/Masonry.h>
 #import "AgreementView.h"
+#import "AgreementWebViewController.h"
 
 #pragma mark - 声明
 @interface LoginController() <AgreementViewDelegate> {
@@ -195,16 +196,12 @@
 }
 
 - (void)agreementViewDidTapUserAgreement {
-    WebViewController *vc = [[WebViewController alloc] init];
-    [vc setNavTitle:@"用户协议"];
-    [vc setUrl:@"https://book.vance.xin/apps/jiya/legal/terms_of_service.html"];
+    AgreementWebViewController *vc = [[AgreementWebViewController alloc] initWithTitle:@"用户协议" url:@"https://book.vance.xin/apps/jiya/legal/terms_of_service.html"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)agreementViewDidTapPrivacyAgreement {
-    WebViewController *vc = [[WebViewController alloc] init];
-    [vc setNavTitle:@"隐私协议"];
-    [vc setUrl:@"https://book.vance.xin/apps/jiya/legal/privacy_policy.html"];
+    AgreementWebViewController *vc = [[AgreementWebViewController alloc] initWithTitle:@"隐私政策" url:@"https://book.vance.xin/apps/jiya/legal/privacy_policy.html"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
