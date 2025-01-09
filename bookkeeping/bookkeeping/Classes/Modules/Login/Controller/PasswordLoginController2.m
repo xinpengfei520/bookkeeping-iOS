@@ -65,14 +65,16 @@
     [self buttonCanTap:NO btn:_loginButton];
     
     // 添加协议视图
-    AgreementView *agreementView = [[AgreementView alloc] init];
-    agreementView.delegate = self;
-    [self.view addSubview:agreementView];
+    _agreementView = [[AgreementView alloc] init];
+    _agreementView.delegate = self;
+    _agreementView.userInteractionEnabled = YES;
+    [self.view addSubview:_agreementView];
     
-    [agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(_loginButton.mas_bottom).offset(16);
-        make.height.equalTo(@20);
+        make.height.equalTo(@44);
+        make.width.greaterThanOrEqualTo(@200);
     }];
     
     // 设置约束

@@ -63,12 +63,15 @@
     // 添加协议视图
     _agreementView = [[AgreementView alloc] init];
     _agreementView.delegate = self;
+    _agreementView.userInteractionEnabled = YES;  // 确保可以接收用户交互
     [self.view addSubview:_agreementView];
     
     [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.getCodeBtn.mas_bottom).offset(16);
         make.height.equalTo(@20);
+        // 添加宽度约束，确保视图有足够的点击区域
+        make.width.greaterThanOrEqualTo(@200);
     }];
 }
 
@@ -194,15 +197,32 @@
 - (void)agreementViewDidTapUserAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
     [vc setNavTitle:@"用户协议"];
-    [vc setUrl:@"https://book.vance.xin/agreement.html"];
+    [vc setUrl:@"https://book.vance.xin/apps/jiya/legal/terms_of_service.html"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)agreementViewDidTapPrivacyAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
     [vc setNavTitle:@"隐私协议"];
-    [vc setUrl:@"https://book.vance.xin/privacy.html"];
+    [vc setUrl:@"https://book.vance.xin/apps/jiya/legal/privacy_policy.html"];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    // 打印视图层级，检查是否有遮挡
+    [self printViewHierarchy:self.view level:0];
+}
+
+- (void)printViewHierarchy:(UIView *)view level:(int)level {
+    NSMutableString *indent = [NSMutableString string];
+    for (int i = 0; i < level; i++) {
+        [indent appendString:@"  "];
+    }
+    NSLog(@"%@%@ frame:%@ userInteractionEnabled:%d", indent, [view class], NSStringFromCGRect(view.frame), view.userInteractionEnabled);
+    for (UIView *subview in view.subviews) {
+        [self printViewHierarchy:subview level:level + 1];
+    }
 }
 
 @end

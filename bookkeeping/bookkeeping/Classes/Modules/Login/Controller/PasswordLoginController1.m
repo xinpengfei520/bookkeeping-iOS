@@ -73,14 +73,16 @@
     [self buttonCanTap:NO btn:_nextButton];
     
     // 添加协议视图
-    AgreementView *agreementView = [[AgreementView alloc] init];
-    agreementView.delegate = self;
-    [self.view addSubview:agreementView];
+    _agreementView = [[AgreementView alloc] init];
+    _agreementView.delegate = self;
+    _agreementView.userInteractionEnabled = YES;
+    [self.view addSubview:_agreementView];
     
-    [agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(_nextButton.mas_bottom).offset(16);
-        make.height.equalTo(@20);
+        make.height.equalTo(@44);
+        make.width.greaterThanOrEqualTo(@200);
     }];
     
     // 设置约束
@@ -190,6 +192,20 @@
 #pragma mark - AgreementViewDelegate
 - (void)agreementViewDidChangeState:(BOOL)isSelected {
     [self buttonCanTap:isSelected && self.phoneField.text.length == 13 btn:self.nextButton];
+}
+
+- (void)agreementViewDidTapUserAgreement {
+    WebViewController *vc = [[WebViewController alloc] init];
+    [vc setNavTitle:@"用户协议"];
+    [vc setUrl:@"https://book.vance.xin/agreement.html"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)agreementViewDidTapPrivacyAgreement {
+    WebViewController *vc = [[WebViewController alloc] init];
+    [vc setNavTitle:@"隐私协议"];
+    [vc setUrl:@"https://book.vance.xin/privacy.html"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end 
