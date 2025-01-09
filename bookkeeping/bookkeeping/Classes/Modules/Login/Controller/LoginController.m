@@ -4,9 +4,12 @@
  */
 
 #import "LoginController.h"
+#import "PasswordLoginController1.h"
+#import <Masonry/Masonry.h>
+#import "AgreementView.h"
 
 #pragma mark - 声明
-@interface LoginController() {
+@interface LoginController() <AgreementViewDelegate> {
     NSInteger index;
 }
 
@@ -14,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 @property (weak, nonatomic) IBOutlet UIButton *getCodeBtn;
 @property (weak, nonatomic) IBOutlet UIView *inputBgView;
+@property (nonatomic, strong) AgreementView *agreementView;
 
 @end
 
@@ -40,6 +44,32 @@
     [self.phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     
     [self rac_notification_register];
+    
+    // 添加密码登录按钮
+    UIButton *passwordLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [passwordLoginBtn setTitle:@"密码登录" forState:UIControlStateNormal];
+    [passwordLoginBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    passwordLoginBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [passwordLoginBtn addTarget:self action:@selector(passwordLoginClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:passwordLoginBtn];
+    
+    // 设置约束
+    [passwordLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(20);
+        make.right.equalTo(self.view).offset(-60);
+        make.height.equalTo(@30);
+    }];
+    
+    // 添加协议视图
+    _agreementView = [[AgreementView alloc] init];
+    _agreementView.delegate = self;
+    [self.view addSubview:_agreementView];
+    
+    [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.getCodeBtn.mas_bottom).offset(16);
+        make.height.equalTo(@20);
+    }];
 }
 
 // 监听通知
@@ -140,12 +170,39 @@
         }
     }
     
-    // 根据输入的手机号位数设置发送验证码按钮是否可点击
+    // 根据手机号位数和协议选中状态设置按钮是否可点击
     if (self.phoneField.text.length == 13) {
-        [self buttonCanTap:true btn:self.getCodeBtn];
+        [self buttonCanTap:self.agreementView.isSelected btn:self.getCodeBtn];
     } else {
         [self buttonCanTap:false btn:self.getCodeBtn];
     }
+}
+
+// 添加点击事件处理
+- (void)passwordLoginClick {
+    PasswordLoginController1 *vc = [[PasswordLoginController1 alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+// 实现代理方法
+#pragma mark - AgreementViewDelegate
+- (void)agreementViewDidChangeState:(BOOL)isSelected {
+    // 根据协议选中状态更新按钮状态
+    [self buttonCanTap:isSelected && self.phoneField.text.length == 13 btn:self.getCodeBtn];
+}
+
+- (void)agreementViewDidTapUserAgreement {
+    WebViewController *vc = [[WebViewController alloc] init];
+    [vc setNavTitle:@"用户协议"];
+    [vc setUrl:@"https://book.vance.xin/agreement.html"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)agreementViewDidTapPrivacyAgreement {
+    WebViewController *vc = [[WebViewController alloc] init];
+    [vc setNavTitle:@"隐私协议"];
+    [vc setUrl:@"https://book.vance.xin/privacy.html"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

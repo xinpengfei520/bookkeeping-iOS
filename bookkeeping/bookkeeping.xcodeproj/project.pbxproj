@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		247AB8822D30202000B5F323 /* PasswordLoginController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8802D30202000B5F323 /* PasswordLoginController1.m */; };
+		247AB8832D30202000B5F323 /* PasswordLoginController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8812D30202000B5F323 /* PasswordLoginController2.m */; };
+		247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8872D30221900B5F323 /* PasswordLoginController2.m */; };
+		247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8852D30221900B5F323 /* PasswordLoginController1.m */; };
+		247AB88C2D30238300B5F323 /* AgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88B2D30238300B5F323 /* AgreementView.m */; };
 		3219837621C642BB00311885 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219837521C642BB00311885 /* AppDelegate.m */; };
 		3219837C21C642BB00311885 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3219837A21C642BB00311885 /* Main.storyboard */; };
 		3219837E21C642BC00311885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3219837D21C642BC00311885 /* Assets.xcassets */; };
@@ -341,6 +346,15 @@
 
 /* Begin PBXFileReference section */
 		1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.debug.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.debug.xcconfig"; sourceTree = "<group>"; };
+		247AB8802D30202000B5F323 /* PasswordLoginController1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PasswordLoginController1.m; path = bookkeeping/Classes/Modules/Login/Controller/PasswordLoginController1.m; sourceTree = "<group>"; };
+		247AB8812D30202000B5F323 /* PasswordLoginController2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PasswordLoginController2.m; path = bookkeeping/Classes/Modules/Login/Controller/PasswordLoginController2.m; sourceTree = "<group>"; };
+		247AB8842D30221900B5F323 /* PasswordLoginController1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordLoginController1.h; sourceTree = "<group>"; };
+		247AB8852D30221900B5F323 /* PasswordLoginController1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordLoginController1.m; sourceTree = "<group>"; };
+		247AB8862D30221900B5F323 /* PasswordLoginController2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordLoginController2.h; sourceTree = "<group>"; };
+		247AB8872D30221900B5F323 /* PasswordLoginController2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordLoginController2.m; sourceTree = "<group>"; };
+		247AB88A2D30238300B5F323 /* AgreementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AgreementView.h; path = bookkeeping/Classes/Modules/Login/View/AgreementView.h; sourceTree = SOURCE_ROOT; };
+		247AB88B2D30238300B5F323 /* AgreementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AgreementView.m; path = bookkeeping/Classes/Modules/Login/View/AgreementView.m; sourceTree = SOURCE_ROOT; };
+		247AB88D2D3023DD00B5F323 /* AgreementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AgreementView.m; path = bookkeeping/Classes/Modules/Login/View/AgreementView.m; sourceTree = "<group>"; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -850,6 +864,9 @@
 		3219836821C642BB00311885 = {
 			isa = PBXGroup;
 			children = (
+				247AB88D2D3023DD00B5F323 /* AgreementView.m */,
+				247AB8802D30202000B5F323 /* PasswordLoginController1.m */,
+				247AB8812D30202000B5F323 /* PasswordLoginController2.m */,
 				3219837321C642BB00311885 /* bookkeeping */,
 				32BFA7E921E483F300B926F3 /* BookMonth */,
 				3219837221C642BB00311885 /* Products */,
@@ -1814,6 +1831,10 @@
 		4BC41CF821CF92F800B397BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				247AB8842D30221900B5F323 /* PasswordLoginController1.h */,
+				247AB8852D30221900B5F323 /* PasswordLoginController1.m */,
+				247AB8862D30221900B5F323 /* PasswordLoginController2.h */,
+				247AB8872D30221900B5F323 /* PasswordLoginController2.m */,
 				4BC41CFB21CF930600B397BD /* LoginController.h */,
 				4BC41CFC21CF930600B397BD /* LoginController.m */,
 				4BC41CFD21CF930600B397BD /* LoginController.xib */,
@@ -1832,6 +1853,8 @@
 		4BC41CFA21CF92F800B397BD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				247AB88A2D30238300B5F323 /* AgreementView.h */,
+				247AB88B2D30238300B5F323 /* AgreementView.m */,
 			);
 			name = View;
 			path = Login/View;
@@ -2744,6 +2767,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				247AB88C2D30238300B5F323 /* AgreementView.m in Sources */,
+				247AB8822D30202000B5F323 /* PasswordLoginController1.m in Sources */,
+				247AB8832D30202000B5F323 /* PasswordLoginController2.m in Sources */,
 				4B48530121C6984400891096 /* MineTableCell.m in Sources */,
 				327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */,
 				F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */,
@@ -2815,6 +2841,8 @@
 				F3AE5FDF2847CDBB00E95086 /* SearchNavigation.m in Sources */,
 				32AF269821ED63C1004F46A2 /* NSMutableArray+Extension.m in Sources */,
 				4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */,
+				247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */,
+				247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */,
 				328FB41422110D0B00A61426 /* YYLabel+Extension.m in Sources */,
 				326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */,
 				F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */,
