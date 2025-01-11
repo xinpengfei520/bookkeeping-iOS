@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXy-Ug-uzv">
-                    <rect key="frame" x="325" y="10" width="40" height="40"/>
+                    <rect key="frame" x="325" y="30" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="fA2-30-Yrd"/>
                     </constraints>
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kca-Sq-uuJ">
-                    <rect key="frame" x="16" y="179.5" width="343" height="50"/>
+                    <rect key="frame" x="16" y="236.5" width="343" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Puz-JM-ERw"/>
                     </constraints>
@@ -47,14 +47,14 @@
                         <action selector="getCodeBtnClick:" destination="-1" eventType="touchUpInside" id="rCc-Ea-0kH"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机验证登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gO-5X-COA">
-                    <rect key="frame" x="132" y="60" width="111" height="21.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gO-5X-COA">
+                    <rect key="frame" x="16" y="100" width="152" height="38.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="znB-o2-ODI">
-                    <rect key="frame" x="16" y="113.5" width="343" height="50"/>
+                    <rect key="frame" x="16" y="170.5" width="343" height="50"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PnP-tS-4Rh">
                             <rect key="frame" x="78" y="15" width="249" height="19.5"/>
@@ -93,8 +93,8 @@
             <constraints>
                 <constraint firstItem="Kca-Sq-uuJ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="16" id="33o-pg-PtN"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="znB-o2-ODI" secondAttribute="trailing" constant="16" id="5ON-Ux-6hj"/>
-                <constraint firstItem="3gO-5X-COA" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="60" id="BgG-og-5k2"/>
-                <constraint firstItem="3gO-5X-COA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F7h-5f-tA2"/>
+                <constraint firstItem="3gO-5X-COA" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="80" id="BgG-og-5k2"/>
+                <constraint firstItem="3gO-5X-COA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="16" id="Ibj-3L-tE2"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="XXy-Ug-uzv" secondAttribute="trailing" constant="10" id="JlD-jp-5bf"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Kca-Sq-uuJ" secondAttribute="trailing" constant="16" id="Yre-dl-ysI"/>
                 <constraint firstItem="znB-o2-ODI" firstAttribute="top" secondItem="3gO-5X-COA" secondAttribute="bottom" constant="32" id="bpD-CW-h4k"/>

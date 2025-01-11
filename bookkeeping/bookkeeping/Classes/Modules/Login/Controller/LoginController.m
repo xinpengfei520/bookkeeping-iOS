@@ -56,7 +56,7 @@
     
     // 设置约束
     [passwordLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(20);
+        make.top.equalTo(self.view).offset(26);
         make.right.equalTo(self.view).offset(-60);
         make.height.equalTo(@30);
     }];
