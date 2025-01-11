@@ -48,7 +48,7 @@
     // 区号标签
     _areaCodeLabel = [[UILabel alloc] init];
     _areaCodeLabel.text = @"+86";
-    _areaCodeLabel.font = [UIFont systemFontOfSize:14];
+    _areaCodeLabel.font = [UIFont systemFontOfSize:16];
     _areaCodeLabel.textColor = [UIColor systemBlueColor];
     [_inputBgView addSubview:_areaCodeLabel];
     
@@ -88,26 +88,26 @@
     // 设置约束
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16);
-        make.top.equalTo(self.view).offset(80);
+        make.top.equalTo(self.view).offset(90);
     }];
     
     [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(10);
-        make.right.equalTo(self.view).offset(-10);
+        make.left.equalTo(self.view).offset(16);
         make.width.height.equalTo(@40);
     }];
     
     [_inputBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16);
         make.right.equalTo(self.view).offset(-16);
-        make.top.equalTo(titleLabel.mas_bottom).offset(44);
+        make.top.equalTo(titleLabel.mas_bottom).offset(32);
         make.height.equalTo(@55);
     }];
     
     [_areaCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_inputBgView).offset(16);
         make.centerY.equalTo(_inputBgView);
-        make.width.equalTo(@55);
+        make.width.equalTo(@40);
     }];
     
     [separator mas_makeConstraints:^(MASConstraintMaker *make) {

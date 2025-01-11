@@ -104,7 +104,7 @@
     
     // 修改文本标签的约束
     [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(checkBoxContainer.mas_right).offset(2);
+        make.left.equalTo(checkBoxContainer.mas_right).offset(-2);
         make.centerY.equalTo(containerView);
     }];
     

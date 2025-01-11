@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXy-Ug-uzv">
-                    <rect key="frame" x="325" y="30" width="40" height="40"/>
+                    <rect key="frame" x="20" y="30" width="22" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="fA2-30-Yrd"/>
                     </constraints>
@@ -95,13 +95,12 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="znB-o2-ODI" secondAttribute="trailing" constant="16" id="5ON-Ux-6hj"/>
                 <constraint firstItem="3gO-5X-COA" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="80" id="BgG-og-5k2"/>
                 <constraint firstItem="3gO-5X-COA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="16" id="Ibj-3L-tE2"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="XXy-Ug-uzv" secondAttribute="trailing" constant="10" id="JlD-jp-5bf"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Kca-Sq-uuJ" secondAttribute="trailing" constant="16" id="Yre-dl-ysI"/>
                 <constraint firstItem="znB-o2-ODI" firstAttribute="top" secondItem="3gO-5X-COA" secondAttribute="bottom" constant="32" id="bpD-CW-h4k"/>
                 <constraint firstItem="Kca-Sq-uuJ" firstAttribute="top" secondItem="znB-o2-ODI" secondAttribute="bottom" constant="16" id="gBk-60-OhK"/>
                 <constraint firstItem="XXy-Ug-uzv" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="10" id="kMl-Gf-Rd0"/>
                 <constraint firstItem="znB-o2-ODI" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="16" id="peK-NR-rfQ"/>
-                <constraint firstItem="XXy-Ug-uzv" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="325" id="v9g-a5-wC7"/>
+                <constraint firstItem="XXy-Ug-uzv" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="tmb-Mh-na4"/>
             </constraints>
             <point key="canvasLocation" x="373.60000000000002" y="62.518740629685162"/>
         </view>

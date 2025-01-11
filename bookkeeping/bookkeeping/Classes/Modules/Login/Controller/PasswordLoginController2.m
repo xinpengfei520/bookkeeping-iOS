@@ -81,18 +81,18 @@
     // 设置约束
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16);
-        make.top.equalTo(self.view).offset(80);
+        make.top.equalTo(self.view).offset(90);
     }];
     
     [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(10);
-        make.right.equalTo(self.view).offset(-10);
+        make.left.equalTo(self.view).offset(16);
         make.width.height.equalTo(@40);
     }];
     
     [phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16);
-        make.top.equalTo(titleLabel.mas_bottom).offset(44);
+        make.top.equalTo(titleLabel.mas_bottom).offset(32);
     }];
     
     [_inputBgView mas_makeConstraints:^(MASConstraintMaker *make) {
