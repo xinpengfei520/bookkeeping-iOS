@@ -27,7 +27,7 @@
     // 标题
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"密码登录";
-    titleLabel.font = [UIFont systemFontOfSize:18];
+    titleLabel.font = [UIFont systemFontOfSize:32];
     [self.view addSubview:titleLabel];
     
     // 关闭按钮
@@ -87,8 +87,8 @@
     
     // 设置约束
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(60);
+        make.left.equalTo(self.view).offset(16);
+        make.top.equalTo(self.view).offset(80);
     }];
     
     [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,13 +100,14 @@
     [_inputBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16);
         make.right.equalTo(self.view).offset(-16);
-        make.top.equalTo(titleLabel.mas_bottom).offset(32);
-        make.height.equalTo(@50);
+        make.top.equalTo(titleLabel.mas_bottom).offset(44);
+        make.height.equalTo(@55);
     }];
     
     [_areaCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_inputBgView).offset(16);
         make.centerY.equalTo(_inputBgView);
+        make.width.equalTo(@55);
     }];
     
     [separator mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,8 +186,12 @@
         }
     }
     
-    // 根据输入的手机号位数设置下一步按钮是否可点击
-    [self buttonCanTap:(self.phoneField.text.length == 13) btn:self.nextButton];
+    // 根据手机号位数和协议选中状态设置按钮是否可点击
+    if (self.phoneField.text.length == 13) {
+        [self buttonCanTap:self.agreementView.isSelected btn:self.nextButton];
+    } else {
+        [self buttonCanTap:false btn:self.nextButton];
+    }
 }
 
 #pragma mark - AgreementViewDelegate

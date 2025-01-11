@@ -23,8 +23,8 @@
 - (void)setupUI {
     // 标题
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.text = @"请输入密码";
-    titleLabel.font = [UIFont systemFontOfSize:18];
+    titleLabel.text = @"密码登录";
+    titleLabel.font = [UIFont systemFontOfSize:32];
     [self.view addSubview:titleLabel];
     
     // 关闭按钮
@@ -68,6 +68,7 @@
     _agreementView = [[AgreementView alloc] init];
     _agreementView.delegate = self;
     _agreementView.userInteractionEnabled = YES;
+    _agreementView.isSelected = YES;
     [self.view addSubview:_agreementView];
     
     [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -79,8 +80,8 @@
     
     // 设置约束
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(60);
+        make.left.equalTo(self.view).offset(16);
+        make.top.equalTo(self.view).offset(80);
     }];
     
     [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,14 +92,14 @@
     
     [phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16);
-        make.top.equalTo(titleLabel.mas_bottom).offset(32);
+        make.top.equalTo(titleLabel.mas_bottom).offset(44);
     }];
     
     [_inputBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(16);
         make.right.equalTo(self.view).offset(-16);
         make.top.equalTo(phoneLabel.mas_bottom).offset(16);
-        make.height.equalTo(@50);
+        make.height.equalTo(@55);
     }];
     
     [_passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,11 +125,12 @@
     // 这里添加密码登录的网络请求
     [self showProgressHUD];
     NSDictionary *params = @{
+        @"loginType":@"password",
         @"phone": self.phone,
         @"password": self.passwordField.text
     };
     
-    [AFNManager POST:@"/api/user/login/password" params:params complete:^(APPResult *result) {
+    [AFNManager POST:userLoginRequest params:params complete:^(APPResult *result) {
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             if (self.complete) {
@@ -160,8 +162,12 @@
 }
 
 - (void)textFieldDidEditing:(UITextField *)textField {
-    // 根据密码长度设置登录按钮是否可点击
-    [self buttonCanTap:(textField.text.length >= 6) btn:self.loginButton];
+    // 根据手机号位数和协议选中状态设置按钮是否可点击
+    if (textField.text.length >= 6) {
+        [self buttonCanTap:self.agreementView.isSelected btn:self.loginButton];
+    } else {
+        [self buttonCanTap:false btn:self.loginButton];
+    }
 }
 
 - (void)agreementViewDidChangeState:(BOOL)isSelected {

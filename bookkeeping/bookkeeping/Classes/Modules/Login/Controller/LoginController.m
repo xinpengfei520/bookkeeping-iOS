@@ -127,7 +127,7 @@
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             NSDictionary *dic = result.data;
             NSString *code = [dic objectForKey:@"code"];
-            [self showTextHUD:[@"发送成功，验证码为：" stringByAppendingString:code] delay:6.5f];
+            [self showTextHUD:[@"" stringByAppendingString:code] delay:2.0f];
             VerifyController *vc = [[VerifyController alloc] init];
             vc.phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@"-" withString:@""];
             vc.code = code;
