@@ -49,7 +49,6 @@
 		3219841521C6474600311885 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219841121C6474500311885 /* UserModel.m */; };
 		32258E7E21CA29AC0017254D /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32258E7D21CA29AC0017254D /* NSString+Calculation.m */; };
 		324484B621C74BDE0051B8B6 /* HomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 324484B421C74BDD0051B8B6 /* HomeListCell.m */; };
-		324484B721C74BDE0051B8B6 /* HomeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324484B521C74BDD0051B8B6 /* HomeListCell.xib */; };
 		3257AED421C8750800787A34 /* TimeRemindController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED321C8750800787A34 /* TimeRemindController.m */; };
 		3257AED821C8774400787A34 /* TITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED721C8774400787A34 /* TITableView.m */; };
 		3257AEDC21C877E500787A34 /* TITableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AEDA21C877E500787A34 /* TITableCell.m */; };
@@ -98,7 +97,6 @@
 		32EAB40C21D0EA820069DF99 /* PasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EAB40A21D0EA820069DF99 /* PasswordController.xib */; };
 		32FA228921D61BC40000BC0E /* KKRefreshNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA228821D61BC40000BC0E /* KKRefreshNormalFooter.m */; };
 		32FA228C21D62ACB0000BC0E /* HomeListEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA228B21D62ACB0000BC0E /* HomeListEmpty.m */; };
-		32FA228E21D62AEC0000BC0E /* HomeListEmpty.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32FA228D21D62AEC0000BC0E /* HomeListEmpty.xib */; };
 		4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B132AA121C68B2200D5B489 /* BaseTabBar.m */; };
 		4B132AA521C68DE500D5B489 /* BKCCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B132AA421C68DE500D5B489 /* BKCCollection.m */; };
 		4B132AA921C68F4300D5B489 /* BKCCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B132AA721C68F4300D5B489 /* BKCCollectionCell.m */; };
@@ -430,7 +428,6 @@
 		32258E7D21CA29AC0017254D /* NSString+Calculation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		324484B321C74BDD0051B8B6 /* HomeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListCell.h; sourceTree = "<group>"; };
 		324484B421C74BDD0051B8B6 /* HomeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListCell.m; sourceTree = "<group>"; };
-		324484B521C74BDD0051B8B6 /* HomeListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListCell.xib; sourceTree = "<group>"; };
 		3257AED221C8750800787A34 /* TimeRemindController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeRemindController.h; sourceTree = "<group>"; };
 		3257AED321C8750800787A34 /* TimeRemindController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeRemindController.m; sourceTree = "<group>"; };
 		3257AED621C8774400787A34 /* TITableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TITableView.h; sourceTree = "<group>"; };
@@ -512,7 +509,6 @@
 		32FA228821D61BC40000BC0E /* KKRefreshNormalFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KKRefreshNormalFooter.m; sourceTree = "<group>"; };
 		32FA228A21D62ACB0000BC0E /* HomeListEmpty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListEmpty.h; sourceTree = "<group>"; };
 		32FA228B21D62ACB0000BC0E /* HomeListEmpty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListEmpty.m; sourceTree = "<group>"; };
-		32FA228D21D62AEC0000BC0E /* HomeListEmpty.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListEmpty.xib; sourceTree = "<group>"; };
 		4B132AA021C68B2200D5B489 /* BaseTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabBar.h; sourceTree = "<group>"; };
 		4B132AA121C68B2200D5B489 /* BaseTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabBar.m; sourceTree = "<group>"; };
 		4B132AA321C68DE500D5B489 /* BKCCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCCollection.h; sourceTree = "<group>"; };
@@ -1640,10 +1636,8 @@
 				4BF574A221C6A59A001890D1 /* HomeList.m */,
 				324484B321C74BDD0051B8B6 /* HomeListCell.h */,
 				324484B421C74BDD0051B8B6 /* HomeListCell.m */,
-				324484B521C74BDD0051B8B6 /* HomeListCell.xib */,
 				32FA228A21D62ACB0000BC0E /* HomeListEmpty.h */,
 				32FA228B21D62ACB0000BC0E /* HomeListEmpty.m */,
-				32FA228D21D62AEC0000BC0E /* HomeListEmpty.xib */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -2583,7 +2577,6 @@
 				4BEB72FD21CE033300BEF013 /* dropdown_anim__00048@2x.png in Resources */,
 				4BEB72FA21CE033300BEF013 /* dropdown_anim__00018@2x.png in Resources */,
 				3219838121C642BC00311885 /* LaunchScreen.storyboard in Resources */,
-				324484B721C74BDE0051B8B6 /* HomeListCell.xib in Resources */,
 				4B48530D21C69F6E00891096 /* MineHeader.xib in Resources */,
 				4B229A7621E622E900152030 /* BillTableCell.xib in Resources */,
 				4BEB731121CE033300BEF013 /* dropdown_anim__00017@2x.png in Resources */,
@@ -2665,7 +2658,6 @@
 				4BEB730B21CE033300BEF013 /* dropdown_anim__00025@2x.png in Resources */,
 				32D0B2C721C77B240030F5B2 /* ChartSegmentControl.xib in Resources */,
 				4BEB733421CE3FC800BEF013 /* InfoFooter.xib in Resources */,
-				32FA228E21D62AEC0000BC0E /* HomeListEmpty.xib in Resources */,
 				4B4852FA21C6938D00891096 /* cc_entertainmente_climbing@3x.png in Resources */,
 				4BA68B0B21C7F75B0063A5C2 /* ACAReusableHeader.xib in Resources */,
 				4BA68AE521C7EB550063A5C2 /* CAHeader.xib in Resources */,

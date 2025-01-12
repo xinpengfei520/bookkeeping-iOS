@@ -9,6 +9,7 @@
 #import "HomeListHeader.h"
 #import "HomeListSubCell.h"
 #import "HomeListEmpty.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface HomeListCell()<UITableViewDelegate, UITableViewDataSource>
@@ -24,18 +25,32 @@
 #pragma mark - 实现
 @implementation HomeListCell
 
-
-- (void)initUI {
-    [self setBackgroundColor:[UIColor brownColor]];
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [self table];
-    [self emptyView];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self setupUI];
+    }
+    return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self.table setFrame:self.contentView.bounds];
-    [self.emptyView setFrame:self.contentView.bounds];
+- (void)setupUI {
+    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    // 初始化表格
+    [self table];
+    
+    // 初始化空视图
+    _emptyView = [[HomeListEmpty alloc] init];
+    [self.table addSubview:_emptyView];
+    
+    // 设置约束
+    [_table mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
+    
+    [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
 }
 
 
