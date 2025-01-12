@@ -53,9 +53,11 @@
     _checkBox.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _checkBox.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
-    // 设置图片，并指定不拉伸
+    // 设置图片，并指定不拉伸，同时设置主题色
     UIImage *normalImage = [[UIImage imageNamed:@"checkbox_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImage *selectedImage = [[UIImage imageNamed:@"checkbox_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *selectedImage = [[UIImage imageNamed:@"checkbox_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    selectedImage = [self tintImage:selectedImage withColor:kColor_Main_Color];
+    
     [_checkBox setImage:normalImage forState:UIControlStateNormal];
     [_checkBox setImage:selectedImage forState:UIControlStateSelected];
     
@@ -222,6 +224,17 @@
 
 - (void)checkBoxTouchUpOutside:(UIButton *)sender {
     NSLog(@"CheckBox touchUpOutside");
+}
+
+// 添加图片着色方法
+- (UIImage *)tintImage:(UIImage *)image withColor:(UIColor *)color {
+    UIImage *newImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, newImage.scale);
+    [color set];
+    [newImage drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end 
