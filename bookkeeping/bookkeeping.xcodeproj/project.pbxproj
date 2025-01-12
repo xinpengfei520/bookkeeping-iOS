@@ -13,6 +13,13 @@
 		247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8852D30221900B5F323 /* PasswordLoginController1.m */; };
 		247AB88C2D30238300B5F323 /* AgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88B2D30238300B5F323 /* AgreementView.m */; };
 		247AB8922D302ECD00B5F323 /* AgreementWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */; };
+		247AB9122D341E1B00B5F323 /* MineTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247AB9092D341E1B00B5F323 /* MineTableCell.xib */; };
+		247AB9132D341E1B00B5F323 /* MineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB90E2D341E1B00B5F323 /* MineView.m */; };
+		247AB9142D341E1B00B5F323 /* MineTableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9052D341E1B00B5F323 /* MineTableHeader.m */; };
+		247AB9152D341E1B00B5F323 /* MineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9032D341E1B00B5F323 /* MineHeader.m */; };
+		247AB9162D341E1B00B5F323 /* MineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB90B2D341E1B00B5F323 /* MineTableView.m */; };
+		247AB9172D341E1B00B5F323 /* MineTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9082D341E1B00B5F323 /* MineTableCell.m */; };
+		247AB9182D341E1B00B5F323 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9002D341E1B00B5F323 /* MineController.m */; };
 		3219837621C642BB00311885 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219837521C642BB00311885 /* AppDelegate.m */; };
 		3219837C21C642BB00311885 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3219837A21C642BB00311885 /* Main.storyboard */; };
 		3219837E21C642BC00311885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3219837D21C642BC00311885 /* Assets.xcassets */; };
@@ -119,7 +126,6 @@
 		4B229A7621E622E900152030 /* BillTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B229A7421E622E900152030 /* BillTableCell.xib */; };
 		4B229A7921E622F900152030 /* BillHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B229A7821E622F900152030 /* BillHeader.m */; };
 		4B229A7B21E6240700152030 /* BillHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B229A7A21E6240700152030 /* BillHeader.xib */; };
-		4B252CE121C6A288002CD83D /* MineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B252CE021C6A288002CD83D /* MineView.m */; };
 		4B252CE421C6A35D002CD83D /* HomeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B252CE321C6A35D002CD83D /* HomeHeader.m */; };
 		4B252CE621C6A37C002CD83D /* HomeHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B252CE521C6A37C002CD83D /* HomeHeader.xib */; };
 		4B35F1A221CCC641007271BE /* UIView+APPViewRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B35F19821CCC641007271BE /* UIView+APPViewRequest.m */; };
@@ -144,11 +150,6 @@
 		4B466EC02205750F0069F38E /* CategoryListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917B221CD391000137215 /* CategoryListModel.m */; };
 		4B47931221E9DB4D0062879D /* NSUserDefaults+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */; };
 		4B47931621E9DF540062879D /* NSUserDefaults+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */; };
-		4B4852FD21C6974800891096 /* MineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4852FC21C6974800891096 /* MineTableView.m */; };
-		4B48530121C6984400891096 /* MineTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4852FF21C6984400891096 /* MineTableCell.m */; };
-		4B48530221C6984400891096 /* MineTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B48530021C6984400891096 /* MineTableCell.xib */; };
-		4B48530821C69A2E00891096 /* MineTableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B48530721C69A2E00891096 /* MineTableHeader.m */; };
-		4B48530B21C69F2800891096 /* MineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B48530A21C69F2800891096 /* MineHeader.m */; };
 		4B68DC3D21E1C0BF00CBF20C /* BDTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B68DC3B21E1C0BF00CBF20C /* BDTableCell.m */; };
 		4B68DC3E21E1C0BF00CBF20C /* BDTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B68DC3C21E1C0BF00CBF20C /* BDTableCell.xib */; };
 		4B7560B321D1224A00E63744 /* BaseViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7560B221D1224A00E63744 /* BaseViewController+Extension.m */; };
@@ -181,7 +182,6 @@
 		4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7845F21C6791E00B8EC46 /* HomeController.m */; };
 		4BE7846321C6796900B8EC46 /* ChartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846221C6796900B8EC46 /* ChartController.m */; };
 		4BE7846621C6799200B8EC46 /* BookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846521C6799200B8EC46 /* BookController.m */; };
-		4BE7846C21C679F500B8EC46 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846B21C679F500B8EC46 /* MineController.m */; };
 		4BE8CC1921C93F21007935E2 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8CC1621C93F21007935E2 /* NSDate+Extension.m */; };
 		4BEB72DD21CE033300BEF013 /* RequestTipRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB729A21CE033300BEF013 /* RequestTipRefreshFooter.m */; };
 		4BEB72DE21CE033300BEF013 /* dropdown_loading_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB729C21CE033300BEF013 /* dropdown_loading_02@2x.png */; };
@@ -347,6 +347,19 @@
 		247AB88D2D3023DD00B5F323 /* AgreementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AgreementView.m; path = bookkeeping/Classes/Modules/Login/View/AgreementView.m; sourceTree = "<group>"; };
 		247AB88E2D302ECD00B5F323 /* AgreementWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgreementWebViewController.h; sourceTree = "<group>"; };
 		247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgreementWebViewController.m; sourceTree = "<group>"; };
+		247AB8FF2D341E1B00B5F323 /* MineController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineController.h; sourceTree = "<group>"; };
+		247AB9002D341E1B00B5F323 /* MineController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineController.m; sourceTree = "<group>"; };
+		247AB9022D341E1B00B5F323 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
+		247AB9032D341E1B00B5F323 /* MineHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeader.m; sourceTree = "<group>"; };
+		247AB9042D341E1B00B5F323 /* MineTableHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableHeader.h; sourceTree = "<group>"; };
+		247AB9052D341E1B00B5F323 /* MineTableHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableHeader.m; sourceTree = "<group>"; };
+		247AB9072D341E1B00B5F323 /* MineTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableCell.h; sourceTree = "<group>"; };
+		247AB9082D341E1B00B5F323 /* MineTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableCell.m; sourceTree = "<group>"; };
+		247AB9092D341E1B00B5F323 /* MineTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineTableCell.xib; sourceTree = "<group>"; };
+		247AB90A2D341E1B00B5F323 /* MineTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableView.h; sourceTree = "<group>"; };
+		247AB90B2D341E1B00B5F323 /* MineTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableView.m; sourceTree = "<group>"; };
+		247AB90D2D341E1B00B5F323 /* MineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineView.h; sourceTree = "<group>"; };
+		247AB90E2D341E1B00B5F323 /* MineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineView.m; sourceTree = "<group>"; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -545,8 +558,6 @@
 		4B229A7721E622F900152030 /* BillHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillHeader.h; sourceTree = "<group>"; };
 		4B229A7821E622F900152030 /* BillHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillHeader.m; sourceTree = "<group>"; };
 		4B229A7A21E6240700152030 /* BillHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BillHeader.xib; sourceTree = "<group>"; };
-		4B252CDF21C6A288002CD83D /* MineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineView.h; sourceTree = "<group>"; };
-		4B252CE021C6A288002CD83D /* MineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineView.m; sourceTree = "<group>"; };
 		4B252CE221C6A35D002CD83D /* HomeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeHeader.h; sourceTree = "<group>"; };
 		4B252CE321C6A35D002CD83D /* HomeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeHeader.m; sourceTree = "<group>"; };
 		4B252CE521C6A37C002CD83D /* HomeHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeader.xib; sourceTree = "<group>"; };
@@ -584,15 +595,6 @@
 		4B38C07C21E4E5D400D28B34 /* PINCache_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PINCache_Header.h; sourceTree = "<group>"; };
 		4B47931021E9DB4D0062879D /* NSUserDefaults+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Extension.h"; sourceTree = "<group>"; };
 		4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Extension.m"; sourceTree = "<group>"; };
-		4B4852FB21C6974800891096 /* MineTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableView.h; sourceTree = "<group>"; };
-		4B4852FC21C6974800891096 /* MineTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableView.m; sourceTree = "<group>"; };
-		4B4852FE21C6984400891096 /* MineTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableCell.h; sourceTree = "<group>"; };
-		4B4852FF21C6984400891096 /* MineTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableCell.m; sourceTree = "<group>"; };
-		4B48530021C6984400891096 /* MineTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineTableCell.xib; sourceTree = "<group>"; };
-		4B48530621C69A2E00891096 /* MineTableHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableHeader.h; sourceTree = "<group>"; };
-		4B48530721C69A2E00891096 /* MineTableHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableHeader.m; sourceTree = "<group>"; };
-		4B48530921C69F2800891096 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
-		4B48530A21C69F2800891096 /* MineHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeader.m; sourceTree = "<group>"; };
 		4B68DC3A21E1C0BF00CBF20C /* BDTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDTableCell.h; sourceTree = "<group>"; };
 		4B68DC3B21E1C0BF00CBF20C /* BDTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDTableCell.m; sourceTree = "<group>"; };
 		4B68DC3C21E1C0BF00CBF20C /* BDTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BDTableCell.xib; sourceTree = "<group>"; };
@@ -648,8 +650,6 @@
 		4BE7846221C6796900B8EC46 /* ChartController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartController.m; sourceTree = "<group>"; };
 		4BE7846421C6799200B8EC46 /* BookController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookController.h; sourceTree = "<group>"; };
 		4BE7846521C6799200B8EC46 /* BookController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookController.m; sourceTree = "<group>"; };
-		4BE7846A21C679F500B8EC46 /* MineController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineController.h; sourceTree = "<group>"; };
-		4BE7846B21C679F500B8EC46 /* MineController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineController.m; sourceTree = "<group>"; };
 		4BE8CC1421C93F21007935E2 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		4BE8CC1621C93F21007935E2 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		4BEB729921CE033300BEF013 /* KKRefreshGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKRefreshGifHeader.h; sourceTree = "<group>"; };
@@ -859,6 +859,66 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		247AB9012D341E1B00B5F323 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				247AB8FF2D341E1B00B5F323 /* MineController.h */,
+				247AB9002D341E1B00B5F323 /* MineController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		247AB9062D341E1B00B5F323 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				247AB9022D341E1B00B5F323 /* MineHeader.h */,
+				247AB9032D341E1B00B5F323 /* MineHeader.m */,
+				247AB9042D341E1B00B5F323 /* MineTableHeader.h */,
+				247AB9052D341E1B00B5F323 /* MineTableHeader.m */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		247AB90C2D341E1B00B5F323 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				247AB9072D341E1B00B5F323 /* MineTableCell.h */,
+				247AB9082D341E1B00B5F323 /* MineTableCell.m */,
+				247AB9092D341E1B00B5F323 /* MineTableCell.xib */,
+				247AB90A2D341E1B00B5F323 /* MineTableView.h */,
+				247AB90B2D341E1B00B5F323 /* MineTableView.m */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
+		247AB90F2D341E1B00B5F323 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				247AB90D2D341E1B00B5F323 /* MineView.h */,
+				247AB90E2D341E1B00B5F323 /* MineView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		247AB9102D341E1B00B5F323 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				247AB9062D341E1B00B5F323 /* Header */,
+				247AB90C2D341E1B00B5F323 /* Table */,
+				247AB90F2D341E1B00B5F323 /* View */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		247AB9112D341E1B00B5F323 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				247AB9012D341E1B00B5F323 /* Controller */,
+				247AB9102D341E1B00B5F323 /* View */,
+			);
+			path = Me;
+			sourceTree = "<group>";
+		};
 		3219836821C642BB00311885 = {
 			isa = PBXGroup;
 			children = (
@@ -976,6 +1036,7 @@
 		3219839321C6436A00311885 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				247AB9112D341E1B00B5F323 /* Me */,
 				247AB8912D302ECD00B5F323 /* Common */,
 				F3581D9C287ADC89007B17CD /* Verify */,
 				F35310A42876D82400D297A9 /* Share */,
@@ -987,7 +1048,6 @@
 				4BE7844A21C678FB00B8EC46 /* Home */,
 				4BE7845621C678FB00B8EC46 /* Book */,
 				4BA68AF121C7F1A70063A5C2 /* AddCategory */,
-				3244849C21C726570051B8B6 /* Mine */,
 				4BA68ADA21C7EA930063A5C2 /* Timing */,
 				4BA68AD221C7EA930063A5C2 /* Category */,
 				4BEB732121CE375F00BEF013 /* Info */,
@@ -1214,16 +1274,6 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
-		3244849C21C726570051B8B6 /* Mine */ = {
-			isa = PBXGroup;
-			children = (
-				4BE7844F21C678FB00B8EC46 /* Controller */,
-				4BE7845121C678FB00B8EC46 /* View */,
-			);
-			name = Mine;
-			path = "Mine (我的)/Mine";
-			sourceTree = "<group>";
-		};
 		324484A421C727810051B8B6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1356,38 +1406,6 @@
 				32BFA7F021E483F400B926F3 /* Info.plist */,
 			);
 			path = BookMonth;
-			sourceTree = "<group>";
-		};
-		32D0B2B321C76CC50030F5B2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4B252CDF21C6A288002CD83D /* MineView.h */,
-				4B252CE021C6A288002CD83D /* MineView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		32D0B2B421C76CC50030F5B2 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				4B48530921C69F2800891096 /* MineHeader.h */,
-				4B48530A21C69F2800891096 /* MineHeader.m */,
-				4B48530621C69A2E00891096 /* MineTableHeader.h */,
-				4B48530721C69A2E00891096 /* MineTableHeader.m */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		32D0B2B521C76CC60030F5B2 /* Table */ = {
-			isa = PBXGroup;
-			children = (
-				4B4852FB21C6974800891096 /* MineTableView.h */,
-				4B4852FC21C6974800891096 /* MineTableView.m */,
-				4B4852FE21C6984400891096 /* MineTableCell.h */,
-				4B4852FF21C6984400891096 /* MineTableCell.m */,
-				4B48530021C6984400891096 /* MineTableCell.xib */,
-			);
-			path = Table;
 			sourceTree = "<group>";
 		};
 		32E35B1821D70376003B3040 /* Date */ = {
@@ -1880,25 +1898,6 @@
 				4BF0649321E10FC9005F1665 /* Navigation */,
 				327CEC1A21C88529001D0086 /* Table */,
 				327CEC1921C88529001D0086 /* SubTable */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		4BE7844F21C678FB00B8EC46 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				4BE7846A21C679F500B8EC46 /* MineController.h */,
-				4BE7846B21C679F500B8EC46 /* MineController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		4BE7845121C678FB00B8EC46 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				32D0B2B321C76CC50030F5B2 /* View */,
-				32D0B2B421C76CC50030F5B2 /* Header */,
-				32D0B2B521C76CC60030F5B2 /* Table */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2615,6 +2614,7 @@
 				4BEB72F521CE033300BEF013 /* dropdown_anim__00016@2x.png in Resources */,
 				4B229A7B21E6240700152030 /* BillHeader.xib in Resources */,
 				32A5801221DF33C4008993B2 /* ACA.plist in Resources */,
+				247AB9122D341E1B00B5F323 /* MineTableCell.xib in Resources */,
 				4BEB72E921CE033300BEF013 /* dropdown_anim__0007@2x.png in Resources */,
 				F35310B52876D82400D297A9 /* ShareShot.xib in Resources */,
 				4BEB72FE21CE033300BEF013 /* dropdown_anim__00035@2x.png in Resources */,
@@ -2637,7 +2637,6 @@
 				3257AEDD21C877E500787A34 /* TITableCell.xib in Resources */,
 				4BEB72E121CE033300BEF013 /* dropdown_anim__0009@2x.png in Resources */,
 				4BEB72EF21CE033300BEF013 /* dropdown_anim__00055@2x.png in Resources */,
-				4B48530221C6984400891096 /* MineTableCell.xib in Resources */,
 				4BEB731B21CE033300BEF013 /* dropdown_anim__00031@2x.png in Resources */,
 				4BEB730921CE033300BEF013 /* dropdown_anim__00046@2x.png in Resources */,
 				4BEB730621CE033300BEF013 /* dropdown_anim__00060@2x.png in Resources */,
@@ -2730,7 +2729,6 @@
 				247AB88C2D30238300B5F323 /* AgreementView.m in Sources */,
 				247AB8822D30202000B5F323 /* PasswordLoginController1.m in Sources */,
 				247AB8832D30202000B5F323 /* PasswordLoginController2.m in Sources */,
-				4B48530121C6984400891096 /* MineTableCell.m in Sources */,
 				327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */,
 				F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */,
 				F3CD73F02889D102008EBBEE /* MarkModel.m in Sources */,
@@ -2795,7 +2793,6 @@
 				4BE7846321C6796900B8EC46 /* ChartController.m in Sources */,
 				4BEB732E21CE381D00BEF013 /* InfoTableCell.m in Sources */,
 				321983B821C6459B00311885 /* BaseNavigationController.m in Sources */,
-				4B252CE121C6A288002CD83D /* MineView.m in Sources */,
 				4B2214FD21E9E4A8000F619F /* UIImage+BlurGlass.m in Sources */,
 				4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */,
 				F3AE5FDF2847CDBB00E95086 /* SearchNavigation.m in Sources */,
@@ -2816,6 +2813,12 @@
 				4B35F1C421CCC694007271BE /* KKEmpty.m in Sources */,
 				32AF269E21ED72E6004F46A2 /* UITableViewCell+Extension.m in Sources */,
 				4B47931221E9DB4D0062879D /* NSUserDefaults+Extension.m in Sources */,
+				247AB9132D341E1B00B5F323 /* MineView.m in Sources */,
+				247AB9142D341E1B00B5F323 /* MineTableHeader.m in Sources */,
+				247AB9152D341E1B00B5F323 /* MineHeader.m in Sources */,
+				247AB9162D341E1B00B5F323 /* MineTableView.m in Sources */,
+				247AB9172D341E1B00B5F323 /* MineTableCell.m in Sources */,
+				247AB9182D341E1B00B5F323 /* MineController.m in Sources */,
 				321983FD21C6460100311885 /* UIView+BlockGesture.m in Sources */,
 				32D0B2B821C76D0B0030F5B2 /* KKRefreshNormalHeader.m in Sources */,
 				4B2214FE21E9E4A8000F619F /* ScreenBlurry.m in Sources */,
@@ -2823,7 +2826,6 @@
 				F353109B2876C88D00D297A9 /* ExportController.m in Sources */,
 				F3CD73E82889CA4F008EBBEE /* MarkCollectionView.m in Sources */,
 				4B1917B021CD333000137215 /* BKCIncomeModel.m in Sources */,
-				4B48530821C69A2E00891096 /* MineTableHeader.m in Sources */,
 				4B1893C521D67081005002E2 /* ChartHUDCell.m in Sources */,
 				4BFD381721E4D3CB00BAB0BB /* UIViewController+Extension.m in Sources */,
 				4B35F1A621CCC641007271BE /* AFNManager.m in Sources */,
@@ -2851,7 +2853,6 @@
 				4B35F1BC21CCC694007271BE /* UIView+KKEmpty.m in Sources */,
 				4B229A7121E6228500152030 /* BillTable.m in Sources */,
 				F35310972876C82B00D297A9 /* AutoBookController.m in Sources */,
-				4BE7846C21C679F500B8EC46 /* MineController.m in Sources */,
 				4B229A6E21E6184300152030 /* BillController.m in Sources */,
 				4BE8CC1921C93F21007935E2 /* NSDate+Extension.m in Sources */,
 				4BEB732721CE378700BEF013 /* InfoController.m in Sources */,
@@ -2889,7 +2890,6 @@
 				F35310B62876D82400D297A9 /* ShareBottom.m in Sources */,
 				4B1917D021CD45C900137215 /* NSObject+JGRuntime.m in Sources */,
 				32D0B2BD21C778C20030F5B2 /* ChartNavigation.m in Sources */,
-				4B48530B21C69F2800891096 /* MineHeader.m in Sources */,
 				32E35B1E21D703BA003B3040 /* ChartSubModel.m in Sources */,
 				4B229A7921E622F900152030 /* BillHeader.m in Sources */,
 				4BF0649621E10FD2005F1665 /* HomeNavigation.m in Sources */,
@@ -2897,7 +2897,6 @@
 				F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */,
 				4B35F1BF21CCC694007271BE /* KKGoodsEmpty.m in Sources */,
 				4BE7846621C6799200B8EC46 /* BookController.m in Sources */,
-				4B4852FD21C6974800891096 /* MineTableView.m in Sources */,
 				4B9798FD21CE744A0020B207 /* CountDown.m in Sources */,
 				321983FC21C6460100311885 /* UIButton+BarButtonItem.m in Sources */,
 				F353109F2876C8E200D297A9 /* SiriController.m in Sources */,
