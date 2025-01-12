@@ -19,8 +19,13 @@
 #pragma mark - 实现
 @implementation TITableCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self setupUI];
+    [self setupSwipe];
+}
 
-- (void)initUI {
+- (void)setupUI {
     [self setBackgroundColor:kColor_White];
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
@@ -30,21 +35,24 @@
     [self.dayLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.dayLab setTextColor:kColor_Text_Gary];
     [self.timeConstraintW setConstant:[@"00:00" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:self.detailLab.font].width + 5];
-    
-    
-    
-    @weakify(self)
-    MGSwipeButton *btn = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
-    [btn setButtonWidth:countcoordinatesX(80)];
-    [btn setCallback:^BOOL(MGSwipeTableCell *cell) {
-        @strongify(self)
-        [self routerEventWithName:TIMING_CELL_DELETE data:self];
-        return NO;
-    }];
-    [self setRightButtons:@[btn]];
 }
 
+- (void)setupSwipe {
+    @weakify(self)
+    MGSwipeButton *deleteButton = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
+    [deleteButton.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
+    [deleteButton setButtonWidth:countcoordinatesX(80)];
+    [deleteButton setCallback:^BOOL(MGSwipeTableCell *cell) {
+        @strongify(self)
+        if (self.indexPath) {
+            [self routerEventWithName:TIMING_CELL_DELETE data:self.indexPath];
+        }
+        return YES;
+    }];
+    
+    self.rightButtons = @[deleteButton];
+    self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
+}
 
 #pragma mark - set
 - (void)setTime:(NSString *)time {
@@ -52,12 +60,5 @@
     _nameLab.text = @"提醒时间";
     _detailLab.text = time;
 }
-
-- (void)setModel:(TIModel *)model {
-    _model = model;
-    _nameLab.text = @"提醒时间";
-    _detailLab.text = model.time;
-}
-
 
 @end

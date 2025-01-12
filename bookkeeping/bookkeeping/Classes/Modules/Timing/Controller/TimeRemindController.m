@@ -297,4 +297,18 @@
     return 50.0f; // 设置合适的 cell 高度
 }
 
+- (void)routerWithEventName:(NSString *)eventName data:(id)data {
+    if ([eventName isEqualToString:TIMING_CELL_DELETE]) {
+        NSIndexPath *indexPath = data;
+        // 从数据源中移除
+        [self.models removeObjectAtIndex:indexPath.row];
+        // 更新 UserDefaults
+        [NSUserDefaults setObject:self.models forKey:PIN_TIMING];
+        // 刷新表格
+        [self.table reloadData];
+        // 检查是否需要显示空状态
+        [self.emptyView setHidden:self.models.count > 0];
+    }
+}
+
 @end

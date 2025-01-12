@@ -18,13 +18,13 @@
 
 + (instancetype)initWithFrame:(CGRect)frame {
     TITableView *table = [[TITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-    [table setDelegate:table];
-    [table setDataSource:table];
-    [table lineAll];
-    [table lineHide];
-    [table setSeparatorColor:kColor_BG];
     [table setBackgroundColor:kColor_BG];
-    [table setContentInset:UIEdgeInsetsMake(countcoordinatesX(10), 0, countcoordinatesX(10), 0)];
+    [table setShowsVerticalScrollIndicator:NO];
+    [table setShowsHorizontalScrollIndicator:NO];
+    [table setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    if (@available(iOS 11.0, *)) {
+        [table setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    }
     return table;
 }
 
@@ -47,9 +47,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TITableCell *cell = [TITableCell loadFirstNib:tableView];
+    static NSString *identifier = @"TITableCell";
+    TITableCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"TITableCell" owner:nil options:nil] firstObject];
+    }
     cell.time = self.models[indexPath.row];
-//    cell.model = self.models[indexPath.row];
     cell.indexPath = indexPath;
     return cell;
 }
