@@ -61,10 +61,9 @@
         make.height.equalTo(@30);
     }];
     
-    // 添加协议视图
-    _agreementView = [[AgreementView alloc] init];
+    // 添加协议视图 - 验证码登录需要显示注册提示
+    _agreementView = [[AgreementView alloc] initWithShowRegisterTips:YES];
     _agreementView.delegate = self;
-    _agreementView.userInteractionEnabled = YES;  // 确保可以接收用户交互
     [self.view addSubview:_agreementView];
     
     [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {

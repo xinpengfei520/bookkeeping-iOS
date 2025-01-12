@@ -65,9 +65,8 @@
     [self buttonCanTap:NO btn:_loginButton];
     
     // 添加协议视图
-    _agreementView = [[AgreementView alloc] init];
+    _agreementView = [[AgreementView alloc] initWithShowRegisterTips:NO];
     _agreementView.delegate = self;
-    _agreementView.userInteractionEnabled = YES;
     _agreementView.isSelected = YES;
     [self.view addSubview:_agreementView];
     

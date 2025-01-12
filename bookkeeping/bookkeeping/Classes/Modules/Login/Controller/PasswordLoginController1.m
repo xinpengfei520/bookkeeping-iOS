@@ -73,9 +73,8 @@
     [self buttonCanTap:NO btn:_nextButton];
     
     // 添加协议视图
-    _agreementView = [[AgreementView alloc] init];
+    _agreementView = [[AgreementView alloc] initWithShowRegisterTips:NO];
     _agreementView.delegate = self;
-    _agreementView.userInteractionEnabled = YES;
     [self.view addSubview:_agreementView];
     
     [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {

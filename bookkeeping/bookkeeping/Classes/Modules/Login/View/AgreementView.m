@@ -5,6 +5,7 @@
 
 @property (nonatomic, strong) UIButton *checkBox;
 @property (nonatomic, strong) UILabel *textLabel;
+@property (nonatomic, strong) UILabel *textLabelTail;
 @property (nonatomic, strong) UIButton *userAgreementBtn;
 @property (nonatomic, strong) UIButton *privacyAgreementBtn;
 
@@ -12,8 +13,17 @@
 
 @implementation AgreementView
 
+- (instancetype)initWithShowRegisterTips:(BOOL)showRegisterTips {
+    if (self = [super initWithFrame:CGRectZero]) {
+        _isShowRegisterTips = showRegisterTips;
+        [self setupUI];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        _isShowRegisterTips = NO;  // 默认不显示注册提示
         [self setupUI];
     }
     return self;
@@ -82,6 +92,15 @@
     [_privacyAgreementBtn addTarget:self action:@selector(privacyAgreementClick) forControlEvents:UIControlEventTouchUpInside];
     [containerView addSubview:_privacyAgreementBtn];  // 直接添加到容器视图
     
+    if (_isShowRegisterTips) {
+        // 末尾文本
+        _textLabelTail = [[UILabel alloc] init];
+        _textLabelTail.text = @"未注册的手机号将自动注册";
+        _textLabelTail.font = [UIFont systemFontOfSize:12];
+        _textLabelTail.textColor = [UIColor lightGrayColor];
+        [containerView addSubview:_textLabelTail];  // 直接添加到容器视图
+    }
+    
     // 修改容器视图的约束
     [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);  // 容器居中
@@ -123,6 +142,12 @@
         make.right.lessThanOrEqualTo(containerView).offset(-16);  // 右边留出边距
         make.centerY.equalTo(containerView);
     }];
+    if (_isShowRegisterTips) {
+        [_textLabelTail mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_textLabel.mas_left);
+            make.top.equalTo(_textLabel.mas_bottom).offset(8);  // 距上留出边距
+        }];
+    }
 }
 
 #pragma mark - Actions
