@@ -58,12 +58,13 @@
     
     
     if (self.isChoose) {
-        _titleLabel.textColor = kColor_Main_Color;
-        // 设置图标
-        UIImage *icon = [UIImage imageNamed:_model.icon_s];
-        // 选中状态，图标着色为主题色
-        icon = [self tintImage:icon withColor:kColor_Main_Color];
-        _iconImageView.image = icon;
+        _iconImageView.image = [UIImage imageNamed:_model.icon_s];
+//        _titleLabel.textColor = kColor_Main_Color;
+//        // 设置图标
+//        UIImage *icon = [UIImage imageNamed:_model.icon_s];
+//        // 选中状态，图标着色为主题色
+//        icon = [self tintImage:icon withColor:kColor_Main_Color];
+//        _iconImageView.image = icon;
     }else{
         // 设置图标
         UIImage *icon = [UIImage imageNamed:_model.icon_n];
@@ -79,12 +80,13 @@
     _choose = choose;
     
     if (choose) {
+        _iconImageView.image = [UIImage imageNamed:_model.icon_s];
         // 选中状态
-        _titleLabel.textColor = kColor_Main_Color;
-        _iconImageView.image = [self tintImage:[UIImage imageNamed:_model.icon_s] withColor:kColor_Main_Color];
+//        _titleLabel.textColor = kColor_Main_Color;
+//        _iconImageView.image = [self tintImage:[UIImage imageNamed:_model.icon_s] withColor:kColor_Main_Color];
     } else {
         // 未选中状态
-        _titleLabel.textColor = [UIColor darkGrayColor];
+//        _titleLabel.textColor = [UIColor darkGrayColor];
         _iconImageView.image = [UIImage imageNamed:_model.icon_n];
     }
 }
