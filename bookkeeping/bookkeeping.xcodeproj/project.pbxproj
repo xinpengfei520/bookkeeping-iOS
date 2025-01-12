@@ -58,7 +58,6 @@
 		32751F0921C8E93000D9F415 /* BKCNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32751F0821C8E93000D9F415 /* BKCNavigation.m */; };
 		32751F0B21C8E97300D9F415 /* BKCNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32751F0A21C8E97300D9F415 /* BKCNavigation.xib */; };
 		327CEC1721C882A6001D0086 /* HomeListSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC1521C882A6001D0086 /* HomeListSubCell.m */; };
-		327CEC1821C882A6001D0086 /* HomeListSubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 327CEC1621C882A6001D0086 /* HomeListSubCell.xib */; };
 		327CEC1D21C88A04001D0086 /* HomeListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC1C21C88A04001D0086 /* HomeListHeader.m */; };
 		327CEC1F21C88A10001D0086 /* HomeListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 327CEC1E21C88A10001D0086 /* HomeListHeader.xib */; };
 		327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC2321C88D9D001D0086 /* ChartTableView.m */; };
@@ -446,7 +445,6 @@
 		32751F0A21C8E97300D9F415 /* BKCNavigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BKCNavigation.xib; sourceTree = "<group>"; };
 		327CEC1421C882A6001D0086 /* HomeListSubCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListSubCell.h; sourceTree = "<group>"; };
 		327CEC1521C882A6001D0086 /* HomeListSubCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListSubCell.m; sourceTree = "<group>"; };
-		327CEC1621C882A6001D0086 /* HomeListSubCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListSubCell.xib; sourceTree = "<group>"; };
 		327CEC1B21C88A04001D0086 /* HomeListHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListHeader.h; sourceTree = "<group>"; };
 		327CEC1C21C88A04001D0086 /* HomeListHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListHeader.m; sourceTree = "<group>"; };
 		327CEC1E21C88A10001D0086 /* HomeListHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListHeader.xib; sourceTree = "<group>"; };
@@ -1275,7 +1273,6 @@
 			children = (
 				327CEC1421C882A6001D0086 /* HomeListSubCell.h */,
 				327CEC1521C882A6001D0086 /* HomeListSubCell.m */,
-				327CEC1621C882A6001D0086 /* HomeListSubCell.xib */,
 			);
 			path = SubTable;
 			sourceTree = "<group>";
@@ -2659,7 +2656,6 @@
 				4B229A7B21E6240700152030 /* BillHeader.xib in Resources */,
 				32A5801221DF33C4008993B2 /* ACA.plist in Resources */,
 				4BEB72E921CE033300BEF013 /* dropdown_anim__0007@2x.png in Resources */,
-				327CEC1821C882A6001D0086 /* HomeListSubCell.xib in Resources */,
 				F35310B52876D82400D297A9 /* ShareShot.xib in Resources */,
 				4BEB72FE21CE033300BEF013 /* dropdown_anim__00035@2x.png in Resources */,
 				327CEC1F21C88A10001D0086 /* HomeListHeader.xib in Resources */,

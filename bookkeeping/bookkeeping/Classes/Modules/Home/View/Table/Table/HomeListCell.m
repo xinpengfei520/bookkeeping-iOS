@@ -62,7 +62,7 @@
  * 只需要在 UITableView 初始化的时候注册 就可以了
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeListSubCell *cell = [HomeListSubCell loadFirstNib:tableView];
+    HomeListSubCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeListSubCell" forIndexPath:indexPath];
     cell.model = self.models[indexPath.section].array[indexPath.row];
     return cell;
 }
@@ -146,7 +146,7 @@
         [_table setSeparatorColor:kColor_Line_Color];
         [_table setBackgroundColor:kColor_White];
         [_table setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)]];
-        [_table registerNib:[UINib nibWithNibName:@"HomeListSubCell" bundle:nil] forCellReuseIdentifier:@"HomeListSubCell"];
+        [_table registerClass:[HomeListSubCell class] forCellReuseIdentifier:@"HomeListSubCell"];
         [_table registerNib:[UINib nibWithNibName:@"HomeListHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"HomeListHeader"];
         [self.contentView addSubview:_table];
     }
