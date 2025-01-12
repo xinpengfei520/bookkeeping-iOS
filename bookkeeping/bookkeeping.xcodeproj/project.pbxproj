@@ -103,7 +103,6 @@
 		4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B132AA121C68B2200D5B489 /* BaseTabBar.m */; };
 		4B132AA521C68DE500D5B489 /* BKCCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B132AA421C68DE500D5B489 /* BKCCollection.m */; };
 		4B132AA921C68F4300D5B489 /* BKCCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B132AA721C68F4300D5B489 /* BKCCollectionCell.m */; };
-		4B132AAA21C68F4300D5B489 /* BKCCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B132AA821C68F4300D5B489 /* BKCCollectionCell.xib */; };
 		4B1893C121D66F7E005002E2 /* ChartHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1893C021D66F7E005002E2 /* ChartHUD.m */; };
 		4B1893C521D67081005002E2 /* ChartHUDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1893C321D67081005002E2 /* ChartHUDCell.m */; };
 		4B1893C621D67081005002E2 /* ChartHUDCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1893C421D67081005002E2 /* ChartHUDCell.xib */; };
@@ -522,7 +521,6 @@
 		4B132AA421C68DE500D5B489 /* BKCCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCCollection.m; sourceTree = "<group>"; };
 		4B132AA621C68F4300D5B489 /* BKCCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCCollectionCell.h; sourceTree = "<group>"; };
 		4B132AA721C68F4300D5B489 /* BKCCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCCollectionCell.m; sourceTree = "<group>"; };
-		4B132AA821C68F4300D5B489 /* BKCCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BKCCollectionCell.xib; sourceTree = "<group>"; };
 		4B1893BF21D66F7E005002E2 /* ChartHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartHUD.h; sourceTree = "<group>"; };
 		4B1893C021D66F7E005002E2 /* ChartHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartHUD.m; sourceTree = "<group>"; };
 		4B1893C221D67081005002E2 /* ChartHUDCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartHUDCell.h; sourceTree = "<group>"; };
@@ -2484,7 +2482,6 @@
 				4B132AA421C68DE500D5B489 /* BKCCollection.m */,
 				4B132AA621C68F4300D5B489 /* BKCCollectionCell.h */,
 				4B132AA721C68F4300D5B489 /* BKCCollectionCell.m */,
-				4B132AA821C68F4300D5B489 /* BKCCollectionCell.xib */,
 				3299035821CA6895000F4C14 /* BKCRefreshHeader.h */,
 				3299035921CA6895000F4C14 /* BKCRefreshHeader.m */,
 			);
@@ -2635,7 +2632,6 @@
 				F3A052572856103F00DB2E99 /* SearchListHeader.xib in Resources */,
 				4BEB731321CE033300BEF013 /* dropdown_anim__00050@2x.png in Resources */,
 				4BEB72E321CE033300BEF013 /* dropdown_anim__00034@2x.png in Resources */,
-				4B132AAA21C68F4300D5B489 /* BKCCollectionCell.xib in Resources */,
 				4BEB72E721CE033300BEF013 /* dropdown_anim__00026@2x.png in Resources */,
 				4BEB731621CE033300BEF013 /* dropdown_anim__00021@2x.png in Resources */,
 				4BEB731921CE033300BEF013 /* dropdown_anim__00023@2x.png in Resources */,

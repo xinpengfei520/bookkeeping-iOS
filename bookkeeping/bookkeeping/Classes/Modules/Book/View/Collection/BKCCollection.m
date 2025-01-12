@@ -42,7 +42,7 @@
     [collection setBackgroundColor:kColor_BG];
     [collection setDelegate:collection];
     [collection setDataSource:collection];
-    [collection registerNib:[UINib nibWithNibName:@"BKCCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"BKCCollectionCell"];
+    [collection registerClass:[BKCCollectionCell class] forCellWithReuseIdentifier:@"BKCCollectionCell"];
     [collection setMj_header:[collection mHeader]];
     return collection;
 }
@@ -88,7 +88,7 @@
     return self.model.list.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    BKCCollectionCell *cell = [BKCCollectionCell loadItem:collectionView index:indexPath];
+    BKCCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BKCCollectionCell" forIndexPath:indexPath];
     cell.model = self.model.list[indexPath.row];
     cell.choose = [_selectIndex isEqual:indexPath];
     return cell;

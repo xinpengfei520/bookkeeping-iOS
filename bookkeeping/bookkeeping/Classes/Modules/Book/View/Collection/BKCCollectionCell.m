@@ -4,40 +4,101 @@
  */
 
 #import "BKCCollectionCell.h"
+#import <Masonry/Masonry.h>
 
-#pragma mark - 声明
 @interface BKCCollectionCell()
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UILabel *lab;
+@property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
-
-#pragma mark - 实现
 @implementation BKCCollectionCell
 
-
-- (void)initUI {
-    self.lab.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
-    self.lab.textColor = kColor_Text_Gary;
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
+    }
+    return self;
 }
+
+- (void)setupUI {
+    self.backgroundColor = [UIColor whiteColor];
+    
+    // 图标
+    _iconImageView = [[UIImageView alloc] init];
+    _iconImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:_iconImageView];
+    
+    // 标题
+    _titleLabel = [[UILabel alloc] init];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.font = [UIFont systemFontOfSize:14];
+    _titleLabel.textColor = [UIColor darkGrayColor];
+    [self.contentView addSubview:_titleLabel];
+    
+    // 设置约束
+    [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.contentView);
+        make.top.equalTo(self.contentView).offset(10);
+        make.width.height.equalTo(@44);
+    }];
+    
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.contentView);
+        make.top.equalTo(_iconImageView.mas_bottom).offset(5);
+        make.left.right.equalTo(self.contentView);
+        make.height.equalTo(@20);
+    }];
+}
+
+#pragma mark - Setter
 - (void)setModel:(BKCModel *)model {
     _model = model;
-    [_lab setText:model.name];
-    [_icon setImage:[UIImage imageNamed:_model.icon_n]];
+    
+    
+    if (self.isChoose) {
+        _titleLabel.textColor = kColor_Main_Color;
+        // 设置图标
+        UIImage *icon = [UIImage imageNamed:_model.icon_s];
+        // 选中状态，图标着色为主题色
+        icon = [self tintImage:icon withColor:kColor_Main_Color];
+        _iconImageView.image = icon;
+    }else{
+        // 设置图标
+        UIImage *icon = [UIImage imageNamed:_model.icon_n];
+        _iconImageView.image = icon;
+    }
+    
+    
+    // 设置标题
+    _titleLabel.text = model.name;
 }
+
 - (void)setChoose:(BOOL)choose {
     _choose = choose;
-    // 选中
-    if (choose == YES) {
-        [_icon setImage:[UIImage imageNamed:_model.icon_s]];
-    }
-    // 未选中
-    else {
-        [_icon setImage:[UIImage imageNamed:_model.icon_n]];
+    
+    if (choose) {
+        // 选中状态
+        _titleLabel.textColor = kColor_Main_Color;
+        _iconImageView.image = [self tintImage:[UIImage imageNamed:_model.icon_s] withColor:kColor_Main_Color];
+    } else {
+        // 未选中状态
+        _titleLabel.textColor = [UIColor darkGrayColor];
+        _iconImageView.image = [UIImage imageNamed:_model.icon_n];
     }
 }
 
+#pragma mark - Helper
+// 图片着色方法
+- (UIImage *)tintImage:(UIImage *)image withColor:(UIColor *)color {
+    UIImage *newImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, newImage.scale);
+    [color set];
+    [newImage drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 
 @end
