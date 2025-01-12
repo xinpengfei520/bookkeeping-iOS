@@ -54,7 +54,7 @@
 #pragma mark - get
 - (MineHeader *)header {
     if (!_header) {
-        _header = [MineHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
+        _header = [[MineHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         [self addSubview:_header];
     }
     return _header;

@@ -109,7 +109,6 @@
 		4B1917CE21CD45C900137215 /* UIViewController+JGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917C721CD45C900137215 /* UIViewController+JGProgressHUD.m */; };
 		4B1917CF21CD45C900137215 /* UIWindow+JGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917C821CD45C900137215 /* UIWindow+JGProgressHUD.m */; };
 		4B1917D021CD45C900137215 /* NSObject+JGRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917CA21CD45C900137215 /* NSObject+JGRuntime.m */; };
-		4B1E127F21CA8041001F5B36 /* MineTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E127E21CA8041001F5B36 /* MineTableHeader.xib */; };
 		4B1E128321CA8BD3001F5B36 /* UIScrollView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E128221CA8BD3001F5B36 /* UIScrollView+Extension.m */; };
 		4B1E128621CA93C1001F5B36 /* CategorySectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E128521CA93C1001F5B36 /* CategorySectionHeader.m */; };
 		4B1E128821CA9410001F5B36 /* CategorySectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E128721CA9410001F5B36 /* CategorySectionHeader.xib */; };
@@ -153,7 +152,6 @@
 		4B48530221C6984400891096 /* MineTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B48530021C6984400891096 /* MineTableCell.xib */; };
 		4B48530821C69A2E00891096 /* MineTableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B48530721C69A2E00891096 /* MineTableHeader.m */; };
 		4B48530B21C69F2800891096 /* MineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B48530A21C69F2800891096 /* MineHeader.m */; };
-		4B48530D21C69F6E00891096 /* MineHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B48530C21C69F6E00891096 /* MineHeader.xib */; };
 		4B68DC3D21E1C0BF00CBF20C /* BDTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B68DC3B21E1C0BF00CBF20C /* BDTableCell.m */; };
 		4B68DC3E21E1C0BF00CBF20C /* BDTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B68DC3C21E1C0BF00CBF20C /* BDTableCell.xib */; };
 		4B7560B321D1224A00E63744 /* BaseViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7560B221D1224A00E63744 /* BaseViewController+Extension.m */; };
@@ -532,7 +530,6 @@
 		4B1917CA21CD45C900137215 /* NSObject+JGRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JGRuntime.m"; sourceTree = "<group>"; };
 		4B1917CB21CD45C900137215 /* UIViewController+JGProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JGProgressHUD.h"; sourceTree = "<group>"; };
 		4B1917CC21CD45C900137215 /* UIWindow+JGProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+JGProgressHUD.h"; sourceTree = "<group>"; };
-		4B1E127E21CA8041001F5B36 /* MineTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineTableHeader.xib; sourceTree = "<group>"; };
 		4B1E128121CA8BD3001F5B36 /* UIScrollView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Extension.h"; sourceTree = "<group>"; };
 		4B1E128221CA8BD3001F5B36 /* UIScrollView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Extension.m"; sourceTree = "<group>"; };
 		4B1E128421CA93C1001F5B36 /* CategorySectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategorySectionHeader.h; sourceTree = "<group>"; };
@@ -602,7 +599,6 @@
 		4B48530721C69A2E00891096 /* MineTableHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableHeader.m; sourceTree = "<group>"; };
 		4B48530921C69F2800891096 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		4B48530A21C69F2800891096 /* MineHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeader.m; sourceTree = "<group>"; };
-		4B48530C21C69F6E00891096 /* MineHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineHeader.xib; sourceTree = "<group>"; };
 		4B68DC3A21E1C0BF00CBF20C /* BDTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDTableCell.h; sourceTree = "<group>"; };
 		4B68DC3B21E1C0BF00CBF20C /* BDTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDTableCell.m; sourceTree = "<group>"; };
 		4B68DC3C21E1C0BF00CBF20C /* BDTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BDTableCell.xib; sourceTree = "<group>"; };
@@ -1238,7 +1234,6 @@
 			isa = PBXGroup;
 			children = (
 				4BE7844F21C678FB00B8EC46 /* Controller */,
-				4BE7845021C678FB00B8EC46 /* Model */,
 				4BE7845121C678FB00B8EC46 /* View */,
 			);
 			name = Mine;
@@ -1393,10 +1388,8 @@
 			children = (
 				4B48530921C69F2800891096 /* MineHeader.h */,
 				4B48530A21C69F2800891096 /* MineHeader.m */,
-				4B48530C21C69F6E00891096 /* MineHeader.xib */,
 				4B48530621C69A2E00891096 /* MineTableHeader.h */,
 				4B48530721C69A2E00891096 /* MineTableHeader.m */,
-				4B1E127E21CA8041001F5B36 /* MineTableHeader.xib */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -1914,14 +1907,6 @@
 				4BE7846B21C679F500B8EC46 /* MineController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		4BE7845021C678FB00B8EC46 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			path = ../Model;
 			sourceTree = "<group>";
 		};
 		4BE7845121C678FB00B8EC46 /* View */ = {
@@ -2577,7 +2562,6 @@
 				4BEB72FD21CE033300BEF013 /* dropdown_anim__00048@2x.png in Resources */,
 				4BEB72FA21CE033300BEF013 /* dropdown_anim__00018@2x.png in Resources */,
 				3219838121C642BC00311885 /* LaunchScreen.storyboard in Resources */,
-				4B48530D21C69F6E00891096 /* MineHeader.xib in Resources */,
 				4B229A7621E622E900152030 /* BillTableCell.xib in Resources */,
 				4BEB731121CE033300BEF013 /* dropdown_anim__00017@2x.png in Resources */,
 				4BEB72F221CE033300BEF013 /* dropdown_anim__00020@2x.png in Resources */,
@@ -2678,7 +2662,6 @@
 				32751F0B21C8E97300D9F415 /* BKCNavigation.xib in Resources */,
 				4BEB730621CE033300BEF013 /* dropdown_anim__00060@2x.png in Resources */,
 				F35310B82876D82400D297A9 /* ShareOrder.xib in Resources */,
-				4B1E127F21CA8041001F5B36 /* MineTableHeader.xib in Resources */,
 				327CEC2921C88E45001D0086 /* ChartTableCell.xib in Resources */,
 				4BEB72E821CE033300BEF013 /* dropdown_anim__00012@2x.png in Resources */,
 				4B1E128821CA9410001F5B36 /* CategorySectionHeader.xib in Resources */,

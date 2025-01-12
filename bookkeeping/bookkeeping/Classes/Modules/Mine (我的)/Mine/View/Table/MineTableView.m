@@ -26,7 +26,7 @@
     [table setDataSource:table];
     [table lineHide];
     [table lineAll];
-    [table setTableHeaderView:[table header]];
+    [table setTableHeaderView:table.header];
     [table setShowsVerticalScrollIndicator:NO];
     [table setShowsHorizontalScrollIndicator:NO];
     [table setBackgroundColor:kColor_BG];
@@ -117,7 +117,7 @@
 #pragma mark - get
 - (MineTableHeader *)header {
     if (!_header) {
-        _header = [MineTableHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(240))];
+        _header = [[MineTableHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(240))];
     }
     return _header;
 }

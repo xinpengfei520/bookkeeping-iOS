@@ -4,25 +4,40 @@
  */
 
 #import "MineHeader.h"
+#import <Masonry/Masonry.h>
 
-#pragma mark - 声明
 @interface MineHeader()
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
+@property (nonatomic, strong) UILabel *nameLab;
 
 @end
 
-
-#pragma mark - 实现
 @implementation MineHeader
 
-
-- (void)initUI {
-    self.backgroundColor = kColor_Main_Color;
-    self.alpha = 0;
-    self.nameLab.font = [UIFont systemFontOfSize:AdjustFont(15)];
-    self.nameLab.textColor = kColor_Text_White;
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
+    }
+    return self;
 }
 
+- (void)setupUI {
+    self.backgroundColor = kColor_Main_Color;
+    self.alpha = 0;
+    
+    // 标题
+    _nameLab = [[UILabel alloc] init];
+    _nameLab.text = @"我的";
+    _nameLab.font = [UIFont systemFontOfSize:AdjustFont(15)];
+    _nameLab.textColor = kColor_Text_White;
+    _nameLab.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_nameLab];
+    
+    [_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.bottom.equalTo(self);
+        make.height.equalTo(@44);
+    }];
+}
 
 @end
