@@ -8,6 +8,7 @@
 @property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong) UIView *inputBgView;
 @property (nonatomic, strong) AgreementView *agreementView;
+@property (nonatomic, strong) UIButton *passwordVisibilityButton;
 
 @end
 
@@ -57,6 +58,13 @@
     [_passwordField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     [_inputBgView addSubview:_passwordField];
     
+    // 添加密码显示/隐藏按钮
+    _passwordVisibilityButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_passwordVisibilityButton setImage:[self tintImage:[UIImage imageNamed:@"icon_pwd_hide"] withColor:kColor_Main_Color] forState:UIControlStateNormal];
+    [_passwordVisibilityButton setImage:[self tintImage:[UIImage imageNamed:@"icon_pwd_show"] withColor:kColor_Main_Color] forState:UIControlStateSelected];
+    [_passwordVisibilityButton addTarget:self action:@selector(togglePasswordVisibility:) forControlEvents:UIControlEventTouchUpInside];
+    [_inputBgView addSubview:_passwordVisibilityButton];
+    
     // 登录按钮
     _loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
@@ -103,8 +111,14 @@
     
     [_passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_inputBgView).offset(16);
+        make.right.equalTo(_passwordVisibilityButton.mas_left).offset(-8);
+        make.centerY.equalTo(_inputBgView);
+    }];
+    
+    [_passwordVisibilityButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_inputBgView).offset(-16);
         make.centerY.equalTo(_inputBgView);
+        make.width.height.equalTo(@24);
     }];
     
     [_loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,6 +200,22 @@
     [vc setNavTitle:@"隐私协议"];
     [vc setUrl:@"https://book.vance.xin/privacy.html"];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - Actions
+- (void)togglePasswordVisibility:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    _passwordField.secureTextEntry = !sender.selected;
+}
+
+- (UIImage *)tintImage:(UIImage *)image withColor:(UIColor *)color {
+    UIImage *newImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, newImage.scale);
+    [color set];
+    [newImage drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end 
