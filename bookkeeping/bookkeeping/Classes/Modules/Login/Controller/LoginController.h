@@ -7,8 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - type
-typedef void (^LoginComplete) (void);
+typedef void(^LoginComplete)(void);
 
 @interface LoginController : BaseViewController
 

@@ -9,68 +9,153 @@
 #import "AgreementView.h"
 #import "AgreementWebViewController.h"
 
-#pragma mark - 声明
-@interface LoginController() <AgreementViewDelegate> {
-    NSInteger index;
-}
+@interface LoginController() <AgreementViewDelegate, UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *areaCodeLab;
-@property (weak, nonatomic) IBOutlet UITextField *phoneField;
-@property (weak, nonatomic) IBOutlet UIButton *getCodeBtn;
-@property (weak, nonatomic) IBOutlet UIView *inputBgView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIButton *closeButton;
+@property (nonatomic, strong) UIButton *passwordLoginBtn;
+@property (nonatomic, strong) UIView *inputBgView;
+@property (nonatomic, strong) UILabel *areaCodeLabel;
+@property (nonatomic, strong) UIView *separator;
+@property (nonatomic, strong) UITextField *phoneField;
+@property (nonatomic, strong) UIButton *getCodeBtn;
 @property (nonatomic, strong) AgreementView *agreementView;
 
 @end
 
-#pragma mark - 实现
 @implementation LoginController
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hbd_barHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
-    
-    [self.inputBgView borderForColor:[UIColor lightGrayColor] borderWidth:1.f borderType:UIBorderSideTypeAll];
-    [self.inputBgView.layer setCornerRadius:8];
-    [self.inputBgView.layer setBorderWidth:1];
-    [self.inputBgView.layer setMasksToBounds:YES];
-    
-    [self.areaCodeLab setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
-    [self.areaCodeLab setTextColor:[UIColor systemBlueColor]];
-    [self.phoneField setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
-    [self.phoneField setTextColor:kColor_Text_Black];
-    
-    [self buttonCanTap:false btn:self.getCodeBtn];
-    [self.phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
-    
+    [self setupUI];
     [self rac_notification_register];
     
-    // 添加密码登录按钮
-    UIButton *passwordLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [passwordLoginBtn setTitle:@"密码登录" forState:UIControlStateNormal];
-    [passwordLoginBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    passwordLoginBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [passwordLoginBtn addTarget:self action:@selector(passwordLoginClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:passwordLoginBtn];
+    // 延迟一小段时间后自动弹出键盘
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.phoneField becomeFirstResponder];
+    });
+}
+
+- (void)setupUI {
+    // 标题
+    _titleLabel = [[UILabel alloc] init];
+    _titleLabel.text = @"验证码登录";
+    _titleLabel.font = [UIFont systemFontOfSize:32];
+    [self.view addSubview:_titleLabel];
+    
+    // 关闭按钮
+    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_closeButton setImage:[UIImage imageNamed:@"login_close"] forState:UIControlStateNormal];
+    [_closeButton setImage:[UIImage imageNamed:@"login_close_h"] forState:UIControlStateHighlighted];
+    [_closeButton addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_closeButton];
+    
+    // 密码登录按钮
+    _passwordLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_passwordLoginBtn setTitle:@"密码登录" forState:UIControlStateNormal];
+    [_passwordLoginBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    _passwordLoginBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_passwordLoginBtn addTarget:self action:@selector(passwordLoginClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_passwordLoginBtn];
+    
+    // 输入框背景
+    _inputBgView = [[UIView alloc] init];
+    _inputBgView.backgroundColor = [UIColor whiteColor];
+    _inputBgView.layer.cornerRadius = 8;
+    _inputBgView.layer.borderWidth = 1;
+    _inputBgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    [self.view addSubview:_inputBgView];
+    
+    // 区号标签
+    _areaCodeLabel = [[UILabel alloc] init];
+    _areaCodeLabel.text = @"+86";
+    _areaCodeLabel.font = [UIFont systemFontOfSize:16];
+    _areaCodeLabel.textColor = [UIColor systemBlueColor];
+    [_inputBgView addSubview:_areaCodeLabel];
+    
+    // 分割线
+    _separator = [[UIView alloc] init];
+    _separator.backgroundColor = [UIColor systemGray4Color];
+    [_inputBgView addSubview:_separator];
+    
+    // 手机号输入框
+    _phoneField = [[UITextField alloc] init];
+    _phoneField.placeholder = @"请输入手机号";
+    _phoneField.font = [UIFont systemFontOfSize:14];
+    _phoneField.keyboardType = UIKeyboardTypeNumberPad;
+    _phoneField.delegate = self;
+    [_phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
+    [_inputBgView addSubview:_phoneField];
+    
+    // 获取验证码按钮
+    _getCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [_getCodeBtn addTarget:self action:@selector(getCodeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_getCodeBtn];
+    [self buttonCanTap:NO btn:_getCodeBtn];
+    
+    // 添加协议视图
+    _agreementView = [[AgreementView alloc] initWithShowRegisterTips:YES];
+    _agreementView.delegate = self;
+    [self.view addSubview:_agreementView];
     
     // 设置约束
-    [passwordLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(16);
+        make.top.equalTo(self.view).offset(90);
+    }];
+    
+    [_closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(10);
+        make.left.equalTo(self.view).offset(16);
+        make.width.height.equalTo(@40);
+    }];
+    
+    [_passwordLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(26);
         make.right.equalTo(self.view).offset(-20);
         make.height.equalTo(@30);
     }];
     
-    // 添加协议视图 - 验证码登录需要显示注册提示
-    _agreementView = [[AgreementView alloc] initWithShowRegisterTips:YES];
-    _agreementView.delegate = self;
-    [self.view addSubview:_agreementView];
+    [_inputBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(16);
+        make.right.equalTo(self.view).offset(-16);
+        make.top.equalTo(_titleLabel.mas_bottom).offset(32);
+        make.height.equalTo(@55);
+    }];
+    
+    [_areaCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_inputBgView).offset(16);
+        make.centerY.equalTo(_inputBgView);
+        make.width.equalTo(@40);
+    }];
+    
+    [_separator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_areaCodeLabel.mas_right).offset(16);
+        make.centerY.equalTo(_inputBgView);
+        make.width.equalTo(@1);
+        make.height.equalTo(@30);
+    }];
+    
+    [_phoneField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_separator.mas_right).offset(15);
+        make.right.equalTo(_inputBgView).offset(-16);
+        make.centerY.equalTo(_inputBgView);
+    }];
+    
+    [_getCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(16);
+        make.right.equalTo(self.view).offset(-16);
+        make.top.equalTo(_inputBgView.mas_bottom).offset(16);
+        make.height.equalTo(@50);
+    }];
     
     [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.getCodeBtn.mas_bottom).offset(16);
-        make.height.equalTo(@20);
-        // 添加宽度约束，确保视图有足够的点击区域
+        make.top.equalTo(_getCodeBtn.mas_bottom).offset(16);
+        make.height.equalTo(@44);
         make.width.greaterThanOrEqualTo(@200);
     }];
 }
