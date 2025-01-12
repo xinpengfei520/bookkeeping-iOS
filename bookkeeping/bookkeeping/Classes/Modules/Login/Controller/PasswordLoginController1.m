@@ -3,7 +3,7 @@
 #import <Masonry/Masonry.h>
 #import "AgreementView.h"
 
-@interface PasswordLoginController1() <AgreementViewDelegate>
+@interface PasswordLoginController1() <AgreementViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *phoneField;
 @property (nonatomic, strong) UIButton *nextButton;
@@ -21,6 +21,11 @@
     self.hbd_barHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
     [self setupUI];
+    
+    // 延迟一小段时间后自动弹出键盘，确保视图已经完全加载
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.phoneField becomeFirstResponder];
+    });
 }
 
 - (void)setupUI {
@@ -62,6 +67,7 @@
     _phoneField.placeholder = @"请输入手机号";
     _phoneField.font = [UIFont systemFontOfSize:14];
     _phoneField.keyboardType = UIKeyboardTypeNumberPad;
+    _phoneField.delegate = self;
     [_phoneField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     [_inputBgView addSubview:_phoneField];
     

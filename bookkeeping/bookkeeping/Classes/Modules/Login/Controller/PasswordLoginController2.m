@@ -2,7 +2,7 @@
 #import <Masonry/Masonry.h>
 #import "AgreementView.h"
 
-@interface PasswordLoginController2() <AgreementViewDelegate>
+@interface PasswordLoginController2() <AgreementViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UIButton *loginButton;
@@ -19,6 +19,11 @@
     self.hbd_barHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
     [self setupUI];
+    
+    // 延迟一小段时间后自动弹出键盘，确保视图已经完全加载
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.passwordField becomeFirstResponder];
+    });
 }
 
 - (void)setupUI {
@@ -63,6 +68,7 @@
     [_passwordVisibilityButton setImage:[self tintImage:[UIImage imageNamed:@"icon_pwd_hide"] withColor:kColor_Main_Color] forState:UIControlStateNormal];
     [_passwordVisibilityButton setImage:[self tintImage:[UIImage imageNamed:@"icon_pwd_show"] withColor:kColor_Main_Color] forState:UIControlStateSelected];
     [_passwordVisibilityButton addTarget:self action:@selector(togglePasswordVisibility:) forControlEvents:UIControlEventTouchUpInside];
+    _passwordVisibilityButton.hidden = YES;  // 默认隐藏
     [_inputBgView addSubview:_passwordVisibilityButton];
     
     // 登录按钮
@@ -127,6 +133,8 @@
         make.top.equalTo(_inputBgView.mas_bottom).offset(16);
         make.height.equalTo(@50);
     }];
+    
+    _passwordField.delegate = self;
 }
 
 #pragma mark - Actions
@@ -175,7 +183,10 @@
 }
 
 - (void)textFieldDidEditing:(UITextField *)textField {
-    // 根据手机号位数和协议选中状态设置按钮是否可点击
+    // 更新密码显示/隐藏按钮的显示状态
+    _passwordVisibilityButton.hidden = (textField.text.length == 0);
+    
+    // 根据密码长度和协议选中状态设置按钮是否可点击
     if (textField.text.length >= 6) {
         [self buttonCanTap:self.agreementView.isSelected btn:self.loginButton];
     } else {
@@ -216,6 +227,18 @@
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
+}
+
+// 添加输入框开始编辑的代理方法
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    // 当开始编辑时，根据是否有内容决定是否显示按钮
+    _passwordVisibilityButton.hidden = (textField.text.length == 0);
+}
+
+// 添加输入框结束编辑的代理方法
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    // 当结束编辑时，根据是否有内容决定是否显示按钮
+    _passwordVisibilityButton.hidden = (textField.text.length == 0);
 }
 
 @end 
