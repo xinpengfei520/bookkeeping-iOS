@@ -147,7 +147,7 @@
     [_arrowIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-countcoordinatesX(20));
         make.centerY.equalTo(_icon);
-        make.size.mas_equalTo(CGSizeMake(countcoordinatesX(16), countcoordinatesX(16)));
+        make.size.mas_equalTo(CGSizeMake(countcoordinatesX(12), countcoordinatesX(12)));
     }];
     
     [_dayView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,12 +185,23 @@
 }
 
 - (void)setupActions {
-    // 移除原有的点击事件
-    // 添加整个视图的点击事件
+    // 添加整个头部区域的点击事件
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerTapped)];
     [self addGestureRecognizer:tap];
     
-    // ... 其他点击事件保持不变 ...
+    // 恢复记账总天数和总笔数的点击事件
+    @weakify(self)
+    // 记账总天数点击
+    [self.dayView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        @strongify(self)
+        [self routerEventWithName:MINE_HEADER_DAY_CLICK data:nil];
+    }];
+    
+    // 记账总笔数点击
+    [self.numberView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        @strongify(self)
+        [self routerEventWithName:MINE_HEADER_NUMBER_CLICK data:nil];
+    }];
 }
 
 - (void)headerTapped {
@@ -218,9 +229,9 @@
     }
     [_nameLab setText:model.nickname];
     
-    // 格式化注册时间
+    // 格式化注册时间（修正毫秒时间戳）
     if (model.registerTime) {
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[model.registerTime doubleValue]];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[model.registerTime doubleValue] / 1000.0];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy年MM月"];
         NSString *dateString = [formatter stringFromDate:date];
