@@ -150,34 +150,30 @@
 // 文本编辑
 - (void)textFieldDidEditing:(UITextField *)textField {
     if (textField == self.phoneField) {
-        if (textField.text.length > index) {
-            // 输入
-            if (textField.text.length == 4 || textField.text.length == 9 ) {
-                NSMutableString * str = [[NSMutableString alloc ] initWithString:textField.text];
-                [str insertString:@"-" atIndex:(textField.text.length-1)];
-                textField.text = str;
-            }
-            // 输入完成
-            if (textField.text.length >= 13) {
-                textField.text = [textField.text substringToIndex:13];
-            }
-            index = textField.text.length;
+        NSString *text = textField.text;
+        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""]; // 先去除所有空格
+        
+        if (text.length > 11) {
+            text = [text substringToIndex:11]; // 限制最大长度为11位
         }
-        // 删除
-        else if (textField.text.length < index) {
-            if (textField.text.length == 4 || textField.text.length == 9) {
-                textField.text = [NSString stringWithFormat:@"%@",textField.text];
-                textField.text = [textField.text substringToIndex:(textField.text.length-1)];
+        
+        // 格式化手机号 3 4 4 格式
+        NSMutableString *formattedString = [NSMutableString string];
+        for (NSInteger i = 0; i < text.length; i++) {
+            [formattedString appendString:[text substringWithRange:NSMakeRange(i, 1)]];
+            if (i == 2 || i == 6) {
+                [formattedString appendString:@" "];
             }
-            index = textField.text.length;
         }
-    }
-    
-    // 根据手机号位数和协议选中状态设置按钮是否可点击
-    if (self.phoneField.text.length == 13) {
-        [self buttonCanTap:self.agreementView.isSelected btn:self.getCodeBtn];
-    } else {
-        [self buttonCanTap:false btn:self.getCodeBtn];
+        
+        // 更新文本，但不触发递归
+        if (![textField.text isEqualToString:formattedString]) {
+            textField.text = formattedString;
+        }
+        
+        // 根据实际号码长度（去除空格后）和协议选中状态设置按钮是否可点击
+        NSString *pureNumber = [formattedString stringByReplacingOccurrencesOfString:@" " withString:@""];
+        [self buttonCanTap:self.agreementView.isSelected && pureNumber.length == 11 btn:self.getCodeBtn];
     }
 }
 

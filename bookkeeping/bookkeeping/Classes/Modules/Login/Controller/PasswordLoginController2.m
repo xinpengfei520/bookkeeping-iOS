@@ -42,7 +42,12 @@
     
     // 手机号显示
     UILabel *phoneLabel = [[UILabel alloc] init];
-    phoneLabel.text = [NSString stringWithFormat:@"+86 %@", self.phone];
+    NSMutableString *formattedPhone = [NSMutableString stringWithString:self.phone];
+    if (formattedPhone.length == 11) {
+        [formattedPhone insertString:@" " atIndex:7];
+        [formattedPhone insertString:@" " atIndex:3];
+    }
+    phoneLabel.text = [NSString stringWithFormat:@"+86 %@", formattedPhone];
     phoneLabel.font = [UIFont systemFontOfSize:14];
     phoneLabel.textColor = [UIColor lightGrayColor];
     [self.view addSubview:phoneLabel];
@@ -143,11 +148,10 @@
 }
 
 - (void)loginButtonClick {
-    // 这里添加密码登录的网络请求
     [self showProgressHUD];
     NSDictionary *params = @{
-        @"loginType":@"password",
-        @"phone": self.phone,
+        @"loginType": @"password",
+        @"phone": [self.phone stringByReplacingOccurrencesOfString:@" " withString:@""],
         @"password": self.passwordField.text
     };
     
