@@ -144,8 +144,6 @@
 		4B466EC02205750F0069F38E /* CategoryListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1917B221CD391000137215 /* CategoryListModel.m */; };
 		4B47931221E9DB4D0062879D /* NSUserDefaults+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */; };
 		4B47931621E9DF540062879D /* NSUserDefaults+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */; };
-		4B4852F921C6938D00891096 /* cc_entertainmente_climbing_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B4852F721C6938D00891096 /* cc_entertainmente_climbing_s@3x.png */; };
-		4B4852FA21C6938D00891096 /* cc_entertainmente_climbing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B4852F821C6938D00891096 /* cc_entertainmente_climbing@3x.png */; };
 		4B4852FD21C6974800891096 /* MineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4852FC21C6974800891096 /* MineTableView.m */; };
 		4B48530121C6984400891096 /* MineTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4852FF21C6984400891096 /* MineTableCell.m */; };
 		4B48530221C6984400891096 /* MineTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B48530021C6984400891096 /* MineTableCell.xib */; };
@@ -586,8 +584,6 @@
 		4B38C07C21E4E5D400D28B34 /* PINCache_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PINCache_Header.h; sourceTree = "<group>"; };
 		4B47931021E9DB4D0062879D /* NSUserDefaults+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Extension.h"; sourceTree = "<group>"; };
 		4B47931121E9DB4D0062879D /* NSUserDefaults+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Extension.m"; sourceTree = "<group>"; };
-		4B4852F721C6938D00891096 /* cc_entertainmente_climbing_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cc_entertainmente_climbing_s@3x.png"; sourceTree = "<group>"; };
-		4B4852F821C6938D00891096 /* cc_entertainmente_climbing@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cc_entertainmente_climbing@3x.png"; sourceTree = "<group>"; };
 		4B4852FB21C6974800891096 /* MineTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableView.h; sourceTree = "<group>"; };
 		4B4852FC21C6974800891096 /* MineTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableView.m; sourceTree = "<group>"; };
 		4B4852FE21C6984400891096 /* MineTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableCell.h; sourceTree = "<group>"; };
@@ -915,7 +911,6 @@
 				3219839421C6436A00311885 /* Base */,
 				321983C321C6460100311885 /* Categorys */,
 				3219839321C6436A00311885 /* Modules */,
-				3219838F21C6436A00311885 /* Resources */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -938,15 +933,6 @@
 				32A4C21B21CB15B000DF4327 /* JHCollectionViewDelegateFlowLayout */,
 			);
 			path = Third;
-			sourceTree = "<group>";
-		};
-		3219838F21C6436A00311885 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				4B4852F721C6938D00891096 /* cc_entertainmente_climbing_s@3x.png */,
-				4B4852F821C6938D00891096 /* cc_entertainmente_climbing@3x.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		3219839021C6436A00311885 /* Network */ = {
@@ -2639,7 +2625,6 @@
 				4BEB730B21CE033300BEF013 /* dropdown_anim__00025@2x.png in Resources */,
 				32D0B2C721C77B240030F5B2 /* ChartSegmentControl.xib in Resources */,
 				4BEB733421CE3FC800BEF013 /* InfoFooter.xib in Resources */,
-				4B4852FA21C6938D00891096 /* cc_entertainmente_climbing@3x.png in Resources */,
 				4BA68B0B21C7F75B0063A5C2 /* ACAReusableHeader.xib in Resources */,
 				4BA68AE521C7EB550063A5C2 /* CAHeader.xib in Resources */,
 				4BA68B0121C7F66A0063A5C2 /* ACATextField.xib in Resources */,
@@ -2655,7 +2640,6 @@
 				4B48530221C6984400891096 /* MineTableCell.xib in Resources */,
 				4BEB731B21CE033300BEF013 /* dropdown_anim__00031@2x.png in Resources */,
 				4BEB730921CE033300BEF013 /* dropdown_anim__00046@2x.png in Resources */,
-				4B4852F921C6938D00891096 /* cc_entertainmente_climbing_s@3x.png in Resources */,
 				4BEB730621CE033300BEF013 /* dropdown_anim__00060@2x.png in Resources */,
 				F35310B82876D82400D297A9 /* ShareOrder.xib in Resources */,
 				327CEC2921C88E45001D0086 /* ChartTableCell.xib in Resources */,
