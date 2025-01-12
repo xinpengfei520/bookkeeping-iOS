@@ -55,7 +55,6 @@
 		3257AEDD21C877E500787A34 /* TITableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3257AEDB21C877E500787A34 /* TITableCell.xib */; };
 		326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 326F8F2321D4BFCA0030B329 /* TIModel.m */; };
 		32751F0921C8E93000D9F415 /* BKCNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32751F0821C8E93000D9F415 /* BKCNavigation.m */; };
-		32751F0B21C8E97300D9F415 /* BKCNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32751F0A21C8E97300D9F415 /* BKCNavigation.xib */; };
 		327CEC1721C882A6001D0086 /* HomeListSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC1521C882A6001D0086 /* HomeListSubCell.m */; };
 		327CEC1D21C88A04001D0086 /* HomeListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC1C21C88A04001D0086 /* HomeListHeader.m */; };
 		327CEC1F21C88A10001D0086 /* HomeListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 327CEC1E21C88A10001D0086 /* HomeListHeader.xib */; };
@@ -437,7 +436,6 @@
 		326F8F2321D4BFCA0030B329 /* TIModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TIModel.m; sourceTree = "<group>"; };
 		32751F0721C8E93000D9F415 /* BKCNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCNavigation.h; sourceTree = "<group>"; };
 		32751F0821C8E93000D9F415 /* BKCNavigation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCNavigation.m; sourceTree = "<group>"; };
-		32751F0A21C8E97300D9F415 /* BKCNavigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BKCNavigation.xib; sourceTree = "<group>"; };
 		327CEC1421C882A6001D0086 /* HomeListSubCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListSubCell.h; sourceTree = "<group>"; };
 		327CEC1521C882A6001D0086 /* HomeListSubCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListSubCell.m; sourceTree = "<group>"; };
 		327CEC1B21C88A04001D0086 /* HomeListHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListHeader.h; sourceTree = "<group>"; };
@@ -2424,7 +2422,6 @@
 			children = (
 				32751F0721C8E93000D9F415 /* BKCNavigation.h */,
 				32751F0821C8E93000D9F415 /* BKCNavigation.m */,
-				32751F0A21C8E97300D9F415 /* BKCNavigation.xib */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -2659,7 +2656,6 @@
 				4BEB731B21CE033300BEF013 /* dropdown_anim__00031@2x.png in Resources */,
 				4BEB730921CE033300BEF013 /* dropdown_anim__00046@2x.png in Resources */,
 				4B4852F921C6938D00891096 /* cc_entertainmente_climbing_s@3x.png in Resources */,
-				32751F0B21C8E97300D9F415 /* BKCNavigation.xib in Resources */,
 				4BEB730621CE033300BEF013 /* dropdown_anim__00060@2x.png in Resources */,
 				F35310B82876D82400D297A9 /* ShareOrder.xib in Resources */,
 				327CEC2921C88E45001D0086 /* ChartTableCell.xib in Resources */,

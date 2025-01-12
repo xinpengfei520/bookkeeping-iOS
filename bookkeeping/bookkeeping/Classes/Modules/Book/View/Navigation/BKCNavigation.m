@@ -5,104 +5,149 @@
 
 #import "BKCNavigation.h"
 #import "BOOK_EVENT.h"
+#import <Masonry/Masonry.h>
 
 #define BTN_FONT [UIFont systemFontOfSize:AdjustFont(16)]
 
-#pragma mark - 声明
 @interface BKCNavigation()
 
-@property (weak, nonatomic) IBOutlet UIButton *btn1;
-@property (weak, nonatomic) IBOutlet UIButton *btn2;
+@property (nonatomic, strong) UIButton *btn1;
+@property (nonatomic, strong) UIButton *btn2;
 @property (nonatomic, strong) UIView *line;
-@property (weak, nonatomic) IBOutlet UIButton *cancleBtn;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameConstraintT;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameConstraintW;
+@property (nonatomic, strong) UIButton *cancleBtn;
 
 @end
 
-#pragma mark - 实现
 @implementation BKCNavigation
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
+    }
+    return self;
+}
 
-- (void)initUI {
+- (void)setupUI {
     [self setBackgroundColor:kColor_Main_Color];
-    [self.btn1.titleLabel setFont:BTN_FONT];
-    [self.btn1 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
-    [self.btn2.titleLabel setFont:BTN_FONT];
-    [self.btn2 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
-    [self line];
+    
+    // 支出按钮
+    _btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_btn1 setTitle:@"支出" forState:UIControlStateNormal];
+    [_btn1.titleLabel setFont:BTN_FONT];
+    [_btn1 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
+    [self addSubview:_btn1];
+    
+    // 收入按钮
+    _btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_btn2 setTitle:@"收入" forState:UIControlStateNormal];
+    [_btn2.titleLabel setFont:BTN_FONT];
+    [_btn2 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
+    [self addSubview:_btn2];
+    
+    // 取消按钮
+    _cancleBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [_cancleBtn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
+    [_cancleBtn setTitleColor:kColor_Text_Gary forState:UIControlStateHighlighted];
+    [_cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
+    [self addSubview:_cancleBtn];
+    
+    // 底部分割线
+    UIView *bottomLine = [[UIView alloc] init];
+    bottomLine.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
+    [self addSubview:bottomLine];
+    
+    // 下划线
+    CGFloat width = [@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
+    _line = [[UIView alloc] init];
+    _line.backgroundColor = kColor_Text_White;
+    [self addSubview:_line];
+    
+    // 设置约束
+    [_btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(StatusBarHeight + countcoordinatesX(20));
+        make.centerX.equalTo(self).offset(-countcoordinatesX(30));
+        make.width.equalTo(@(countcoordinatesX(60)));
+        make.bottom.equalTo(self);
+    }];
+    
+    [_btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.width.bottom.equalTo(_btn1);
+        make.left.equalTo(_btn1.mas_right);
+    }];
+    
+    [_cancleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self);
+        make.bottom.equalTo(self);
+        make.width.equalTo(@(countcoordinatesX(60)));
+        make.height.equalTo(@40);
+    }];
+    
+    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.equalTo(@1);
+    }];
+    
+    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).offset(-2);
+        make.width.equalTo(@(width));
+        make.height.equalTo(@2);
+        make.centerX.equalTo(_btn1);
+    }];
+    
+    // 添加事件
     @weakify(self)
-    [[self.btn1 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    [[_btn1 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         [self routerEventWithName:BOOK_CLICK_NAVIGATION data:@(0)];
     }];
-    [[self.btn2 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    
+    [[_btn2 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         [self routerEventWithName:BOOK_CLICK_NAVIGATION data:@(1)];
     }];
-    [self.cancleBtn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
-    [self.cancleBtn setTitleColor:kColor_Text_Gary forState:UIControlStateHighlighted];
-    [self.cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
-    [[self.cancleBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        @strongify(self)
-        [self.viewController dismissViewControllerAnimated:YES completion:^{
-            
-        }];
-    }];
     
-    [self.nameConstraintT setConstant:StatusBarHeight];
-    [self.nameConstraintW setConstant:countcoordinatesX(60)];
+    [[_cancleBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        [self cancleClick:x];
+    }];
 }
 
 - (void)setIndex:(NSInteger)index {
     [self setIndex:index animation:NO];
 }
+
 - (void)setIndex:(NSInteger)index animation:(BOOL)animation {
     _index = index;
     NSTimeInterval time = animation == true ? 0.3f : 0;
-    @weakify(self)
+    
+    UIButton *targetBtn = index == 0 ? _btn1 : _btn2;
     [UIView animateWithDuration:time animations:^{
-        @strongify(self)
-        if (index == 0) {
-            self.line.centerX = self.btn1.left + self.btn1.width / 2;
-        } else if (index == 1) {
-            self.line.centerX = self.btn2.left + self.btn2.width / 2;
-        }
+        [self.line mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self).offset(-2);
+            make.width.equalTo(@([@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width));
+            make.height.equalTo(@2);
+            make.centerX.equalTo(targetBtn);
+        }];
+        [self layoutIfNeeded];
     }];
 }
+
 - (void)setOffsetX:(CGFloat)offsetX {
-    offsetX = offsetX / SCREEN_WIDTH * countcoordinatesX(60);
     _offsetX = offsetX;
+    CGFloat moveOffset = offsetX / SCREEN_WIDTH * countcoordinatesX(60);
     
-    
-    
-    _line.left = _btn1.left + offsetX + (countcoordinatesX(60) - [@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width) / 2;
+    [_line mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_btn1).offset(moveOffset);
+    }];
 }
 
-
-- (IBAction)cancleClick:(UIButton *)sender {
+- (void)cancleClick:(UIButton *)sender {
     if (self.viewController.navigationController.viewControllers.count != 1) {
         [self.viewController.navigationController popViewControllerAnimated:true];
     } else {
-        [self.viewController.navigationController dismissViewControllerAnimated:YES completion:^{
-            
-        }];
+        [self.viewController.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
-
-#pragma mark - get
-- (UIView *)line {
-    if (!_line) {
-        CGFloat width = [@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
-        _line = [[UIView alloc] initWithFrame:CGRectMake(0, self.bottom - 2, width, 2)];
-        _line.backgroundColor = kColor_Text_White;
-        _line.left = (SCREEN_WIDTH - countcoordinatesX(60) * 2) / 2 + (countcoordinatesX(60) - [@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width) / 2;
-        [self addSubview:_line];
-    }
-    return _line;
-}
-
 
 @end

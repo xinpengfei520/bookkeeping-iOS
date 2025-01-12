@@ -287,7 +287,7 @@
 
 - (BKCNavigation *)navigation {
     if (!_navigation) {
-        _navigation = [BKCNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
+        _navigation = [[BKCNavigation alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         [self.view addSubview:_navigation];
     }
     return _navigation;
