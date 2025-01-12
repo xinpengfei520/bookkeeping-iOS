@@ -8,14 +8,17 @@
 #import "BottomButton.h"
 #import "TIModel.h"
 #import "TITableCell.h"
+#import "HomeListEmpty.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
-@interface TimeRemindController()<UNUserNotificationCenterDelegate>
+@interface TimeRemindController()<UNUserNotificationCenterDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) TITableView *table;
 @property (nonatomic, strong) BottomButton *bottom;
 @property (nonatomic, strong) NSMutableArray *models;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
+@property (nonatomic, strong) HomeListEmpty *emptyView;
 
 @end
 
@@ -25,26 +28,17 @@
 
 #pragma mark - UNUserNotificationCenterDelegate
 // iOS 10收到通知
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler  API_AVAILABLE(ios(10.0)) {
-    
-    NSDictionary *userInfo = notification.request.content.userInfo;
-    if (@available(iOS 10.0, *)) {
-        UNNotificationRequest *request = notification.request;
-        UNNotificationContent *content = request.content; // 收到推送的消息内容
-        NSNumber *badge = content.badge;  // 推送消息的角标
-        NSString *body = content.body;    // 推送消息体
-        UNNotificationSound *sound = content.sound;  // 推送消息的声音
-        NSString *subtitle = content.subtitle;  // 推送消息的副标题
-        NSString *title = (NSString *)content.title;  // 推送消息的标题
-        
-        if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-            NSLog(@"iOS10 前台收到远程通知:%@", body);
-            
-        } else {
-            // 判断为本地通知
-            NSLog(@"iOS10 前台收到本地通知:{\\\\nbody:%@，\\\\ntitle:%@,\\\\nsubtitle:%@,\\\\nbadge：%@，\\\\nsound：%@，\\\\nuserInfo：%@\\\\n}",body,title,subtitle,badge,sound,userInfo);
-        }
-        completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    // 根据系统版本使用不同的选项
+    if (@available(iOS 14.0, *)) {
+        // iOS 14 及以上使用新的选项
+        completionHandler(UNNotificationPresentationOptionBanner | 
+                        UNNotificationPresentationOptionList | 
+                        UNNotificationPresentationOptionSound);
+    } else {
+        // iOS 14 以下使用旧的选项
+        completionHandler(UNNotificationPresentationOptionAlert | 
+                        UNNotificationPresentationOptionSound);
     }
 }
 
@@ -102,15 +96,55 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"viewDidLoad - 开始");
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
-    [self setNavTitle:@"通知提醒"];
-    [self table];
-    [self bottom];
+    
+    // 先创建和添加 table
+    [self.view addSubview:self.table];
+    
+    // 再创建和添加 bottom
+    [self.view addSubview:self.bottom];
     [self.view bringSubviewToFront:self.bottom];
-    [self setModels:[NSUserDefaults objectForKey:PIN_TIMING]];
+    
+    // 获取存储的数据
+    NSMutableArray *savedData = [NSUserDefaults objectForKey:PIN_TIMING];
+    NSLog(@"viewDidLoad - 从 NSUserDefaults 获取的数据: %@", savedData);
+    
+    // 设置数据
+    [self setModels:savedData];
+    
+    // 最后设置空视图
+    [self setupUI];
+    
+    NSLog(@"viewDidLoad - 结束");
+    NSLog(@"table frame: %@", NSStringFromCGRect(self.table.frame));
 }
 
+- (void)setupUI {
+    // 创建空状态视图
+    _emptyView = [[HomeListEmpty alloc] init];
+    [_emptyView setHidden:YES];  // 默认隐藏
+    [self.view addSubview:_emptyView];
+    
+    // 设置空状态视图约束
+    [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.bottom.mas_top).offset(-1); // 确保与底部按钮的顶部对齐
+    }];
+}
+
+// 更新列表数据时调用此方法
+- (void)updateEmptyViewWithData:(NSArray *)data {
+    // 根据数据源判断是否显示空状态
+    BOOL isEmpty = (data == nil || data.count == 0);
+    [_emptyView setHidden:!isEmpty];
+    
+    if (isEmpty) {
+        // 设置空状态文字
+        [_emptyView updateEmptyText:@"你还没有任何提醒哦～"];
+    }
+}
 
 #pragma mark - 请求
 
@@ -185,17 +219,36 @@
 }
 
 #pragma mark - set
-- (void)setModels:(NSMutableArray *)models {
-    _models = models;
-    _table.models = models;
+- (void)setModels:(NSArray *)models {
+    NSLog(@"setModels - 原始数据: %@", models);
+    if (!models) {
+        _models = [NSMutableArray array];
+    } else {
+        _models = [NSMutableArray arrayWithArray:[models mj_JSONObject]];
+    }
+    NSLog(@"setModels - 转换后数据: %@", _models);
+    
+    // 更新空状态视图显示
+    BOOL isEmpty = (_models == nil || _models.count == 0);
+    NSLog(@"setModels - isEmpty: %d, models count: %lu", isEmpty, (unsigned long)_models.count);
+    [_emptyView setHidden:!isEmpty];
+    
+    // 设置 table 的数据源
+    _table.models = _models;
+    [_table reloadData];
 }
 
 #pragma mark - get
 - (TITableView *)table {
     if (!_table) {
-        // old: y=NavigationBarHeight
-        _table = [TITableView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight - self.bottom.height)];
-        [self.view addSubview:_table];
+        _table = [TITableView initWithFrame:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight - self.bottom.height)];
+        [_table setDelegate:self];
+        [_table setDataSource:self];
+        [_table setBackgroundColor:kColor_BG];
+        [_table setShowsVerticalScrollIndicator:NO];
+        [_table setShowsHorizontalScrollIndicator:NO];
+        [_table setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [_table registerNib:[UINib nibWithNibName:@"TITableCell" bundle:nil] forCellReuseIdentifier:@"TITableCell"];
     }
     return _table;
 }
@@ -224,6 +277,24 @@
         };
     }
     return _eventStrategy;
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"numberOfRowsInSection called - models count: %lu", (unsigned long)self.models.count);
+    return self.models.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TITableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TITableCell"];
+    NSLog(@"cellForRowAtIndexPath called - row: %ld, time: %@", (long)indexPath.row, self.models[indexPath.row]);
+    cell.time = self.models[indexPath.row];
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50.0f; // 设置合适的 cell 高度
 }
 
 @end

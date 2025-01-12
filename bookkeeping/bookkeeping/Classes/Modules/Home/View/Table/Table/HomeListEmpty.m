@@ -66,4 +66,8 @@
     }];
 }
 
+- (void)updateEmptyText:(NSString *)text {
+    _nameLab.text = text;
+}
+
 @end
