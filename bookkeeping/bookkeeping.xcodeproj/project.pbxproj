@@ -296,7 +296,6 @@
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		F3570A1A2886995600B10976 /* UITableViewHeaderFooterView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */; };
 		F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3581D9E287ADD2C007B17CD /* VerifyController.m */; };
-		F3581DA1287ADD2C007B17CD /* VerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3581D9F287ADD2C007B17CD /* VerifyController.xib */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
 		F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0524E285510E700DB2E99 /* SearchListCell.xib */; };
 		F3A052522855116F00DB2E99 /* SearchListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A052512855116F00DB2E99 /* SearchListCell.m */; };
@@ -803,7 +802,6 @@
 		F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Extension.m"; sourceTree = "<group>"; };
 		F3581D9D287ADD2C007B17CD /* VerifyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyController.h; sourceTree = "<group>"; };
 		F3581D9E287ADD2C007B17CD /* VerifyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyController.m; sourceTree = "<group>"; };
-		F3581D9F287ADD2C007B17CD /* VerifyController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyController.xib; sourceTree = "<group>"; };
 		F375540D27D3CB7400C22EB3 /* bookkeepingRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bookkeepingRelease.entitlements; sourceTree = "<group>"; };
 		F375540E27D3CB8B00C22EB3 /* BookMonthRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonthRelease.entitlements; sourceTree = "<group>"; };
 		F3A0524B28550BBD00DB2E99 /* SearchList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchList.h; sourceTree = "<group>"; };
@@ -2378,7 +2376,6 @@
 			children = (
 				F3581D9D287ADD2C007B17CD /* VerifyController.h */,
 				F3581D9E287ADD2C007B17CD /* VerifyController.m */,
-				F3581D9F287ADD2C007B17CD /* VerifyController.xib */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -2613,7 +2610,6 @@
 				4BEB72E521CE033300BEF013 /* dropdown_anim__00038@2x.png in Resources */,
 				327CEC2E21C89201001D0086 /* ChartSectionHeader.xib in Resources */,
 				4BEB72F121CE033300BEF013 /* dropdown_anim__00051@2x.png in Resources */,
-				F3581DA1287ADD2C007B17CD /* VerifyController.xib in Resources */,
 				4BEB72F921CE033300BEF013 /* dropdown_anim__00030@2x.png in Resources */,
 				4BEB731021CE033300BEF013 /* dropdown_anim__00013@2x.png in Resources */,
 				4B1893C621D67081005002E2 /* ChartHUDCell.xib in Resources */,

@@ -10,16 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^VerifyComplete)(void);
+
 @interface VerifyController : BaseViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *phoneLab;
-@property (weak, nonatomic) IBOutlet UITextField *codeTextField;
-@property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
-@property (weak, nonatomic) IBOutlet UILabel *countDownLab;
-@property (weak, nonatomic) IBOutlet UIView *inputBgView;
-
-@property (copy, nonatomic) NSString *phone;
-@property (copy, nonatomic) NSString *code;
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) VerifyComplete complete;
 
 @end
 

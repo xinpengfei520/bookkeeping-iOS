@@ -201,7 +201,7 @@
 
 #pragma mark - http request
 - (void)getSmsCodeRequest {
-    NSString *phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSString *phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:phone, @"phone", nil];
     
     [self showProgressHUD];
@@ -213,7 +213,7 @@
             NSString *code = [dic objectForKey:@"code"];
             [self showTextHUD:[@"" stringByAppendingString:code] delay:2.0f];
             VerifyController *vc = [[VerifyController alloc] init];
-            vc.phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            vc.phone = [self.phoneField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             vc.code = code;
             [self.navigationController pushViewController:vc animated:YES];
         } else {

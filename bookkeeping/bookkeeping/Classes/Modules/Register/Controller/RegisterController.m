@@ -75,7 +75,7 @@
 #pragma mark - 请求
 // 创建验证码
 - (void)getCodeRequest {
-    NSString *account = [self.phone stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSString *account = [self.phone stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:
                            account, @"account",
                            @(self.index), @"operation",
@@ -95,7 +95,7 @@
 }
 // 验证验证码
 - (void)validateRequest {
-    NSString *account = [self.phone stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSString *account = [self.phone stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     
     NSMutableDictionary *param = ({
