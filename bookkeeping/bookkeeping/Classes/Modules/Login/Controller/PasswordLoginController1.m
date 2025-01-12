@@ -170,29 +170,41 @@
 - (void)textFieldDidEditing:(UITextField *)textField {
     if (textField == self.phoneField) {
         NSString *text = textField.text;
-        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""]; // 先去除所有空格
+        // 保存当前光标位置
+        NSInteger currentLocation = [textField offsetFromPosition:textField.beginningOfDocument toPosition:textField.selectedTextRange.start];
+        
+        // 去除所有空格
+        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""];
         
         if (text.length > 11) {
-            text = [text substringToIndex:11]; // 限制最大长度为11位
+            text = [text substringToIndex:11];
         }
         
         // 格式化手机号 3 4 4 格式
         NSMutableString *formattedString = [NSMutableString string];
         for (NSInteger i = 0; i < text.length; i++) {
             [formattedString appendString:[text substringWithRange:NSMakeRange(i, 1)]];
-            if (i == 2 || i == 6) {
+            if ((i == 2 || i == 6) && i < text.length - 1) {
                 [formattedString appendString:@" "];
             }
         }
         
-        // 更新文本，但不触发递归
-        if (![textField.text isEqualToString:formattedString]) {
-            textField.text = formattedString;
-        }
+        // 计算新的光标位置
+        NSInteger numSpacesBeforeCursor = 0;
+        NSInteger originalTextLength = text.length;
+        if (currentLocation > 3) numSpacesBeforeCursor++;
+        if (currentLocation > 7) numSpacesBeforeCursor++;
+        
+        // 更新文本
+        textField.text = formattedString;
+        
+        // 设置新的光标位置
+        NSInteger newLocation = MIN(currentLocation + numSpacesBeforeCursor, formattedString.length);
+        UITextPosition *newPosition = [textField positionFromPosition:textField.beginningOfDocument offset:newLocation];
+        textField.selectedTextRange = [textField textRangeFromPosition:newPosition toPosition:newPosition];
         
         // 根据实际号码长度（去除空格后）和协议选中状态设置按钮是否可点击
-        NSString *pureNumber = [formattedString stringByReplacingOccurrencesOfString:@" " withString:@""];
-        [self buttonCanTap:self.agreementView.isSelected && pureNumber.length == 11 btn:self.nextButton];
+        [self buttonCanTap:self.agreementView.isSelected && text.length == 11 btn:self.nextButton];
     }
 }
 
