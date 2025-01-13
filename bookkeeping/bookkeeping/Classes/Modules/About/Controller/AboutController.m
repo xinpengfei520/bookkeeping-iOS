@@ -4,6 +4,7 @@
  */
 
 #import "AboutController.h"
+#import "AgreementWebViewController.h"
 #import <Masonry/Masonry.h>
 
 #pragma mark - 声明
@@ -12,6 +13,9 @@
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *versionLabel;
+@property (nonatomic, strong) UIButton *userAgreementBtn;
+@property (nonatomic, strong) UIButton *privacyPolicyBtn;
+@property (nonatomic, strong) UILabel *icpLabel;
 
 @end
 
@@ -27,7 +31,7 @@
     [self setupConstraints];
 }
 
-#pragma mark - Setup
+#pragma mark - 初始化UI
 - (void)setupUI {
     // App图标
     _iconView = [[UIImageView alloc] init];
@@ -46,34 +50,85 @@
     [self.view addSubview:_titleLabel];
     
     // 版本号
-    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     _versionLabel = [[UILabel alloc] init];
-    _versionLabel.text = [NSString stringWithFormat:@"Version %@", appVersion];
-    _versionLabel.font = [UIFont systemFontOfSize:16];
-    _versionLabel.textColor = [UIColor lightGrayColor];
+    _versionLabel.text = [NSString stringWithFormat:@"V%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    _versionLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
+    _versionLabel.textColor = kColor_Text_Gary;
     _versionLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_versionLabel];
+    
+    // 用户协议按钮
+    _userAgreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_userAgreementBtn setTitle:@"用户协议" forState:UIControlStateNormal];
+    [_userAgreementBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+    _userAgreementBtn.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
+    [_userAgreementBtn addTarget:self action:@selector(userAgreementClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_userAgreementBtn];
+    
+    // 隐私政策按钮
+    _privacyPolicyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_privacyPolicyBtn setTitle:@"隐私政策" forState:UIControlStateNormal];
+    [_privacyPolicyBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+    _privacyPolicyBtn.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
+    [_privacyPolicyBtn addTarget:self action:@selector(privacyPolicyClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_privacyPolicyBtn];
+    
+    // 备案号
+    _icpLabel = [[UILabel alloc] init];
+    _icpLabel.text = @"沪ICP备2022014461号-3A";
+    _icpLabel.font = [UIFont systemFontOfSize:AdjustFont(12)];
+    _icpLabel.textColor = kColor_Text_Gary;
+    _icpLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_icpLabel];
 }
 
+#pragma mark - 设置约束
 - (void)setupConstraints {
-    // App图标约束
+    // Logo
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(120);
-        make.width.height.equalTo(@80);
+        make.top.equalTo(self.view).offset(NavigationBarHeight + 20);
+        make.width.height.equalTo(@100);
     }];
     
-    // App名称约束
-    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(_iconView.mas_bottom).offset(16);
-    }];
-    
-    // 版本号约束
+    // 版本号
     [_versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(_titleLabel.mas_bottom).offset(8);
+        make.top.equalTo(_iconView.mas_bottom).offset(10);
     }];
+    
+    // 用户协议按钮
+    [_userAgreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view).offset(-50);
+        make.top.equalTo(_versionLabel.mas_bottom).offset(30);
+        make.height.equalTo(@44);
+    }];
+    
+    // 隐私政策按钮
+    [_privacyPolicyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view).offset(50);
+        make.centerY.equalTo(_userAgreementBtn);
+        make.height.equalTo(@44);
+    }];
+    
+    // 备案号
+    [_icpLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-20);
+    }];
+}
+
+#pragma mark - 事件处理
+- (void)userAgreementClick {
+    AgreementWebViewController *vc = [[AgreementWebViewController alloc] init];
+    vc.type = AgreementTypeUserAgreement;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)privacyPolicyClick {
+    AgreementWebViewController *vc = [[AgreementWebViewController alloc] init];
+    vc.type = AgreementTypePrivacyPolicy;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -1,14 +1,15 @@
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
+
+typedef NS_ENUM(NSInteger, AgreementType) {
+    AgreementTypeUserAgreement = 0,  // 用户协议
+    AgreementTypePrivacyPolicy = 1   // 隐私政策
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AgreementWebViewController : UIViewController
+@interface AgreementWebViewController : BaseViewController
 
-@property (nonatomic, copy) NSString *urlString;
-@property (nonatomic, copy) NSString *navTitle;
-@property (nonatomic, strong, readonly) UIButton *leftButton;
-
-- (instancetype)initWithTitle:(NSString *)title url:(NSString *)url;
+@property (nonatomic, assign) AgreementType type;
 
 @end
 

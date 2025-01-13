@@ -288,12 +288,14 @@
 }
 
 - (void)agreementViewDidTapUserAgreement {
-    AgreementWebViewController *vc = [[AgreementWebViewController alloc] initWithTitle:@"用户协议" url:@"https://book.vance.xin/apps/jiya/legal/terms_of_service.html"];
+    AgreementWebViewController *vc = [[AgreementWebViewController alloc] init];
+    vc.type = AgreementTypeUserAgreement;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)agreementViewDidTapPrivacyAgreement {
-    AgreementWebViewController *vc = [[AgreementWebViewController alloc] initWithTitle:@"隐私政策" url:@"https://book.vance.xin/apps/jiya/legal/privacy_policy.html"];
+    AgreementWebViewController *vc = [[AgreementWebViewController alloc] init];
+    vc.type = AgreementTypePrivacyPolicy;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
