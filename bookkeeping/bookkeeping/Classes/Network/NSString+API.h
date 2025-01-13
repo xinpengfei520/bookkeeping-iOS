@@ -37,8 +37,6 @@
 #define CreateCoderequest Request(@"/shayu/createCodeRequest.action")
 // 验证验证码
 #define ValidateCoderequest Request(@"/shayu/validateCodeRequest.action")
-// 修改密码
-#define ChangePassRequest Request(@"/shayu/changePassRequest.action")
 // 忘记密码
 #define ForgetPassRequest Request(@"/shayu/forgetPassRequest.action")
 // 绑定第三方账号
@@ -90,3 +88,5 @@
 #define userLogoutRequest Request(@"/book/user/logout")
 // 刷新 token
 #define refreshTokenRequest Request(@"/book/user/refresh/token")
+// 修改密码
+#define ChangePassRequest Request(@"/book/user/password/update")

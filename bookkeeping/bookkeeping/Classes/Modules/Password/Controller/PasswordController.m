@@ -53,10 +53,24 @@
 
 #pragma mark - 请求
 - (void)getChangeRequest {
+    NSString *pass1 =self.field2.text;
+    NSString *pass2 =self.field3.text;
+    
+    if (![pass1 isEqualToString:pass2]) {
+        [self showTextHUD:@"两次密码不一致" delay:1.f];
+        return;
+    }
+    
+    if (pass1.length < 6 || pass1.length > 18) {
+        [self showTextHUD:@"密码长度为6-18位" delay:1.f];
+        return;
+    }
+    
     UserModel *model = [UserInfo loadUserInfo];
-    NSDictionary *param = @{@"userId": model.userId,
-                            @"old_pass": self.field1.text,
-                            @"new_pass": self.field3.text};
+    NSLog(@"%@, %@, %@", model.userName, self.field1.text, self.field3.text);
+    NSDictionary *param = @{@"phone": model.userName,
+                            @"oldPassword": self.field1.text,
+                            @"password": self.field3.text};
     [self showProgressHUD];
     [self.view endEditing:true];
     @weakify(self)
@@ -64,8 +78,13 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess) {
-            [self showWindowTextHUD:result.msg delay:1.f];
-            [self.navigationController popViewControllerAnimated:true];
+            // 修改成功
+            if (result.code ==0) {
+                [self showWindowTextHUD:@"修改成功" delay:1.f];
+                [self.navigationController popViewControllerAnimated:true];
+            }else {
+                [self showTextHUD:result.msg delay:1.f];
+            }
         } else {
             [self showTextHUD:result.msg delay:1.f];
         }
