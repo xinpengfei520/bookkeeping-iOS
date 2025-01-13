@@ -4,52 +4,195 @@
  */
 
 #import "PasswordController.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface PasswordController()
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLab1;
-@property (weak, nonatomic) IBOutlet UILabel *nameLab2;
-@property (weak, nonatomic) IBOutlet UILabel *nameLab3;
-@property (weak, nonatomic) IBOutlet UITextField *field1;
-@property (weak, nonatomic) IBOutlet UITextField *field2;
-@property (weak, nonatomic) IBOutlet UITextField *field3;
-@property (weak, nonatomic) IBOutlet UIButton *completeBtn;
+@property (nonatomic, strong) UILabel *nameLab1;
+@property (nonatomic, strong) UILabel *nameLab2;
+@property (nonatomic, strong) UILabel *nameLab3;
+@property (nonatomic, strong) UITextField *field1;
+@property (nonatomic, strong) UITextField *field2;
+@property (nonatomic, strong) UITextField *field3;
+@property (nonatomic, strong) UIButton *completeBtn;
+@property (nonatomic, strong) UIView *line1;
+@property (nonatomic, strong) UIView *line2;
+@property (nonatomic, strong) UIView *line3;
 
 @end
-
 
 #pragma mark - 实现
 @implementation PasswordController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupUI];
+    [self setupConstraints];
+    [self setupEvents];
+}
+
+#pragma mark - 初始化UI
+- (void)setupUI {
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setNavTitle:@"修改密码"];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
-    [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.nameLab1 setTextColor:kColor_Text_Black];
-    [self.nameLab2 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.nameLab2 setTextColor:kColor_Text_Black];
-    [self.nameLab3 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
-    [self.nameLab3 setTextColor:kColor_Text_Black];
     
-    [self.field1 setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
-    [self.field1 setTextColor:kColor_Text_Black];
-    [self.field2 setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
-    [self.field2 setTextColor:kColor_Text_Black];
-    [self.field3 setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
-    [self.field3 setTextColor:kColor_Text_Black];
-    [self.completeBtn.layer setCornerRadius:3];
-    [self.completeBtn.layer setMasksToBounds:true];
-    [self buttonCanTap:false];
+    // 旧密码标签
+    _nameLab1 = [[UILabel alloc] init];
+    _nameLab1.text = @"旧密码";
+    _nameLab1.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
+    _nameLab1.textColor = kColor_Text_Black;
+    [self.view addSubview:_nameLab1];
     
-    [self.field1 addTarget:self action:@selector(fieldValueChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.field2 addTarget:self action:@selector(fieldValueChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.field3 addTarget:self action:@selector(fieldValueChange:) forControlEvents:UIControlEventEditingChanged];
+    // 旧密码输入框
+    _field1 = [[UITextField alloc] init];
+    _field1.placeholder = @"请输入旧密码";
+    _field1.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
+    _field1.textColor = kColor_Text_Black;
+    _field1.secureTextEntry = YES;
+    _field1.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:_field1];
+    
+    // 分隔线1
+    _line1 = [[UIView alloc] init];
+    _line1.backgroundColor = kColor_Line_Color;
+    [self.view addSubview:_line1];
+    
+    // 新密码标签
+    _nameLab2 = [[UILabel alloc] init];
+    _nameLab2.text = @"新密码";
+    _nameLab2.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
+    _nameLab2.textColor = kColor_Text_Black;
+    [self.view addSubview:_nameLab2];
+    
+    // 新密码输入框
+    _field2 = [[UITextField alloc] init];
+    _field2.placeholder = @"6-18位数字、字母组合";
+    _field2.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
+    _field2.textColor = kColor_Text_Black;
+    _field2.secureTextEntry = YES;
+    _field2.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:_field2];
+    
+    // 分隔线2
+    _line2 = [[UIView alloc] init];
+    _line2.backgroundColor = kColor_Line_Color;
+    [self.view addSubview:_line2];
+    
+    // 确认密码标签
+    _nameLab3 = [[UILabel alloc] init];
+    _nameLab3.text = @"确认密码";
+    _nameLab3.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
+    _nameLab3.textColor = kColor_Text_Black;
+    [self.view addSubview:_nameLab3];
+    
+    // 确认密码输入框
+    _field3 = [[UITextField alloc] init];
+    _field3.placeholder = @"请再次输入密码";
+    _field3.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
+    _field3.textColor = kColor_Text_Black;
+    _field3.secureTextEntry = YES;
+    _field3.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:_field3];
+    
+    // 分隔线3
+    _line3 = [[UIView alloc] init];
+    _line3.backgroundColor = kColor_Line_Color;
+    [self.view addSubview:_line3];
+    
+    // 确认按钮
+    _completeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_completeBtn setTitle:@"确认修改" forState:UIControlStateNormal];
+    _completeBtn.layer.cornerRadius = 3;
+    _completeBtn.layer.masksToBounds = YES;
+    [self.view addSubview:_completeBtn];
+    
+    [self buttonCanTap:NO];
 }
 
+#pragma mark - 设置约束
+- (void)setupConstraints {
+    // 旧密码标签
+    [_nameLab1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(15);
+        make.top.equalTo(self.view).offset(20);
+        make.height.equalTo(@50);
+        make.width.equalTo(@90);
+    }];
+    
+    // 旧密码输入框
+    [_field1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_nameLab1.mas_right).offset(5);
+        make.right.equalTo(self.view).offset(-15);
+        make.centerY.height.equalTo(_nameLab1);
+    }];
+    
+    // 分隔线1
+    [_line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_nameLab1);
+        make.right.equalTo(_field1);
+        make.top.equalTo(_nameLab1.mas_bottom);
+        make.height.equalTo(@1);
+    }];
+    
+    // 新密码标签
+    [_nameLab2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.equalTo(_nameLab1);
+        make.top.equalTo(_line1.mas_bottom).offset(15);
+        make.height.equalTo(_nameLab1);
+    }];
+    
+    // 新密码输入框
+    [_field2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_nameLab2.mas_right).offset(5);
+        make.right.equalTo(_field1);
+        make.centerY.height.equalTo(_nameLab2);
+    }];
+    
+    // 分隔线2
+    [_line2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.equalTo(_line1);
+        make.top.equalTo(_nameLab2.mas_bottom);
+    }];
+    
+    // 确认密码标签
+    [_nameLab3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.equalTo(_nameLab1);
+        make.top.equalTo(_line2.mas_bottom).offset(15);
+        make.height.equalTo(_nameLab1);
+    }];
+    
+    // 确认密码输入框
+    [_field3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_nameLab3.mas_right).offset(5);
+        make.right.equalTo(_field1);
+        make.centerY.height.equalTo(_nameLab3);
+    }];
+    
+    // 分隔线3
+    [_line3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.equalTo(_line1);
+        make.top.equalTo(_nameLab3.mas_bottom);
+    }];
+    
+    // 确认按钮
+    [_completeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_nameLab1);
+        make.right.equalTo(_field1);
+        make.top.equalTo(_line3.mas_bottom).offset(50);
+        make.height.equalTo(@45);
+    }];
+}
+
+#pragma mark - 设置事件
+- (void)setupEvents {
+    [_field1 addTarget:self action:@selector(fieldValueChange:) forControlEvents:UIControlEventEditingChanged];
+    [_field2 addTarget:self action:@selector(fieldValueChange:) forControlEvents:UIControlEventEditingChanged];
+    [_field3 addTarget:self action:@selector(fieldValueChange:) forControlEvents:UIControlEventEditingChanged];
+    [_completeBtn addTarget:self action:@selector(completeClick:) forControlEvents:UIControlEventTouchUpInside];
+}
 
 #pragma mark - 请求
 - (void)getChangeRequest {
