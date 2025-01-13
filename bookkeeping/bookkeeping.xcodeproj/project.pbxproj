@@ -18,6 +18,7 @@
 		247AB9172D341E1B00B5F323 /* MineTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9082D341E1B00B5F323 /* MineTableCell.m */; };
 		247AB9182D341E1B00B5F323 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9002D341E1B00B5F323 /* MineController.m */; };
 		247AB91C2D34203F00B5F323 /* AgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB91A2D34203F00B5F323 /* AgreementView.m */; };
+		247AB91F2D3528FC00B5F323 /* DeleteAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB91E2D3528FC00B5F323 /* DeleteAccountController.m */; };
 		3219837621C642BB00311885 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219837521C642BB00311885 /* AppDelegate.m */; };
 		3219837C21C642BB00311885 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3219837A21C642BB00311885 /* Main.storyboard */; };
 		3219837E21C642BC00311885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3219837D21C642BC00311885 /* Assets.xcassets */; };
@@ -354,6 +355,8 @@
 		247AB90E2D341E1B00B5F323 /* MineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineView.m; sourceTree = "<group>"; };
 		247AB9192D34203F00B5F323 /* AgreementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgreementView.h; sourceTree = "<group>"; };
 		247AB91A2D34203F00B5F323 /* AgreementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgreementView.m; sourceTree = "<group>"; };
+		247AB91D2D3528AA00B5F323 /* DeleteAccountController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteAccountController.h; sourceTree = "<group>"; };
+		247AB91E2D3528FC00B5F323 /* DeleteAccountController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteAccountController.m; sourceTree = "<group>"; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -2211,6 +2214,8 @@
 		F35310812875EF1F00D297A9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				247AB91E2D3528FC00B5F323 /* DeleteAccountController.m */,
+				247AB91D2D3528AA00B5F323 /* DeleteAccountController.h */,
 				F35310822875EF1F00D297A9 /* AboutController.h */,
 				F35310832875EF1F00D297A9 /* AboutController.m */,
 			);
@@ -2717,6 +2722,7 @@
 				321983B921C6459B00311885 /* BaseTabBarController.m in Sources */,
 				321983FF21C6460100311885 /* UIView+Visuals.m in Sources */,
 				32D0B2C521C77AD70030F5B2 /* ChartDate.m in Sources */,
+				247AB91F2D3528FC00B5F323 /* DeleteAccountController.m in Sources */,
 				321983C221C6459B00311885 /* BaseModel.m in Sources */,
 				4B8D635F21D8D215002AEB4A /* BookChartHUD.m in Sources */,
 				4B68DC3D21E1C0BF00CBF20C /* BDTableCell.m in Sources */,
