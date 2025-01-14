@@ -6,6 +6,7 @@
 #import "InfoTableView.h"
 #import "InfoTableCell.h"
 #import "InfoFooter.h"
+#import "InfoTableDataSource.h"
 
 #pragma mark - 声明
 @interface InfoTableView()<UITableViewDataSource, UITableViewDelegate>
@@ -110,11 +111,7 @@
 #pragma mark - get
 - (NSArray<NSArray<NSString *> *> *)arr {
     if (!_arr) {
-        _arr = @[
-            @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"QQ"],
-            @[@"修改密码"],
-            @[@"删除账号"]
-        ];
+        _arr = [InfoTableDataSource getInfoTableData];
     }
     return _arr;
 }
