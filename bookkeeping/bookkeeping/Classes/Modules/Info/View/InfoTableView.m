@@ -43,16 +43,17 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_model) {
-        if (_model.userId) {
-            return self.arr.count;
-        }
+    if (_model && _model.userId) {
+        return self.arr.count;
     }
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.arr[section].count;
+    if (section < self.arr.count) {
+        return self.arr[section].count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,31 +75,35 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (_model) {
-        if (_model.userId) {
-            if (section == 0) {
-                return [UIView new];
-            }
-            else {
-                return [self footer];
-            }
-        }
+    if (!_model || !_model.userId) {
+        return [UIView new];
     }
-    return [UIView new];
+    
+    if (section == 0) {
+        return [UIView new];
+    } else if (section == self.arr.count - 1) {
+        // 最后一个 section 显示退出登录按钮
+        return [self footer];
+    } else {
+        // 中间的 section 显示分隔线
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = kColor_Line_Color;
+        return lineView;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (_model) {
-        if (_model.userId) {
-            if (section == 0) {
-                return countcoordinatesX(10);
-            }
-            else {
-                return countcoordinatesX(60);
-            }
-        }
+    if (!_model || !_model.userId) {
+        return 0;
     }
-    return 0;
+    
+    if (section == 0) {
+        return countcoordinatesX(10);
+    } else if (section == self.arr.count - 1) {
+        return countcoordinatesX(60);
+    } else {
+        return 1.0f;  // 分隔线高度
+    }
 }
 
 
@@ -107,7 +112,8 @@
     if (!_arr) {
         _arr = @[
             @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"QQ"],
-            @[@"修改密码"]
+            @[@"修改密码"],
+            @[@"删除账号"]
         ];
     }
     return _arr;

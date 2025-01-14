@@ -6,6 +6,7 @@
 #import "InfoController.h"
 #import "InfoTableView.h"
 #import "AlertViewManager.h"
+#import "DeleteAccountController.h"
 
 #pragma mark - 声明
 @interface InfoController()
@@ -156,8 +157,13 @@
         else if (indexPath.row == 5) {
             
         }
-    } else {
+    } else if (indexPath.section == 1) {
+        // 修改密码
         PasswordController *vc = [[PasswordController alloc] init];
+        [self.navigationController pushViewController:vc animated:true];
+    } else if (indexPath.section == 2) {
+        // 删除账号
+        DeleteAccountController *vc = [[DeleteAccountController alloc] init];
         [self.navigationController pushViewController:vc animated:true];
     }
 }

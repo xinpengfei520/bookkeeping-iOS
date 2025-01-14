@@ -90,7 +90,8 @@
     // name
     NSArray *arr= @[
         @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"QQ"],
-        @[@"修改密码"]
+        @[@"修改密码"],
+        @[@"删除账号"]
     ];
     [self setName:arr[indexPath.section][indexPath.row]];
 }

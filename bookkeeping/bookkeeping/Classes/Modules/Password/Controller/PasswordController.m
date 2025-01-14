@@ -27,6 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.hbd_barHidden = NO;
+    self.hbd_barTintColor = kColor_Main_Color;
+    [self setNavTitle:@"修改密码"];
     [self setupUI];
     [self setupConstraints];
     [self setupEvents];
@@ -34,11 +38,6 @@
 
 #pragma mark - 初始化UI
 - (void)setupUI {
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self setNavTitle:@"修改密码"];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
-    
     // 旧密码标签
     _nameLab1 = [[UILabel alloc] init];
     _nameLab1.text = @"旧密码";

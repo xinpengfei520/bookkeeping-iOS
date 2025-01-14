@@ -90,3 +90,5 @@
 #define refreshTokenRequest Request(@"/book/user/refresh/token")
 // 修改密码
 #define ChangePassRequest Request(@"/book/user/password/update")
+// 删除账号
+#define DeleteAccountRequest Request(@"/book/user/delete/account")
