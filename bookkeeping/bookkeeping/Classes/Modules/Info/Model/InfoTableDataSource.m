@@ -11,7 +11,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         infoTableData = @[
-            @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"QQ"],
+            @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"邮箱"],
             @[@"修改密码"],
             @[@"删除账号"]
         ];

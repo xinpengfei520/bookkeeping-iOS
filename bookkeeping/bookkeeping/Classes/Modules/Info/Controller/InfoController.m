@@ -153,9 +153,9 @@
         else if (indexPath.row == 4) {
             [self updatePhone];
         }
-        // QQ
+        // 邮箱
         else if (indexPath.row == 5) {
-            
+            [self updateEmail];
         }
     } else if (indexPath.section == 1) {
         // 修改密码
@@ -291,6 +291,50 @@
     if (textField.text.length > 11) {
         textField.text = [textField.text substringToIndex:11];
     }
+}
+
+// 更新邮箱
+- (void)updateEmail {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改邮箱" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    // 增加取消按钮
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    // 增加确定按钮
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+        // 获取输入框内容
+        UITextField *emailTextField = alertController.textFields.firstObject;
+        if (emailTextField.text.length == 0) {
+            [self showTextHUD:@"邮箱不能为空" delay:1.f];
+            return;
+        }
+        
+        // 验证邮箱格式
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+        if (![emailTest evaluateWithObject:emailTextField.text]) {
+            [self showTextHUD:@"邮箱格式不正确" delay:1.f];
+            return;
+        }
+        
+        [self changeEmailRequest:emailTextField.text];
+    }]];
+    // 添加输入框
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入邮箱地址";
+        textField.keyboardType = UIKeyboardTypeEmailAddress;
+        // 如果已有邮箱，预先填入
+        if (self.model.email && self.model.email.length > 0) {
+            textField.text = self.model.email;
+        }
+    }];
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+// 修改邮箱请求
+- (void)changeEmailRequest:(NSString *)email {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:email forKey:@"email"];
+    [self.updateModel setEmail:email];
+    [self changeUserInfoRequest:param];
 }
 
 #pragma mark - get

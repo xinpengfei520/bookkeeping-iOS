@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *userAvatar;
 @property (nonatomic, strong) NSString *registerTime;
 @property (nonatomic, strong) NSString *token;
+@property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *bookDays;
 @property (nonatomic, strong) NSString *bookCounts;
 @property (nonatomic, assign) BOOL sex;
