@@ -45,7 +45,10 @@
     [deleteButton setCallback:^BOOL(MGSwipeTableCell *cell) {
         @strongify(self)
         if (self.indexPath) {
+            NSLog(@"尝试删除行: %ld, 时间: %@", (long)self.indexPath.row, self.time);
             [self routerEventWithName:TIMING_CELL_DELETE data:self.indexPath];
+        } else {
+            NSLog(@"错误：删除时indexPath为空");
         }
         return YES;
     }];

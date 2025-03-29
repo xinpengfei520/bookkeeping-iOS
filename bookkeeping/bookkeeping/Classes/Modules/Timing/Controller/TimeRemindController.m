@@ -77,20 +77,58 @@
  * @param time 时间戳
  */
 - (void)removeNotification:(NSString *)time {
+    if (!time || time.length == 0) {
+        NSLog(@"警告：尝试删除空的通知标识符");
+        return;
+    }
+    
     // 获取所有本地通知数组
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
+    
+    NSLog(@"尝试删除通知：%@", time);
+    
+    // 尝试直接删除
+    [center removePendingNotificationRequestsWithIdentifiers:@[time]];
+    
+    // 备选方案：获取所有通知，手动匹配并删除
     [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
-        NSLog(@"getPendingNotification: %@", requests);
+        // 检查是否存在匹配的通知
+        NSMutableArray *identifiersToRemove = [NSMutableArray array];
+        
         for (UNNotificationRequest *request in requests) {
-            NSString *identifier = request.identifier;
-            // 如果找到需要取消的通知，则取消
-            if ([identifier isEqualToString:time]) {
-                [center removePendingNotificationRequestsWithIdentifiers:@[identifier]];
-                NSLog(@"定时提醒通知取消成功");
-                break;
+            // 检查是否是我们要删除的时间通知
+            if ([request.identifier isEqualToString:time] || 
+                [request.identifier containsString:time]) {
+                [identifiersToRemove addObject:request.identifier];
+                NSLog(@"找到匹配通知，准备删除: %@", request.identifier);
             }
         }
+        
+        // 如果找到匹配的通知，删除它们
+        if (identifiersToRemove.count > 0) {
+            [center removePendingNotificationRequestsWithIdentifiers:identifiersToRemove];
+            NSLog(@"删除通知标识符: %@", identifiersToRemove);
+        }
+        
+        // 再次检查是否删除成功
+        [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull remainingRequests) {
+            BOOL stillExists = NO;
+            for (UNNotificationRequest *request in remainingRequests) {
+                if ([request.identifier isEqualToString:time]) {
+                    stillExists = YES;
+                    break;
+                }
+            }
+            
+            if (stillExists) {
+                NSLog(@"警告：通知删除失败：%@", time);
+            } else {
+                NSLog(@"通知删除成功：%@", time);
+            }
+            
+            NSLog(@"最终活跃通知列表：%@", remainingRequests);
+        }];
     }];
 }
 
@@ -99,6 +137,9 @@
     NSLog(@"viewDidLoad - 开始");
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    
+    // 请求通知权限
+    [self requestNotificationPermission];
     
     // 先创建和添加 table
     [self.view addSubview:self.table];
@@ -119,6 +160,22 @@
     
     NSLog(@"viewDidLoad - 结束");
     NSLog(@"table frame: %@", NSStringFromCGRect(self.table.frame));
+}
+
+// 请求通知权限
+- (void)requestNotificationPermission {
+    if (@available(iOS 10.0, *)) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
+                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                NSLog(@"通知权限获取成功");
+            } else {
+                NSLog(@"通知权限获取失败: %@", error.localizedDescription);
+            }
+        }];
+    }
 }
 
 - (void)setupUI {
@@ -213,9 +270,35 @@
     [datePickerView show];
 }
 
-// 删除cell
-- (void)timeCellDelete:(TITableCell *)cell {
-    [self deleteTimingRequest:cell.time];
+// 删除cell - 修改参数类型，统一处理
+- (void)timeCellDelete:(NSIndexPath *)indexPath {
+    // 获取要删除的时间
+    NSString *timeToDelete = self.models[indexPath.row];
+    
+    // 从数据源中移除
+    [self.models removeObjectAtIndex:indexPath.row];
+    
+    // 更新 UserDefaults
+    [NSUserDefaults setObject:self.models forKey:PIN_TIMING];
+    
+    // 刷新表格
+    [self.table reloadData];
+    
+    // 检查是否需要显示空状态
+    [self.emptyView setHidden:self.models.count > 0];
+    
+    // 移除系统通知
+    [self removeNotification:timeToDelete];
+    
+    NSLog(@"提醒已删除：%@", timeToDelete);
+}
+
+// 修改为仅处理转发，不重复处理删除逻辑
+- (void)routerWithEventName:(NSString *)eventName data:(id)data {
+    if ([eventName isEqualToString:TIMING_CELL_DELETE]) {
+        // 转发到统一的删除处理方法
+        [self timeCellDelete:data];
+    }
 }
 
 #pragma mark - set
@@ -289,26 +372,13 @@
     TITableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TITableCell"];
     NSLog(@"cellForRowAtIndexPath called - row: %ld, time: %@", (long)indexPath.row, self.models[indexPath.row]);
     cell.time = self.models[indexPath.row];
+    cell.indexPath = indexPath;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.0f; // 设置合适的 cell 高度
-}
-
-- (void)routerWithEventName:(NSString *)eventName data:(id)data {
-    if ([eventName isEqualToString:TIMING_CELL_DELETE]) {
-        NSIndexPath *indexPath = data;
-        // 从数据源中移除
-        [self.models removeObjectAtIndex:indexPath.row];
-        // 更新 UserDefaults
-        [NSUserDefaults setObject:self.models forKey:PIN_TIMING];
-        // 刷新表格
-        [self.table reloadData];
-        // 检查是否需要显示空状态
-        [self.emptyView setHidden:self.models.count > 0];
-    }
 }
 
 @end
