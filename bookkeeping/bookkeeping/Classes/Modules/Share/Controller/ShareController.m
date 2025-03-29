@@ -38,7 +38,7 @@
     [self shot1];
 //    [self shot2];
 //    [self shot3];
-    [self bottom];
+    // [self bottom];
 //    _shot1.hidden = YES;
 //    _shot2.hidden = YES;
     
@@ -75,7 +75,7 @@
             CGFloat paddingH = countcoordinatesX(30);
             CGFloat left = paddingW;
             CGFloat top = paddingH;
-            CGFloat height = self.scroll.height - top - paddingH;
+            CGFloat height = self.scroll.height - top - paddingH - countcoordinatesX(200);
             CGRectMake(left, top, SCREEN_WIDTH - left * 2, height);
         })];
         [self.scroll addSubview:_shot1];
@@ -99,17 +99,17 @@
     return _shot3;
 }
 
-- (ShareBottom *)bottom {
-    if (!_bottom) {
-        _bottom = [ShareBottom loadCode:({
-            CGFloat height = countcoordinatesX(120) + SafeAreaBottomHeight + NavigationBarHeight;
-            CGFloat top = SCREEN_HEIGHT - height;
-            CGRectMake(0, top, SCREEN_WIDTH, height);
-        })];
-        [self.view addSubview:_bottom];
-    }
-    return _bottom;
-}
+// - (ShareBottom *)bottom {
+//     if (!_bottom) {
+//         _bottom = [ShareBottom loadCode:({
+//             CGFloat height = countcoordinatesX(120) + SafeAreaBottomHeight + NavigationBarHeight;
+//             CGFloat top = SCREEN_HEIGHT - height;
+//             CGRectMake(0, top, SCREEN_WIDTH, height);
+//         })];
+//         [self.view addSubview:_bottom];
+//     }
+//     return _bottom;
+// }
 
 - (BKCRefreshHeader *)mHeader {
     if (!_mHeader) {
