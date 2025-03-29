@@ -96,19 +96,9 @@
             TimeRemindController *vc = [[TimeRemindController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
-        // 定时记账
-        else if (indexPath.row == 2) {
-            AutoBookController *vc = [[AutoBookController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
         // 导出数据
-        else if (indexPath.row == 4) {
+        else if (indexPath.row == 3) {
             ExportController *vc = [[ExportController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        // Siri捷径
-        else if (indexPath.row == 5) {
-            SiriController *vc = [[SiriController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
