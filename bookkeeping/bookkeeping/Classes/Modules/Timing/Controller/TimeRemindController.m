@@ -347,13 +347,31 @@
 #pragma mark - get
 - (TITableView *)table {
     if (!_table) {
-        _table = [TITableView initWithFrame:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight - self.bottom.height)];
+        // 直接使用导航栏高度作为起点，不再计算状态栏
+        CGFloat topOffset = 0; // 从顶部开始布局
+        
+        // 创建表格视图并设置正确的尺寸
+        _table = [TITableView initWithFrame:CGRectMake(0, topOffset, SCREEN_WIDTH, SCREEN_HEIGHT - self.bottom.height)];
         [_table setDelegate:self];
         [_table setDataSource:self];
         [_table setBackgroundColor:kColor_BG];
         [_table setShowsVerticalScrollIndicator:NO];
         [_table setShowsHorizontalScrollIndicator:NO];
         [_table setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        
+        // 设置表格内容偏移以匹配导航栏
+        UIEdgeInsets insets = UIEdgeInsetsMake(NavigationBarHeight, 0, 0, 0);
+        [_table setContentInset:insets];
+        // 设置滚动指示器的偏移
+        [_table setScrollIndicatorInsets:insets];
+        
+        // 禁用自动调整内容边距
+        if (@available(iOS 11.0, *)) {
+            [_table setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
+        
         [_table registerNib:[UINib nibWithNibName:@"TITableCell" bundle:nil] forCellReuseIdentifier:@"TITableCell"];
     }
     return _table;
