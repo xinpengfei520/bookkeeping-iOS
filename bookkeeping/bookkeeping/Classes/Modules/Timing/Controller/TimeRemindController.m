@@ -137,6 +137,7 @@
     NSLog(@"viewDidLoad - 开始");
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    [self setNavTitle:@"定时提醒"];
     
     // 请求通知权限
     [self requestNotificationPermission];
@@ -160,6 +161,28 @@
     
     NSLog(@"viewDidLoad - 结束");
     NSLog(@"table frame: %@", NSStringFromCGRect(self.table.frame));
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // 获取最新的数据
+    NSMutableArray *savedData = [NSUserDefaults objectForKey:PIN_TIMING];
+    NSLog(@"viewWillAppear - 从 NSUserDefaults 获取的数据: %@", savedData);
+    
+    // 设置数据并更新UI
+    [self setModels:savedData];
+    
+    // 检查并显示空状态视图
+    BOOL isEmpty = (self.models == nil || self.models.count == 0);
+    [self.emptyView setHidden:!isEmpty];
+    
+    if (isEmpty) {
+        // 设置空状态文字
+        [self.emptyView updateEmptyText:@"你还没有任何提醒哦～"];
+    }
+    
+    NSLog(@"viewWillAppear - 空状态视图隐藏状态: %@", self.emptyView.isHidden ? @"是" : @"否");
 }
 
 // 请求通知权限
@@ -195,6 +218,8 @@
 - (void)updateEmptyViewWithData:(NSArray *)data {
     // 根据数据源判断是否显示空状态
     BOOL isEmpty = (data == nil || data.count == 0);
+    NSLog(@"updateEmptyViewWithData - 数据为空: %@, 视图将%@", isEmpty ? @"是" : @"否", isEmpty ? @"显示" : @"隐藏");
+    
     [_emptyView setHidden:!isEmpty];
     
     if (isEmpty) {
@@ -311,10 +336,8 @@
     }
     NSLog(@"setModels - 转换后数据: %@", _models);
     
-    // 更新空状态视图显示
-    BOOL isEmpty = (_models == nil || _models.count == 0);
-    NSLog(@"setModels - isEmpty: %d, models count: %lu", isEmpty, (unsigned long)_models.count);
-    [_emptyView setHidden:!isEmpty];
+    // 使用统一的方法更新空状态视图显示
+    [self updateEmptyViewWithData:_models];
     
     // 设置 table 的数据源
     _table.models = _models;
