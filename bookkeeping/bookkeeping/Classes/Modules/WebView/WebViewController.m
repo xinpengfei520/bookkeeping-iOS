@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) WKWebView *web;
 @property (nonatomic, strong) UIProgressView *myProgressView;
+// 添加标记，用于记录是否有导航历史
+@property (nonatomic, assign) BOOL hasNavigationHistory;
 
 @end
 
@@ -24,6 +26,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _showProgress = YES;
+        _hasNavigationHistory = NO;
     }
     return self;
 }
@@ -33,11 +36,64 @@
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
     [self setNavTitle:@"帮助"];
+    
+    // 使用父类方法设置返回按钮，而不是自定义
+    [self setupBackButton];
+    
+    // 覆盖左边按钮的点击事件
+    [self.leftButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+    [self.leftButton addTarget:self action:@selector(handleBackAction) forControlEvents:UIControlEventTouchUpInside];
+    
     [self web];
     [self myProgressView];
     if (_url) {
         [self.web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
     }
+}
+
+// 设置自定义返回按钮
+- (void)setupBackButton {
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"nav_back_n"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(handleBackAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton.frame = CGRectMake(0, 0, 44, 44);
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backItem;
+}
+
+// 处理返回操作
+- (void)handleBackAction {
+    // 如果WebView可以返回，则回到上一页
+    if (self.web.canGoBack) {
+        [self.web goBack];
+    } else {
+        // 否则关闭整个控制器
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+#pragma mark - WKNavigationDelegate
+// 页面开始加载时调用
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    NSLog(@"开始加载页面");
+}
+
+// 页面加载完成时调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    NSLog(@"页面加载完成");
+    // 更新导航历史状态
+    self.hasNavigationHistory = webView.canGoBack;
+}
+
+// 页面加载失败时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"页面加载失败: %@", error);
+}
+
+// 在发送请求之前，决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // 这里可以拦截特定链接，实现自定义处理
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 
