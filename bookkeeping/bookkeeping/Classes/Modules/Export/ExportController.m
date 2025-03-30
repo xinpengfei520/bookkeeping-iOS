@@ -53,7 +53,7 @@
     
     // 3. 将数据转换为CSV格式
     for (BookDetailModel *model in allRecords) {
-        NSString *date = [NSDate stringWithDate:model.date format:@"yyyy-MM-dd"];
+        NSString *date = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
         
         // 通过categoryId获取类别
         BKCModel *categoryModel = [NSUserDefaults getCategoryModel:model.categoryId];
