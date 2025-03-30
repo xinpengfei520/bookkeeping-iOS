@@ -54,11 +54,44 @@
 // 设置自定义返回按钮
 - (void)setupBackButton {
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"nav_back_n"] forState:UIControlStateNormal];
+    
+    // 2. 如果没有白色图标资源，将黑色图标染成白色
+    UIImage *backImage = [UIImage imageNamed:@"nav_back_n"];
+    UIImage *whiteBackImage = [self imageWithTintColor:[UIColor whiteColor] image:backImage];
+    [backButton setImage:whiteBackImage forState:UIControlStateNormal];
+    [backButton setImage:whiteBackImage forState:UIControlStateHighlighted];
+    
+    [backButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [backButton addTarget:self action:@selector(handleBackAction) forControlEvents:UIControlEventTouchUpInside];
-    backButton.frame = CGRectMake(0, 0, 44, 44);
+    [backButton setFrame:CGRectMake(0, 0, 44, 44)];
+    
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = backItem;
+}
+
+// 将图片染色的辅助方法
+- (UIImage *)imageWithTintColor:(UIColor *)tintColor image:(UIImage *)image {
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextTranslateCTM(context, 0, image.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    // 绘制原图
+    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    CGContextDrawImage(context, rect, image.CGImage);
+    
+    // 绘制色彩
+    CGContextSetBlendMode(context, kCGBlendModeSourceIn);
+    [tintColor setFill];
+    CGContextFillRect(context, rect);
+    
+    UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return tintedImage;
 }
 
 // 处理返回操作
