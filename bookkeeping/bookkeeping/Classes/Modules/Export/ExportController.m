@@ -86,10 +86,21 @@
     NSString *fileName = [NSString stringWithFormat:@"记账导出_%@.csv", [self getCurrentTimeString]];
     NSString *filePath = [docPath stringByAppendingPathComponent:fileName];
     
-    NSError *error;
-    [csvString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    // 创建UTF-8 BOM头
+    NSMutableData *csvData = [NSMutableData data];
+    // 添加UTF-8 BOM标记 (0xEF 0xBB 0xBF)
+    uint8_t bomHeader[] = {0xEF, 0xBB, 0xBF};
+    [csvData appendBytes:bomHeader length:sizeof(bomHeader)];
     
-    if (error) {
+    // 将字符串转换为数据并添加到BOM头后面
+    NSData *stringData = [csvString dataUsingEncoding:NSUTF8StringEncoding];
+    [csvData appendData:stringData];
+    
+    // 写入文件
+    NSError *error = nil;
+    BOOL success = [csvData writeToFile:filePath options:NSDataWritingAtomic error:&error];
+    
+    if (!success) {
         [self showTextHUD:@"导出失败" delay:1.5f];
         return;
     }
