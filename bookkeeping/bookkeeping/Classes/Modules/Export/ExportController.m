@@ -123,6 +123,31 @@
                                            initWithActivityItems:@[fileURL] 
                                            applicationActivities:nil];
     
+    // 为平板设备设置弹出位置（如果需要）
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        activityVC.popoverPresentationController.sourceView = self.view;
+        activityVC.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2, 0, 0);
+        activityVC.popoverPresentationController.permittedArrowDirections = 0;
+    }
+    
+    // 添加完成回调
+    activityVC.completionWithItemsHandler = ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+        if (completed) {
+            // 用户成功完成了操作
+            NSString *successMessage = [NSString stringWithFormat:@"导出成功，活动类型: %@", activityType];
+            [self showTextHUD:@"导出成功" delay:1.5f];
+            NSLog(@"%@", successMessage);
+        } else if (activityError) {
+            // 操作中出现错误
+            [self showTextHUD:@"导出过程中出现错误" delay:1.5f];
+            NSLog(@"分享错误: %@", activityError.localizedDescription);
+        } else {
+            // 用户取消了操作
+            [self showTextHUD:@"已取消导出" delay:1.5f];
+            NSLog(@"用户取消了分享");
+        }
+    };
+    
     [self presentViewController:activityVC animated:YES completion:nil];
 }
 
