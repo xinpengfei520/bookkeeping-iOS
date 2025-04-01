@@ -99,7 +99,7 @@ PODS:
   - ZLPhotoBrowser/Core (4.5.5)
 
 DEPENDENCIES:
-  - AFNetworking (~> 4.0)
+  - AFNetworking (= 4.0.1)
   - BRPickerView (= 2.9.1)
   - Bugly
   - HBDNavigationBar (~> 1.9.5)
@@ -165,6 +165,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: b952a257fc367dbbcb6e5fe859e7d093d06cb2ba
+PODFILE CHECKSUM: b2bd248595043a5f8606b5f8011c05acb7631c0e
 
 COCOAPODS: 1.11.3
