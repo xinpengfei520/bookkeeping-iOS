@@ -183,6 +183,8 @@
 		243ED155F0B8165345AB00415235A1C2 /* IGListAdapter+AsyncDisplayKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19A533D272E4D0C7DCB4583EC02B640A /* IGListAdapter+AsyncDisplayKit.mm */; settings = {COMPILER_FLAGS = "-fno-exceptions -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		247E56FF8D9DF6549843D24F631749D1 /* PINImage+WebP.h in Headers */ = {isa = PBXBuildFile; fileRef = 56CAC777445BF5423A1F19ABD212DE60 /* PINImage+WebP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B45F1DC8EBBAAC25D051A0E6A6E0E1 /* ZLImageStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2652C7609B8C4F369DA674C74D0DCFE7 /* ZLImageStickerView.swift */; };
+		24BCCA2D2D9C340F0051F93F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 24BCCA2C2D9C34010051F93F /* PrivacyInfo.xcprivacy */; };
+		24BCCA312D9C356C0051F93F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 24BCCA302D9C356C0051F93F /* PrivacyInfo.xcprivacy */; };
 		25D53984FD9BFB16729296805D8BC0F4 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D7F43302D0FEE6F5DA19D580CDB32D /* SDCycleScrollView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		25F4190B55810AC7A3A29AF7839425B7 /* ZLAnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C0A7467BDD6F5230E86FE32396F7E8 /* ZLAnimationUtils.swift */; };
 		26491DA316A1B202673E03EC5BD0C5A9 /* ASLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0090CAC43DEC9EA2D37AE9B6DFB7BF /* ASLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1682,6 +1684,8 @@
 		242A4A4A1D9F49FB91EE07EDB4024379 /* SDImageCacheConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageCacheConfig.m; path = SDWebImage/SDImageCacheConfig.m; sourceTree = "<group>"; };
 		2455D6CF0751732D9C53ED60824848DA /* UIRefreshControl+RACCommandSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIRefreshControl+RACCommandSupport.m"; path = "ReactiveObjC/UIRefreshControl+RACCommandSupport.m"; sourceTree = "<group>"; };
 		245C89AA7A983638FA96F83329A5ED4F /* PINSpeedRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PINSpeedRecorder.m; path = Source/Classes/PINSpeedRecorder.m; sourceTree = "<group>"; };
+		24BCCA2C2D9C34010051F93F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		24BCCA302D9C356C0051F93F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		24E6077B6741628A52A3C3437E574ECC /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
 		250A431672A74215823538E1D00791FC /* BRPickerView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BRPickerView-dummy.m"; sourceTree = "<group>"; };
 		251CE66A2CD5CF16186820E49E182AB3 /* MJExtension-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MJExtension-Info.plist"; sourceTree = "<group>"; };
@@ -4884,6 +4888,7 @@
 			children = (
 				AEC2F34E923FB9082D70DBDB18AB0169 /* Core */,
 				C697B51141F5963AB1B9121852872BF9 /* Support Files */,
+				24BCCA302D9C356C0051F93F /* PrivacyInfo.xcprivacy */,
 			);
 			path = SDWebImage;
 			sourceTree = "<group>";
@@ -4947,6 +4952,7 @@
 		E4A11312680895E21D46E6DF49CB1BCE /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
+				24BCCA2C2D9C34010051F93F /* PrivacyInfo.xcprivacy */,
 				3ACD6661881B6D0B62A0835D2A4C7912 /* AFNetworking.h */,
 				60AAF22A168DA3489D112A6C5C9F2C36 /* NSURLSession */,
 				ABD3C2D84F3504E867C2EB133485CFD6 /* Reachability */,
@@ -6475,6 +6481,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24BCCA2D2D9C340F0051F93F /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6524,6 +6531,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24BCCA312D9C356C0051F93F /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
