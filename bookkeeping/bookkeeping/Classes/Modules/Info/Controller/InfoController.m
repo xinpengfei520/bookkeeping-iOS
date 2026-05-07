@@ -214,9 +214,11 @@
         else if (buttonTag == 1) {
             @weakify(self)
             ZLPhotoPreviewSheet *ps = [[ZLPhotoPreviewSheet alloc] initWithSelectedAssets:@[]];
-            ps.selectImageBlock = ^(NSArray<UIImage *> * _Nonnull images, BOOL isOriginal) {
+            // ZLPhotoBrowser 的 selectImageBlock 实际传入 [ZLResultModel]，不是 [UIImage]——
+            // ObjC 泛型类型擦除让旧写法编译过却在 UIImagePNGRepresentation 处崩溃。
+            ps.selectImageBlock = ^(NSArray<ZLResultModel *> * _Nonnull images, BOOL isOriginal) {
                 @strongify(self)
-                [self changeIconRequest:images[0]];
+                [self changeIconRequest:images[0].image];
             };
             [ps showPhotoLibraryWithSender:self];
         }
