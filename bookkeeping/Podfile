@@ -14,7 +14,6 @@ target 'bookkeeping' do
     pod 'MJRefresh', '3.1.15.7'
     pod 'MGSwipeTableCell', '1.6.8'
     pod 'BRPickerView', '2.9.1'
-    pod 'Texture', '3.1.0'
     pod 'YYImage', '1.0.4'
     pod 'KMNavigationBarTransition', '1.1.5'
     pod 'Bugly'
@@ -47,26 +46,6 @@ post_install do |installer|
         config.build_settings['CODE_SIGN_IDENTITY'] = ''
       end
     end
-  end
-
-  # 修复 Texture TextExperiment 组件的链式比较 bug
-  # （上游已归档未修，新版 Clang 把这个 warning 升级为 error）
-  # 原写法 `A < B < (right ? prev : next)` 会被解析成 `(A<B) < (...)`，position 永远是 0/1
-  chained_cmp_patch_targets = [
-    'Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm',
-  ]
-  chained_cmp_patch_targets.each do |relative|
-    path = File.join(installer.config.installation_root, relative)
-    next unless File.exist?(path)
-    original = File.read(path)
-    patched = original.gsub(
-      /position = fabs\(left - point\.([xy])\) < fabs\(right - point\.\1\) < \(right \? prev : next\);/,
-      'position = fabs(left - point.\1) < fabs(right - point.\1) ? prev : next;'
-    )
-    next if patched == original
-    File.chmod(0644, path)
-    File.write(path, patched)
-    Pod::UI.puts "[patch] chained-comparison fixed in #{relative}".yellow
   end
 
   # 修复 AFNetworking 4.0.1 在 Xcode 16 / 新 SDK 下的 module 报错

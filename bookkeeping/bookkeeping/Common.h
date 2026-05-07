@@ -39,7 +39,6 @@
 #import "BaseTabBarController.h"
 #import "BaseNavigationController.h"
 #import "BaseTableCell.h"
-#import "ASBaseViewController.h"
 
 //================================= Category =================================//
 #import "NSString+Extension.h"

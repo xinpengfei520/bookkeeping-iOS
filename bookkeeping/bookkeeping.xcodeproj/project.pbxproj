@@ -155,7 +155,6 @@
 		4B8D636421D8D38C002AEB4A /* BCHUDContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8D636321D8D38C002AEB4A /* BCHUDContent.m */; };
 		4B8D636A21D8D507002AEB4A /* BCHUDContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8D636821D8D507002AEB4A /* BCHUDContentCell.m */; };
 		4B8D636B21D8D507002AEB4A /* BCHUDContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B8D636921D8D507002AEB4A /* BCHUDContentCell.xib */; };
-		4B93DC70220C75E5003D3102 /* ASBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B93DC6F220C75E5003D3102 /* ASBaseViewController.m */; };
 		4B9798F821CE69DB0020B207 /* RegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798F621CE69DB0020B207 /* RegisterController.m */; };
 		4B9798F921CE69DB0020B207 /* RegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B9798F721CE69DB0020B207 /* RegisterController.xib */; };
 		4B9798FD21CE744A0020B207 /* CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9798FC21CE744A0020B207 /* CountDown.m */; };
@@ -260,7 +259,6 @@
 		4BF0649B21E11283005F1665 /* BDTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0649A21E11283005F1665 /* BDTable.m */; };
 		4BF0649E21E112B8005F1665 /* BDBottom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0649D21E112B8005F1665 /* BDBottom.m */; };
 		4BF064A021E112C6005F1665 /* BDBottom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BF0649F21E112C6005F1665 /* BDBottom.xib */; };
-		4BF53223220C82320042CB5A /* ASBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF53222220C82320042CB5A /* ASBaseTableCell.m */; };
 		4BF574A321C6A59A001890D1 /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF574A221C6A59A001890D1 /* HomeList.m */; };
 		4BFD380D21E4C5D500BAB0BB /* UIFont+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983E021C6460100311885 /* UIFont+Extension.m */; };
 		4BFD381021E4C6C700BAB0BB /* UIColor+HEX.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983CB21C6460100311885 /* UIColor+HEX.m */; };
@@ -601,8 +599,6 @@
 		4B8D636721D8D507002AEB4A /* BCHUDContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCHUDContentCell.h; sourceTree = "<group>"; };
 		4B8D636821D8D507002AEB4A /* BCHUDContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCHUDContentCell.m; sourceTree = "<group>"; };
 		4B8D636921D8D507002AEB4A /* BCHUDContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BCHUDContentCell.xib; sourceTree = "<group>"; };
-		4B93DC6E220C75E5003D3102 /* ASBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASBaseViewController.h; sourceTree = "<group>"; };
-		4B93DC6F220C75E5003D3102 /* ASBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASBaseViewController.m; sourceTree = "<group>"; };
 		4B9798F521CE69DB0020B207 /* RegisterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterController.h; sourceTree = "<group>"; };
 		4B9798F621CE69DB0020B207 /* RegisterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterController.m; sourceTree = "<group>"; };
 		4B9798F721CE69DB0020B207 /* RegisterController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterController.xib; sourceTree = "<group>"; };
@@ -736,8 +732,6 @@
 		4BF0649C21E112B8005F1665 /* BDBottom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDBottom.h; sourceTree = "<group>"; };
 		4BF0649D21E112B8005F1665 /* BDBottom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDBottom.m; sourceTree = "<group>"; };
 		4BF0649F21E112C6005F1665 /* BDBottom.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BDBottom.xib; sourceTree = "<group>"; };
-		4BF53221220C82320042CB5A /* ASBaseTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASBaseTableCell.h; sourceTree = "<group>"; };
-		4BF53222220C82320042CB5A /* ASBaseTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASBaseTableCell.m; sourceTree = "<group>"; };
 		4BF574A121C6A59A001890D1 /* HomeList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeList.h; sourceTree = "<group>"; };
 		4BF574A221C6A59A001890D1 /* HomeList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeList.m; sourceTree = "<group>"; };
 		4BFD380C21E4C3E800BAB0BB /* KKPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKPrefixHeader.pch; sourceTree = "<group>"; };
@@ -1076,8 +1070,6 @@
 				3219839D21C6459B00311885 /* BaseTabBarController.m */,
 				3219839E21C6459B00311885 /* BaseViewController.h */,
 				3219839821C6459B00311885 /* BaseViewController.m */,
-				4B93DC6E220C75E5003D3102 /* ASBaseViewController.h */,
-				4B93DC6F220C75E5003D3102 /* ASBaseViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1101,8 +1093,6 @@
 				321983A721C6459B00311885 /* BaseTableView.m */,
 				321983AA21C6459B00311885 /* BaseView.h */,
 				321983A321C6459B00311885 /* BaseView.m */,
-				4BF53221220C82320042CB5A /* ASBaseTableCell.h */,
-				4BF53222220C82320042CB5A /* ASBaseTableCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2706,7 +2696,6 @@
 				3257AED421C8750800787A34 /* TimeRemindController.m in Sources */,
 				4B1E128621CA93C1001F5B36 /* CategorySectionHeader.m in Sources */,
 				4B35F1A221CCC641007271BE /* UIView+APPViewRequest.m in Sources */,
-				4BF53223220C82320042CB5A /* ASBaseTableCell.m in Sources */,
 				F35310B72876D82400D297A9 /* ShareBadge.m in Sources */,
 				4B35F1C021CCC694007271BE /* KKEmptyNoNet.m in Sources */,
 				321983C021C6459B00311885 /* BaseCollectionCell.m in Sources */,
@@ -2716,7 +2705,6 @@
 				4BEB72DD21CE033300BEF013 /* RequestTipRefreshFooter.m in Sources */,
 				4B35F1C121CCC694007271BE /* KKEmptyCommon.m in Sources */,
 				327CEC3821C89920001D0086 /* ChartTableHeader.m in Sources */,
-				4B93DC70220C75E5003D3102 /* ASBaseViewController.m in Sources */,
 				321983B721C6459B00311885 /* BaseViewController.m in Sources */,
 				4B1917B321CD391000137215 /* CategoryListModel.m in Sources */,
 				32EAB40B21D0EA820069DF99 /* PasswordController.m in Sources */,
