@@ -223,16 +223,30 @@ Expected: commit succeeds. Run `git status` — working tree clean.
 
 - [ ] **Step 2.1: Verify ASBase is genuinely unused**
 
-Run:
+Run subclass scan:
 ```bash
 grep -rn ': ASBaseViewController\b\|: ASBaseTableCell\b' bookkeeping/bookkeeping --include="*.h" --include="*.m"
 ```
 Expected: empty output. Any hit = a real subclass — stop.
 
+Run import scan:
 ```bash
 grep -rn 'import.*"ASBase' bookkeeping/bookkeeping --include="*.h" --include="*.m"
 ```
 Expected: only the four ASBase files themselves importing each other plus `Common.h:42`. If any *Modules/* file shows up, stop.
+
+Run **class-name usage scan** (catches call sites like `[ASBaseViewController class]`, `(ASBaseViewController *)cast`, etc. — separate from imports):
+```bash
+grep -rn "ASBaseViewController\|ASBaseTableCell" bookkeeping/bookkeeping --include="*.h" --include="*.m" | grep -v 'import.*"ASBase\|/ASBase'
+```
+Expected output (any hit must be inspected before proceeding):
+```
+bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m:24:    if (![viewController isKindOfClass:[ASBaseViewController class]]) {
+bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m:36:            ASBaseViewController *vc = (ASBaseViewController *)viewController;
+bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m:40:            ASBaseViewController *vc = (ASBaseViewController *)viewController;
+```
+
+These three lines live in a `pushViewController:animated:` else-branch that special-cases `ASBaseViewController` subclasses. Since there are zero subclasses, that branch is dead. Step 2.3 (below) replaces the entire method body with the simplified non-AS path.
 
 - [ ] **Step 2.2: Delete the four ASBase files**
 
@@ -246,9 +260,9 @@ ls bookkeeping/bookkeeping/Classes/Base/controller/AS* bookkeeping/bookkeeping/C
 ```
 Expected: `ls: ...: No such file or directory`.
 
-- [ ] **Step 2.3: Remove the AsyncDisplayKit import from `BaseNavigationController.m`**
+- [ ] **Step 2.3: Strip AsyncDisplayKit import + collapse the dead AS branch in `BaseNavigationController.m`**
 
-Use the Edit tool to remove the import line:
+Edit A — remove the import line:
 
 Replace:
 ```objc
@@ -260,9 +274,70 @@ With:
 #import "BaseNavigationController.h"
 ```
 
+Edit B — collapse the dead `ASBaseViewController` branch in `pushViewController:animated:` and clean out the surrounding commented-out scaffolding. Replace the entire method:
+```objc
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (![viewController isKindOfClass:[ASBaseViewController class]]) {
+        if (self.viewControllers.count == 1) {
+            BaseViewController *vc = (BaseViewController *)viewController;
+            vc.leftButton.hidden = true;
+            vc.hidesBottomBarWhenPushed = true;
+        } else {
+            BaseViewController *vc = (BaseViewController *)viewController;
+            vc.leftButton.hidden = true;
+            vc.hidesBottomBarWhenPushed = false;
+        }
+    } else {
+        if (self.viewControllers.count == 1) {
+            ASBaseViewController *vc = (ASBaseViewController *)viewController;
+//            vc.leftButton.hidden = true;
+            vc.hidesBottomBarWhenPushed = true;
+        } else {
+            ASBaseViewController *vc = (ASBaseViewController *)viewController;
+//            vc.leftButton.hidden = true;
+            vc.hidesBottomBarWhenPushed = false;
+        }
+    }
+    
+    
+    
+//    BaseTabBarController *tab = (BaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//    if ([viewController isKindOfClass:[HomeController class]] ||
+//        [viewController isKindOfClass:[ChartController class]] ||
+//        [viewController isKindOfClass:[BKCController class]] ||
+//        [viewController isKindOfClass:[FindController class]] ||
+//        [viewController isKindOfClass:[MineController class]]) {
+//        BaseViewController *vc = (BaseViewController *)viewController;
+//        vc.leftButton.hidden = YES;
+////        [tab hideTabbar:NO];
+//    }
+//    else {
+//        BaseViewController *vc = (BaseViewController *)viewController;
+//        vc.leftButton.hidden = NO;
+//        vc.hidesBottomBarWhenPushed = YES;
+////        [tab hideTabbar:YES];
+//    }
+    
+    
+    
+    [super pushViewController:viewController animated:animated];
+}
+```
+With:
+```objc
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    BaseViewController *vc = (BaseViewController *)viewController;
+    vc.leftButton.hidden = true;
+    vc.hidesBottomBarWhenPushed = (self.viewControllers.count == 1);
+    [super pushViewController:viewController animated:animated];
+}
+```
+
+Behavior preservation: this collapses two identical-up-to-cast branches into one, removing only the dead AS branch (which was unreachable because no controller subclassed `ASBaseViewController`). The non-AS path's logic — set `leftButton.hidden = true` + `hidesBottomBarWhenPushed = (count == 1)` — is preserved exactly.
+
 Verify:
 ```bash
-grep -n "AsyncDisplayKit" bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m
+grep -n "AsyncDisplayKit\|ASBase" bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m
 ```
 Expected: empty output.
 
