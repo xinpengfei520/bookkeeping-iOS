@@ -28,15 +28,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"添加类别";
-    [self setNavTitle:@"添加类别"];
-    [self.rightButton setTitle:@"完成" forState:UIControlStateNormal];
-    [self.rightButton setTitle:@"完成" forState:UIControlStateHighlighted];
-    [self.rightButton setHidden:NO];
-    [self.rightButton setTitleColor:kColor_Text_White forState:UIControlStateNormal];
-    [self.rightButton setTitleColor:kColor_Text_Gary forState:UIControlStateHighlighted];
+    self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                         style:UIBarButtonItemStyleDone
+                                        target:self
+                                        action:@selector(rightButtonClick)];
     [self textField];
     [self collection];
 //    [self getCategoryListRequest];

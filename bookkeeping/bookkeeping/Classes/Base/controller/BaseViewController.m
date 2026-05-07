@@ -7,153 +7,21 @@
 //
 
 #import "BaseViewController.h"
-#import "HBDNavigationController.h"
-#import "BaseView.h"
-
-#pragma mark - enum
-typedef NS_ENUM(NSInteger, BarButtonItemState) {
-    BarButtonItemStateLeft,     // 文字居左
-    BarButtonItemStateRight,    // 文字居右
-};
-
-
-#pragma mark - 声明
-@interface BaseViewController ()
-
-@end
-
 
 #pragma mark - 实现
 @implementation BaseViewController
 
-
 #pragma mark - 初始化
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.navigationController setJz_navigationBarTransitionStyle:JZNavigationBarTransitionStyleSystem];
     [self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
     [self.view setBackgroundColor:kColor_BG];
-    [self initUI];
     self.navigationItem.backButtonTitle = @"返回";
 }
-
-- (void)initUI {
-    [self setLeftBtn];
-    [self setRightBtn];
-}
-
-- (void)setNavTitle:(NSString *)navTitle {
-    _navTitle = navTitle;
-    UIFont *font = [UIFont systemFontOfSize:AdjustFont(14)];
-    CGSize maxSize = [navTitle sizeWithMaxSize:CGSizeMake(MAXFLOAT, 0) font:font];
-    
-    UIButton *btn = ({
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn.titleLabel setFont:font];
-        [btn setFrame:CGRectMake(0, 0, maxSize.width, 40)];
-        [btn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
-        [btn setTitle:navTitle forState:UIControlStateNormal];
-        btn;
-    });
-    
-    self.navigationItem.titleView = btn;
-}
-
-
-#pragma mark - 点击
-// 点击了返回按钮
-- (void)leftButtonClick {
-    if ([self.navigationController popViewControllerAnimated:YES] == nil) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
-// 点击了右侧按钮
-- (void)rightButtonClick {
-
-}
-
-
-#pragma mark - set
-// 设置返回按钮
-- (void)setLeftBtn {
-    UIButton *btn = ({
-        UIButton *btn = [UIButton new];
-        [btn setImage:[UIImage imageNamed:@"nav_back_n"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"nav_back_n"] forState:UIControlStateHighlighted];
-        [btn.imageView setContentMode:UIViewContentModeScaleAspectFit];
-        [btn addTarget:self action:@selector(leftButtonClick) forControlEvents:UIControlEventTouchUpInside];
-        [btn setFrame:CGRectMake(0, 0, 40, 40)];
-        [btn setContentMode:UIViewContentModeLeft];
-        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [btn setContentEdgeInsets:UIEdgeInsetsMake(8, -4, 8, 16)];
-        btn;
-    });
-    
-    UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    self.navigationItem.leftBarButtonItem = barBtn;
-    self.leftButton = btn;
-    self.navigationItem.backButtonTitle = @"返回";
-
-    // 主页、记账页面隐藏左边返回按钮
-    if ([self isKindOfClass:[HomeController class]] || [self isKindOfClass:[BookController class]]) {
-        self.leftButton.hidden = YES;
-    } else {
-        self.leftButton.hidden = NO;
-    }
-}
-
-// 设置右侧按钮
-- (void)setRightBtn {
-    UIButton *btn = ({
-        UIButton *btn = [UIButton new];
-        [btn.imageView setContentMode:UIViewContentModeScaleAspectFit];
-        [btn addTarget:self action:@selector(rightButtonClick) forControlEvents:UIControlEventTouchUpInside];
-        [btn setContentEdgeInsets:UIEdgeInsetsMake(8, 16, 8, -4)];
-        [btn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-        [btn setTitleColor:kColor_Text_Black forState:UIControlStateSelected];
-        [btn sizeToFit];
-        btn;
-    });
-    
-    UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem = barBtn;
-    self.rightButton = btn;
-    self.rightButton.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
-    self.rightButton.hidden = YES;
-}
-
-#pragma mark - NavigationBar线条
-/**
- * hide
- */
-- (void)hideNavigationBarLine {
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-}
-
-/**
- * show
- */
-- (void)showNavigationBarLine {
-    [self.navigationController.navigationBar setShadowImage:nil];
-}
-
 
 #pragma mark - 系统
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self hideNavigationBarLine];
-    // iOS 26+ 把 BarButtonItem / 默认 back button 渲染成浮动的圆形玻璃按钮，
-    // 即使 HBD 把导航条隐藏了，这些浮动按钮仍会出现，挡住页面内自己布的按钮，
-    // 而且点击系统默认 back button 会与 HBDNavigationController 不兼容直接闪退。
-    // 所以隐藏导航条的页面这里把所有可能的 bar 按钮（左、右、默认 back）一并清掉。
-    if (self.hbd_barHidden) {
-        self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.hidesBackButton = YES;
-    }
-    // Phase 2: native hide/show; runs in parallel with HBD's hbd_barHidden,
-    // both flag the same intent. After Commit 2 the HBD branch above is gone.
     [self.navigationController setNavigationBarHidden:self.prefersNavigationBarHidden
                                              animated:animated];
 }
@@ -162,9 +30,4 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 @end
-
-
-
-

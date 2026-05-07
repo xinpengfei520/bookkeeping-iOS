@@ -30,10 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"分享";
-    [self setNavTitle:@"分享"];
     [self.view setBackgroundColor:kColor_Line_Color];
     [self scroll];
     [self shot1];

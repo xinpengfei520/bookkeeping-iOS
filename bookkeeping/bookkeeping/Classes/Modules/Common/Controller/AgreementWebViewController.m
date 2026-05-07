@@ -18,12 +18,9 @@
 
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     
     // 设置标题
     self.title = self.type == AgreementTypeUserAgreement ? @"用户协议" : @"隐私政策";
-    [self setNavTitle:self.type == AgreementTypeUserAgreement ? @"用户协议" : @"隐私政策"];
     
     // 创建 WebView
     _webView = [[WKWebView alloc] init];

@@ -43,9 +43,6 @@
         str;
     });
     self.title = registerTitle;
-    [self setNavTitle:registerTitle];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     [self.view setBackgroundColor:kColor_BG];
     
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];

@@ -33,66 +33,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"帮助";
-    [self setNavTitle:@"帮助"];
-    
-    // 使用父类方法设置返回按钮，而不是自定义
-    [self setupBackButton];
-    
-    // 覆盖左边按钮的点击事件
-    [self.leftButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
-    [self.leftButton addTarget:self action:@selector(handleBackAction) forControlEvents:UIControlEventTouchUpInside];
-    
+
+    // Override system back: tap routes through WKWebView history first;
+    // only pops the controller when web history is empty. Template image
+    // inherits the global white tint from UINavigationBar.appearance.
+    UIImage *backImage = [[UIImage imageNamed:@"nav_back_n"]
+                          imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithImage:backImage
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(handleBackAction)];
+
     [self web];
     [self myProgressView];
     if (_url) {
         [self.web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
     }
-}
-
-// 设置自定义返回按钮
-- (void)setupBackButton {
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    // 2. 如果没有白色图标资源，将黑色图标染成白色
-    UIImage *backImage = [UIImage imageNamed:@"nav_back_n"];
-    UIImage *whiteBackImage = [self imageWithTintColor:[UIColor whiteColor] image:backImage];
-    [backButton setImage:whiteBackImage forState:UIControlStateNormal];
-    [backButton setImage:whiteBackImage forState:UIControlStateHighlighted];
-    
-    [backButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [backButton addTarget:self action:@selector(handleBackAction) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0, 0, 44, 44)];
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = backItem;
-}
-
-// 将图片染色的辅助方法
-- (UIImage *)imageWithTintColor:(UIColor *)tintColor image:(UIImage *)image {
-    UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextTranslateCTM(context, 0, image.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    
-    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-    
-    // 绘制原图
-    CGContextSetBlendMode(context, kCGBlendModeNormal);
-    CGContextDrawImage(context, rect, image.CGImage);
-    
-    // 绘制色彩
-    CGContextSetBlendMode(context, kCGBlendModeSourceIn);
-    [tintColor setFill];
-    CGContextFillRect(context, rect);
-    
-    UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return tintedImage;
 }
 
 // 处理返回操作

@@ -17,10 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"导出数据";
-    [self setNavTitle:@"导出数据"];
     
     [self setupUI];
 }

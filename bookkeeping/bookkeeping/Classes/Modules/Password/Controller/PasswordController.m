@@ -28,10 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"修改密码";
-    [self setNavTitle:@"修改密码"];
     [self setupUI];
     [self setupConstraints];
     [self setupEvents];

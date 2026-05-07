@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = YES;
     self.prefersNavigationBarHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
     [self setupUI];
@@ -216,14 +215,14 @@
 
 - (void)agreementViewDidTapUserAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
-    [vc setNavTitle:@"用户协议"];
+    vc.title = @"用户协议";
     [vc setUrl:@"https://book.vance.xin/agreement.html"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)agreementViewDidTapPrivacyAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
-    [vc setNavTitle:@"隐私协议"];
+    vc.title = @"隐私协议";
     [vc setUrl:@"https://book.vance.xin/privacy.html"];
     [self.navigationController pushViewController:vc animated:YES];
 }

@@ -33,7 +33,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = YES;
     self.prefersNavigationBarHidden = YES;
     [self navigation];
     [self header];

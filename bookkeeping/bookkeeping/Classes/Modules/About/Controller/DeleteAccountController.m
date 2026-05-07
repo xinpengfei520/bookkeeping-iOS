@@ -23,10 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"删除账号";
-    [self setNavTitle:@"删除账号"];
     [self setupUI];
     [self setupConstraints];
 }

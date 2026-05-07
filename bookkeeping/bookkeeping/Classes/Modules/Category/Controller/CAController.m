@@ -29,15 +29,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"类别设置";
-    [self setNavTitle:@"类别设置"];
+    self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                         style:UIBarButtonItemStyleDone
+                                        target:self
+                                        action:@selector(rightButtonClick)];
     [self header];
     [self table];
     [self bootom];
-    [self.rightButton setTitle:@"完成" forState:UIControlStateNormal];
-    [self.rightButton setTitle:@"完成" forState:UIControlStateHighlighted];
     [self.view bringSubviewToFront:self.bootom];
     if (_is_income == true) {
         [_header.seg setSelectedSegmentIndex:1];
@@ -284,5 +284,9 @@
     return _eventStrategy;
 }
 
+// Preserve the inherited no-op from BaseViewController. The 完成 right button
+// was historically wired to this empty selector; not changing behaviour here.
+- (void)rightButtonClick {
+}
 
 @end

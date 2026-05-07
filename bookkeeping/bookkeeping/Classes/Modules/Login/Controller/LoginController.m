@@ -27,7 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = YES;
     self.prefersNavigationBarHidden = YES;
     [self.view setBackgroundColor:kColor_BG];
     [self setupUI];

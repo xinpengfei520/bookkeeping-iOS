@@ -24,10 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"关于";
-    [self setNavTitle:@"关于"];
     [self setupUI];
     [self setupConstraints];
 }

@@ -22,35 +22,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = NO;
-    self.hbd_barTintColor = kColor_Main_Color;
     self.title = @"账单";
-    [self setNavTitle:@"账单"];
     [self setDate:[NSDate date]];
-    [self.rightButton setHidden:false];
-    [self.rightButton addSubview:({
+    {
+        // Composite year + arrow as the only customView right bar item — wrapped
+        // in a plain UIView so the year label keeps its tag-10 lookup contract.
         NSDate *date = [NSDate date];
         NSString *year = [NSString stringWithFormat:@"%ld年", date.year];
         UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(14)];
-        CGFloat width = [year sizeWithMaxSize:CGSizeMake(MAXFLOAT, 0) font:font].width;
-        
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 44)];
+        CGFloat labWidth = [year sizeWithMaxSize:CGSizeMake(MAXFLOAT, 0) font:font].width;
+        CGFloat arrowWidth = 10;
+        CGFloat totalWidth = labWidth + arrowWidth + 4;
+
+        UIView *wrapper = [[UIView alloc] initWithFrame:CGRectMake(0, 0, totalWidth, 44)];
+
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labWidth, 44)];
         lab.text = year;
         lab.font = font;
         lab.textColor = kColor_Text_White;
         lab.textAlignment = NSTextAlignmentRight;
         lab.tag = 10;
-        lab;
-    })];
-    [self.rightButton setFrame:CGRectMake(0, 0, [self.rightButton viewWithTag:10].width + 10, 44)];
-    [self.rightButton addSubview:({
-        CGFloat width = 10;
-        UIImageView *image = [[UIImageView alloc] init];
-        image.frame = CGRectMake(self.rightButton.width - width, 0, width, self.rightButton.height);
-        image.image = [UIImage imageNamed:@"time_down"];
-        image.contentMode = UIViewContentModeScaleAspectFit;
-        image;
-    })];
+        [wrapper addSubview:lab];
+
+        UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(totalWidth - arrowWidth, 0, arrowWidth, 44)];
+        arrow.image = [UIImage imageNamed:@"time_down"];
+        arrow.contentMode = UIViewContentModeScaleAspectFit;
+        [wrapper addSubview:arrow];
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(rightButtonClick)];
+        [wrapper addGestureRecognizer:tap];
+
+        self.navigationItem.rightBarButtonItem =
+            [[UIBarButtonItem alloc] initWithCustomView:wrapper];
+    }
     [self table];
     dispatch_async(dispatch_get_main_queue(), ^{
        [self updateYearValue:[@(self.date.year) description]];
@@ -84,7 +89,8 @@
 
 - (void)updateYearValue:(NSString *)selectValue {
     [self setDate:[NSDate dateWithYMD:[NSString stringWithFormat:@"%@-01-01", selectValue]]];
-    [(UILabel *)[self.rightButton viewWithTag:10] setText:[NSString stringWithFormat:@"%ld年", self.date.year]];
+    [(UILabel *)[self.navigationItem.rightBarButtonItem.customView viewWithTag:10]
+        setText:[NSString stringWithFormat:@"%ld年", self.date.year]];
     [self updateData];
 }
 

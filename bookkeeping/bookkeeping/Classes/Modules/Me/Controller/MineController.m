@@ -22,7 +22,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = YES;
     self.prefersNavigationBarHidden = YES;
     [self mine];
     [self setupUI];
@@ -115,7 +114,7 @@
         // 帮助
         else if (indexPath.row == 2) {
             WebViewController *vc = [[WebViewController alloc] init];
-            [vc setNavTitle:@"帮助"];
+            vc.title = @"帮助";
             [vc setUrl:@"https://book.vance.xin/help_ios.html"];
             [self.navigationController pushViewController:vc animated:YES];
         }
