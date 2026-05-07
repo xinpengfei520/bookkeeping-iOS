@@ -30,6 +30,7 @@ static AFHTTPSessionManager *_manager;
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
         // post json 格式数据的时候加上这两句
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [_manager.requestSerializer setValue:@"638c2977f1b24ba0" forHTTPHeaderField:@"app_id"];
     });
     return _manager;
 }
