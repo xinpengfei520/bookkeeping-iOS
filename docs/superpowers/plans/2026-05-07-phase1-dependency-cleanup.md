@@ -12,6 +12,13 @@
 
 **No automated tests.** The project has no test target. Validation is manual regression as defined in the spec §5; each task ends only after the corresponding regression has passed.
 
+**Pre-existing build caveat.** The `BookMonth` widget extension target has a long-standing header-search-path bug (`<MJExtension/MJExtension.h>` not found at compile time). This pre-dates Phase 1 and is NOT in scope here. Whenever a build verification step says "BUILD SUCCEEDED", interpret it as: **the `bookkeeping` (main app) target compiles with zero errors**. Use the filter below to confirm:
+
+```bash
+xcodebuild ... build 2>&1 | grep -E "error:" | grep "in target 'bookkeeping' from project"
+```
+Expected: empty output. BookMonth-target errors are tolerated.
+
 ---
 
 ## Pre-flight
@@ -74,17 +81,34 @@ Expected: `ls: ...: No such file or directory`.
 
 - [ ] **Step 1.3: Remove YYLabel references from `bookkeeping.xcodeproj/project.pbxproj`**
 
-This file is huge; we use a Python one-liner to drop every line containing the substring `YYLabel` (the substring is unique — no false positives elsewhere).
+The `xcodeproj` Ruby gem (already installed because CocoaPods depends on it) is the only safe way to mutate this file — naive line-based deletion breaks multi-line `PBXGroup` definitions.
 
 Run:
 ```bash
-python3 - <<'PY'
-import pathlib
-p = pathlib.Path('bookkeeping/bookkeeping.xcodeproj/project.pbxproj')
-text = p.read_text()
-out = '\n'.join(line for line in text.split('\n') if 'YYLabel' not in line)
-p.write_text(out)
-PY
+ruby - <<'RUBY'
+require 'xcodeproj'
+project = Xcodeproj::Project.open('bookkeeping/bookkeeping.xcodeproj')
+
+# Remove file references whose path contains YYLabel+Extension.
+# remove_from_project cascades: drops the file from any groups, removes
+# the matching PBXBuildFile, and removes the entry from build phases.
+project.files.each do |f|
+  next unless f.path && f.path.include?('YYLabel+Extension')
+  puts "removing file ref: #{f.path}"
+  f.remove_from_project
+end
+
+# Remove the now-empty YYLabel group.
+project.main_group.recursive_children.each do |g|
+  next unless g.is_a?(Xcodeproj::Project::Object::PBXGroup)
+  if g.path == 'YYLabel' || g.name == 'YYLabel'
+    puts "removing group: YYLabel"
+    g.remove_from_project
+  end
+end
+
+project.save
+RUBY
 grep -c "YYLabel" bookkeeping/bookkeeping.xcodeproj/project.pbxproj
 ```
 Expected: `0`.
@@ -272,19 +296,22 @@ Expected: empty output.
 
 - [ ] **Step 2.5: Strip ASBase entries from `bookkeeping.xcodeproj/project.pbxproj`**
 
-The substrings `ASBaseViewController` and `ASBaseTableCell` are unique in this file.
+Same `xcodeproj` Ruby-gem approach as Step 1.3. The four ASBase files live in existing parent groups (`Base/controller`, `Base/view`); no dedicated group needs deleting, but using the gem still avoids any risk of breaking multi-line constructs.
 
 Run:
 ```bash
-python3 - <<'PY'
-import pathlib
-p = pathlib.Path('bookkeeping/bookkeeping.xcodeproj/project.pbxproj')
-text = p.read_text()
-def keep(line):
-    return ('ASBaseViewController' not in line) and ('ASBaseTableCell' not in line)
-out = '\n'.join(line for line in text.split('\n') if keep(line))
-p.write_text(out)
-PY
+ruby - <<'RUBY'
+require 'xcodeproj'
+project = Xcodeproj::Project.open('bookkeeping/bookkeeping.xcodeproj')
+targets = ['ASBaseViewController.h', 'ASBaseViewController.m',
+           'ASBaseTableCell.h', 'ASBaseTableCell.m']
+project.files.each do |f|
+  next unless f.path && targets.include?(File.basename(f.path))
+  puts "removing file ref: #{f.path}"
+  f.remove_from_project
+end
+project.save
+RUBY
 grep -cE "ASBaseViewController|ASBaseTableCell" bookkeeping/bookkeeping.xcodeproj/project.pbxproj
 ```
 Expected: `0`.
