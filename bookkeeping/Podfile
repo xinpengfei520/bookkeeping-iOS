@@ -35,6 +35,56 @@ post_install do |installer|
       config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
       # 确保支持的架构正确
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+      # 避免第三方库（如 YYText 1.0.7）的 chained-comparison 等历史警告被升级为 error
+      config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+    end
+
+    # Xcode 15+ 要求资源 bundle 也签名，但 CocoaPods 为各 Pod 自动生成的
+    # *.Privacy / 资源 bundle 没有 DEVELOPMENT_TEAM。这里统一关掉它们的签名要求。
+    if target.respond_to?(:product_type) && target.product_type == 'com.apple.product-type.bundle'
+      target.build_configurations.each do |config|
+        config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
+        config.build_settings['CODE_SIGN_IDENTITY'] = ''
+      end
     end
   end
-end 
+
+  # 修复 YYText 1.0.7 / Texture 内嵌 YYText 实验组件的链式比较 bug
+  # （两个仓库都已归档未修，新版 Clang 把这个 warning 升级为 error）
+  # 原写法 `A < B < (right ? prev : next)` 会被解析成 `(A<B) < (...)`，position 永远是 0/1
+  chained_cmp_patch_targets = [
+    'Pods/YYText/YYText/Component/YYTextLayout.m',
+    'Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm',
+  ]
+  chained_cmp_patch_targets.each do |relative|
+    path = File.join(installer.config.installation_root, relative)
+    next unless File.exist?(path)
+    original = File.read(path)
+    patched = original.gsub(
+      /position = fabs\(left - point\.([xy])\) < fabs\(right - point\.\1\) < \(right \? prev : next\);/,
+      'position = fabs(left - point.\1) < fabs(right - point.\1) ? prev : next;'
+    )
+    next if patched == original
+    File.chmod(0644, path)
+    File.write(path, patched)
+    Pod::UI.puts "[patch] chained-comparison fixed in #{relative}".yellow
+  end
+
+  # 修复 AFNetworking 4.0.1 在 Xcode 16 / 新 SDK 下的 module 报错
+  # `<netinet6/in6.h>` 在新 SDK 已被设为模块私有，删掉即可（IPv6 类型由 <netinet/in.h> 传递引入）
+  afn_private_header_targets = [
+    'Pods/AFNetworking/AFNetworking/AFNetworkReachabilityManager.m',
+    'Pods/AFNetworking/AFNetworking/AFHTTPSessionManager.m',
+  ]
+  afn_private_header_targets.each do |relative|
+    path = File.join(installer.config.installation_root, relative)
+    next unless File.exist?(path)
+    original = File.read(path)
+    patched = original.gsub(/^#import <netinet6\/in6\.h>\n/, '')
+    next if patched == original
+    File.chmod(0644, path)
+    File.write(path, patched)
+    Pod::UI.puts "[patch] removed private <netinet6/in6.h> import from #{relative}".yellow
+  end
+end
