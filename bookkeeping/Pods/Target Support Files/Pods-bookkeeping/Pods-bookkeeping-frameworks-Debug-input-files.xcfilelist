@@ -16,6 +16,5 @@ ${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework
 ${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework
-${BUILT_PRODUCTS_DIR}/YYText/YYText.framework
 ${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework
 ${BUILT_PRODUCTS_DIR}/pop/pop.framework

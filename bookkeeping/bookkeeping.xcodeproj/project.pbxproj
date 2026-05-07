@@ -72,7 +72,6 @@
 		327CEC2E21C89201001D0086 /* ChartSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 327CEC2D21C89201001D0086 /* ChartSectionHeader.xib */; };
 		327CEC3121C89479001D0086 /* BookChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC3021C89479001D0086 /* BookChart.m */; };
 		327CEC3821C89920001D0086 /* ChartTableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC3721C89920001D0086 /* ChartTableHeader.m */; };
-		328FB41422110D0B00A61426 /* YYLabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 328FB41322110D0B00A61426 /* YYLabel+Extension.m */; };
 		3299035A21CA6895000F4C14 /* BKCRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3299035921CA6895000F4C14 /* BKCRefreshHeader.m */; };
 		32A04B2921DE04D8002B0766 /* SC.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32A04B2821DE04D8002B0766 /* SC.plist */; };
 		32A4C22221CB15B100DF4327 /* JHCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C21E21CB15B000DF4327 /* JHCollectionReusableView.m */; };
@@ -462,8 +461,6 @@
 		327CEC3021C89479001D0086 /* BookChart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookChart.m; sourceTree = "<group>"; };
 		327CEC3621C89920001D0086 /* ChartTableHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartTableHeader.h; sourceTree = "<group>"; };
 		327CEC3721C89920001D0086 /* ChartTableHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartTableHeader.m; sourceTree = "<group>"; };
-		328FB41222110D0B00A61426 /* YYLabel+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YYLabel+Extension.h"; sourceTree = "<group>"; };
-		328FB41322110D0B00A61426 /* YYLabel+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YYLabel+Extension.m"; sourceTree = "<group>"; };
 		3299035821CA6895000F4C14 /* BKCRefreshHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCRefreshHeader.h; sourceTree = "<group>"; };
 		3299035921CA6895000F4C14 /* BKCRefreshHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCRefreshHeader.m; sourceTree = "<group>"; };
 		32A04B2821DE04D8002B0766 /* SC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SC.plist; sourceTree = "<group>"; };
@@ -1133,7 +1130,6 @@
 			children = (
 				F3570A13288697F600B10976 /* UITableViewHeaderFooterView */,
 				F3581DA2287C0F6F007B17CD /* BaseViewController */,
-				328FB41122110D0B00A61426 /* YYLabel */,
 				4B466EBD220562760069F38E /* SyncedData */,
 				321983ED21C6460100311885 /* UITableView */,
 				32AF269B21ED72DB004F46A2 /* UITableViewCell */,
@@ -1338,15 +1334,6 @@
 				4B8D636921D8D507002AEB4A /* BCHUDContentCell.xib */,
 			);
 			path = BookChart;
-			sourceTree = "<group>";
-		};
-		328FB41122110D0B00A61426 /* YYLabel */ = {
-			isa = PBXGroup;
-			children = (
-				328FB41222110D0B00A61426 /* YYLabel+Extension.h */,
-				328FB41322110D0B00A61426 /* YYLabel+Extension.m */,
-			);
-			path = YYLabel;
 			sourceTree = "<group>";
 		};
 		32A4C21B21CB15B000DF4327 /* JHCollectionViewDelegateFlowLayout */ = {
@@ -2762,7 +2749,6 @@
 				4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */,
 				247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */,
 				247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */,
-				328FB41422110D0B00A61426 /* YYLabel+Extension.m in Sources */,
 				326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */,
 				F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */,
 				4B35F1C221CCC694007271BE /* KKEmptyLoading.m in Sources */,

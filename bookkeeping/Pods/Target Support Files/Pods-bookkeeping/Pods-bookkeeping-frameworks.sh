@@ -193,7 +193,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/YYText/YYText.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/pop/pop.framework"
 fi
@@ -215,7 +214,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/YYText/YYText.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/pop/pop.framework"
 fi

@@ -15,7 +15,6 @@ target 'bookkeeping' do
     pod 'MGSwipeTableCell', '1.6.8'
     pod 'BRPickerView', '2.9.1'
     pod 'Texture', '3.1.0'
-    pod 'YYText', '1.0.7'
     pod 'YYImage', '1.0.4'
     pod 'KMNavigationBarTransition', '1.1.5'
     pod 'Bugly'
@@ -35,7 +34,7 @@ post_install do |installer|
       config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
       # 确保支持的架构正确
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
-      # 避免第三方库（如 YYText 1.0.7）的 chained-comparison 等历史警告被升级为 error
+      # 避免第三方库的 chained-comparison 等历史警告被升级为 error
       config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
     end
 
@@ -50,11 +49,10 @@ post_install do |installer|
     end
   end
 
-  # 修复 YYText 1.0.7 / Texture 内嵌 YYText 实验组件的链式比较 bug
-  # （两个仓库都已归档未修，新版 Clang 把这个 warning 升级为 error）
+  # 修复 Texture TextExperiment 组件的链式比较 bug
+  # （上游已归档未修，新版 Clang 把这个 warning 升级为 error）
   # 原写法 `A < B < (right ? prev : next)` 会被解析成 `(A<B) < (...)`，position 永远是 0/1
   chained_cmp_patch_targets = [
-    'Pods/YYText/YYText/Component/YYTextLayout.m',
     'Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm',
   ]
   chained_cmp_patch_targets.each do |relative|
