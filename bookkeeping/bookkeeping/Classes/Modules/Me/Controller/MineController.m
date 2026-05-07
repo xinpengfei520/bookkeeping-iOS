@@ -6,6 +6,7 @@
 #import "MineController.h"
 #import "LAContextManager.h"
 #import <MessageUI/MessageUI.h>
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface MineController() <MFMailComposeViewControllerDelegate>
@@ -25,6 +26,31 @@
     self.prefersNavigationBarHidden = YES;
     [self mine];
     [self setupUI];
+    [self setupBackButton];
+}
+
+// 个人中心顶部左上角的返回按钮 —— 隐藏导航条页面里手动提供入口，
+// 系统侧滑返回也由 BaseViewController 重新接管。
+- (void)setupBackButton {
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *icon = [[UIImage imageNamed:@"nav_back_n"]
+                     imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [backButton setImage:icon forState:UIControlStateNormal];
+    backButton.tintColor = kColor_Text_White;
+    [backButton addTarget:self
+                   action:@selector(backBtnClick)
+         forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backButton];
+    [self.view bringSubviewToFront:backButton];
+    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(8);
+        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(4);
+        make.width.height.equalTo(@44);
+    }];
+}
+
+- (void)backBtnClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setupUI {

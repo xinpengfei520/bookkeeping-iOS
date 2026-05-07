@@ -118,9 +118,9 @@
 }
 
 - (void)setupConstraints {
-    // 头像约束
+    // 头像约束 —— 左边距向右挪开，给左上角返回按钮（44x44 + 8pt 偏移）让位
     [_icon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(countcoordinatesX(20));
+        make.left.equalTo(self).offset(countcoordinatesX(64));
         make.top.equalTo(self).offset(StatusBarHeight + countcoordinatesX(60));
         make.size.mas_equalTo(CGSizeMake(countcoordinatesX(60), countcoordinatesX(60)));
     }];
