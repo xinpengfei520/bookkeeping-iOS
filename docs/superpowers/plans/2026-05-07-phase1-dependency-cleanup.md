@@ -718,16 +718,23 @@ forHTTPHeaderField:@"Content-Type"];
 
     for (NSInteger i = 0; i < (NSInteger)images.count; i++) {
         UIImage *image = images[i];
-        NSData *data = UIImagePNGRepresentation(image);
+        // JPEG-first: PNG of full-resolution photos exceeds nginx's
+        // client_max_body_size in practice. PNG only kicks in if JPEG
+        // encoding itself fails (extremely rare).
+        NSString *mime = @"image/jpeg";
+        NSString *ext = @"jpg";
+        NSData *data = UIImageJPEGRepresentation(image, 0.85);
         if (data == nil) {
-            data = UIImageJPEGRepresentation(image, 1.0);
+            data = UIImagePNGRepresentation(image);
+            mime = @"image/png";
+            ext = @"png";
         }
         if (data == nil) {
-            continue; // match prior AFN behaviour: skip un-encodable image
+            continue; // skip un-encodable image
         }
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"image%ld\"\r\n", (long)i] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[@"Content-Type: image/png\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"image%ld.%@\"\r\n", (long)i, ext] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mime] dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:data];
         [body appendData:crlf];
     }

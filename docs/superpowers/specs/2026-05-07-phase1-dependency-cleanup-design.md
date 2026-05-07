@@ -140,12 +140,16 @@ for each (k, v) in params:
     <stringForValue(v)> as UTF-8\r\n
 
 for each (i, image) in images:
-    NSData *data = UIImagePNGRepresentation(image)
-        ?: UIImageJPEGRepresentation(image, 1.0)
-    if (data == nil) continue;                          // match current behaviour
+    // JPEG-first: avoids PNG bloat on photos. Avatar bodies must stay
+    // under typical nginx client_max_body_size (~1 MB).
+    NSData *data = UIImageJPEGRepresentation(image, 0.85)
+        ?: UIImagePNGRepresentation(image)
+    mime = jpeg ? "image/jpeg" : "image/png"
+    ext  = jpeg ? "jpg"        : "png"
+    if (data == nil) continue;
     --<boundary>\r\n
-    Content-Disposition: form-data; name="file"; filename="image<i>"\r\n
-    Content-Type: image/png\r\n\r\n
+    Content-Disposition: form-data; name="file"; filename="image<i>.<ext>"\r\n
+    Content-Type: <mime>\r\n\r\n
     <data>\r\n
 
 --<boundary>--\r\n
@@ -157,6 +161,17 @@ uploadTask = [session uploadTaskWithRequest:req fromData:body
 ```
 
 `stringForValue:` coerces non-string values via `[NSString stringWithFormat:@"%@", v]`.
+
+**Deviation from the original AFN contract.** The previous AFNetworking-based
+`AFNManager` used PNG-first + JPEG-1.0 fallback with a hard-coded
+`image/png` mimeType. That choice produced upload bodies that exceeded the
+backend's nginx `client_max_body_size` cap (HTTP 413) for any
+real-resolution photo. The album-path avatar upload had been latently
+broken for as long as the call site existed — it was only masked by an
+unrelated `ZLResultModel` crash that always fired before the request
+went out. We treat the literal AFN contract as "theoretical" here, and
+swap to JPEG 0.85 first for actual production correctness. This is the
+single intentional behavioural deviation in Phase 1.
 
 ### 3.5 Upload-progress delegate
 
@@ -359,8 +374,8 @@ Restores the project to the pre-Phase-1 state, including all Pod patches.
 
 ## 6. Risks (with mitigations)
 
-**R1. Multipart edge cases** — image data nil after both PNG and JPEG; non-string values in `params`.
-*Mitigation:* `if (data == nil) continue;` for failed image encodings; `stringForValue:` coercion for params. Verified via test #14.
+**R1. Multipart edge cases** — image data nil after both JPEG and PNG; non-string values in `params`; oversized photo bodies hitting the backend's nginx body-size cap.
+*Mitigation:* JPEG 0.85 first + PNG fallback, mimeType set per encoding (see §3.4); `if (data == nil) continue;` for failed image encodings; `stringForValue:` coercion for params; call sites are responsible for resizing dimensions where they care about pixel count (avatar uses 512px max longest-edge in `InfoController.changeIconRequest:`). Verified via test #14.
 
 **R2. Token-expired contract** — current behaviour posts the notification and **does not** invoke `complete:`. Misfiring `complete:` could cause duplicate HUDs or double redirects.
 *Mitigation:* `handleResponse:` returns immediately after posting the notification; explicit code comment marks this contract.
