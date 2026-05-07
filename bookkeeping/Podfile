@@ -7,7 +7,6 @@ target 'bookkeeping' do
     pod 'SDWebImage', '4.4.3'
     pod 'Masonry', '1.1.0'
     pod 'MJExtension', '3.0.15'
-    pod 'AFNetworking', '4.0.1'
     pod 'JGProgressHUD', '2.0.3'
     pod 'SDCycleScrollView', '1.75'
     pod 'ReactiveObjC', '3.1.0'
@@ -46,23 +45,6 @@ post_install do |installer|
         config.build_settings['CODE_SIGN_IDENTITY'] = ''
       end
     end
-  end
-
-  # 修复 AFNetworking 4.0.1 在 Xcode 16 / 新 SDK 下的 module 报错
-  # `<netinet6/in6.h>` 在新 SDK 已被设为模块私有，删掉即可（IPv6 类型由 <netinet/in.h> 传递引入）
-  afn_private_header_targets = [
-    'Pods/AFNetworking/AFNetworking/AFNetworkReachabilityManager.m',
-    'Pods/AFNetworking/AFNetworking/AFHTTPSessionManager.m',
-  ]
-  afn_private_header_targets.each do |relative|
-    path = File.join(installer.config.installation_root, relative)
-    next unless File.exist?(path)
-    original = File.read(path)
-    patched = original.gsub(/^#import <netinet6\/in6\.h>\n/, '')
-    next if patched == original
-    File.chmod(0644, path)
-    File.write(path, patched)
-    Pod::UI.puts "[patch] removed private <netinet6/in6.h> import from #{relative}".yellow
   end
 
   # 修复 HBDNavigationBar 1.9.5 在 iOS 26 上闪退（NSUnknownKeyException: contentView）

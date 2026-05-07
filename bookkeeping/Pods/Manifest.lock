@@ -1,19 +1,4 @@
 PODS:
-  - AFNetworking (4.0.1):
-    - AFNetworking/NSURLSession (= 4.0.1)
-    - AFNetworking/Reachability (= 4.0.1)
-    - AFNetworking/Security (= 4.0.1)
-    - AFNetworking/Serialization (= 4.0.1)
-    - AFNetworking/UIKit (= 4.0.1)
-  - AFNetworking/NSURLSession (4.0.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - AFNetworking/UIKit (4.0.1):
-    - AFNetworking/NSURLSession
   - BRPickerView (2.9.1):
     - BRPickerView/All (= 2.9.1)
   - BRPickerView/All (2.9.1):
@@ -63,7 +48,6 @@ PODS:
   - ZLPhotoBrowser/Core (4.5.5)
 
 DEPENDENCIES:
-  - AFNetworking (= 4.0.1)
   - BRPickerView (= 2.9.1)
   - Bugly
   - HBDNavigationBar (~> 1.9.5)
@@ -82,7 +66,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AFNetworking
     - BRPickerView
     - Bugly
     - HBDNavigationBar
@@ -100,7 +83,6 @@ SPEC REPOS:
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
-  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   BRPickerView: 6dd69ea2c48e0a0abf1d197a705050e13143ee63
   Bugly: 217ac2ce5f0f2626d43dbaa4f70764c953a26a31
   HBDNavigationBar: 282cc0b511e5c9c0f4a01766a134b04744014c29
@@ -117,6 +99,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: be3e2ecaf14c4e458224d4deeb723e0fce5ee005
+PODFILE CHECKSUM: 80417762d50ee3e55749a836a22e454dc6938bb2
 
 COCOAPODS: 1.11.3

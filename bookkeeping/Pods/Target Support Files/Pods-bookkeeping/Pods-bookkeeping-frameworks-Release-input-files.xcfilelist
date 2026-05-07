@@ -1,5 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-frameworks.sh
-${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/BRPickerView/BRPickerView.framework
 ${BUILT_PRODUCTS_DIR}/HBDNavigationBar/HBDNavigationBar.framework
 ${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework
