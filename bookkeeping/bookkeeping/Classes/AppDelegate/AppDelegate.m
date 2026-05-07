@@ -79,6 +79,11 @@
     [[UINavigationBar appearance] setScrollEdgeAppearance:appearance];
     [[UINavigationBar appearance] setCompactAppearance:appearance];
     [[UINavigationBar appearance] setTintColor:kColor_Text_White];
+    // translucent = NO 让 self.view 起点在导航条下方（不延伸到 bar 后），匹配项目里
+    // 既有的两种 layout pattern：(a) 部分页面用 offset(NavigationBarHeight + 20)
+    // 作为 bar 下方的 padding；(b) 部分页面直接 offset(20)。两种都假设 view 起点
+    // 已经在 bar 之下——HBD 时代由 HBD 自己保证；Phase 2 由这一行接管。
+    [[UINavigationBar appearance] setTranslucent:NO];
 
     [[UITextField appearance] setTintColor:kColor_Main_Color];
 }

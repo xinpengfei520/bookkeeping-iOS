@@ -14,9 +14,7 @@ target 'bookkeeping' do
     pod 'MGSwipeTableCell', '1.6.8'
     pod 'BRPickerView', '2.9.1'
     pod 'YYImage', '1.0.4'
-    pod 'KMNavigationBarTransition', '1.1.5'
     pod 'Bugly'
-    pod 'HBDNavigationBar', '~> 1.9.5'
     pod 'ZLPhotoBrowser'
 end
 
@@ -47,25 +45,4 @@ post_install do |installer|
     end
   end
 
-  # 修复 HBDNavigationBar 1.9.5 在 iOS 26 上闪退（NSUnknownKeyException: contentView）
-  # iOS 26 把 UINavigationBar 的 visualProvider 换成 Swift 类 _UINavigationBarVisualProviderModernIOSSwift，
-  # 不再 KVC 兼容 contentView / titleButton。给两处 KVC 包 @try/@catch，失败时返回 nil（调用方有 nil 防护）。
-  hbd_bar = File.join(installer.config.installation_root, 'Pods/HBDNavigationBar/HBDNavigationBar/Classes/HBDNavigationBar.m')
-  if File.exist?(hbd_bar)
-    original = File.read(hbd_bar)
-    patched = original
-      .gsub(
-        'UIView *navigationBarContentView = [self valueForKeyPath:@"visualProvider.contentView"];',
-        "UIView *navigationBarContentView = nil;\n    @try { navigationBarContentView = [self valueForKeyPath:@\"visualProvider.contentView\"]; } @catch (NSException *e) { return nil; }"
-      )
-      .gsub(
-        'UIButton *titleButton = [subview valueForKeyPath:@"visualProvider.titleButton"];',
-        "UIButton *titleButton = nil;\n            @try { titleButton = [subview valueForKeyPath:@\"visualProvider.titleButton\"]; } @catch (NSException *e) {}"
-      )
-    if patched != original
-      File.chmod(0644, hbd_bar)
-      File.write(hbd_bar, patched)
-      Pod::UI.puts "[patch] HBDNavigationBar guarded KVC against iOS 26 visual provider".yellow
-    end
-  end
 end

@@ -26,9 +26,7 @@ PODS:
   - BRPickerView/TextPicker (2.9.1):
     - BRPickerView/Core
   - Bugly (2.6.1)
-  - HBDNavigationBar (1.9.7)
   - JGProgressHUD (2.0.3)
-  - KMNavigationBarTransition (1.1.5)
   - Masonry (1.1.0)
   - MGSwipeTableCell (1.6.8)
   - MJExtension (3.0.15)
@@ -50,9 +48,7 @@ PODS:
 DEPENDENCIES:
   - BRPickerView (= 2.9.1)
   - Bugly
-  - HBDNavigationBar (~> 1.9.5)
   - JGProgressHUD (= 2.0.3)
-  - KMNavigationBarTransition (= 1.1.5)
   - Masonry (= 1.1.0)
   - MGSwipeTableCell (= 1.6.8)
   - MJExtension (= 3.0.15)
@@ -68,9 +64,7 @@ SPEC REPOS:
   trunk:
     - BRPickerView
     - Bugly
-    - HBDNavigationBar
     - JGProgressHUD
-    - KMNavigationBarTransition
     - Masonry
     - MGSwipeTableCell
     - MJExtension
@@ -85,9 +79,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   BRPickerView: 6dd69ea2c48e0a0abf1d197a705050e13143ee63
   Bugly: 217ac2ce5f0f2626d43dbaa4f70764c953a26a31
-  HBDNavigationBar: 282cc0b511e5c9c0f4a01766a134b04744014c29
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
-  KMNavigationBarTransition: 7a52c9bc25b39b6e3343e980b453facee1591b82
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
   MJExtension: 3f039575db1b135a20699ad298713b26acec1528
@@ -99,6 +91,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: 80417762d50ee3e55749a836a22e454dc6938bb2
+PODFILE CHECKSUM: 994fbdb2a61906f559c685869104a1f6af09e73b
 
 COCOAPODS: 1.11.3
