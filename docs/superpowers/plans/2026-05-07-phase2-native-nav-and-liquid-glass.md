@@ -518,7 +518,9 @@ Expected: empty output.
 
 - [ ] **Step 2.2: Clean `BaseNavigationController.m`**
 
-Open `bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m`. The Phase-1-simplified `pushViewController:animated:` is already in place. Just remove the dead commented `jz_navigationBarTransitionStyle` line in `+ initWithRootViewController:` (Q6 of resolved defaults).
+Open `bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m`. Two cleanups:
+
+Edit A — remove the dead commented `jz_navigationBarTransitionStyle` line in `+ initWithRootViewController:` (Q6 of resolved defaults).
 
 Find:
 ```objc
@@ -538,11 +540,32 @@ Replace with:
 }
 ```
 
-Verify the file no longer references HBD/KM:
-```bash
-grep -n "HBD\|jz_\|km_\|AsyncDisplayKit" bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m
+Edit B — drop the Phase-1-era `vc.leftButton.hidden = true;` line in `pushViewController:animated:`. Step 2.3 is removing the `leftButton` property entirely, so this access no longer compiles. The line was hiding the inherited customView back button; the system back button doesn't need it.
+
+Find:
+```objc
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    BaseViewController *vc = (BaseViewController *)viewController;
+    vc.leftButton.hidden = true;
+    vc.hidesBottomBarWhenPushed = (self.viewControllers.count == 1);
+    [super pushViewController:viewController animated:animated];
+}
 ```
-Expected: empty output. (AsyncDisplayKit was already cleared in Phase 1.)
+
+Replace with:
+
+```objc
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    viewController.hidesBottomBarWhenPushed = (self.viewControllers.count == 1);
+    [super pushViewController:viewController animated:animated];
+}
+```
+
+Verify the file no longer references HBD/KM/leftButton:
+```bash
+grep -n "HBD\|jz_\|km_\|AsyncDisplayKit\|leftButton" bookkeeping/bookkeeping/Classes/Base/controller/BaseNavigationController.m
+```
+Expected: empty output.
 
 - [ ] **Step 2.3: Trim `BaseViewController.h` API surface**
 
@@ -631,6 +654,30 @@ Removed (per spec §3.3):
 - The `if (self.hbd_barHidden) { ... hidesBackButton = YES; ... }` branch (Phase 1 mitigation, no longer needed because native `setNavigationBarHidden:` removes the whole bar cleanly)
 
 The class no longer references `HBDNavigationController.h`. `viewDidLoad`/`viewWillAppear:`/`dealloc` are the entire base.
+
+- [ ] **Step 2.4b: Fix `BaseTabBarController.m` — `navTitle` setter no longer exists**
+
+`BaseTabBarController.addChildViewController:title:image:selImage:` historically sets `childVc.navTitle = title;` to push the title into the HBD bar. Step 2.3 removed the `navTitle` property; this call no longer compiles. Replace with the system `title` property — same effect (since Step 1.1 already wired `UINavigationBarAppearance` to honour `self.title`).
+
+Open `bookkeeping/bookkeeping/Classes/Base/controller/BaseTabBarController.m`. Find:
+
+```objc
+    childVc.navTitle = title;
+```
+
+Replace with:
+
+```objc
+    childVc.title = title;
+```
+
+Verify:
+```bash
+grep -n "navTitle" bookkeeping/bookkeeping/Classes/Base/controller/BaseTabBarController.m
+```
+Expected: empty output.
+
+> Note: The current app does not actually root in `BaseTabBarController` (root is `BaseNavigationController(HomeController)`), so this code is dormant — but it must still compile because `BaseTabBarController.m` is in the build sources.
 
 - [ ] **Step 2.5: Drop HBD import from `Common.h`**
 
@@ -955,19 +1002,22 @@ grep -n "self\.hbd_\|setNavTitle:\|self\.rightButton" bookkeeping/bookkeeping/Cl
 ```
 Expected: empty output.
 
-- [ ] **Step 2.12: Sweep — confirm no `hbd_*` / `setNavTitle:` / `self.leftButton` / `self.rightButton` remains**
+- [ ] **Step 2.12: Sweep — confirm no `hbd_*` / `setNavTitle:` / `leftButton` / `rightButton` / `navTitle` / `navColor` remains**
+
+The grep below covers the entire `bookkeeping/` subtree (not just Modules) — base classes also need to be clean. If anything remains, fix it before proceeding — it indicates a missed step.
 
 ```bash
-grep -rln "hbd_\|setNavTitle:" bookkeeping/bookkeeping/Classes/Modules bookkeeping/bookkeeping/Classes/Base
+grep -rln "hbd_\|setNavTitle:" bookkeeping/bookkeeping
 ```
 Expected: empty output.
 
 ```bash
-grep -rln "self\.leftButton\b\|self\.rightButton\b" bookkeeping/bookkeeping/Classes/Modules bookkeeping/bookkeeping/Classes/Base
+grep -rn "\.navTitle\b\|\.navColor\b\|\.leftButton\b\|\.rightButton\b" \
+     bookkeeping/bookkeeping --include="*.h" --include="*.m"
 ```
 Expected: empty output.
 
-If anything remains, fix it before proceeding — it indicates a missed step.
+> Aside: also check `[vc setNavTitle:@"..."]` in `MineController.m` / `PasswordLoginController1.m` / `PasswordLoginController2.m` (Step 2.7 already converts these via the `[<receiver> setNavTitle:@"X"]` → `<receiver>.title = @"X"` substitution; verifying here that the sed pattern caught them).
 
 - [ ] **Step 2.13: Build verification**
 
