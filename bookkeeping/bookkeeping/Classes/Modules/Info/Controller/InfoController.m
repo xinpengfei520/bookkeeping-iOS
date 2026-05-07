@@ -38,10 +38,12 @@
 
 #pragma mark - request
 - (void)changeIconRequest:(UIImage *)image {
+    // 头像图片限制最长边 512，避免相册原图（数 MB ~ 十几 MB 的 PNG）触发服务端 nginx 413 上限
+    UIImage *avatar = [self resizedAvatarFromImage:image maxDimension:512];
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
     [self showProgressHUD:@"修改中"];
-    [AFNManager POST:uploadAvatarRequest params:nil images:@[image] progress:nil complete:^(APPResult *result) {
+    [AFNManager POST:uploadAvatarRequest params:nil images:@[avatar] progress:nil complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
@@ -358,5 +360,25 @@
     return _eventStrategy;
 }
 
+#pragma mark - helper
+
+// 按最长边等比缩放，避免相册原图过大触发服务端 413
+- (UIImage *)resizedAvatarFromImage:(UIImage *)image maxDimension:(CGFloat)maxDim {
+    if (image == nil) return nil;
+    CGFloat w = image.size.width;
+    CGFloat h = image.size.height;
+    CGFloat longest = MAX(w, h);
+    if (longest <= maxDim) return image;
+
+    CGFloat scale = maxDim / longest;
+    CGSize newSize = CGSizeMake(w * scale, h * scale);
+
+    UIGraphicsImageRendererFormat *fmt = [UIGraphicsImageRendererFormat defaultFormat];
+    fmt.opaque = YES;
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:newSize format:fmt];
+    return [renderer imageWithActions:^(UIGraphicsImageRendererContext *ctx) {
+        [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    }];
+}
 
 @end
