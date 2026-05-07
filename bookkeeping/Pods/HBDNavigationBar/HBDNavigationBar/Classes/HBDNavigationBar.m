@@ -132,11 +132,13 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 
 - (UILabel *)backButtonLabel {
     if (@available(iOS 11, *)); else return nil;
-    UIView *navigationBarContentView = [self valueForKeyPath:@"visualProvider.contentView"];
+    UIView *navigationBarContentView = nil;
+    @try { navigationBarContentView = [self valueForKeyPath:@"visualProvider.contentView"]; } @catch (NSException *e) { return nil; }
     __block UILabel *backButtonLabel = nil;
     [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView *_Nonnull subview, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([subview isKindOfClass:NSClassFromString(@"_UIButtonBarButton")]) {
-            UIButton *titleButton = [subview valueForKeyPath:@"visualProvider.titleButton"];
+            UIButton *titleButton = nil;
+            @try { titleButton = [subview valueForKeyPath:@"visualProvider.titleButton"]; } @catch (NSException *e) {}
             backButtonLabel = titleButton.titleLabel;
             *stop = YES;
         }

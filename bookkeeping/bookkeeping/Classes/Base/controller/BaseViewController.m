@@ -142,6 +142,15 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hideNavigationBarLine];
+    // iOS 26+ 把 BarButtonItem / 默认 back button 渲染成浮动的圆形玻璃按钮，
+    // 即使 HBD 把导航条隐藏了，这些浮动按钮仍会出现，挡住页面内自己布的按钮，
+    // 而且点击系统默认 back button 会与 HBDNavigationController 不兼容直接闪退。
+    // 所以隐藏导航条的页面这里把所有可能的 bar 按钮（左、右、默认 back）一并清掉。
+    if (self.hbd_barHidden) {
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.hidesBackButton = YES;
+    }
 }
 
 - (void)dealloc {
