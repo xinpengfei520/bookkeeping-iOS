@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hbd_barHidden = YES;
+    self.prefersNavigationBarHidden = YES;
     [self.rightButton setHidden:YES];
     [self header];
     [self bottom];

@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hbd_barHidden = YES;
+    self.prefersNavigationBarHidden = YES;
     [self navigation];
     [self list];
     [_navigation.searchTextField becomeFirstResponder];

@@ -41,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hbd_barHidden = YES;
+    self.prefersNavigationBarHidden = YES;
     _navigationIndex = _navIndex;
     _queue = [[NSOperationQueue alloc]init];
     _queue.maxConcurrentOperationCount = 4;

@@ -31,6 +31,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    self.title = @"类别设置";
     [self setNavTitle:@"类别设置"];
     [self header];
     [self table];

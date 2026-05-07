@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavTitle:({
+    NSString *registerTitle = ({
         NSString *str;
         if (_index == 0) {
             str = @"注册";
@@ -41,7 +41,9 @@
             str = @"绑定账号";
         }
         str;
-    })];
+    });
+    self.title = registerTitle;
+    [self setNavTitle:registerTitle];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
     [self.view setBackgroundColor:kColor_BG];

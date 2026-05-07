@@ -51,9 +51,36 @@
 
 // 配置
 - (void)systemConfig {
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = kColor_Main_Color;
+    appearance.shadowColor = nil;                       // drop the bottom hairline
+    appearance.titleTextAttributes = @{
+        NSForegroundColorAttributeName: kColor_Text_White,
+        NSFontAttributeName: [UIFont systemFontOfSize:AdjustFont(14)]
+    };
+
+    // Branded back-chevron tinted white via template rendering
+    UIImage *chevron = [[UIImage imageNamed:@"nav_back_n"]
+                        imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [appearance setBackIndicatorImage:chevron transitionMaskImage:chevron];
+
+    // Bar item text styling (white, 14pt scaled)
+    UIBarButtonItemAppearance *itemAppearance = [[UIBarButtonItemAppearance alloc] init];
+    itemAppearance.normal.titleTextAttributes = @{
+        NSForegroundColorAttributeName: kColor_Text_White,
+        NSFontAttributeName: [UIFont systemFontOfSize:AdjustFont(14)]
+    };
+    appearance.buttonAppearance     = itemAppearance;
+    appearance.backButtonAppearance = itemAppearance;
+    appearance.doneButtonAppearance = itemAppearance;
+
+    [[UINavigationBar appearance] setStandardAppearance:appearance];
+    [[UINavigationBar appearance] setScrollEdgeAppearance:appearance];
+    [[UINavigationBar appearance] setCompactAppearance:appearance];
+    [[UINavigationBar appearance] setTintColor:kColor_Text_White];
+
     [[UITextField appearance] setTintColor:kColor_Main_Color];
-    // 设置导航栏按钮颜色
-    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 }
 
 // 支持所有iOS系统

@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
     [self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
     [self.view setBackgroundColor:kColor_BG];
     [self initUI];
+    self.navigationItem.backButtonTitle = @"返回";
 }
 
 - (void)initUI {
@@ -151,6 +152,10 @@ typedef NS_ENUM(NSInteger, BarButtonItemState) {
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.hidesBackButton = YES;
     }
+    // Phase 2: native hide/show; runs in parallel with HBD's hbd_barHidden,
+    // both flag the same intent. After Commit 2 the HBD branch above is gone.
+    [self.navigationController setNavigationBarHidden:self.prefersNavigationBarHidden
+                                             animated:animated];
 }
 
 - (void)dealloc {

@@ -15,6 +15,9 @@
 @property (nonatomic, strong) NSString *navTitle;
 // 是否允许侧滑返回
 @property (nonatomic, assign, getter=isAllowBack) BOOL allowPanBack;
+// Phase 2 native-nav contract: subclasses set this in viewDidLoad to hide the
+// navigation bar on the page. See BaseViewController.viewWillAppear:.
+@property (nonatomic, assign) BOOL prefersNavigationBarHidden;
 // 按钮
 @property (nonatomic, strong) UIButton *leftButton;
 @property (nonatomic, strong) UIButton *rightButton;

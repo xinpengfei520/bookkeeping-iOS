@@ -35,6 +35,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    self.title = @"帮助";
     [self setNavTitle:@"帮助"];
     
     // 使用父类方法设置返回按钮，而不是自定义

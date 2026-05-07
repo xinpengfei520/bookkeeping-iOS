@@ -28,6 +28,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    self.title = @"个人信息";
     [self setNavTitle:@"个人信息"];
     [self.view setBackgroundColor:kColor_Line_Color];
     [self table];

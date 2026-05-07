@@ -30,6 +30,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    self.title = @"添加类别";
     [self setNavTitle:@"添加类别"];
     [self.rightButton setTitle:@"完成" forState:UIControlStateNormal];
     [self.rightButton setTitle:@"完成" forState:UIControlStateHighlighted];

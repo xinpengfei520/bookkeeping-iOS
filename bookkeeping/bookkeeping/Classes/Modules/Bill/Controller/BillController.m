@@ -24,6 +24,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    self.title = @"账单";
     [self setNavTitle:@"账单"];
     [self setDate:[NSDate date]];
     [self.rightButton setHidden:false];

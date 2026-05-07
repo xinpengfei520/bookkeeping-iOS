@@ -20,6 +20,7 @@
     [super viewDidLoad];
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    self.title = @"反馈";
     [self setNavTitle:@"反馈"];
     [self textField];
     [self.textField becomeFirstResponder];

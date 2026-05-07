@@ -137,6 +137,7 @@
     NSLog(@"viewDidLoad - 开始");
     self.hbd_barHidden = NO;
     self.hbd_barTintColor = kColor_Main_Color;
+    self.title = @"定时提醒";
     [self setNavTitle:@"定时提醒"];
     
     // 请求通知权限

@@ -22,6 +22,7 @@
     self.hbd_barTintColor = kColor_Main_Color;
     
     // 设置标题
+    self.title = self.type == AgreementTypeUserAgreement ? @"用户协议" : @"隐私政策";
     [self setNavTitle:self.type == AgreementTypeUserAgreement ? @"用户协议" : @"隐私政策"];
     
     // 创建 WebView
