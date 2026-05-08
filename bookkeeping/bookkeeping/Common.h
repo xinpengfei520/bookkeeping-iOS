@@ -13,7 +13,6 @@
 //================================= Third ===================================//
 #import <JGProgressHUD/JGProgressHUD.h>
 #import <MJExtension/MJExtension.h>
-#import <SDCycleScrollView/SDCycleScrollView.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <MJRefresh/MJRefresh.h>
 #import <MGSwipeTableCell/MGSwipeTableCell.h>
