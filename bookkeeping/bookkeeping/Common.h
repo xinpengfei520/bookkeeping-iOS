@@ -41,6 +41,8 @@
 #import "NSString+Extension.h"
 #import "NSString+Encryption.h"
 #import "NSObject+JGRuntime.h"
+#import "NSObject+KKObserver.h"
+#import "UIControl+KKBlock.h"
 #import "NSAttributedString+Extension.h"
 #import "NSAttributedString+Extension.h"
 #import "NSDate+Extension.h"
@@ -71,6 +73,7 @@
 //================================= Util =====================================//
 #import "Single.h"
 #import "KKEmptyPch.h"
+#import "KKWeakify.h"
 #import "UserInfo.h"
 #import "CountDown.h"
 #import "PINCache_Header.h"
