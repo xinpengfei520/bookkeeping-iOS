@@ -77,25 +77,37 @@
         }
         
         for (BookDetailModel *model in models) {
-            NSDecimalNumber *number1 = [NSDecimalNumber decimalNumberWithString:[@(chartArr[7 - [model.date weekday]].price) description]];
+            // 防御性：BookDetailModel.date 是 computed property（用 year/month/day 拼字符串
+            // 给 NSDateFormatter），脏数据时可能返回 nil → [nil weekday] 返回 0 →
+            // chartHudArr[-1] 数组越界（NSUInteger 溢出）。Apple weekday 应在 1..7。
+            NSInteger weekday = (model.date != nil) ? [model.date weekday] : 0;
+            if (weekday < 1 || weekday > 7) {
+                continue;
+            }
+            NSDecimalNumber *number1 = [NSDecimalNumber decimalNumberWithString:[@(chartArr[7 - weekday].price) description]];
             NSDecimalNumber *number2 = [NSDecimalNumber decimalNumberWithString:[@(model.price) description]];
             number1 = [number1 decimalNumberByAdding:number2];
-            chartArr[7 - [model.date weekday]].price += [number1 doubleValue];
-            [chartHudArr[[model.date weekday] - 1] addObject:model];
+            chartArr[7 - weekday].price += [number1 doubleValue];
+            [chartHudArr[weekday - 1] addObject:model];
         }
     }
     // 月
     else if (segmentIndex == 1) {
-        for (int i=1; i<=[date daysInMonth]; i++) {
+        NSInteger daysInMonth = [date daysInMonth];
+        for (int i=1; i<=daysInMonth; i++) {
             BookDetailModel *model = [[BookDetailModel alloc] init];
             model.year = date.year;
-            model.month = [date daysInMonth];
+            model.month = daysInMonth;
             model.day = i;
             model.price = 0;
             [chartArr addObject:model];
             [chartHudArr addObject:[NSMutableArray array]];
         }
         for (BookDetailModel *model in models) {
+            // 防御性：脏数据 day 越界时跳过
+            if (model.day < 1 || model.day > daysInMonth) {
+                continue;
+            }
             chartArr[model.day-1].price += model.price;
             [chartHudArr[model.day-1] addObject:model];
         }
@@ -112,6 +124,10 @@
             [chartHudArr addObject:[NSMutableArray array]];
         }
         for (BookDetailModel *model in models) {
+            // 防御性：脏数据 month 越界时跳过
+            if (model.month < 1 || model.month > 12) {
+                continue;
+            }
             chartArr[model.month-1].price += model.price;
             [chartHudArr[model.month-1] addObject:model];
         }
