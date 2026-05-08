@@ -103,40 +103,40 @@
 - (void)monitorNotification {
     // 记账
     @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_ADD object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
+    [self kk_observeNotification:NOTIFICATION_BOOK_ADD usingBlock:^(NSNotification *x) {
         @strongify(self)
         BookDetailModel *model = x.object;
         [self addBookRequest:model];
     }];
     // 删除记账
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
+    [self kk_observeNotification:NOTIFICATION_BOOK_DELETE usingBlock:^(NSNotification *x) {
         @strongify(self)
         BookDetailModel *model = x.object;
         [self deleteBookRequest:model];
     }];
     // 修改记账
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE_HOME object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
+    [self kk_observeNotification:NOTIFICATION_BOOK_UPDATE_HOME usingBlock:^(NSNotification *x) {
         @strongify(self)
         BookDetailModel *model = x.object;
         [self updateBookRequest:model];
     }];
     // 登录成功
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGIN_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [self kk_observeNotification:USER_LOGIN_COMPLETE usingBlock:^(id x) {
         @strongify(self)
         [self syncDataRequest:self.date.year month:self.date.month];
     }];
     // 退出登录
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:USER_LOGOUT_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [self kk_observeNotification:USER_LOGOUT_COMPLETE usingBlock:^(id x) {
         @strongify(self)
         [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // 同步数据成功
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:SYNCED_DATA_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [self kk_observeNotification:SYNCED_DATA_COMPLETE usingBlock:^(id x) {
         @strongify(self)
         [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];
     // token 过期
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:MINE_TOKEN_EXPIRED object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [self kk_observeNotification:MINE_TOKEN_EXPIRED usingBlock:^(id x) {
         @strongify(self)
         [self pushToLoginController];
     }];
@@ -370,19 +370,19 @@
         _navigation = [HomeNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         
         // push 到 MineController
-        [[_navigation.mineButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
+        [_navigation.mineButton kk_addEventHandler:^(UIControl *button) {
             MineController *vc = [[MineController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_navigation];
         
         // 增大可点击区域，上下左右各 10
         [_navigation.statisticsBtn setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
         // push 到 SearchViewController
-        [[_navigation.statisticsBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
+        [_navigation.statisticsBtn kk_addEventHandler:^(UIControl *button) {
             SearchViewController *vc = [[SearchViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         
         [self.view addSubview:_navigation];
     }

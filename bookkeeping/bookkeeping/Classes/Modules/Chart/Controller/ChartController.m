@@ -60,21 +60,21 @@
 - (void)monitorNotification {
     @weakify(self)
     // 删除记账(接受图表页面子类别页面删除操作)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_DELETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [self kk_observeNotification:NOTIFICATION_BOOK_DELETE usingBlock:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
         [self updateDataWithAsync];
         [self updateDateRangeWithAsync];
     }];
     // 修改记账(接受图表页面子类别页面修改操作)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [self kk_observeNotification:NOTIFICATION_BOOK_UPDATE usingBlock:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
         [self updateDataWithAsync];
         [self updateDateRangeWithAsync];
     }];
     // 同步数据成功
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:SYNCED_DATA_COMPLETE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [self kk_observeNotification:SYNCED_DATA_COMPLETE usingBlock:^(id x) {
         @strongify(self)
         [self setDate:[NSDate date]];
         [self updateDataWithAsync];
@@ -212,10 +212,10 @@
         @weakify(self)
         _navigation = [ChartNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         [_navigation setCmodel:_cmodel];
-        [[_navigation.button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIControl *button) {
+        [_navigation.button kk_addEventHandler:^(UIControl *button) {
             @strongify(self)
             [self.chartHUD show];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_navigation];
     }
     return _navigation;
@@ -225,7 +225,7 @@
     if (!_segment) {
         @weakify(self)
         _segment = [ChartSegmentControl loadFirstNib:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(50))];
-        [[_segment.seg rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(UISegmentedControl *seg) {
+        [_segment.seg kk_addEventHandler:^(UISegmentedControl *seg) {
             @strongify(self)
             [self setDate:({
                 NSInteger index = seg.selectedSegmentIndex;
@@ -238,7 +238,7 @@
             })];
             [self setSegmentIndex:seg.selectedSegmentIndex];
             [self updateDataWithAsync];
-        }];
+        } forControlEvents:UIControlEventValueChanged];
         // 设置选中的 segment 下标
         _segment.seg.selectedSegmentIndex = _segmentIndex;
         [self.view addSubview:_segment];

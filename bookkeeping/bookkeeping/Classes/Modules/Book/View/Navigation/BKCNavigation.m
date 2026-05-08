@@ -97,20 +97,20 @@
     
     // 添加事件
     @weakify(self)
-    [[_btn1 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    [_btn1 kk_addEventHandler:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         [self routerEventWithName:BOOK_CLICK_NAVIGATION data:@(0)];
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
-    [[_btn2 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    [_btn2 kk_addEventHandler:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         [self routerEventWithName:BOOK_CLICK_NAVIGATION data:@(1)];
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
-    [[_cancleBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    [_cancleBtn kk_addEventHandler:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         [self cancleClick:x];
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setIndex:(NSInteger)index {

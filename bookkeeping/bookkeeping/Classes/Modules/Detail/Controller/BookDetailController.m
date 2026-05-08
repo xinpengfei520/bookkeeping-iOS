@@ -39,7 +39,7 @@
 // 监听通知
 - (void)monitorNotification {
     @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:NOTIFICATION_BOOK_UPDATE object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *x) {
+    [self kk_observeNotification:NOTIFICATION_BOOK_UPDATE usingBlock:^(NSNotification *x) {
         @strongify(self)
         BookDetailModel *model = x.object;
         [self setModel:model];

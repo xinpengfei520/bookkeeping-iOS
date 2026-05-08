@@ -91,10 +91,10 @@
         _shadow.frame = self.bounds;
         _shadow.alpha = 0;
         @weakify(self)
-        [[_shadow rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIButton *button) {
+        [_shadow kk_addEventHandler:^(UIButton *button) {
             @strongify(self)
             [self hide];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_shadow];
     }
     return _shadow;

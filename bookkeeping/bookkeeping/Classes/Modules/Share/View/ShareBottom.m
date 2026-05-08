@@ -56,21 +56,21 @@
             CGRectMake(left, 0, width, height);
         })];
         [view setTag:i];
-        [[view rac_signalForControlEvents:UIControlEventTouchDown] subscribeNext:^(__kindof UIButton *btn) {
+        [view kk_addEventHandler:^(__kindof UIButton *btn) {
             NSString *str = [NSString stringWithFormat:@"%@_h", self.arr[1][btn.tag]];
             UIImageView *image = [btn viewWithTag:10];
             image.image = [UIImage imageNamed:str];
-        }];
-        [[view rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIButton *btn) {
+        } forControlEvents:UIControlEventTouchDown];
+        [view kk_addEventHandler:^(__kindof UIButton *btn) {
             NSString *str = [NSString stringWithFormat:@"%@", self.arr[1][btn.tag]];
             UIImageView *image = [btn viewWithTag:10];
             image.image = [UIImage imageNamed:str];
-        }];
-        [[view rac_signalForControlEvents:UIControlEventTouchUpOutside] subscribeNext:^(__kindof UIButton *btn) {
+        } forControlEvents:UIControlEventTouchUpInside];
+        [view kk_addEventHandler:^(__kindof UIButton *btn) {
             NSString *str = [NSString stringWithFormat:@"%@", self.arr[1][btn.tag]];
             UIImageView *image = [btn viewWithTag:10];
             image.image = [UIImage imageNamed:str];
-        }];
+        } forControlEvents:UIControlEventTouchUpOutside];
         [view addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:image];
         [view addSubview:lab];
