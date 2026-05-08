@@ -14,6 +14,28 @@
 
 ---
 
+## [1.0.3] (build 4) — 2026-05-08
+
+### 变更
+- **头像选择 UI** 替换为系统组件：相册路径 → `PHPickerViewController`（iOS 14+，运行在沙箱外、无需相册权限弹窗），拍照路径 → `UIImagePickerController`。视觉与交互切换为系统原生风格。
+- **列表侧滑删除** 替换为系统 `UISwipeActionsConfiguration` + `UIContextualAction`（首页账单 / 类别设置 / 定时提醒三处），动画与按钮样式回归 iOS 系统原生表现。
+- **类别设置：操作按钮二次确认** 简化：之前点 cell 上的 "−" 操作按钮会先展开侧滑做二次确认，现在直接触发删除。系统 API 没有"程序触发侧滑"的等价方法；用户已经主动点了明确的删除操作按钮，简化掉一次确认更直接。
+
+### 修复
+- **首页点击收入/支出数值进入图表页闪退**（`NSRangeException: index 18446744073709551615 beyond bounds [0 .. 6]`）：`BookChartModel.statisticalChart:` 在脏数据下计算出负数下标后 NSUInteger 溢出。三个分支（周/月/年）全部加上边界 guard，遇到 `weekday < 1 || > 7` / `day < 1 || > daysInMonth` / `month < 1 || > 12` 直接 `continue` 跳过，不让单条脏数据把整个图表搞崩。
+
+### 移除
+- `SDCycleScrollView 1.75` 第三方依赖（孤儿，0 业务调用）
+- `YYImage 1.0.4` 第三方依赖（孤儿，0 业务调用）
+- `ZLPhotoBrowser` 第三方依赖（替换为系统 PhotosUI / ImagePickerController；少 1 个 Swift 依赖）
+- `MGSwipeTableCell 1.6.8` 第三方依赖（替换为 iOS 11+ 系统 API）
+
+### 内部
+- Pod 依赖从 14 降到 9（间接依赖也跟着减少；第三方源码累计净减约 36K LoC）
+- 文档：README 第七节"重构 backlog" 同步更新；新增 P4 (ReactiveObjC 替换) / P5 (MJRefresh 替换) 待办；记录 Bugly 仍可用、暂不替换
+
+---
+
 ## [1.0.2] (build 3) — 2026-05-08
 
 ### 变更
