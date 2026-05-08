@@ -113,6 +113,24 @@
     [self routerEventWithName:HOME_CELL_CLICK data:indexPath];
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
+trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @weakify(self)
+    UIContextualAction *delete = [UIContextualAction
+        contextualActionWithStyle:UIContextualActionStyleDestructive
+                            title:@"删除"
+                          handler:^(UIContextualAction * _Nonnull action,
+                                    __kindof UIView * _Nonnull sourceView,
+                                    void (^ _Nonnull completion)(BOOL)) {
+        @strongify(self)
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [self routerEventWithName:HOME_CELL_REMOVE data:cell];
+        completion(YES);
+    }];
+    delete.backgroundColor = kColor_Red_Color;
+    return [UISwipeActionsConfiguration configurationWithActions:@[delete]];
+}
+
 - (void)endRefresh {
     [self.table.mj_header endRefreshing];
     [self.table.mj_footer endRefreshing];

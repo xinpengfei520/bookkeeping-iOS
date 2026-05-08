@@ -63,6 +63,23 @@
     return countcoordinatesX(50);
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
+trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @weakify(self)
+    UIContextualAction *delete = [UIContextualAction
+        contextualActionWithStyle:UIContextualActionStyleDestructive
+                            title:@"删除"
+                          handler:^(UIContextualAction * _Nonnull action,
+                                    __kindof UIView * _Nonnull sourceView,
+                                    void (^ _Nonnull completion)(BOOL)) {
+        @strongify(self)
+        [self routerEventWithName:TIMING_CELL_DELETE data:indexPath];
+        completion(YES);
+    }];
+    delete.backgroundColor = kColor_Red_Color;
+    return [UISwipeActionsConfiguration configurationWithActions:@[delete]];
+}
+
 
 #pragma mark - get
 

@@ -30,17 +30,7 @@
     [self.detailLab setTextColor:kColor_Text_Gary];
     [self.actionBtn.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self longG];
-    
-    @weakify(self)
-    MGSwipeButton *btn = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
-    [btn setButtonWidth:countcoordinatesX(80)];
-    [btn setCallback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-        @strongify(self)
-        [self routerEventWithName:CATEGORY_ACTION_DELETE_CLICK data:self];
-        return NO;
-    }];
-    [self setRightButtons:@[btn]];
+    // 滑动删除：由 CategoryTable 的 trailingSwipeActionsConfigurationForRowAtIndexPath 接管
 }
 
 

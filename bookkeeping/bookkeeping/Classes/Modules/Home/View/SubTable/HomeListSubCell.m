@@ -59,18 +59,7 @@
         make.right.equalTo(self.contentView).offset(-countcoordinatesX(15));
         make.centerY.equalTo(self.contentView);
     }];
-    
-    // 设置滑动删除按钮
-    @weakify(self)
-    MGSwipeButton *btn = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
-    [btn setButtonWidth:countcoordinatesX(80)];
-    [btn setCallback:^BOOL(MGSwipeTableCell *cell) {
-        @strongify(self)
-        [self routerEventWithName:HOME_CELL_REMOVE data:self];
-        return NO;
-    }];
-    [self setRightButtons:@[btn]];
+    // 滑动删除：由 HomeListCell 的 trailingSwipeActionsConfigurationForRowAtIndexPath 接管
 }
 
 #pragma mark - set

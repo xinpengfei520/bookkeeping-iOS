@@ -22,7 +22,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self setupUI];
-    [self setupSwipe];
+    // 滑动删除：由 TITableView 的 trailingSwipeActionsConfigurationForRowAtIndexPath 接管
 }
 
 - (void)setupUI {
@@ -35,26 +35,6 @@
     [self.dayLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.dayLab setTextColor:kColor_Text_Gary];
     [self.timeConstraintW setConstant:[@"00:00" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:self.detailLab.font].width + 5];
-}
-
-- (void)setupSwipe {
-    @weakify(self)
-    MGSwipeButton *deleteButton = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:kColor_Red_Color];
-    [deleteButton.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
-    [deleteButton setButtonWidth:countcoordinatesX(80)];
-    [deleteButton setCallback:^BOOL(MGSwipeTableCell *cell) {
-        @strongify(self)
-        if (self.indexPath) {
-            NSLog(@"尝试删除行: %ld, 时间: %@", (long)self.indexPath.row, self.time);
-            [self routerEventWithName:TIMING_CELL_DELETE data:self.indexPath];
-        } else {
-            NSLog(@"错误：删除时indexPath为空");
-        }
-        return YES;
-    }];
-    
-    self.rightButtons = @[deleteButton];
-    self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
 }
 
 #pragma mark - set

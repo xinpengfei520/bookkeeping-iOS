@@ -112,6 +112,28 @@ typedef NS_ENUM(NSInteger, LYFTableViewType) {
     return 0.01f;
 }
 
+// 仅 section 0（用户自建分类）允许侧滑删除
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
+trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section != 0) {
+        return nil;
+    }
+    @weakify(self)
+    UIContextualAction *delete = [UIContextualAction
+        contextualActionWithStyle:UIContextualActionStyleDestructive
+                            title:@"删除"
+                          handler:^(UIContextualAction * _Nonnull action,
+                                    __kindof UIView * _Nonnull sourceView,
+                                    void (^ _Nonnull completion)(BOOL)) {
+        @strongify(self)
+        CategoryCell *cell = (CategoryCell *)[tableView cellForRowAtIndexPath:indexPath];
+        [self routerEventWithName:CATEGORY_ACTION_DELETE_CLICK data:cell];
+        completion(YES);
+    }];
+    delete.backgroundColor = kColor_Red_Color;
+    return [UISwipeActionsConfiguration configurationWithActions:@[delete]];
+}
+
 
 #pragma mark - 事件
 - (void)routerEventWithName:(NSString *)eventName data:(id)data {
@@ -166,9 +188,10 @@ typedef NS_ENUM(NSInteger, LYFTableViewType) {
 }
 // 删除/添加cell
 - (void)actionCellClick:(CategoryCell *)cell {
-    // 删除
+    // 删除：原本通过展开侧滑让用户二次确认；系统 API 没有"程序触发侧滑"的等价方法，
+    // 用户已经主动点了 actionBtn，视为明确意图，直接派发删除事件。
     if (cell.indexPath.section == 0) {
-        [cell showSwipe:MGSwipeDirectionRightToLeft animated:YES];
+        [self routerEventWithName:CATEGORY_ACTION_DELETE_CLICK data:cell];
     }
     // 添加
     else if (cell.indexPath.section == 1) {

@@ -28,7 +28,6 @@ PODS:
   - Bugly (2.6.1)
   - JGProgressHUD (2.0.3)
   - Masonry (1.1.0)
-  - MGSwipeTableCell (1.6.8)
   - MJExtension (3.0.15)
   - MJRefresh (3.1.15.7)
   - pop (1.0.12)
@@ -42,7 +41,6 @@ DEPENDENCIES:
   - Bugly
   - JGProgressHUD (= 2.0.3)
   - Masonry (= 1.1.0)
-  - MGSwipeTableCell (= 1.6.8)
   - MJExtension (= 3.0.15)
   - MJRefresh (= 3.1.15.7)
   - pop (= 1.0.12)
@@ -55,7 +53,6 @@ SPEC REPOS:
     - Bugly
     - JGProgressHUD
     - Masonry
-    - MGSwipeTableCell
     - MJExtension
     - MJRefresh
     - pop
@@ -67,13 +64,12 @@ SPEC CHECKSUMS:
   Bugly: 217ac2ce5f0f2626d43dbaa4f70764c953a26a31
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
   MJExtension: 3f039575db1b135a20699ad298713b26acec1528
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
 
-PODFILE CHECKSUM: e4a3fad2da247fbe723fecefd78820de93c78399
+PODFILE CHECKSUM: 8c41037f882d8e6751c8513477e0a168aef1743e
 
 COCOAPODS: 1.11.3

@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CategoryCell : MGSwipeTableCell
+@interface CategoryCell : UITableViewCell
 
 @property (nonatomic, strong) BKCModel *model;
 
