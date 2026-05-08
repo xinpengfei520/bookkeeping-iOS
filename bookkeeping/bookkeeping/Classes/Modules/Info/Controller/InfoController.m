@@ -7,9 +7,10 @@
 #import "InfoTableView.h"
 #import "AlertViewManager.h"
 #import "DeleteAccountController.h"
+#import <PhotosUI/PhotosUI.h>
 
 #pragma mark - 声明
-@interface InfoController()
+@interface InfoController() <UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate>
 
 @property (nonatomic, strong) InfoTableView *table;
 @property (nonatomic, strong) UserModel *model;
@@ -183,46 +184,77 @@
     } buttonArray:buttonArray];
 }
 
-// 拍照
+// 拍照 / 选图入口 —— 系统 UIImagePickerController + PHPickerViewController
 - (void)takePhoto {
     [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
-        
-        [ZLPhotoConfiguration default].allowSelectVideo = NO;
-        [ZLPhotoConfiguration default].maxVideoSelectCount = 0;
-        [ZLPhotoConfiguration default].allowSelectGif = NO;
-        [ZLPhotoConfiguration default].maxSelectCount = 1;
-        
-        // 拍照
         if (buttonTag == 0) {
-            @weakify(self)
-            ZLCameraConfiguration *cameraConfig = [ZLPhotoConfiguration default].cameraConfiguration;
-            // All properties of the camera configuration have default value
-            cameraConfig.sessionPreset = CaptureSessionPresetVga640x480;
-            cameraConfig.focusMode = FocusModeContinuousAutoFocus;
-            cameraConfig.exposureMode = ExposureModeContinuousAutoExposure;
-            //cameraConfig.exposureMode = FlashModeOff;
-            cameraConfig.videoExportType = VideoExportTypeMov;
-
-            ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
-            camera.takeDoneBlock = ^(UIImage * _Nullable image, NSURL * _Nullable videoUrl) {
-                @strongify(self)
-                [self changeIconRequest:image];
-            };
-            [self showDetailViewController:camera sender:nil];
-        }
-        // 从相册选择
-        else if (buttonTag == 1) {
-            @weakify(self)
-            ZLPhotoPreviewSheet *ps = [[ZLPhotoPreviewSheet alloc] initWithSelectedAssets:@[]];
-            // ZLPhotoBrowser 的 selectImageBlock 实际传入 [ZLResultModel]，不是 [UIImage]——
-            // ObjC 泛型类型擦除让旧写法编译过却在 UIImagePNGRepresentation 处崩溃。
-            ps.selectImageBlock = ^(NSArray<ZLResultModel *> * _Nonnull images, BOOL isOriginal) {
-                @strongify(self)
-                [self changeIconRequest:images[0].image];
-            };
-            [ps showPhotoLibraryWithSender:self];
+            [self presentCameraPicker];
+        } else if (buttonTag == 1) {
+            [self presentPhotoLibraryPicker];
         }
     } buttonTitles:@"拍照", @"从相册选择", nil];
+}
+
+// 系统相机
+- (void)presentCameraPicker {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [self showTextHUD:@"当前设备不支持拍照" delay:1.5f];
+        return;
+    }
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.allowsEditing = NO;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+// 系统相册（PHPickerViewController, iOS 14+）
+- (void)presentPhotoLibraryPicker {
+    PHPickerConfiguration *config = [[PHPickerConfiguration alloc] init];
+    config.filter = [PHPickerFilter imagesFilter];
+    config.selectionLimit = 1;
+    PHPickerViewController *picker = [[PHPickerViewController alloc] initWithConfiguration:config];
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    @weakify(self)
+    [picker dismissViewControllerAnimated:YES completion:^{
+        @strongify(self)
+        if (image) {
+            [self changeIconRequest:image];
+        }
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - PHPickerViewControllerDelegate
+
+- (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results {
+    @weakify(self)
+    [picker dismissViewControllerAnimated:YES completion:^{
+        @strongify(self)
+        PHPickerResult *first = results.firstObject;
+        if (!first) return;
+        NSItemProvider *provider = first.itemProvider;
+        if (![provider canLoadObjectOfClass:[UIImage class]]) return;
+        [provider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading> object, NSError *error) {
+            UIImage *image = (UIImage *)object;
+            if (image == nil) return;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self)
+                [self changeIconRequest:image];
+            });
+        }];
+    }];
 }
 
 // 性别
