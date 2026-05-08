@@ -60,6 +60,7 @@
 #import "UIImage+Extension.h"
 #import "UIResponder+QFEventHandle.h"
 #import "UIScrollView+Extension.h"
+#import "KKLoadMoreFooter.h"
 #import "UITableView+Extension.h"
 #import "UITableViewCell+Extension.h"
 #import "UITableViewHeaderFooterView+Extension.h"

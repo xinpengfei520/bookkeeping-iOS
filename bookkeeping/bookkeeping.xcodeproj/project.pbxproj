@@ -268,6 +268,7 @@
 		4BFD381C21E4D84B00BAB0BB /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		AA5BEE312D81D8AC6B19AA6D /* Pods_BookMonth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */; };
 		AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */; };
+		C17169EEEBD351968561C40B /* KKLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */; };
 		CADEAEF3609EA938CA3B27F2 /* NSObject+KKObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */; };
 		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
 		F353108C2875FC6D00D297A9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353108B2875FC6D00D297A9 /* WebViewController.m */; };
@@ -358,6 +359,7 @@
 		247AB91E2D3528FC00B5F323 /* DeleteAccountController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteAccountController.m; sourceTree = "<group>"; };
 		247AB9202D36431700B5F323 /* InfoTableDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoTableDataSource.h; sourceTree = "<group>"; };
 		247AB9212D36431700B5F323 /* InfoTableDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoTableDataSource.m; sourceTree = "<group>"; };
+		2635A08EED44DE7FE2353DEA /* KKLoadMoreFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKLoadMoreFooter.h; sourceTree = "<group>"; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -746,6 +748,7 @@
 		734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookkeeping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KKObserver.m"; sourceTree = "<group>"; };
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
+		AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKLoadMoreFooter.m; sourceTree = "<group>"; };
 		B9EBAD74D344F480E53BD56F /* UIControl+KKBlock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIControl+KKBlock.h"; sourceTree = "<group>"; };
 		C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookMonth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2DE293D47C15C852DD6195 /* KKWeakify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKWeakify.h; sourceTree = "<group>"; };
@@ -1489,6 +1492,8 @@
 			children = (
 				4B1E128121CA8BD3001F5B36 /* UIScrollView+Extension.h */,
 				4B1E128221CA8BD3001F5B36 /* UIScrollView+Extension.m */,
+				2635A08EED44DE7FE2353DEA /* KKLoadMoreFooter.h */,
+				AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */,
 			);
 			path = UIScrollView;
 			sourceTree = "<group>";
@@ -2858,6 +2863,7 @@
 				4BA68AEF21C7EEAA0063A5C2 /* CategoryCell.m in Sources */,
 				CADEAEF3609EA938CA3B27F2 /* NSObject+KKObserver.m in Sources */,
 				39A11774974D95E95E5CA4CE /* UIControl+KKBlock.m in Sources */,
+				C17169EEEBD351968561C40B /* KKLoadMoreFooter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
