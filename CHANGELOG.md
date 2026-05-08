@@ -14,6 +14,24 @@
 
 ---
 
+## [1.0.4] (build 5) — 2026-05-08
+
+### 变更
+- **下拉刷新 / 上拉加载体验调整**：首页月份切换的 idle 状态默认不显示文字（footer 看起来不存在）；用户开始拉拽时显示 `下拉/上拉切换X月数据`，过阈值后变 `松开切换X月数据`；松手即触发；菊花最少显示 0.4 秒，避免同步链路把 spinner "瞬间关掉"。
+
+### 移除
+- `ReactiveObjC 3.1.0` 第三方依赖（停滞维护，自 2018 年起未更新）。替换为三个轻量自家 helper：`KKWeakify.h`（`@weakify`/`@strongify` 单参数版）、`NSObject+KKObserver`（NSNotificationCenter 块包装 + 自动 dealloc 解除监听）、`UIControl+KKBlock`（按钮事件块包装）。原 108 处 `@weakify`/`@strongify` 调用点保持不变。
+- `MJRefresh 3.1.15.7` 第三方依赖。替换为两个自家 view：`KKPullToRefreshHeader` / `KKLoadMoreFooter`，共享 4 状态机（idle / pulling / willRefresh / refreshing）+ 0.4 秒最小 spinner 显示时长 + 自定义触发距离 70pt。
+- 5 个原本继承 MJRefresh 的自定义子类：`KKRefreshGifHeader`（孤儿代码 + 60+3 GIF 帧也一并删）、`RequestTipRefreshFooter`、`KKRefreshNormalHeader`、`KKRefreshNormalFooter`、`BKCRefreshHeader`（仅装饰提示，dismiss 由 iOS 13+ modal 自带 swipe-down 接管，整段删除）。
+- 63 个 `dropdown_anim__*` / `dropdown_loading_*` GIF 帧素材（仅 `KKRefreshGifHeader` 引用，跟着一起删）。
+
+### 内部
+- Pod 依赖从 9 → 7（剩 7 个：pop / SDWebImage / Masonry / MJExtension / JGProgressHUD / BRPickerView / Bugly，README 第七节有保留理由说明）
+- 第三方源码累计净减约 165K LoC
+- 文档：README 第七节 backlog 同步更新；移除 P4/P5 待办项
+
+---
+
 ## [1.0.3] (build 4) — 2026-05-08
 
 ### 变更
