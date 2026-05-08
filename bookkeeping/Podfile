@@ -8,7 +8,6 @@ target 'bookkeeping' do
     pod 'Masonry', '1.1.0'
     pod 'MJExtension', '3.0.15'
     pod 'JGProgressHUD', '2.0.3'
-    pod 'MJRefresh', '3.1.15.7'
     pod 'BRPickerView', '2.9.1'
     pod 'Bugly'
 end

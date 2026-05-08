@@ -4,8 +4,6 @@
  */
 
 #import "HomeListCell.h"
-#import "KKRefreshNormalHeader.h"
-#import "KKRefreshNormalFooter.h"
 #import "HomeListHeader.h"
 #import "HomeListSubCell.h"
 #import "HomeListEmpty.h"
@@ -15,8 +13,6 @@
 @interface HomeListCell()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *table;
-@property (nonatomic, strong) KKRefreshNormalHeader *header;
-@property (nonatomic, strong) KKRefreshNormalFooter *footer;
 @property (nonatomic, strong) HomeListEmpty *emptyView;
 
 @end
@@ -132,8 +128,8 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)endRefresh {
-    [self.table.mj_header endRefreshing];
-    [self.table.mj_footer endRefreshing];
+    [self.table.kk_pullToRefreshHeader endRefreshing];
+    [self.table.kk_loadMoreFooter endRefreshing];
 }
 
 - (void)refresh:(NSIndexPath *)indexPath {
@@ -145,32 +141,31 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.table reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark - get
-- (KKRefreshNormalHeader *)header {
-    if (!_header) {
-        __weak typeof(self) weak = self;
-        _header = [KKRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weak routerEventWithName:HOME_TABLE_PULL data:nil];
-        }];
-    }
-    return _header;
-}
-
-- (KKRefreshNormalFooter *)footer {
-    if (!_footer) {
-        __weak typeof(self) weak = self;
-        _footer = [KKRefreshNormalFooter footerWithRefreshingBlock:^{
-            [weak routerEventWithName:HOME_TABLE_UP data:nil];
-        }];
-    }
-    return _footer;
-}
 
 - (UITableView *)table {
     if (!_table) {
         _table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        [_table setMj_header:self.header];
-        [_table setMj_footer:self.footer];
+        @weakify(self)
+        // 下拉切换下月：自家 KKPullToRefreshHeader（替代 UIRefreshControl，支持
+        // pulling/willRefresh/refreshing 三态文字 + 自定义触发距离）。
+        KKPullToRefreshHeader *header = [KKPullToRefreshHeader headerWithRefreshingBlock:^{
+            @strongify(self)
+            [self routerEventWithName:HOME_TABLE_PULL data:nil];
+        }];
+        header.pullingTitle = @"下拉查看下月数据";
+        header.willRefreshTitle = @"松开查看下月数据";
+        header.refreshingTitle = @"查找数据中";
+        _table.kk_pullToRefreshHeader = header;
+
+        // 上拉切换上月
+        KKLoadMoreFooter *footer = [KKLoadMoreFooter footerWithRefreshingBlock:^{
+            @strongify(self)
+            [self routerEventWithName:HOME_TABLE_UP data:nil];
+        }];
+        footer.pullingTitle = @"上拉查看上月数据";
+        footer.willRefreshTitle = @"松开查看上月数据";
+        footer.refreshingTitle = @"查找数据中";
+        _table.kk_loadMoreFooter = footer;
         [_table lineHide];
         [_table lineAll];
         [_table setDelegate:self];

@@ -13,7 +13,6 @@
 //================================= Third ===================================//
 #import <JGProgressHUD/JGProgressHUD.h>
 #import <MJExtension/MJExtension.h>
-#import <MJRefresh/MJRefresh.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIButton+WebCache.h>
 #import <pop/POP.h>
@@ -61,6 +60,7 @@
 #import "UIResponder+QFEventHandle.h"
 #import "UIScrollView+Extension.h"
 #import "KKLoadMoreFooter.h"
+#import "KKPullToRefreshHeader.h"
 #import "UITableView+Extension.h"
 #import "UITableViewCell+Extension.h"
 #import "UITableViewHeaderFooterView+Extension.h"

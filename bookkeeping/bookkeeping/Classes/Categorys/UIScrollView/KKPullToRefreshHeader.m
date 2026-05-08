@@ -1,53 +1,51 @@
 //
-//  KKLoadMoreFooter.m
+//  KKPullToRefreshHeader.m
 //  bookkeeping
 //
 
-#import "KKLoadMoreFooter.h"
+#import "KKPullToRefreshHeader.h"
 #import <objc/runtime.h>
 
-static const CGFloat kKKFooterHeight = 50.0;
-static const CGFloat kKKFooterTriggerInset = 20.0;
+static const CGFloat kKKHeaderHeight = 50.0;
+static const CGFloat kKKHeaderTriggerInset = 20.0;
 static NSString * const kKKContentOffsetKeyPath = @"contentOffset";
-static NSString * const kKKContentSizeKeyPath = @"contentSize";
 
-typedef NS_ENUM(NSInteger, KKLoadMoreState) {
-    KKLoadMoreStateIdle,
-    KKLoadMoreStatePulling,
-    KKLoadMoreStateWillRefresh,
-    KKLoadMoreStateRefreshing,
-    KKLoadMoreStateNoMore,
+typedef NS_ENUM(NSInteger, KKPullToRefreshState) {
+    KKPullToRefreshStateIdle,
+    KKPullToRefreshStatePulling,
+    KKPullToRefreshStateWillRefresh,
+    KKPullToRefreshStateRefreshing,
 };
 
-@interface KKLoadMoreFooter ()
+@interface KKPullToRefreshHeader ()
 
 @property (nonatomic, copy) void (^refreshingBlock)(void);
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
-@property (nonatomic, assign) KKLoadMoreState state;
-// 检测从 dragging 到 not-dragging 的转换（松手时机）。
+@property (nonatomic, assign) KKPullToRefreshState state;
 @property (nonatomic, assign) BOOL wasDragging;
+@property (nonatomic, assign) CGFloat originalInsetTop;
+@property (nonatomic, assign) BOOL insetAdjusted;
 @property (nonatomic, strong) NSDate *refreshingStartedAt;
 
 @end
 
-@implementation KKLoadMoreFooter
+@implementation KKPullToRefreshHeader
 
-+ (instancetype)footerWithRefreshingBlock:(void (^)(void))block {
-    KKLoadMoreFooter *footer = [[self alloc] initWithFrame:CGRectZero];
-    footer.refreshingBlock = block;
-    return footer;
++ (instancetype)headerWithRefreshingBlock:(void (^)(void))block {
+    KKPullToRefreshHeader *header = [[self alloc] initWithFrame:CGRectZero];
+    header.refreshingBlock = block;
+    return header;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _pullingTitle = @"上拉加载更多";
-        _willRefreshTitle = @"松开加载更多";
+        _pullingTitle = @"下拉刷新";
+        _willRefreshTitle = @"松开刷新";
         _refreshingTitle = @"加载中…";
-        _noMoreTitle = @"没有更多了";
-        _state = KKLoadMoreStateIdle;
+        _state = KKPullToRefreshStateIdle;
         [self buildSubviews];
     }
     return self;
@@ -55,14 +53,15 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
 
 - (void)buildSubviews {
     self.backgroundColor = [UIColor clearColor];
-    // 跟随 scroll 宽度自动 resize（防止初次 layout 时 width=0）
+    // 跟随 scroll 宽度自动 resize —— 否则 willMoveToSuperview 时 scroll.bounds.width
+    // 可能还是 0，header 会一直保持 0 宽度而看不见。
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     _titleLabel.textColor = [UIColor colorWithWhite:0.6 alpha:1.0];
     _titleLabel.font = [UIFont systemFontOfSize:13];
-    _titleLabel.text = @"";   // idle 状态默认不显示文字
+    _titleLabel.text = @"";
     [self addSubview:_titleLabel];
 
     _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
@@ -72,7 +71,8 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    // indicator 中央偏左避开文字（label 占满整宽 + textAlignment=center → 文字仍居中）
+    // indicator 永远在中央偏左（避开 label 文字），label 占满整宽且 textAlignment=center
+    // → 文字仍居中、indicator 在文字左侧空白处转动，两者不重叠。
     self.titleLabel.frame = self.bounds;
     CGFloat midY = CGRectGetMidY(self.bounds);
     self.indicator.center = CGPointMake(self.bounds.size.width / 2.0 - 60, midY);
@@ -87,7 +87,6 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
         UIScrollView *scroll = (UIScrollView *)newSuperview;
         self.scrollView = scroll;
         [scroll addObserver:self forKeyPath:kKKContentOffsetKeyPath options:NSKeyValueObservingOptionNew context:NULL];
-        [scroll addObserver:self forKeyPath:kKKContentSizeKeyPath options:NSKeyValueObservingOptionNew context:NULL];
         [self repositionInsideScrollView];
     }
 }
@@ -96,7 +95,6 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
     if (self.scrollView) {
         @try {
             [self.scrollView removeObserver:self forKeyPath:kKKContentOffsetKeyPath];
-            [self.scrollView removeObserver:self forKeyPath:kKKContentSizeKeyPath];
         } @catch (__unused NSException *e) {}
         self.scrollView = nil;
     }
@@ -110,7 +108,7 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
     UIScrollView *scroll = self.scrollView;
     if (!scroll) return;
     CGFloat width = scroll.bounds.size.width;
-    self.frame = CGRectMake(0, scroll.contentSize.height, width, kKKFooterHeight);
+    self.frame = CGRectMake(0, -kKKHeaderHeight, width, kKKHeaderHeight);
 }
 
 #pragma mark - KVO
@@ -120,47 +118,34 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
                         change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                        context:(void *)context {
     if (object != self.scrollView) return;
-    if ([keyPath isEqualToString:kKKContentSizeKeyPath]) {
-        [self repositionInsideScrollView];
-        return;
-    }
     if (![keyPath isEqualToString:kKKContentOffsetKeyPath]) return;
 
-    if (self.state == KKLoadMoreStateRefreshing || self.state == KKLoadMoreStateNoMore) return;
+    if (self.state == KKPullToRefreshStateRefreshing) return;
 
     UIScrollView *scroll = self.scrollView;
-    CGFloat contentH = scroll.contentSize.height;
-    CGFloat boundsH = scroll.bounds.size.height;
     CGFloat insetTop = scroll.adjustedContentInset.top;
-    CGFloat insetBottom = scroll.adjustedContentInset.bottom;
     CGFloat offsetY = scroll.contentOffset.y;
-
-    // 自然滚动的最大 offsetY —— 用户没主动拉拽时滚动条的下边界：
-    //   * 内容超过一屏：滚到最底 = contentH + insetBottom - boundsH
-    //   * 内容不足一屏：自然位置 = -insetTop（顶端对齐）
-    CGFloat naturalMaxOffsetY = (contentH + insetTop + insetBottom > boundsH)
-        ? (contentH + insetBottom - boundsH)
-        : (-insetTop);
-    CGFloat pullDistance = offsetY - naturalMaxOffsetY;
-    CGFloat triggerThreshold = kKKFooterHeight + kKKFooterTriggerInset;
+    // 用户向下拉拽的距离：自然顶边是 -insetTop，offsetY 比这小就是被拉下来了。
+    CGFloat pullDistance = -insetTop - offsetY;
+    CGFloat triggerThreshold = kKKHeaderHeight + kKKHeaderTriggerInset;
 
     BOOL nowDragging = scroll.isDragging;
     BOOL wasDragging = self.wasDragging;
     self.wasDragging = nowDragging;
 
-    // 松手判定用"上一帧的 state"（同 KKPullToRefreshHeader）：松手瞬间
-    // scroll 已经 bounce-back，pullDistance 回落，如果先算 newState 再判断
-    // 会因为 state 被刷成 pulling 而错过触发。
+    // 松手判定必须用"上一帧的 state" —— 用户松手瞬间 scroll 已经开始 bounce-back，
+    // pullDistance 立即回落，如果在算完 newState 后再判断会因为 newState 已变为
+    // pulling 而错过触发。
     BOOL didReleaseFromWillRefresh = wasDragging && !nowDragging
-                                  && self.state == KKLoadMoreStateWillRefresh;
+                                  && self.state == KKPullToRefreshStateWillRefresh;
 
-    KKLoadMoreState newState;
+    KKPullToRefreshState newState;
     if (pullDistance <= 0) {
-        newState = KKLoadMoreStateIdle;
+        newState = KKPullToRefreshStateIdle;
     } else if (pullDistance < triggerThreshold) {
-        newState = KKLoadMoreStatePulling;
+        newState = KKPullToRefreshStatePulling;
     } else {
-        newState = KKLoadMoreStateWillRefresh;
+        newState = KKPullToRefreshStateWillRefresh;
     }
 
     if (newState != self.state) {
@@ -175,46 +160,51 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
 
 - (void)refreshDisplayedTitle {
     switch (self.state) {
-        case KKLoadMoreStateIdle:
-            self.titleLabel.text = @"";    // 不显示
+        case KKPullToRefreshStateIdle:
+            self.titleLabel.text = @"";
             break;
-        case KKLoadMoreStatePulling:
+        case KKPullToRefreshStatePulling:
             self.titleLabel.text = self.pullingTitle ?: @"";
             break;
-        case KKLoadMoreStateWillRefresh:
+        case KKPullToRefreshStateWillRefresh:
             self.titleLabel.text = self.willRefreshTitle ?: @"";
             break;
-        case KKLoadMoreStateRefreshing:
+        case KKPullToRefreshStateRefreshing:
             self.titleLabel.text = self.refreshingTitle ?: @"";
-            break;
-        case KKLoadMoreStateNoMore:
-            self.titleLabel.text = self.noMoreTitle ?: @"";
             break;
     }
 }
 
 - (void)beginRefreshing {
-    if (self.state == KKLoadMoreStateRefreshing || self.state == KKLoadMoreStateNoMore) return;
-    self.state = KKLoadMoreStateRefreshing;
+    if (self.state == KKPullToRefreshStateRefreshing) return;
+    self.state = KKPullToRefreshStateRefreshing;
     self.refreshingStartedAt = [NSDate date];
     [self refreshDisplayedTitle];
     [self.indicator startAnimating];
+
+    // 调整 contentInset.top += headerHeight 让 header 一直可见（spinner 区域固定）。
+    UIScrollView *scroll = self.scrollView;
+    if (scroll && !self.insetAdjusted) {
+        self.originalInsetTop = scroll.contentInset.top;
+        UIEdgeInsets insets = scroll.contentInset;
+        insets.top += kKKHeaderHeight;
+        self.insetAdjusted = YES;
+        [UIView animateWithDuration:0.25 animations:^{
+            scroll.contentInset = insets;
+        }];
+    }
+
     if (self.refreshingBlock) {
         self.refreshingBlock();
     }
 }
 
-// 保证 spinner 至少持续 0.4 秒可见 —— 同步的 refreshingBlock + endRefresh
-// 链路否则会在同一 runloop 完成，菊花根本没机会渲染。
+// 保证 spinner 至少持续 minimumDuration 让用户看得到 —— 否则同步的
+// refreshingBlock + endRefresh 链路会在同一 runloop 完成，菊花根本没机会渲染。
 static const NSTimeInterval kKKMinimumRefreshDuration = 0.4;
 
 - (void)endRefreshing {
-    if (self.state == KKLoadMoreStateNoMore) return;
-    if (self.state != KKLoadMoreStateRefreshing) {
-        // 不是 refreshing 状态时直接走原路径（idle / pulling / willRefresh）
-        [self finishEndRefreshing];
-        return;
-    }
+    if (self.state != KKPullToRefreshStateRefreshing) return;
     NSTimeInterval elapsed = self.refreshingStartedAt
         ? [[NSDate date] timeIntervalSinceDate:self.refreshingStartedAt]
         : kKKMinimumRefreshDuration;
@@ -230,48 +220,46 @@ static const NSTimeInterval kKKMinimumRefreshDuration = 0.4;
 }
 
 - (void)finishEndRefreshing {
-    if (self.state == KKLoadMoreStateNoMore) return;
-    self.state = KKLoadMoreStateIdle;
-    [self refreshDisplayedTitle];
-    [self.indicator stopAnimating];
-}
+    if (self.state != KKPullToRefreshStateRefreshing) return;
 
-- (void)endRefreshingWithNoMoreData {
-    self.state = KKLoadMoreStateNoMore;
-    [self refreshDisplayedTitle];
-    [self.indicator stopAnimating];
-}
-
-- (void)resetNoMoreData {
-    if (self.state == KKLoadMoreStateNoMore) {
-        self.state = KKLoadMoreStateIdle;
-        [self refreshDisplayedTitle];
+    UIScrollView *scroll = self.scrollView;
+    if (scroll && self.insetAdjusted) {
+        UIEdgeInsets insets = scroll.contentInset;
+        insets.top -= kKKHeaderHeight;
+        self.insetAdjusted = NO;
+        [UIView animateWithDuration:0.25 animations:^{
+            scroll.contentInset = insets;
+        }];
     }
+
+    self.state = KKPullToRefreshStateIdle;
+    [self refreshDisplayedTitle];
+    [self.indicator stopAnimating];
 }
 
 - (BOOL)isRefreshing {
-    return self.state == KKLoadMoreStateRefreshing;
+    return self.state == KKPullToRefreshStateRefreshing;
 }
 
 @end
 
 #pragma mark - UIScrollView association
 
-@implementation UIScrollView (KKLoadMoreFooter)
+@implementation UIScrollView (KKPullToRefreshHeader)
 
-- (void)setKk_loadMoreFooter:(KKLoadMoreFooter *)footer {
-    KKLoadMoreFooter *existing = objc_getAssociatedObject(self, @selector(kk_loadMoreFooter));
+- (void)setKk_pullToRefreshHeader:(KKPullToRefreshHeader *)header {
+    KKPullToRefreshHeader *existing = objc_getAssociatedObject(self, @selector(kk_pullToRefreshHeader));
     if (existing) {
         [existing removeFromSuperview];
     }
-    objc_setAssociatedObject(self, @selector(kk_loadMoreFooter), footer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (footer && footer.superview != self) {
-        [self addSubview:footer];
+    objc_setAssociatedObject(self, @selector(kk_pullToRefreshHeader), header, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (header && header.superview != self) {
+        [self addSubview:header];
     }
 }
 
-- (KKLoadMoreFooter *)kk_loadMoreFooter {
-    return objc_getAssociatedObject(self, @selector(kk_loadMoreFooter));
+- (KKPullToRefreshHeader *)kk_pullToRefreshHeader {
+    return objc_getAssociatedObject(self, @selector(kk_pullToRefreshHeader));
 }
 
 @end

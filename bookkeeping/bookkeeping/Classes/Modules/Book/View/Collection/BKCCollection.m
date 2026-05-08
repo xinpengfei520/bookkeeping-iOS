@@ -5,7 +5,6 @@
 
 #import "BKCCollection.h"
 #import "BKCCollectionCell.h"
-#import "BKCRefreshHeader.h"
 #import "CAController.h"
 #import "BOOK_EVENT.h"
 
@@ -19,7 +18,6 @@
 #pragma mark - 声明
 @interface BKCCollection()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong) BKCRefreshHeader *mHeader;
 
 @end
 
@@ -43,7 +41,8 @@
     [collection setDelegate:collection];
     [collection setDataSource:collection];
     [collection registerClass:[BKCCollectionCell class] forCellWithReuseIdentifier:@"BKCCollectionCell"];
-    [collection setMj_header:[collection mHeader]];
+    // BKCRefreshHeader 历史上是个仅展示「下拉关闭页面」文字提示的装饰性 header，
+    // 实际 dismiss 由 iOS 13+ modal 自带的 swipe-to-dismiss 完成。删除整段。
     return collection;
 }
 
@@ -125,17 +124,6 @@
             }];
         }
     }
-}
-
-
-#pragma mark - get
-- (BKCRefreshHeader *)mHeader {
-    if (!_mHeader) {
-        _mHeader = [BKCRefreshHeader headerWithRefreshingBlock:^{
-            [self.mj_header endRefreshing];
-        }];
-    }
-    return _mHeader;
 }
 
 

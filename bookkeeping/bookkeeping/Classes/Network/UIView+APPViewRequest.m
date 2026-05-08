@@ -37,8 +37,12 @@ static void *kUIView_APPViewRequest;
 - (void)endRefresh {
     if ([self isKindOfClass:[UIScrollView class]]) {
         UIScrollView *scroll = (UIScrollView *)self;
-        [scroll.mj_header endRefreshing];
-        [scroll.mj_footer endRefreshing];
+        // 同时停掉系统 UIRefreshControl 和自家 KKPullToRefreshHeader——前者
+        // 是 nil-safe（getter 返回 nil 时调 endRefreshing 是 no-op），保持
+        // 对未迁移到 KKPullToRefreshHeader 的页面兼容。
+        [scroll.refreshControl endRefreshing];
+        [scroll.kk_pullToRefreshHeader endRefreshing];
+        [scroll.kk_loadMoreFooter endRefreshing];
     }
 }
 
@@ -94,20 +98,10 @@ static void *kUIView_APPViewRequest;
              complete:(AFNManagerCompleteBlock)complete {
     APPViewRequest *viewParameter = [self afn_request];
     
-    // 刷新
-    if ([self isKindOfClass:[UIScrollView class]]) {
-        UIScrollView *scroll = (UIScrollView *)self;
-        __weak typeof(self) weak = self;
-        
-        [scroll.mj_header setRefreshingBlock:^{
-            [viewParameter setAfn_isHeader:YES];
-            [weak createRequest:url params:params progress:progress complete:complete];
-        }];
-        [scroll.mj_footer setRefreshingBlock:^{
-            [viewParameter setAfn_isHeader:NO];
-            [weak createRequest:url params:params progress:progress complete:complete];
-        }];
-    }
+    // 刷新：UIView+APPViewRequest 只在请求结束后调 endRefresh 停 spinner，
+    // header/footer 的 refreshingBlock 由调用方（HomeListCell 等）自己设置；
+    // 这里不再代为 setRefreshingBlock（系统 UIRefreshControl 是 target/action 模型，
+    // 没有 setRefreshingBlock 这种 API）。
     // 配置
     if (viewParameter) {
         // 显示等待页 && 无数据

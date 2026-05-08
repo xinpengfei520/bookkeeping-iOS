@@ -2,7 +2,6 @@ ${PODS_ROOT}/Target Support Files/Pods-bookkeeping/Pods-bookkeeping-frameworks.s
 ${BUILT_PRODUCTS_DIR}/BRPickerView/BRPickerView.framework
 ${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework
-${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/pop/pop.framework

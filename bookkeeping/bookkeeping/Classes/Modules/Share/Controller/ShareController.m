@@ -8,7 +8,6 @@
 #import "ShareOrder.h"
 #import "ShareBadge.h"
 #import "ShareBottom.h"
-#import "BKCRefreshHeader.h"
 
 
 #pragma mark - 声明
@@ -19,7 +18,6 @@
 @property (nonatomic, strong) ShareOrder *shot2;
 @property (nonatomic, strong) ShareBadge *shot3;
 @property (nonatomic, strong) ShareBottom *bottom;
-@property (nonatomic, strong) BKCRefreshHeader *mHeader;
 
 @end
 
@@ -59,7 +57,7 @@
 - (UIScrollView *)scroll {
     if (!_scroll) {
         _scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - self.bottom.height)];
-        [_scroll setMj_header:self.mHeader];
+        // BKCRefreshHeader 已移除（详见 BKCCollection.m 同样改动）。dismiss 由 iOS modal 自带手势处理。
         [_scroll setDelegate:self];
         [self.view addSubview:_scroll];
     }
@@ -108,15 +106,5 @@
 //     }
 //     return _bottom;
 // }
-
-- (BKCRefreshHeader *)mHeader {
-    if (!_mHeader) {
-        _mHeader = [BKCRefreshHeader headerWithRefreshingBlock:^{
-            [self.scroll.mj_header endRefreshing];
-        }];
-    }
-    return _mHeader;
-}
-
 
 @end
