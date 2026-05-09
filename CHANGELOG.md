@@ -14,6 +14,23 @@
 
 ---
 
+## [1.0.5] (build 6) — 2026-05-09
+
+### 修复
+- **首页 + 按钮 → 记账页**下拉关闭时"下拉关闭页面 / 松开关闭页面"文字消失（1.0.4 P5 回归）。BKCCollection 改用 `KKPullToRefreshHeader` 同时承担文字提示与 dismiss/pop 触发；触发阈值从 `offsetY < -54` 调整为 `-70`（header height 50 + trigger inset 20，与首页 HomeListCell 一致）。
+
+### 内部
+post-1.0.4 cleanup（不影响行为）：
+- `Common.h` 删除重复的 `NSAttributedString+Extension` import。
+- `NSString+API.h` 删除 12 个 0 引用的旧 `/shayu/*` 接口宏（`CreateBook` / `GetBookList` / `getBookGroup` / `AddSystemCategory` / `ForgetPass` / `BindThird` / `BindPhone` / `Sound` / `Detail` / `Time{List,Add,Remove}`）。
+- `NSString+API.h` 集中 6 个 web/外链宏（`kAgreementURL` / `kPrivacyURL` / `kTermsOfServiceURL` / `kPrivacyPolicyURL` / `kHelpURL` / `kAppStoreURL`），替换 `MineController` / `PasswordLoginController{1,2}` / `AgreementWebViewController` 共 8 处硬编码 URL。
+- `KKPrefixHeader.pch` 删除 6 个未接 trait collection 的 night-mode 占位色（`kColor_Night_Back_*` / `kColor_Cell_High_{Light,Night}` / `kColor_Line_Night`），保留单行 TODO 注释。
+- 最后 4 处裸 `[[NSNotificationCenter defaultCenter] addObserver:self ...]` 迁移到 P4 自家 `kk_observeNotification:usingBlock:`（`BookController` + `BKCKeyboard` 的键盘 show/hide 监听），同步移除两处仅含 `removeObserver:self` 的 `-dealloc`。
+- `BaseTableCell` 接管 `selectionStyle = None`；移除 10 个 cell 子类重复设置；其中 4 个原直继承 `UITableViewCell` 的 cell（`HomeListSubCell` / `CategoryCell` / `SearchListSubCell` / `TITableCell`）改继承 `BaseTableCell`。
+- 净 −68 LoC。
+
+---
+
 ## [1.0.4] (build 5) — 2026-05-08
 
 ### 变更
