@@ -41,8 +41,21 @@
     [collection setDelegate:collection];
     [collection setDataSource:collection];
     [collection registerClass:[BKCCollectionCell class] forCellWithReuseIdentifier:@"BKCCollectionCell"];
-    // BKCRefreshHeader 历史上是个仅展示「下拉关闭页面」文字提示的装饰性 header，
-    // 实际 dismiss 由 iOS 13+ modal 自带的 swipe-to-dismiss 完成。删除整段。
+
+    // 下拉关闭页面：KKPullToRefreshHeader 同时承担文字提示 + 触发 dismiss/pop。
+    @weakify(collection)
+    collection.kk_pullToRefreshHeader = [KKPullToRefreshHeader headerWithRefreshingBlock:^{
+        @strongify(collection)
+        UINavigationController *nav = collection.viewController.navigationController;
+        if (nav.viewControllers.count != 1) {
+            [nav popViewControllerAnimated:YES];
+        } else {
+            [nav dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+    collection.kk_pullToRefreshHeader.pullingTitle = @"下拉关闭页面";
+    collection.kk_pullToRefreshHeader.willRefreshTitle = @"松开关闭页面";
+    collection.kk_pullToRefreshHeader.refreshingTitle = @"";
     return collection;
 }
 
@@ -113,18 +126,5 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(countcoordinatesX(10), countcoordinatesX(10), countcoordinatesX(10), countcoordinatesX(10));
 }
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (scrollView.contentOffset.y < -54) {
-        if (self.viewController.navigationController.viewControllers.count != 1) {
-            [self.viewController.navigationController popViewControllerAnimated:true];
-        } else {
-            [self.viewController.navigationController dismissViewControllerAnimated:YES completion:^{
-                
-            }];
-        }
-    }
-}
-
 
 @end
