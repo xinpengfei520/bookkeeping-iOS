@@ -135,17 +135,17 @@
     _datas = @[
         @[
             @[KKLocalized(@"我的账单")],
-            @[KKLocalized(@"类别设置"),KKLocalized(@"定时提醒"),KKLocalized(@"面容解锁"),KKLocalized(@"导出数据"),KKLocalized(@"语言")],
+            @[KKLocalized(@"类别设置"),KKLocalized(@"定时提醒"),KKLocalized(@"面容解锁"),KKLocalized(@"导出数据"),KKLocalized(@"语言"),KKLocalized(@"深色模式")],
             @[KKLocalized(@"邀请好友"),KKLocalized(@"意见反馈"),KKLocalized(@"帮助"),KKLocalized(@"关于")]
         ],
         @[
             @[@"mine_bill"],
-            @[@"mine_category",@"mine_remind",@"mine_face_id",@"mine_export",@"sf:globe"],
+            @[@"mine_category",@"mine_remind",@"mine_face_id",@"mine_export",@"sf:globe",@"sf:moon.circle"],
             @[@"mine_invite",@"mine_feedback",@"mine_help",@"mine_about"]
         ],
         @[
             @[@(0)],
-            @[@(0),@(0),@(1),@(0),@(0)],
+            @[@(0),@(0),@(1),@(0),@(0),@(0)],
             @[@(0),@(0),@(0),@(0)]
         ]
     ];

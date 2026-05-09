@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18C2DADC830F94C98C020C12 /* KKTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18B97B807F044BE4EFE105 /* KKTheme.m */; };
 		247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8872D30221900B5F323 /* PasswordLoginController2.m */; };
 		247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8852D30221900B5F323 /* PasswordLoginController1.m */; };
 		247AB8922D302ECD00B5F323 /* AgreementWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */; };
@@ -205,6 +206,7 @@
 		AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */; };
 		C17169EEEBD351968561C40B /* KKLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */; };
 		CADEAEF3609EA938CA3B27F2 /* NSObject+KKObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */; };
+		D3ABAD6ED66558AAEF834A23 /* ThemeSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B102249E44177CC286D041C /* ThemeSettingsController.m */; };
 		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
 		F353108C2875FC6D00D297A9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353108B2875FC6D00D297A9 /* WebViewController.m */; };
 		F353109B2876C88D00D297A9 /* ExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109A2876C88D00D297A9 /* ExportController.m */; };
@@ -269,6 +271,8 @@
 
 /* Begin PBXFileReference section */
 		00F7D112DD852D7FDCFBD731 /* NSObject+KKObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+KKObserver.h"; sourceTree = "<group>"; };
+		0B102249E44177CC286D041C /* ThemeSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ThemeSettingsController.m; sourceTree = "<group>"; };
+		0FB1A961A9BE63A5562CDE7A /* ThemeSettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ThemeSettingsController.h; sourceTree = "<group>"; };
 		1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.debug.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.debug.xcconfig"; sourceTree = "<group>"; };
 		2394D79B3B4F8B9338E4B547 /* KKI18n.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKI18n.h; sourceTree = "<group>"; };
 		247AB8842D30221900B5F323 /* PasswordLoginController1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordLoginController1.h; sourceTree = "<group>"; };
@@ -608,8 +612,10 @@
 		4BFD381521E4D3CB00BAB0BB /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		4BFD381621E4D3CB00BAB0BB /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
 		4BFD382121E4D98300BAB0BB /* BookMonth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonth.entitlements; sourceTree = "<group>"; };
+		53DEE50AB6EFC2A003EAACCF /* KKTheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKTheme.h; sourceTree = "<group>"; };
 		6A24864819274E39BEF5C08B /* UIControl+KKBlock.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIControl+KKBlock.m"; sourceTree = "<group>"; };
 		734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookkeeping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D18B97B807F044BE4EFE105 /* KKTheme.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKTheme.m; sourceTree = "<group>"; };
 		9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KKObserver.m"; sourceTree = "<group>"; };
 		A7ADFECE6C196E9719EB4721 /* KKPullToRefreshHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKPullToRefreshHeader.m; sourceTree = "<group>"; };
 		A93F626B7FA6D097EACA5FF2 /* KKPullToRefreshHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKPullToRefreshHeader.h; sourceTree = "<group>"; };
@@ -729,6 +735,8 @@
 				247AB9002D341E1B00B5F323 /* MineController.m */,
 				BC531A2BF06A2F19B926849F /* LanguageSettingsController.h */,
 				EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */,
+				0FB1A961A9BE63A5562CDE7A /* ThemeSettingsController.h */,
+				0B102249E44177CC286D041C /* ThemeSettingsController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -853,6 +861,8 @@
 				CC2DE293D47C15C852DD6195 /* KKWeakify.h */,
 				2394D79B3B4F8B9338E4B547 /* KKI18n.h */,
 				F42F7C4278EC0DEC18E0B39D /* KKI18n.m */,
+				53DEE50AB6EFC2A003EAACCF /* KKTheme.h */,
+				7D18B97B807F044BE4EFE105 /* KKTheme.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2601,6 +2611,8 @@
 				62F2584B5D8D13F8291F76E9 /* KKPullToRefreshHeader.m in Sources */,
 				78CEE456FC70F6392910FE8F /* KKI18n.m in Sources */,
 				F3FD3CCDE7B970B523F65C1C /* LanguageSettingsController.m in Sources */,
+				18C2DADC830F94C98C020C12 /* KKTheme.m in Sources */,
+				D3ABAD6ED66558AAEF834A23 /* ThemeSettingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

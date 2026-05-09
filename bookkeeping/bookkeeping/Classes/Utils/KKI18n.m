@@ -260,13 +260,16 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"微信": @"WeChat",
             @"朋友圈": @"Moments",
 
-            // ---- Language settings ----
+            // ---- Language / theme settings ----
             @"语言": @"Language",
             @"跟随系统": @"Follow System",
             @"语言已切换": @"Language changed",
             @"需要重启 App 后完全生效。": @"Restart the app for changes to take full effect.",
             @"立即重启": @"Restart now",
             @"稍后": @"Later",
+            @"深色模式": @"Dark Mode",
+            @"浅色": @"Light",
+            @"深色": @"Dark",
 
             // ---- Me page ----
             @"我的": @"Me",

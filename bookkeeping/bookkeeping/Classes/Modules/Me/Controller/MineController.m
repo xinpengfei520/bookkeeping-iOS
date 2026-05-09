@@ -132,6 +132,11 @@
             LanguageSettingsController *vc = [[LanguageSettingsController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
+        // 深色模式
+        else if (indexPath.row == 5) {
+            ThemeSettingsController *vc = [[ThemeSettingsController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     else if (indexPath.section == 2) {
         // 邀请好友

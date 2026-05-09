@@ -74,6 +74,7 @@
 #import "KKEmptyPch.h"
 #import "KKWeakify.h"
 #import "KKI18n.h"
+#import "KKTheme.h"
 #import "UserInfo.h"
 
 // 业务代码全局使用 KKLocalized() 取本地化字符串。key 即中文原文；
@@ -113,6 +114,7 @@
 #import "SearchViewController.h"
 #import "PasswordController.h"
 #import "LanguageSettingsController.h"
+#import "ThemeSettingsController.h"
 
 //================================= Model ===============================//
 #import "MarkModel.h"
