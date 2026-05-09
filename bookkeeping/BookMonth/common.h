@@ -11,7 +11,8 @@
 
 
 // 第三方
-#import <NotificationCenter/NotificationCenter.h>
+// NotificationCenter framework 是废弃的 Today extension API，迁到
+// WidgetKit 后不再使用。
 #import <MJExtension/MJExtension.h>
 
 
