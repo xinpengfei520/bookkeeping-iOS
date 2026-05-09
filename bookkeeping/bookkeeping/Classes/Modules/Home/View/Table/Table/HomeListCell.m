@@ -95,7 +95,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(5))];
-    view.backgroundColor = kColor_White;
+    view.backgroundColor = [UIColor systemBackgroundColor];
     return view;
 }
 
@@ -171,7 +171,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
         [_table setDataSource:self];
         [_table setShowsVerticalScrollIndicator:false];
         [_table setSeparatorColor:kColor_Line_Color];
-        [_table setBackgroundColor:kColor_White];
+        [_table setBackgroundColor:[UIColor systemBackgroundColor]];
         [_table setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)]];
         [_table registerClass:[HomeListSubCell class] forCellReuseIdentifier:@"HomeListSubCell"];
         [_table registerNib:[UINib nibWithNibName:@"HomeListHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"HomeListHeader"];

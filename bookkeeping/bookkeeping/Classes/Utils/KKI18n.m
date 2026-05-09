@@ -49,6 +49,11 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"温馨提示": @"Reminder",
             @"今天": @"Today",
             @"昨天": @"Yesterday",
+            // 单字"月"在 HomeHeader 上独立出现：英文里数字本身已暗示月份（"5"），
+            // 不需要 month suffix，故映射为空串。如果将来其它地方也用到 KKLocalized(@"月")，
+            // 注意它在 en 模式下会变空。
+            @"月": @"",
+            @"年": @"",
 
             // ---- Empty / loading / network states ----
             @"请求失败": @"Request failed",

@@ -66,11 +66,17 @@
     cell.nameLab.text = self.datas[0][indexPath.section][indexPath.row];
     NSString *iconName = self.datas[1][indexPath.section][indexPath.row];
     if ([iconName hasPrefix:@"sf:"]) {
-        // Prefix "sf:" → SF Symbol（iOS 13+，本项目最低 iOS 16），colored via tintColor
-        UIImage *symbol = [[UIImage systemImageNamed:[iconName substringFromIndex:3]]
+        // Prefix "sf:" → SF Symbol（iOS 13+，本项目最低 iOS 16），按品牌绿（kColor_Main_Color）
+        // 渲染，与同栏目其它资产 icon 的色调一致。symbol 用 22pt regular 让视觉重量
+        // 接近 mine_* 既有 PNG 图标。
+        UIImageSymbolConfiguration *cfg =
+            [UIImageSymbolConfiguration configurationWithPointSize:22
+                                                            weight:UIImageSymbolWeightRegular];
+        UIImage *symbol = [[UIImage systemImageNamed:[iconName substringFromIndex:3]
+                                       withConfiguration:cfg]
                            imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.icon.image = symbol;
-        cell.icon.tintColor = kColor_Text_Black;
+        cell.icon.tintColor = kColor_Main_Color;
     } else {
         cell.icon.image = [UIImage imageNamed:iconName];
     }
@@ -140,7 +146,7 @@
         ],
         @[
             @[@"mine_bill"],
-            @[@"mine_category",@"mine_remind",@"mine_face_id",@"mine_export",@"sf:globe",@"sf:moon.circle"],
+            @[@"mine_category",@"mine_remind",@"mine_face_id",@"mine_export",@"sf:globe",@"sf:moon.fill"],
             @[@"mine_invite",@"mine_feedback",@"mine_help",@"mine_about"]
         ],
         @[

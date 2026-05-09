@@ -35,7 +35,13 @@
     [self.yearLab setTextColor:kColor_Text_White];
     [self.monthLab setFont:[UIFont systemFontOfSize:AdjustFont(20) weight:UIFontWeightLight]];
     [self.monthLab setTextColor:kColor_Text_White];
-    
+
+    // XIB 里 incomeDescLab="收入" / payDescLab="支出" / monthDescLab="月" 是静态文本，
+    // wrap 脚本只扫 .m，所以这里在代码里强制刷一遍以走 KKLocalized。
+    [self.payDescLab setText:KKLocalized(@"支出")];
+    [self.incomeDescLab setText:KKLocalized(@"收入")];
+    [self.monthDescLab setText:KKLocalized(@"月")];
+
     [self.payDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.payDescLab setTextColor:kColor_Text_White];
     [self.incomeDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
