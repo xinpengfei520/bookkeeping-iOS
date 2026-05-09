@@ -68,7 +68,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     @weakify(self)
     UIContextualAction *delete = [UIContextualAction
         contextualActionWithStyle:UIContextualActionStyleDestructive
-                            title:@"删除"
+                            title:KKLocalized(@"删除")
                           handler:^(UIContextualAction * _Nonnull action,
                                     __kindof UIView * _Nonnull sourceView,
                                     void (^ _Nonnull completion)(BOOL)) {

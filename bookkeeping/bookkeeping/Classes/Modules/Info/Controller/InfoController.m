@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"个人信息";
+    self.title = KKLocalized(@"个人信息");
     [self.view setBackgroundColor:kColor_Line_Color];
     [self table];
     [self setModel:[UserInfo loadUserInfo]];
@@ -41,7 +41,7 @@
     UIImage *avatar = [self resizedAvatarFromImage:image maxDimension:512];
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
-    [self showProgressHUD:@"修改中"];
+    [self showProgressHUD:KKLocalized(@"修改中")];
     [AFNManager POST:uploadAvatarRequest params:nil images:@[avatar] progress:nil complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
@@ -99,12 +99,12 @@
 - (void)changeUserInfoRequest:(NSMutableDictionary *)param {
     @weakify(self)
     [self.afn_request setAfn_useCache:false];
-    [self showProgressHUD:@"修改中"];
+    [self showProgressHUD:KKLocalized(@"修改中")];
     [AFNManager POST:updateUserInfoRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [self showTextHUD:@"修改成功" delay:1.f];
+            [self showTextHUD:KKLocalized(@"修改成功") delay:1.f];
             // 更新数据
             [UserInfo saveUserModel:self.updateModel];
             [self setModel:self.updateModel];
@@ -173,11 +173,11 @@
 - (void)logoutClick:(id)data {
     // 按钮二维数组，array[0] 存放 title 数组, array[1] 存放 style 数组
     NSArray<NSArray *> *buttonArray = @[
-        @[@"退出登录"],
+        @[KKLocalized(@"退出登录")],
         @[[NSNumber numberWithInteger:UIAlertActionStyleDestructive]]
     ];
     
-    [[AlertViewManager sharedInstacne]showSheet:@"记呀" message:@"确定退出当前帐号吗？" cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
+    [[AlertViewManager sharedInstacne]showSheet:KKLocalized(@"记呀") message:KKLocalized(@"确定退出当前帐号吗？") cancelTitle:KKLocalized(@"取消") viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
         if (buttonTag == 0) {
             [self logoutRequest];
         }
@@ -186,19 +186,19 @@
 
 // 拍照 / 选图入口 —— 系统 UIImagePickerController + PHPickerViewController
 - (void)takePhoto {
-    [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
+    [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:KKLocalized(@"取消") viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
         if (buttonTag == 0) {
             [self presentCameraPicker];
         } else if (buttonTag == 1) {
             [self presentPhotoLibraryPicker];
         }
-    } buttonTitles:@"拍照", @"从相册选择", nil];
+    } buttonTitles:KKLocalized(@"拍照"), KKLocalized(@"从相册选择"), nil];
 }
 
 // 系统相机
 - (void)presentCameraPicker {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [self showTextHUD:@"当前设备不支持拍照" delay:1.5f];
+        [self showTextHUD:KKLocalized(@"当前设备不支持拍照") delay:1.5f];
         return;
     }
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -259,57 +259,57 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *
 
 // 性别
 - (void)takeSex {
-    [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
+    [[AlertViewManager sharedInstacne]showSheet:nil message:nil cancelTitle:KKLocalized(@"取消") viewController:self confirm:^(NSInteger buttonTag,NSString *buttonTitle) {
         if (buttonTag == 0) {
             [self changeSexRequest:1];
         } else if (buttonTag == 1) {
             [self changeSexRequest:0];
         }
-    } buttonTitles:@"男", @"女", nil];
+    } buttonTitles:KKLocalized(@"男"), KKLocalized(@"女"), nil];
 }
 
 // 昵称
 - (void)takeNickname {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:KKLocalized(@"修改昵称") message:nil preferredStyle:UIAlertControllerStyleAlert];
     // 增加取消按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"取消") style:UIAlertActionStyleDefault handler:nil]];
     // 增加确定按钮
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+    [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
         // 获取第1个输入框；
         UITextField *titleTextField = alertController.textFields.firstObject;
         NSLog(@"%@", titleTextField.text);
         if (titleTextField.text.length == 0) {
-            [self showTextHUD:@"昵称不能为空" delay:1.f];
+            [self showTextHUD:KKLocalized(@"昵称不能为空") delay:1.f];
             return;
         }
         [self changeNickRequest:titleTextField.text];
     }]];
     // 定义第一个输入框；
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入2-8位昵称";
+        textField.placeholder = KKLocalized(@"请输入2-8位昵称");
         [textField addTarget:self action:@selector(txtValueChange:) forControlEvents:UIControlEventEditingChanged];
     }];
     [self presentViewController:alertController animated:true completion:nil];
 }
 
 - (void)updatePhone {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改手机号" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:KKLocalized(@"修改手机号") message:nil preferredStyle:UIAlertControllerStyleAlert];
     // 增加取消按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"取消") style:UIAlertActionStyleDefault handler:nil]];
     // 增加确定按钮
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+    [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
         // 获取第1个输入框；
         UITextField *titleTextField = alertController.textFields.firstObject;
         NSLog(@"%@", titleTextField.text);
         if (titleTextField.text.length == 0) {
-            [self showTextHUD:@"手机号不能为空" delay:1.f];
+            [self showTextHUD:KKLocalized(@"手机号不能为空") delay:1.f];
             return;
         }
         [self changePhoneRequest:titleTextField.text];
     }]];
     // 定义第一个输入框；
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入11位新手机号";
+        textField.placeholder = KKLocalized(@"请输入11位新手机号");
         [textField addTarget:self action:@selector(inputPhoneChange:) forControlEvents:UIControlEventEditingChanged];
     }];
     [self presentViewController:alertController animated:true completion:nil];
@@ -329,15 +329,15 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *
 
 // 更新邮箱
 - (void)updateEmail {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改邮箱" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:KKLocalized(@"修改邮箱") message:nil preferredStyle:UIAlertControllerStyleAlert];
     // 增加取消按钮
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"取消") style:UIAlertActionStyleDefault handler:nil]];
     // 增加确定按钮
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+    [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
         // 获取输入框内容
         UITextField *emailTextField = alertController.textFields.firstObject;
         if (emailTextField.text.length == 0) {
-            [self showTextHUD:@"邮箱不能为空" delay:1.f];
+            [self showTextHUD:KKLocalized(@"邮箱不能为空") delay:1.f];
             return;
         }
         
@@ -345,7 +345,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *
         NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
         NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
         if (![emailTest evaluateWithObject:emailTextField.text]) {
-            [self showTextHUD:@"邮箱格式不正确" delay:1.f];
+            [self showTextHUD:KKLocalized(@"邮箱格式不正确") delay:1.f];
             return;
         }
         
@@ -353,7 +353,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *
     }]];
     // 添加输入框
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入邮箱地址";
+        textField.placeholder = KKLocalized(@"请输入邮箱地址");
         textField.keyboardType = UIKeyboardTypeEmailAddress;
         // 如果已有邮箱，预先填入
         if (self.model.email && self.model.email.length > 0) {

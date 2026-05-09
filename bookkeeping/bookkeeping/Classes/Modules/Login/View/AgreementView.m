@@ -66,14 +66,14 @@
     
     // 文本标签
     _textLabel = [[UILabel alloc] init];
-    _textLabel.text = @"我已阅读并同意";
+    _textLabel.text = KKLocalized(@"我已阅读并同意");
     _textLabel.font = [UIFont systemFontOfSize:12];
     _textLabel.textColor = [UIColor lightGrayColor];
     [containerView addSubview:_textLabel];  // 直接添加到容器视图
     
     // 用户协议按钮
     _userAgreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_userAgreementBtn setTitle:@"用户协议" forState:UIControlStateNormal];
+    [_userAgreementBtn setTitle:KKLocalized(@"用户协议") forState:UIControlStateNormal];
     [_userAgreementBtn setTitleColor:kColor_Main_Color forState:UIControlStateNormal];
     _userAgreementBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_userAgreementBtn addTarget:self action:@selector(userAgreementClick) forControlEvents:UIControlEventTouchUpInside];
@@ -88,7 +88,7 @@
     
     // 隐私协议按钮
     _privacyAgreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_privacyAgreementBtn setTitle:@"隐私政策" forState:UIControlStateNormal];
+    [_privacyAgreementBtn setTitle:KKLocalized(@"隐私政策") forState:UIControlStateNormal];
     [_privacyAgreementBtn setTitleColor:kColor_Main_Color forState:UIControlStateNormal];
     _privacyAgreementBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_privacyAgreementBtn addTarget:self action:@selector(privacyAgreementClick) forControlEvents:UIControlEventTouchUpInside];
@@ -97,7 +97,7 @@
     if (_isShowRegisterTips) {
         // 末尾文本
         _textLabelTail = [[UILabel alloc] init];
-        _textLabelTail.text = @"未注册的手机号将自动注册";
+        _textLabelTail.text = KKLocalized(@"未注册的手机号将自动注册");
         _textLabelTail.font = [UIFont systemFontOfSize:12];
         _textLabelTail.textColor = [UIColor lightGrayColor];
         [containerView addSubview:_textLabelTail];  // 直接添加到容器视图

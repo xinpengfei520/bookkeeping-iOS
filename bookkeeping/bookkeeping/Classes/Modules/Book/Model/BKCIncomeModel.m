@@ -18,7 +18,7 @@
 + (BKCModel *)createSetModel {
     BKCModel *set = [[BKCModel alloc] init];
     set.Id = 0;
-    set.name = @"设置";
+    set.name = KKLocalized(@"设置");
     set.icon_n = @"cc_home_tools.png";
     set.icon_l = @"cc_home_tools_l.png";
     set.icon_s = @"cc_home_tools_s.png";

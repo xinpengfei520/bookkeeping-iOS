@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"导出数据";
+    self.title = KKLocalized(@"导出数据");
     
     [self setupUI];
 }
@@ -25,7 +25,7 @@
 - (void)setupUI {
     // 创建导出按钮
     UIButton *exportButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [exportButton setTitle:@"点击导出数据到文件" forState:UIControlStateNormal];
+    [exportButton setTitle:KKLocalized(@"点击导出数据到文件") forState:UIControlStateNormal];
     [exportButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [exportButton setBackgroundColor:kColor_Main_Color];
     [exportButton.layer setCornerRadius:5.0];
@@ -47,7 +47,7 @@
     NSMutableArray<BookDetailModel *> *allRecords = [NSUserDefaults getAllBookList];
     
     // 2. 创建CSV内容头部
-    NSMutableString *csvString = [NSMutableString stringWithString:@"日期,类别,金额,收支类型,备注\n"];
+    NSMutableString *csvString = [NSMutableString stringWithString:KKLocalized(@"日期,类别,金额,收支类型,备注\n")];
     
     // 3. 将数据转换为CSV格式
     for (BookDetailModel *model in allRecords) {
@@ -63,10 +63,10 @@
         
         if (model.categoryId >= 33) {
             amount = [NSString stringWithFormat:@"%.2f", model.price];
-            type = @"收入";
+            type = KKLocalized(@"收入");
         } else {
             amount = [NSString stringWithFormat:@"%.2f", model.price];
-            type = @"支出";
+            type = KKLocalized(@"支出");
         }
         
         NSString *remark = model.mark ?: @"";
@@ -81,7 +81,7 @@
     
     // 4. 保存文件到Documents目录
     NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
-    NSString *fileName = [NSString stringWithFormat:@"记账导出_%@.csv", [self getCurrentTimeString]];
+    NSString *fileName = [NSString stringWithFormat:KKLocalized(@"记账导出_%@.csv"), [self getCurrentTimeString]];
     NSString *filePath = [docPath stringByAppendingPathComponent:fileName];
     
     // 创建UTF-8 BOM头
@@ -99,7 +99,7 @@
     BOOL success = [csvData writeToFile:filePath options:NSDataWritingAtomic error:&error];
     
     if (!success) {
-        [self showTextHUD:@"导出失败" delay:1.5f];
+        [self showTextHUD:KKLocalized(@"导出失败") delay:1.5f];
         return;
     }
     
@@ -132,16 +132,16 @@
     activityVC.completionWithItemsHandler = ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
         if (completed) {
             // 用户成功完成了操作
-            NSString *successMessage = [NSString stringWithFormat:@"导出成功，活动类型: %@", activityType];
-            [self showTextHUD:@"导出成功" delay:1.5f];
+            NSString *successMessage = [NSString stringWithFormat:KKLocalized(@"导出成功，活动类型: %@"), activityType];
+            [self showTextHUD:KKLocalized(@"导出成功") delay:1.5f];
             NSLog(@"%@", successMessage);
         } else if (activityError) {
             // 操作中出现错误
-            [self showTextHUD:@"导出过程中出现错误" delay:1.5f];
+            [self showTextHUD:KKLocalized(@"导出过程中出现错误") delay:1.5f];
             NSLog(@"分享错误: %@", activityError.localizedDescription);
         } else {
             // 用户取消了操作
-            [self showTextHUD:@"已取消导出" delay:1.5f];
+            [self showTextHUD:KKLocalized(@"已取消导出") delay:1.5f];
             NSLog(@"用户取消了分享");
         }
     };

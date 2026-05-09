@@ -51,9 +51,9 @@
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-        content.title = [NSString localizedUserNotificationStringForKey:@"温馨提示" arguments:nil];
+        content.title = [NSString localizedUserNotificationStringForKey:KKLocalized(@"温馨提示") arguments:nil];
         content.sound = [UNNotificationSound defaultSound];
-        content.body  = [NSString localizedUserNotificationStringForKey:@"记账时间到了，赶紧记一笔吧！" arguments:nil];
+        content.body  = [NSString localizedUserNotificationStringForKey:KKLocalized(@"记账时间到了，赶紧记一笔吧！") arguments:nil];
         
         // 周一早上 8：00 上班
         NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -135,7 +135,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"viewDidLoad - 开始");
-    self.title = @"定时提醒";
+    self.title = KKLocalized(@"定时提醒");
     
     // 请求通知权限
     [self requestNotificationPermission];
@@ -177,7 +177,7 @@
     
     if (isEmpty) {
         // 设置空状态文字
-        [self.emptyView updateEmptyText:@"你还没有任何提醒哦～"];
+        [self.emptyView updateEmptyText:KKLocalized(@"你还没有任何提醒哦～")];
     }
     
     NSLog(@"viewWillAppear - 空状态视图隐藏状态: %@", self.emptyView.isHidden ? @"是" : @"否");
@@ -222,7 +222,7 @@
     
     if (isEmpty) {
         // 设置空状态文字
-        [_emptyView updateEmptyText:@"你还没有任何提醒哦～"];
+        [_emptyView updateEmptyText:KKLocalized(@"你还没有任何提醒哦～")];
     }
 }
 
@@ -233,7 +233,7 @@
     NSMutableArray *arrm = [NSUserDefaults objectForKey:PIN_TIMING];
     // 判断设置的时间是否已存在
     if ([arrm containsObject:time]) {
-        [self showTextHUD:@"已经添加过该时间的提醒" delay:2.f];
+        [self showTextHUD:KKLocalized(@"已经添加过该时间的提醒") delay:2.f];
         return;
     }
 
@@ -282,7 +282,7 @@
     BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
     // 2.设置属性
     datePickerView.pickerMode = BRDatePickerModeHM;
-    datePickerView.title = @"每天";
+    datePickerView.title = KKLocalized(@"每天");
     datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
         NSLog(@"选择提醒的时间为每天的：%@", selectValue);
         @strongify(self)
@@ -384,7 +384,7 @@
             CGFloat top = SCREEN_HEIGHT - height - NavigationBarHeight;
             CGRectMake(0, top, SCREEN_WIDTH, height);
         })];
-        [_bottom setName:@"添加提醒"];
+        [_bottom setName:KKLocalized(@"添加提醒")];
         [self.view addSubview:_bottom];
     }
     _bottom.layer.shadowPath = [UIBezierPath bezierPathWithRect:_bottom.bounds].CGPath;

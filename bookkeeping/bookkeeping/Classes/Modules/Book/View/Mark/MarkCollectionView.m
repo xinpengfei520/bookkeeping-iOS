@@ -124,7 +124,7 @@
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, headerView.width, headerView.height)];
         label.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];
         label.textColor = kColor_Text_Black;
-        label.text = @"推荐备注";
+        label.text = KKLocalized(@"推荐备注");
         label.clipsToBounds = YES;
         label.textAlignment = NSTextAlignmentCenter;
         [headerView addSubview:label];

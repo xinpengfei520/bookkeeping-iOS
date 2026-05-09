@@ -34,7 +34,7 @@
 #pragma mark - set
 - (void)setIndexPath:(NSIndexPath *)indexPath {
     _indexPath = indexPath;
-    [_nameLab setText:@[@"类型",@"金额",@"日期",@"备注"][indexPath.row]];
+    [_nameLab setText:@[KKLocalized(@"类型"),KKLocalized(@"金额"),KKLocalized(@"日期"),KKLocalized(@"备注")][indexPath.row]];
 }
 
 - (void)setModel:(BookDetailModel *)model {

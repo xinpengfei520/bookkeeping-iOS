@@ -188,7 +188,7 @@
             if (_model.chartArr.count == 7) {
                 NSDate *date = [NSDate date];
                 if (_model.chartArr[i].month == date.month && _model.chartArr[i].day == date.day) {
-                    str = @"今天";
+                    str = KKLocalized(@"今天");
                 } else {
                     str = [NSString stringWithFormat:@"%02ld-%02ld", _model.chartArr[i].month, _model.chartArr[i].day];
                 }
@@ -200,7 +200,7 @@
             }
             // 年
             else if (_model.chartArr.count == 12) {
-                str = [NSString stringWithFormat:@"%d月", i + 1];
+                str = [NSString stringWithFormat:KKLocalized(@"%d月"), i + 1];
             }
             
             [self drawText:str color:kColor_Text_Black frame:({

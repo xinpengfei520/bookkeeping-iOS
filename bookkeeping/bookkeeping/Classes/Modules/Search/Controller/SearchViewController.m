@@ -91,7 +91,7 @@
 
 - (void)searchWithInputText:(NSString *)input {
     if ([allTrim(input)length] == 0) {
-        [self showTextHUD:@"关键字不能为空" delay:1.f];
+        [self showTextHUD:KKLocalized(@"关键字不能为空") delay:1.f];
         return;
     }
     

@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"语言";
+    self.title = KKLocalized(@"语言");
     self.view.backgroundColor = kColor_BG;
     [self.view addSubview:self.tableView];
 }
@@ -28,8 +28,8 @@
     if (!_options) {
         // code = NSNull → "follow system"
         _options = @[
-            @{@"title": @"跟随系统", @"code": [NSNull null]},
-            @{@"title": @"简体中文", @"code": KKLanguageCodeChinese},
+            @{@"title": KKLocalized(@"跟随系统"), @"code": [NSNull null]},
+            @{@"title": KKLocalized(@"简体中文"), @"code": KKLanguageCodeChinese},
             @{@"title": @"English",  @"code": KKLanguageCodeEnglish},
         ];
     }
@@ -93,17 +93,17 @@
     [tableView reloadData];
 
     UIAlertController *alert = [UIAlertController
-        alertControllerWithTitle:@"语言已切换"
-        message:@"需要重启 App 后完全生效。"
+        alertControllerWithTitle:KKLocalized(@"语言已切换")
+        message:KKLocalized(@"需要重启 App 后完全生效。")
         preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"立即重启" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *_) {
+    [alert addAction:[UIAlertAction actionWithTitle:KKLocalized(@"立即重启") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *_) {
         // 0.2s 让 alert dismiss 动画走完，避免 exit(0) 截断动画导致系统警报
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)),
                        dispatch_get_main_queue(), ^{
             exit(0);
         });
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"稍后" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:KKLocalized(@"稍后") style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 

@@ -34,11 +34,11 @@
     NSString *registerTitle = ({
         NSString *str;
         if (_index == 0) {
-            str = @"注册";
+            str = KKLocalized(@"注册");
         } else if (_index == 1) {
-            str = @"找回密码";
+            str = KKLocalized(@"找回密码");
         } else if (_index == 2) {
-            str = @"绑定账号";
+            str = KKLocalized(@"绑定账号");
         }
         str;
     });
@@ -123,13 +123,13 @@
 - (void)countDownBegin {
     [self.countDown countDownWithStratTimeStamp:0 finishTimeStamp:59 * 1000 completeBlock:^(NSInteger day, NSInteger hour, NSInteger minute, NSInteger second) {
         if (second != 0 || minute != 0) {
-            NSString *str = [NSString stringWithFormat:@"%02lds重新获取", second];
+            NSString *str = [NSString stringWithFormat:KKLocalized(@"%02lds重新获取"), second];
             [self.codeBtn setTitle:str forState:UIControlStateNormal];
             [self.codeBtn setTitle:str forState:UIControlStateHighlighted];
             [self.codeBtn setUserInteractionEnabled:NO];
         } else {
-            [self.codeBtn setTitle:@"重新获取" forState:UIControlStateNormal];
-            [self.codeBtn setTitle:@"重新获取" forState:UIControlStateHighlighted];
+            [self.codeBtn setTitle:KKLocalized(@"重新获取") forState:UIControlStateNormal];
+            [self.codeBtn setTitle:KKLocalized(@"重新获取") forState:UIControlStateHighlighted];
             [self.codeBtn setUserInteractionEnabled:YES];
         }
     }];

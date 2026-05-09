@@ -279,25 +279,25 @@
 + (NSString *)dayFromWeekday:(NSDate *)date {
 	switch([date weekday]) {
 	case 1:
-		return @"星期日";
+		return KKLocalized(@"星期日");
 		break;
 	case 2:
-		return @"星期一";
+		return KKLocalized(@"星期一");
 		break;
 	case 3:
-		return @"星期二";
+		return KKLocalized(@"星期二");
 		break;
 	case 4:
-		return @"星期三";
+		return KKLocalized(@"星期三");
 		break;
 	case 5:
-		return @"星期四";
+		return KKLocalized(@"星期四");
 		break;
 	case 6:
-		return @"星期五";
+		return KKLocalized(@"星期五");
 		break;
 	case 7:
-		return @"星期六";
+		return KKLocalized(@"星期六");
 		break;
 	default:
 		break;
@@ -531,13 +531,13 @@
 	if (time < 3600) { // 小于一小时
 		retTime = time / 60;
 		retTime = retTime <= 0.0 ? 1.0 : retTime;
-		return [NSString stringWithFormat:@"%.0f分钟前", retTime];
+		return [NSString stringWithFormat:KKLocalized(@"%.0f分钟前"), retTime];
 	} else if (time < 3600 * 24) { // 小于一天，也就是今天
 		retTime = time / 3600;
 		retTime = retTime <= 0.0 ? 1.0 : retTime;
-		return [NSString stringWithFormat:@"%.0f小时前", retTime];
+		return [NSString stringWithFormat:KKLocalized(@"%.0f小时前"), retTime];
 	} else if (time < 3600 * 24 * 2) {
-		return @"昨天";
+		return KKLocalized(@"昨天");
 	}
 	// 第一个条件是同年，且相隔时间在一个月内
 	// 第二个条件是隔年，对于隔年，只能是去年12月与今年1月这种情况
@@ -558,26 +558,26 @@
 			retDay = (int)[curDate day] + (totalDays - (int)[date day]);
 		}
 
-		return [NSString stringWithFormat:@"%d天前", (abs)(retDay)];
+		return [NSString stringWithFormat:KKLocalized(@"%d天前"), (abs)(retDay)];
 	} else  {
 		if (abs(year) <= 1) {
 			if (year == 0) { // 同年
-				return [NSString stringWithFormat:@"%d个月前", abs(month)];
+				return [NSString stringWithFormat:KKLocalized(@"%d个月前"), abs(month)];
 			}
 
 			// 隔年
 			int month = (int)[curDate month];
 			int preMonth = (int)[date month];
 			if (month == 12 && preMonth == 12) {// 隔年，但同月，就作为满一年来计算
-				return @"1年前";
+				return KKLocalized(@"1年前");
 			}
-			return [NSString stringWithFormat:@"%d个月前", (abs)(12 - preMonth + month)];
+			return [NSString stringWithFormat:KKLocalized(@"%d个月前"), (abs)(12 - preMonth + month)];
 		}
 
-		return [NSString stringWithFormat:@"%d年前", abs(year)];
+		return [NSString stringWithFormat:KKLocalized(@"%d年前"), abs(year)];
 	}
 
-	return @"1小时前";
+	return KKLocalized(@"1小时前");
 }
 
 - (NSString *)ymdFormat {
@@ -741,7 +741,7 @@
 	//format of second
 	NSString *str_second = [NSString stringWithFormat:@"%02ld",seconds%60];
 	//format of time
-	NSString *format_time = [NSString stringWithFormat:@"%@天%@时%@分%@秒",str_day,str_hour,str_minute,str_second];
+	NSString *format_time = [NSString stringWithFormat:KKLocalized(@"%@天%@时%@分%@秒"),str_day,str_hour,str_minute,str_second];
 
 	return format_time;
 }

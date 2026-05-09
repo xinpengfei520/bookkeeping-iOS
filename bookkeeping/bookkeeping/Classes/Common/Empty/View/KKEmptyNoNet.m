@@ -69,7 +69,7 @@
         _nameLab.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
         _nameLab.textColor = kColor_Text_Black;
         _nameLab.textAlignment = NSTextAlignmentCenter;
-        _nameLab.text = @"网络竟然崩溃了";
+        _nameLab.text = KKLocalized(@"网络竟然崩溃了");
         [self addSubview:_nameLab];
     }
     return _nameLab;
@@ -80,7 +80,7 @@
         _detailLab.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];
         _detailLab.textColor = kColor_Text_Gary;
         _detailLab.textAlignment = NSTextAlignmentCenter;
-        _detailLab.text = @"别紧张, 试试看刷新页面~";
+        _detailLab.text = KKLocalized(@"别紧张, 试试看刷新页面~");
         [self addSubview:_detailLab];
     }
     return _detailLab;
@@ -90,7 +90,7 @@
         _btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_btn setFrame:CGRectMake(0, self.detailLab.bottom + 10, 70, 25)];
         [_btn setCenterX:self.centerX];
-        [_btn setTitle:@"刷新" forState:UIControlStateNormal];
+        [_btn setTitle:KKLocalized(@"刷新") forState:UIControlStateNormal];
         [_btn.layer setCornerRadius:_btn.height / 2];
         [_btn.layer setMasksToBounds:YES];
         [_btn.layer setBorderWidth:0.5];

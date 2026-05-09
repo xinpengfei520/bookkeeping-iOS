@@ -49,14 +49,14 @@
     
     // 用户名
     _nameLab = [[UILabel alloc] init];
-    _nameLab.text = @"未登录";
+    _nameLab.text = KKLocalized(@"未登录");
     _nameLab.font = [UIFont systemFontOfSize:AdjustFont(16) weight:UIFontWeightMedium];
     _nameLab.textColor = kColor_Text_White;
     [_userInfoContainer addSubview:_nameLab];
     
     // 加入时间
     _joinTimeLab = [[UILabel alloc] init];
-    _joinTimeLab.text = @"期待你加入";
+    _joinTimeLab.text = KKLocalized(@"期待你加入");
     _joinTimeLab.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
     _joinTimeLab.textColor = [UIColor colorWithWhite:1 alpha:0.7];
     [_userInfoContainer addSubview:_joinTimeLab];
@@ -83,7 +83,7 @@
     
     // 记账天数标题
     _dayTitleLab = [[UILabel alloc] init];
-    _dayTitleLab.text = @"记账总天数";
+    _dayTitleLab.text = KKLocalized(@"记账总天数");
     _dayTitleLab.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];
     _dayTitleLab.textColor = kColor_Text_White;
     _dayTitleLab.textAlignment = NSTextAlignmentCenter;
@@ -104,7 +104,7 @@
     
     // 记账笔数标题
     _numberTitleLab = [[UILabel alloc] init];
-    _numberTitleLab.text = @"记账总笔数";
+    _numberTitleLab.text = KKLocalized(@"记账总笔数");
     _numberTitleLab.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];
     _numberTitleLab.textColor = kColor_Text_White;
     _numberTitleLab.textAlignment = NSTextAlignmentCenter;
@@ -214,8 +214,8 @@
     // 未登录状态
     if (!model) {
         [_icon setImage:[UIImage imageNamed:@"default_header"]];
-        [_nameLab setText:@"未登录"];
-        [_joinTimeLab setText:@"期待你加入"];
+        [_nameLab setText:KKLocalized(@"未登录")];
+        [_joinTimeLab setText:KKLocalized(@"期待你加入")];
         [_dayLab setText:@"0"];
         [_numberLab setText:@"0"];
         return;
@@ -233,9 +233,9 @@
     if (model.registerTime) {
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:[model.registerTime doubleValue] / 1000.0];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy年MM月"];
+        [formatter setDateFormat:KKLocalized(@"yyyy年MM月")];
         NSString *dateString = [formatter stringFromDate:date];
-        [_joinTimeLab setText:[NSString stringWithFormat:@"%@加入", dateString]];
+        [_joinTimeLab setText:[NSString stringWithFormat:KKLocalized(@"%@加入"), dateString]];
     }
     
     [_dayLab setText:model.bookDays];

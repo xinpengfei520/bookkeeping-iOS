@@ -267,7 +267,7 @@
     }
     
     // 从网络取
-    [self showProgressHUD:@"同步数据..."];
+    [self showProgressHUD:KKLocalized(@"同步数据...")];
     @weakify(self)
     [AFNManager POST:allBookListRequest params:nil complete:^(APPResult *result) {
         @strongify(self)
@@ -314,7 +314,7 @@
     BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
     // 2.设置属性
     datePickerView.pickerMode = BRDatePickerModeYM;
-    datePickerView.title = @"选择日期";
+    datePickerView.title = KKLocalized(@"选择日期");
     datePickerView.selectDate = date;
     datePickerView.minDate = min;
     datePickerView.maxDate = max;

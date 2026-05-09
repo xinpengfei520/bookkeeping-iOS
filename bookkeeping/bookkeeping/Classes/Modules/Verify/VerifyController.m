@@ -43,7 +43,7 @@
 - (void)setupUI {
     // 标题
     _titleLabel = [[UILabel alloc] init];
-    _titleLabel.text = @"验证码";
+    _titleLabel.text = KKLocalized(@"验证码");
     _titleLabel.font = [UIFont systemFontOfSize:32];
     [self.view addSubview:_titleLabel];
     
@@ -76,7 +76,7 @@
     
     // 验证码输入框
     _codeField = [[UITextField alloc] init];
-    _codeField.placeholder = @"请输入验证码";
+    _codeField.placeholder = KKLocalized(@"请输入验证码");
     _codeField.font = [UIFont systemFontOfSize:14];
     _codeField.keyboardType = UIKeyboardTypeNumberPad;
     _codeField.delegate = self;
@@ -85,14 +85,14 @@
     
     // 验证按钮
     _verifyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_verifyButton setTitle:@"验证" forState:UIControlStateNormal];
+    [_verifyButton setTitle:KKLocalized(@"验证") forState:UIControlStateNormal];
     [_verifyButton addTarget:self action:@selector(verifyBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_verifyButton];
     [self buttonCanTap:NO btn:_verifyButton];
     
     // 重新发送按钮
     _resendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_resendButton setTitle:@"重新发送" forState:UIControlStateNormal];
+    [_resendButton setTitle:KKLocalized(@"重新发送") forState:UIControlStateNormal];
     [_resendButton setTitleColor:kColor_Main_Color forState:UIControlStateNormal];
     _resendButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [_resendButton addTarget:self action:@selector(resendBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -180,7 +180,7 @@
     [AFNManager POST:userSmsCodeRequest params:params complete:^(APPResult *result) {
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [self showTextHUD:@"验证码已发送" delay:1.5f];
+            [self showTextHUD:KKLocalized(@"验证码已发送") delay:1.5f];
         } else {
             [self showTextHUD:result.msg delay:1.5f];
         }
@@ -227,12 +227,12 @@
 - (void)updateCountdown {
     _countdown--;
     if (_countdown > 0) {
-        [_resendButton setTitle:[NSString stringWithFormat:@"%lds后重新发送", (long)_countdown] forState:UIControlStateNormal];
+        [_resendButton setTitle:[NSString stringWithFormat:KKLocalized(@"%lds后重新发送"), (long)_countdown] forState:UIControlStateNormal];
     } else {
         [_timer invalidate];
         _timer = nil;
         _resendButton.enabled = YES;
-        [_resendButton setTitle:@"重新发送" forState:UIControlStateNormal];
+        [_resendButton setTitle:KKLocalized(@"重新发送") forState:UIControlStateNormal];
     }
 }
 

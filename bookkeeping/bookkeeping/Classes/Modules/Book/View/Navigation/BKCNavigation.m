@@ -32,21 +32,21 @@
     
     // 支出按钮
     _btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_btn1 setTitle:@"支出" forState:UIControlStateNormal];
+    [_btn1 setTitle:KKLocalized(@"支出") forState:UIControlStateNormal];
     [_btn1.titleLabel setFont:BTN_FONT];
     [_btn1 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
     [self addSubview:_btn1];
     
     // 收入按钮
     _btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_btn2 setTitle:@"收入" forState:UIControlStateNormal];
+    [_btn2 setTitle:KKLocalized(@"收入") forState:UIControlStateNormal];
     [_btn2.titleLabel setFont:BTN_FONT];
     [_btn2 setTitleColor:kColor_Text_White forState:UIControlStateNormal];
     [self addSubview:_btn2];
     
     // 取消按钮
     _cancleBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [_cancleBtn setTitle:KKLocalized(@"取消") forState:UIControlStateNormal];
     [_cancleBtn setTitleColor:kColor_Text_White forState:UIControlStateNormal];
     [_cancleBtn setTitleColor:kColor_Text_Gary forState:UIControlStateHighlighted];
     [_cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
@@ -58,7 +58,7 @@
     [self addSubview:bottomLine];
     
     // 下划线
-    CGFloat width = [@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
+    CGFloat width = [KKLocalized(@"收入") sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
     _line = [[UIView alloc] init];
     _line.backgroundColor = kColor_Text_White;
     [self addSubview:_line];
@@ -125,7 +125,7 @@
     [UIView animateWithDuration:time animations:^{
         [self.line mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self).offset(-2);
-            make.width.equalTo(@([@"收入" sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width));
+            make.width.equalTo(@([KKLocalized(@"收入") sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width));
             make.height.equalTo(@2);
             make.centerX.equalTo(targetBtn);
         }];

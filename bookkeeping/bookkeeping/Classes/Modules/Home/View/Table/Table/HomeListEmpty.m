@@ -35,7 +35,7 @@
     
     // 无数据标签
     _nameLab = [[UILabel alloc] init];
-    _nameLab.text = @"空空如也～";
+    _nameLab.text = KKLocalized(@"空空如也～");
     _nameLab.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
     _nameLab.textColor = kColor_Text_Gary;
     _nameLab.textAlignment = NSTextAlignmentCenter;

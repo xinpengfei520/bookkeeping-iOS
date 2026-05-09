@@ -20,7 +20,7 @@
     [super viewDidLoad];
     [self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
     [self.view setBackgroundColor:kColor_BG];
-    self.navigationItem.backButtonTitle = @"返回";
+    self.navigationItem.backButtonTitle = KKLocalized(@"返回");
 }
 
 #pragma mark - 系统

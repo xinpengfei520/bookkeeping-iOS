@@ -66,7 +66,7 @@
         _nameLab.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
         _nameLab.textColor = kColor_Text_Black;
         _nameLab.textAlignment = NSTextAlignmentCenter;
-        _nameLab.text = @"您还没有相关的订单";
+        _nameLab.text = KKLocalized(@"您还没有相关的订单");
         [self addSubview:_nameLab];
     }
     return _nameLab;
@@ -77,7 +77,7 @@
         _detailLab.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];
         _detailLab.textColor = kColor_Text_Gary;
         _detailLab.textAlignment = NSTextAlignmentCenter;
-        _detailLab.text = @"可以去看看有哪些想买的";
+        _detailLab.text = KKLocalized(@"可以去看看有哪些想买的");
         [self addSubview:_detailLab];
     }
     return _detailLab;

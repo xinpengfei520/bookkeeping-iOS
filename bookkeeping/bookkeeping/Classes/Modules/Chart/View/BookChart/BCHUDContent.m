@@ -91,7 +91,7 @@
             })];
             lab.backgroundColor = kColor_Chart_Header;
             lab.textColor = kColor_Chart_Text;
-            lab.text = @"最大3笔交易";
+            lab.text = KKLocalized(@"最大3笔交易");
             lab.font = [UIFont systemFontOfSize:AdjustFont(10)];
             lab.textAlignment = NSTextAlignmentCenter;
             lab.layer.cornerRadius = 3;
@@ -112,7 +112,7 @@
 - (UILabel *)lab {
     if (!_lab) {
         _lab = [[UILabel alloc] initWithFrame:self.bounds];
-        _lab.text = @"没有费用";
+        _lab.text = KKLocalized(@"没有费用");
         _lab.textAlignment = NSTextAlignmentCenter;
         _lab.textColor = kColor_Chart_Text;
         _lab.font = [UIFont systemFontOfSize:AdjustFont(10)];

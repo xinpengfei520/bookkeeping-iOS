@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"修改密码";
+    self.title = KKLocalized(@"修改密码");
     [self setupUI];
     [self setupConstraints];
     [self setupEvents];
@@ -38,14 +38,14 @@
 - (void)setupUI {
     // 旧密码标签
     _nameLab1 = [[UILabel alloc] init];
-    _nameLab1.text = @"旧密码";
+    _nameLab1.text = KKLocalized(@"旧密码");
     _nameLab1.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
     _nameLab1.textColor = kColor_Text_Black;
     [self.view addSubview:_nameLab1];
     
     // 旧密码输入框
     _field1 = [[UITextField alloc] init];
-    _field1.placeholder = @"请输入旧密码";
+    _field1.placeholder = KKLocalized(@"请输入旧密码");
     _field1.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
     _field1.textColor = kColor_Text_Black;
     _field1.secureTextEntry = YES;
@@ -59,14 +59,14 @@
     
     // 新密码标签
     _nameLab2 = [[UILabel alloc] init];
-    _nameLab2.text = @"新密码";
+    _nameLab2.text = KKLocalized(@"新密码");
     _nameLab2.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
     _nameLab2.textColor = kColor_Text_Black;
     [self.view addSubview:_nameLab2];
     
     // 新密码输入框
     _field2 = [[UITextField alloc] init];
-    _field2.placeholder = @"6-18位数字、字母组合";
+    _field2.placeholder = KKLocalized(@"6-18位数字、字母组合");
     _field2.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
     _field2.textColor = kColor_Text_Black;
     _field2.secureTextEntry = YES;
@@ -80,14 +80,14 @@
     
     // 确认密码标签
     _nameLab3 = [[UILabel alloc] init];
-    _nameLab3.text = @"确认密码";
+    _nameLab3.text = KKLocalized(@"确认密码");
     _nameLab3.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
     _nameLab3.textColor = kColor_Text_Black;
     [self.view addSubview:_nameLab3];
     
     // 确认密码输入框
     _field3 = [[UITextField alloc] init];
-    _field3.placeholder = @"请再次输入密码";
+    _field3.placeholder = KKLocalized(@"请再次输入密码");
     _field3.font = [UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight];
     _field3.textColor = kColor_Text_Black;
     _field3.secureTextEntry = YES;
@@ -101,7 +101,7 @@
     
     // 确认按钮
     _completeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_completeBtn setTitle:@"确认修改" forState:UIControlStateNormal];
+    [_completeBtn setTitle:KKLocalized(@"确认修改") forState:UIControlStateNormal];
     _completeBtn.layer.cornerRadius = 3;
     _completeBtn.layer.masksToBounds = YES;
     [self.view addSubview:_completeBtn];
@@ -197,12 +197,12 @@
     NSString *pass2 =self.field3.text;
     
     if (![pass1 isEqualToString:pass2]) {
-        [self showTextHUD:@"两次密码不一致" delay:1.f];
+        [self showTextHUD:KKLocalized(@"两次密码不一致") delay:1.f];
         return;
     }
     
     if (pass1.length < 6 || pass1.length > 18) {
-        [self showTextHUD:@"密码长度为6-18位" delay:1.f];
+        [self showTextHUD:KKLocalized(@"密码长度为6-18位") delay:1.f];
         return;
     }
     
@@ -220,7 +220,7 @@
         if (result.status == HttpStatusSuccess) {
             // 修改成功
             if (result.code ==0) {
-                [self showWindowTextHUD:@"修改成功" delay:1.f];
+                [self showWindowTextHUD:KKLocalized(@"修改成功") delay:1.f];
                 [self.navigationController popViewControllerAnimated:true];
             }else {
                 [self showTextHUD:result.msg delay:1.f];

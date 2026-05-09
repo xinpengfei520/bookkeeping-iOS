@@ -134,9 +134,9 @@
 - (NSArray<NSArray<NSArray *> *> *)datas {
     _datas = @[
         @[
-            @[@"我的账单"],
-            @[@"类别设置",@"定时提醒",@"面容解锁",@"导出数据",@"语言"],
-            @[@"邀请好友",@"意见反馈",@"帮助",@"关于"]
+            @[KKLocalized(@"我的账单")],
+            @[KKLocalized(@"类别设置"),KKLocalized(@"定时提醒"),KKLocalized(@"面容解锁"),KKLocalized(@"导出数据"),KKLocalized(@"语言")],
+            @[KKLocalized(@"邀请好友"),KKLocalized(@"意见反馈"),KKLocalized(@"帮助"),KKLocalized(@"关于")]
         ],
         @[
             @[@"mine_bill"],

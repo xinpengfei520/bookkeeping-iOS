@@ -29,7 +29,7 @@
 - (void)setupUI {
     // 标题
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.text = @"密码登录";
+    titleLabel.text = KKLocalized(@"密码登录");
     titleLabel.font = [UIFont systemFontOfSize:32];
     [self.view addSubview:titleLabel];
     
@@ -62,7 +62,7 @@
     
     // 密码输入框
     _passwordField = [[UITextField alloc] init];
-    _passwordField.placeholder = @"请输入密码";
+    _passwordField.placeholder = KKLocalized(@"请输入密码");
     _passwordField.font = [UIFont systemFontOfSize:14];
     _passwordField.secureTextEntry = YES;
     [_passwordField addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
@@ -78,7 +78,7 @@
     
     // 登录按钮
     _loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [_loginButton setTitle:KKLocalized(@"登录") forState:UIControlStateNormal];
     [_loginButton addTarget:self action:@selector(loginButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_loginButton];
     [self buttonCanTap:NO btn:_loginButton];
@@ -205,14 +205,14 @@
 #pragma mark - AgreementViewDelegate
 - (void)agreementViewDidTapUserAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
-    vc.title = @"用户协议";
+    vc.title = KKLocalized(@"用户协议");
     [vc setUrl:kAgreementURL];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)agreementViewDidTapPrivacyAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
-    vc.title = @"隐私协议";
+    vc.title = KKLocalized(@"隐私协议");
     [vc setUrl:kPrivacyURL];
     [self.navigationController pushViewController:vc animated:YES];
 }

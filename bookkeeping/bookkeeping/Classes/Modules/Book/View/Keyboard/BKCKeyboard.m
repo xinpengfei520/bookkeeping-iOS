@@ -105,8 +105,8 @@
                 [btn setTitle:@"." forState:UIControlStateHighlighted];
             }
             else if (btn.tag == DATE_TAG) {
-                [btn setTitle:@"今天" forState:UIControlStateNormal];
-                [btn setTitle:@"今天" forState:UIControlStateHighlighted];
+                [btn setTitle:KKLocalized(@"今天") forState:UIControlStateNormal];
+                [btn setTitle:KKLocalized(@"今天") forState:UIControlStateHighlighted];
             }
             else if (btn.tag == PLUS_TAG) {
                 [btn setTitle:@"+" forState:UIControlStateNormal];
@@ -117,8 +117,8 @@
                 [btn setTitle:@"-" forState:UIControlStateHighlighted];
             }
             else if (btn.tag == FINISH_TAG) {
-                [btn setTitle:@"完成" forState:UIControlStateNormal];
-                [btn setTitle:@"完成" forState:UIControlStateHighlighted];
+                [btn setTitle:KKLocalized(@"完成") forState:UIControlStateNormal];
+                [btn setTitle:KKLocalized(@"完成") forState:UIControlStateHighlighted];
             }
             else if (btn.tag == DELETE_TAG) {
                 [btn setImage:[UIImage imageNamed:@"keyboard_delete.png"] forState:UIControlStateNormal];
@@ -286,7 +286,7 @@
         BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
         // 2.设置属性
         datePickerView.pickerMode = BRDatePickerModeYMD;
-        datePickerView.title = @"选择日期";
+        datePickerView.title = KKLocalized(@"选择日期");
         datePickerView.selectDate = self.currentDate;
         datePickerView.minDate = min;
         datePickerView.maxDate = max;
@@ -300,7 +300,7 @@
                 NSDate *date = [fora dateFromString:selectValue];
                 date;
             })];
-            selectValue = [self.currentDate isToday] ? @"今天" : selectValue;
+            selectValue = [self.currentDate isToday] ? KKLocalized(@"今天") : selectValue;
             [btn setTitle:selectValue forState:UIControlStateNormal];
             [btn setTitle:selectValue forState:UIControlStateHighlighted];
             [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
@@ -331,10 +331,10 @@
         [self setMoney:_money];
         [self calculationMath];
     }
-    if ([btn.titleLabel.text isEqualToString:@"完成"]) {
+    if ([btn.titleLabel.text isEqualToString:KKLocalized(@"完成")]) {
         CGFloat moneyValue = [_moneyLab.text floatValue];
         if (moneyValue == .0f) {
-            [self showTextHUD:@"请输入金额" delay:1];
+            [self showTextHUD:KKLocalized(@"请输入金额") delay:1];
             return;
         }
         
@@ -365,8 +365,8 @@
 - (void)reloadCompleteButton {
     if (_money.length == 0) {
         UIButton *btn = [self viewWithTag:FINISH_TAG];
-        [btn setTitle:@"完成" forState:UIControlStateNormal];
-        [btn setTitle:@"完成" forState:UIControlStateHighlighted];
+        [btn setTitle:KKLocalized(@"完成") forState:UIControlStateNormal];
+        [btn setTitle:KKLocalized(@"完成") forState:UIControlStateHighlighted];
     } else {
         NSString *subMoney = [_money substringFromIndex:1];
         BOOL condition1 = ([subMoney containsString:@"+"] || [subMoney containsString:@"-"]) && ![_money hasSuffix:@"+"] && ![_money hasSuffix:@"-"];
@@ -376,8 +376,8 @@
             [btn setTitle:@"=" forState:UIControlStateHighlighted];
         } else {
             UIButton *btn = [self viewWithTag:FINISH_TAG];
-            [btn setTitle:@"完成" forState:UIControlStateNormal];
-            [btn setTitle:@"完成" forState:UIControlStateHighlighted];
+            [btn setTitle:KKLocalized(@"完成") forState:UIControlStateNormal];
+            [btn setTitle:KKLocalized(@"完成") forState:UIControlStateHighlighted];
         }
     }
 }
@@ -545,7 +545,7 @@
     [self setCurrentDate:[NSDate dateWithYMD:key]];
     
     UIButton *btn = [self viewWithTag:DATE_TAG];
-    NSString *selectValue = [self.currentDate isToday] ? @"今天" : key;
+    NSString *selectValue = [self.currentDate isToday] ? KKLocalized(@"今天") : key;
     [btn setTitle:selectValue forState:UIControlStateNormal];
     [btn setTitle:selectValue forState:UIControlStateHighlighted];
     [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];

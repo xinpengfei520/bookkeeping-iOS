@@ -41,7 +41,7 @@
 - (void)setupUI {
     // 标题
     _titleLabel = [[UILabel alloc] init];
-    _titleLabel.text = @"验证码登录";
+    _titleLabel.text = KKLocalized(@"验证码登录");
     _titleLabel.font = [UIFont systemFontOfSize:32];
     [self.view addSubview:_titleLabel];
     
@@ -54,7 +54,7 @@
     
     // 密码登录按钮
     _passwordLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_passwordLoginBtn setTitle:@"密码登录" forState:UIControlStateNormal];
+    [_passwordLoginBtn setTitle:KKLocalized(@"密码登录") forState:UIControlStateNormal];
     [_passwordLoginBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     _passwordLoginBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_passwordLoginBtn addTarget:self action:@selector(passwordLoginClick) forControlEvents:UIControlEventTouchUpInside];
@@ -82,7 +82,7 @@
     
     // 手机号输入框
     _phoneField = [[UITextField alloc] init];
-    _phoneField.placeholder = @"请输入手机号";
+    _phoneField.placeholder = KKLocalized(@"请输入手机号");
     _phoneField.font = [UIFont systemFontOfSize:14];
     _phoneField.keyboardType = UIKeyboardTypeNumberPad;
     _phoneField.delegate = self;
@@ -91,7 +91,7 @@
     
     // 获取验证码按钮
     _getCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [_getCodeBtn setTitle:KKLocalized(@"获取验证码") forState:UIControlStateNormal];
     [_getCodeBtn addTarget:self action:@selector(getCodeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_getCodeBtn];
     [self buttonCanTap:NO btn:_getCodeBtn];

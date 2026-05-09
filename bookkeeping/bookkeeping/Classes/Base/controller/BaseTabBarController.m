@@ -34,10 +34,10 @@
     [super viewDidLoad];
     // 明细页面
     HomeController *home = [[HomeController alloc] init];
-    [self addChildViewController:home title:@"明细" image:@"tabbar_detail_n" selImage:@"tabbar_detail_s"];
+    [self addChildViewController:home title:KKLocalized(@"明细") image:@"tabbar_detail_n" selImage:@"tabbar_detail_s"];
     // 记账页面
     BaseViewController *message = [[BaseViewController alloc] init];
-    [self addChildViewController:message title:@"记账" image:@"tabbar_add_n" selImage:@"tabbar_add_h"];
+    [self addChildViewController:message title:KKLocalized(@"记账") image:@"tabbar_add_n" selImage:@"tabbar_add_h"];
 }
 
 - (void)hideTabbar:(BOOL)hidden {
