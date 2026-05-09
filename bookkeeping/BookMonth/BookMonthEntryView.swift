@@ -12,38 +12,34 @@
 import WidgetKit
 import SwiftUI
 
-// 主品牌色与文字色 — 跟 KKPrefixHeader.pch 的 RGBA(30,177,138,1) /
-// kColor_Text_Black 等价物保持一致。Color 不能用 Objective-C 宏，
-// 所以 widget 里独立定义一份。
+// 主品牌色固定（跨浅 / 深色一致）。文字 / 背景色不在这里硬编码，因为
+// SwiftUI 的 \.colorScheme env override 不会作用到 UIKit-bridged 颜色
+// （`Color(.label)` / `Color(.systemBackground)` 看的是 UITraitCollection，
+// widget 进程的 trait 是系统决定的）；改用 SwiftUI 原生的 `.primary` /
+// `.secondary` + 直接计算的字面色，让 env 真正生效。
 struct BookMonthTheme {
     static let brandGreen = Color(red: 30 / 255.0, green: 177 / 255.0, blue: 138 / 255.0)
     static let brandGreenHighlight = Color(red: 30 / 255.0, green: 200 / 255.0, blue: 138 / 255.0)
-    static let widgetBackground = Color(.systemBackground)
-    static let primaryText = Color(.label)
-    static let dim = Color(.secondaryLabel)
-}
-
-/// 把 entry.preferredScheme 应用到子树。nil 时 no-op，让 SwiftUI 跟随系统。
-struct ColorSchemeOverride: ViewModifier {
-    let scheme: ColorScheme?
-
-    func body(content: Content) -> some View {
-        if let s = scheme {
-            content.environment(\.colorScheme, s)
-        } else {
-            content
-        }
-    }
 }
 
 struct BookMonthEntryView: View {
     @Environment(\.widgetFamily) var family
+    @Environment(\.colorScheme) var systemScheme
     let entry: BookMonthEntry
 
+    /// 实际生效的 colorScheme：用户在主 app 选了 light/dark 就用之；
+    /// 否则跟随 widget 进程的系统 trait（systemScheme）。
+    private var effectiveScheme: ColorScheme {
+        entry.preferredScheme ?? systemScheme
+    }
+
+    /// 浅色 → 白；深色 → 接近黑的灰（避免纯黑过于硬）。直接用字面 Color，
+    /// 不走 UIKit semantic color，确保 env override 后这里能跟上。
+    private var widgetBg: Color {
+        effectiveScheme == .dark ? Color(white: 0.06) : .white
+    }
+
     var body: some View {
-        // 先选 family 渲染对应布局，再叠加用户的 colorScheme 偏好（如果设了）。
-        // entry.preferredScheme == nil 表示"跟随系统"，让 SwiftUI 自己解析；
-        // 否则把整个子树锁到 .light 或 .dark。
         Group {
             switch family {
             case .systemSmall:
@@ -52,7 +48,10 @@ struct BookMonthEntryView: View {
                 medium
             }
         }
-        .modifier(ColorSchemeOverride(scheme: entry.preferredScheme))
+        // 先把 env 锁到 effectiveScheme — 子树里的 .primary / .secondary
+        // 才会跟着翻。
+        .environment(\.colorScheme, effectiveScheme)
+        .widgetBackground(widgetBg)
     }
 
     // 158x158 — 月份 + 收支结余三行 + 记一笔按钮
@@ -95,10 +94,10 @@ struct BookMonthEntryView: View {
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text("\(entry.month)")
                     .font(.system(size: 28, weight: .light))
-                    .foregroundColor(BookMonthTheme.primaryText)
+                    .foregroundColor(.primary)
                 Text(KKI18n.string(forKey: "月"))
                     .font(.system(size: 12, weight: .light))
-                    .foregroundColor(BookMonthTheme.primaryText)
+                    .foregroundColor(.primary)
             }
         }
     }
@@ -107,11 +106,11 @@ struct BookMonthEntryView: View {
         HStack(spacing: 6) {
             Text(label)
                 .font(.system(size: 9, weight: .light))
-                .foregroundColor(BookMonthTheme.dim)
+                .foregroundColor(.secondary)
             Spacer()
             Text(formatPrice(value))
                 .font(.system(size: 13, weight: .light))
-                .foregroundColor(BookMonthTheme.primaryText)
+                .foregroundColor(.primary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
         }

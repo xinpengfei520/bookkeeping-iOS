@@ -16,8 +16,9 @@ struct BookMonthWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: BookMonthProvider()) { entry in
+            // background 在 EntryView 内部根据 effectiveScheme 计算后再调
+            // .widgetBackground，确保切深色时背景跟着翻。
             BookMonthEntryView(entry: entry)
-                .widgetBackground(BookMonthTheme.widgetBackground)
         }
         .configurationDisplayName(KKI18n.string(forKey: "记呀"))
         .description(KKI18n.string(forKey: "查看本月收支总览，快速记一笔"))
