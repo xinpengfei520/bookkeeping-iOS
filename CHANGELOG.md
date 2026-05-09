@@ -14,6 +14,28 @@
 
 ---
 
+## [1.0.6] (build 7) — 2026-05-09
+
+### 新增
+- **多语言支持（中文 / 英文）**：Me → 语言：跟随系统 / 简体中文 / English。基于 `KKI18n` 内存字典实现：中文原文即 key，`KKLocalized()` 宏全局调用；切换语言后弹窗"语言已切换 — 需要重启 App 后完全生效"，确认即 `exit(0)`。共本地化 286 处字面量、217 个唯一字符串（覆盖首页 / 记账 / 账单 / 图表 / 个人中心 / 类别 / 导出 / 反馈 / 登录 / 密码 / 定时 / 验证 / 关于 / 删除账号 / Widget 等全部用户可见界面）。语言偏好存于共享 App Group `group.xpf.widget`，widget 与主 app 同步。
+- **深色模式（Light / Dark / 跟随系统）**：Me → 深色模式：跟随系统 / 浅色 / 深色。基于 `KKTheme` + `window.overrideUserInterfaceStyle`，**切换瞬间生效，无需重启**。`KKPrefixHeader.pch` 中 8 个语义色宏（`kColor_BG` / `kColor_Line_*` / `kColor_Text_Black/Gary/Light` / `kColor_Chart_*`）改写为 `colorWithDynamicProvider:` 动态色，trait collection 变化时自动重解析。品牌色（`kColor_Main_*`）/ 警示色（`kColor_*Red*`）/ 绿底白字（`kColor_Text_White`）保持跨模式一致。
+
+### 变更
+- **最低适配 iOS 版本：15.6 → 16.0**：主 app pbxproj 4 处、widget pbxproj 同步、Podfile platform + post_install hook 全部对齐 16.0。`pod install` 全量重整 Pods.xcodeproj（diff 是纯字段翻转）。
+- **硬编码静态颜色审计**（仅 `Classes/`，跳过 `Third/`）：
+  - 15 处 `[UIColor whiteColor]` 用作背景 → `systemBackgroundColor`（含 `view.backgroundColor =` 与 `setBackgroundColor:` 两种语法）。
+  - 4 处 `textColor = [UIColor lightGrayColor]` → `secondaryLabelColor`。
+  - 4 处 `borderColor = [UIColor lightGrayColor].CGColor` → `separatorColor.CGColor`。
+  - 2 处 `setTitleColor:[UIColor lightGrayColor]` → `secondaryLabelColor`。
+  - 保留 3 处 `whiteColor`：WebView 进度条 / 导出按钮文字（绿底白字）/ JGProgressHUD 三方代码。
+
+### 内部
+- 新增 `Classes/Utils/KKI18n.{h,m}`、`KKTheme.{h,m}`；`Modules/Me/Controller/LanguageSettingsController.{h,m}`、`ThemeSettingsController.{h,m}`。
+- `MineTableView` 接入 SF Symbol 图标（`sf:` 前缀），section 1 增加 "语言" / "深色模式" 两行（`sf:globe` / `sf:moon.circle`）。
+- pbxproj 文件注册全部通过 `xcodeproj` Ruby gem，避免手工编辑出错。
+
+---
+
 ## [1.0.5] (build 6) — 2026-05-09
 
 ### 修复
