@@ -12,12 +12,9 @@
 
 // 颜色：动态色（trait collection 自动适配 dark mode）
 // 用法保持原样：kColor_BG 等仍是表达式，不需要改调用点。
-NS_INLINE UIColor *KKDynamicColor(UIColor *light, UIColor *dark) {
-    return [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *trait) {
-        return trait.userInterfaceStyle == UIUserInterfaceStyleDark ? dark : light;
-    }];
-}
-
+// 函数本体在 Common.h import 之后定义（此处 UIKit 类型还未引入），
+// 只是宏的文本展开是延迟的，这里先用宏定义没问题。
+//
 // 单色（不动态——总是白）
 #define kColor_White               HexColor(@"#FFFFFF")
 
@@ -109,6 +106,15 @@ NS_INLINE UIColor *KKDynamicColor(UIColor *light, UIColor *dark) {
 #define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
 #import "Common.h"
+
+// 必须在 Common.h（带入 UIKit / Foundation）之后定义，函数体里 UIColor /
+// UITraitCollection 才有效。kColor_* 宏在调用点展开，所以宏定义放上面、函数
+// 定义放下面没有顺序问题。
+NS_INLINE UIColor *KKDynamicColor(UIColor *light, UIColor *dark) {
+    return [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *trait) {
+        return trait.userInterfaceStyle == UIUserInterfaceStyleDark ? dark : light;
+    }];
+}
 
 
 #endif
