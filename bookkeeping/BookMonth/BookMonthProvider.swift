@@ -37,7 +37,8 @@ struct BookMonthEntry: TimelineEntry {
         let month = comps.month ?? 1
 
         guard let monthModels = BookMonthModel.statisticalMonth(withYear: year, month: month) as? [BookMonthModel] else {
-            return BookMonthEntry(date: now, month: month, income: 0, pay: 0)
+            return BookMonthEntry(date: now, month: month, income: 0, pay: 0,
+                                  preferredScheme: readPreferredScheme())
         }
 
         var allDetails: [BookDetailModel] = []
