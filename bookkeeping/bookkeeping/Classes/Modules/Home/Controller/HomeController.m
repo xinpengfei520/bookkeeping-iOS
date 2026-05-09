@@ -391,7 +391,7 @@
 
 - (HomeHeader *)header {
     if (!_header) {
-        _header = [HomeHeader loadFirstNib:CGRectMake(0, _navigation.bottom, SCREEN_WIDTH, countcoordinatesX(64))];
+        _header = [[HomeHeader alloc] initWithFrame:CGRectMake(0, _navigation.bottom, SCREEN_WIDTH, countcoordinatesX(64))];
         [self.view addSubview:_header];
     }
     return _header;

@@ -1,55 +1,144 @@
 /**
- * 头视图
+ * 头视图（code-only — pilot conversion from HomeHeader.xib）
  * @author 郑业强 2018-12-16 创建文件
  */
 
 #import "HomeHeader.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "BookMonthModel.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface HomeHeader()
-@property (weak, nonatomic) IBOutlet UILabel *yearLab;
-@property (weak, nonatomic) IBOutlet UILabel *incomeDescLab;
-@property (weak, nonatomic) IBOutlet UILabel *payDescLab;
-@property (weak, nonatomic) IBOutlet UILabel *monthLab;
-@property (weak, nonatomic) IBOutlet UILabel *monthDescLab;
-@property (weak, nonatomic) IBOutlet UILabel *incomeLab;
-@property (weak, nonatomic) IBOutlet UILabel *payLab;
-@property (weak, nonatomic) IBOutlet UIView *line;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineConstraintL;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *getConstraintL;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *setConstraintL;
-@property (weak, nonatomic) IBOutlet UIView *monthView;
-@property (weak, nonatomic) IBOutlet UIButton *moneyShow;
+
+@property (nonatomic, strong) UIView *monthView;       // 左上 year+month 区，整体可点击
+@property (nonatomic, strong) UILabel *yearLab;
+@property (nonatomic, strong) UILabel *monthLab;
+@property (nonatomic, strong) UILabel *monthDescLab;   // "月" / "Mo." 后缀
+@property (nonatomic, strong) UIImageView *monthArrow; // 小三角向下箭头
+@property (nonatomic, strong) UIView *line;            // 中间垂直分隔线
+@property (nonatomic, strong) UILabel *incomeDescLab;
+@property (nonatomic, strong) UILabel *payDescLab;
+@property (nonatomic, strong) UILabel *incomeLab;      // 数字（attributed）
+@property (nonatomic, strong) UILabel *payLab;         // 数字（attributed）
+@property (nonatomic, strong) UIButton *moneyShow;     // 金额脱敏切换
+
 @end
 
 
 #pragma mark - 实现
 @implementation HomeHeader
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self buildSubviews];
+        [self initUI];
+    }
+    return self;
+}
+
+- (void)buildSubviews {
+    self.backgroundColor = kColor_Main_Color;
+
+    _monthView = [[UIView alloc] init];
+    [self addSubview:_monthView];
+
+    _yearLab = [[UILabel alloc] init];
+    [self addSubview:_yearLab];
+
+    _monthLab = [[UILabel alloc] init];
+    [self addSubview:_monthLab];
+
+    _monthDescLab = [[UILabel alloc] init];
+    [self addSubview:_monthDescLab];
+
+    _monthArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"time_down"]];
+    _monthArrow.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:_monthArrow];
+
+    _line = [[UIView alloc] init];
+    [self addSubview:_line];
+
+    _incomeDescLab = [[UILabel alloc] init];
+    [self addSubview:_incomeDescLab];
+
+    _payDescLab = [[UILabel alloc] init];
+    [self addSubview:_payDescLab];
+
+    _incomeLab = [[UILabel alloc] init];
+    _incomeLab.userInteractionEnabled = YES;
+    [self addSubview:_incomeLab];
+
+    _payLab = [[UILabel alloc] init];
+    _payLab.userInteractionEnabled = YES;
+    [self addSubview:_payLab];
+
+    _moneyShow = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self addSubview:_moneyShow];
+
+    // 约束（按 XIB 还原；保留 c2e2707 的 monthDescLab 最小尺寸防止语言切换布局回流）
+    [_yearLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(countcoordinatesX(15));
+        make.top.equalTo(self).offset(8);
+        make.width.equalTo(@(countcoordinatesX(60)));
+    }];
+    [_monthLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_yearLab);
+        make.top.equalTo(self->_yearLab.mas_bottom).offset(5);
+    }];
+    [_monthDescLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self->_monthLab.mas_bottom).offset(-2);
+        make.left.equalTo(self->_monthLab.mas_right).offset(3);
+        make.width.greaterThanOrEqualTo(@(countcoordinatesX(14)));
+        make.height.greaterThanOrEqualTo(@(countcoordinatesX(12)));
+    }];
+    [_monthArrow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self->_monthDescLab);
+        make.left.equalTo(self->_monthDescLab.mas_right).offset(3);
+        make.width.height.equalTo(@10);
+    }];
+    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(countcoordinatesX(100));
+        make.centerY.equalTo(self->_monthArrow);
+        make.width.equalTo(@1);
+        make.height.equalTo(@30);
+    }];
+    [_incomeDescLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_line.mas_right).offset(32);
+        make.centerY.equalTo(self->_yearLab);
+    }];
+    [_payDescLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_incomeDescLab.mas_right).offset(88);
+        make.centerY.equalTo(self->_yearLab);
+    }];
+    [_incomeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_incomeDescLab);
+        make.centerY.equalTo(self->_line);
+    }];
+    [_payLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_payDescLab);
+        make.centerY.equalTo(self->_line);
+    }];
+    [_monthView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.equalTo(self);
+        make.right.equalTo(self->_line);
+    }];
+    [_moneyShow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-countcoordinatesX(20));
+        make.centerY.equalTo(self).offset(-12);
+    }];
+}
 
 - (void)initUI {
-    [self setBackgroundColor:kColor_Main_Color];
     [self.yearLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.yearLab setTextColor:kColor_Text_White];
     [self.monthLab setFont:[UIFont systemFontOfSize:AdjustFont(20) weight:UIFontWeightLight]];
     [self.monthLab setTextColor:kColor_Text_White];
 
-    // XIB 里 incomeDescLab="收入" / payDescLab="支出" / monthDescLab="月" 是静态文本，
-    // wrap 脚本只扫 .m，所以这里在代码里强制刷一遍以走 KKLocalized。
     [self.payDescLab setText:KKLocalized(@"支出")];
     [self.incomeDescLab setText:KKLocalized(@"收入")];
     [self.monthDescLab setText:KKLocalized(@"月")];
-
-    // 锁定 monthDescLab 的最小 intrinsic 尺寸：XIB 里 dJd 箭头的 centerY 是锚到
-    // monthDescLab.centerY 的，monthDescLab 文字若收缩会带动 dJd 上移，整个 header
-    // 视觉重心下沉。这里用 huggingPriority + 最小宽 / 最小高 防止坍缩，确保
-    // 任何语言下的布局视觉一致。
-    [self.monthDescLab.widthAnchor constraintGreaterThanOrEqualToConstant:countcoordinatesX(14)].active = YES;
-    [self.monthDescLab.heightAnchor constraintGreaterThanOrEqualToConstant:countcoordinatesX(12)].active = YES;
-    [self.monthDescLab setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [self.monthDescLab setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 
     [self.payDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.payDescLab setTextColor:kColor_Text_White];
@@ -57,31 +146,29 @@
     [self.incomeDescLab setTextColor:kColor_Text_White];
     [self.monthDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.monthDescLab setTextColor:kColor_Text_White];
-    
+
     [self.line setBackgroundColor:kColor_Text_White];
-    [self.lineConstraintL setConstant:SCREEN_WIDTH / 4];
-    
+
     [self.payLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(20)] decimal:[UIFont systemFontOfSize:AdjustFont(10)] color:kColor_Text_White]];
     [self.incomeLab setAttributedText:[NSAttributedString createMath:@"00.00" integer:[UIFont systemFontOfSize:AdjustFont(20)] decimal:[UIFont systemFontOfSize:AdjustFont(10)] color:kColor_Text_White]];
-    
+
     [self.monthView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self routerEventWithName:HOME_MONTH_CLICK data:nil];
     }];
-    
-    // 增大可点击区域，上下左右各 10
+
+    [self.moneyShow setImage:[UIImage imageNamed:@"icon_pwd_show"] forState:UIControlStateNormal];
     [self.moneyShow setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [self.moneyShow addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self setMoneyDesensitization];
     }];
-    
-    UITapGestureRecognizer *tapGestureRecognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(payLabelClick)];
-    [_payLab addGestureRecognizer:tapGestureRecognizer1];
-    _payLab.userInteractionEnabled = YES;
-    
-    UITapGestureRecognizer *tapGestureRecognizer2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(incomeLabelClick)];
-    [_incomeLab addGestureRecognizer:tapGestureRecognizer2];
-    _incomeLab.userInteractionEnabled = YES;
+
+    UITapGestureRecognizer *tapPay = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(payLabelClick)];
+    [_payLab addGestureRecognizer:tapPay];
+
+    UITapGestureRecognizer *tapIncome = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(incomeLabelClick)];
+    [_incomeLab addGestureRecognizer:tapIncome];
 }
+
 
 - (void)payLabelClick {
     [self routerEventWithName:HOME_PAY_CLICK data:@"0"];
@@ -95,12 +182,9 @@
  * 设置金额是否可见
  */
 - (void)setMoneyDesensitization {
-    // 从缓存中取出 PIN_DESENSITIZATION 的值，如果没有则默认为 0
     NSNumber *desensitization = [NSUserDefaults objectForKey:PIN_DESENSITIZATION];
-    // 当点击后，取反并重新保存
     desensitization = @(![desensitization boolValue]);
     [NSUserDefaults setObject:desensitization forKey:PIN_DESENSITIZATION];
-    
     [self setModels:_models];
 }
 
@@ -114,20 +198,16 @@
 
 - (void)setModels:(NSMutableArray<BookMonthModel *> *)models {
     _models = models;
-    
-    // 从缓存中取出 PIN_DESENSITIZATION 的值，如果没有则默认为 0 (false)
+
     NSNumber *desensitization = [NSUserDefaults objectForKey:PIN_DESENSITIZATION];
-    
-    // 脱敏显示
+
     if ([desensitization boolValue]) {
         _payLab.text = @"****";
         _incomeLab.text = @"****";
         _payLab.textColor = kColor_Text_White;
         _incomeLab.textColor = kColor_Text_White;
         [_moneyShow setImage:[UIImage imageNamed:@"icon_pwd_hide"] forState:UIControlStateNormal];
-        
-    // 不脱敏显示
-    }else{
+    } else {
         UIFont *integer = [UIFont systemFontOfSize:AdjustFont(20)];
         UIFont *decimal = [UIFont systemFontOfSize:AdjustFont(10)];
 
@@ -143,14 +223,6 @@
 - (void)refresh {
     [self setModels:self.models];
 }
-
-//- (void)setModel:(BKModel *)model {
-//    _model = model;
-//    NSString *pay = [NSString stringWithFormat:@"%.2f", model.pay];
-//    NSString *income = [NSString stringWithFormat:@"%.2f", model.income];
-//    [_payLab setAttributedText:[NSAttributedString createMath:pay integer:[UIFont systemFontOfSize:AdjustFont(14)] decimal:[UIFont systemFontOfSize:AdjustFont(12)]]];
-//    [_incomeLab setAttributedText:[NSAttributedString createMath:income integer:[UIFont systemFontOfSize:AdjustFont(14)] decimal:[UIFont systemFontOfSize:AdjustFont(12)]]];
-//}
 
 
 @end

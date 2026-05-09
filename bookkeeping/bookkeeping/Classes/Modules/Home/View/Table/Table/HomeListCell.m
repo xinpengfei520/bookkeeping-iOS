@@ -80,7 +80,7 @@
 
 #pragma mark - UITableViewDelegate
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    HomeListHeader *header = [HomeListHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(30)) table:tableView];
+    HomeListHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"HomeListHeader"];
     header.model = self.models[section];
     return header;
 }
@@ -174,7 +174,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
         [_table setBackgroundColor:[UIColor systemBackgroundColor]];
         [_table setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.1)]];
         [_table registerClass:[HomeListSubCell class] forCellReuseIdentifier:@"HomeListSubCell"];
-        [_table registerNib:[UINib nibWithNibName:@"HomeListHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"HomeListHeader"];
+        [_table registerClass:[HomeListHeader class] forHeaderFooterViewReuseIdentifier:@"HomeListHeader"];
         [self.contentView addSubview:_table];
     }
     return _table;

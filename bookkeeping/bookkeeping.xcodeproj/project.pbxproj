@@ -65,7 +65,6 @@
 		32751F0921C8E93000D9F415 /* BKCNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32751F0821C8E93000D9F415 /* BKCNavigation.m */; };
 		327CEC1721C882A6001D0086 /* HomeListSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC1521C882A6001D0086 /* HomeListSubCell.m */; };
 		327CEC1D21C88A04001D0086 /* HomeListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC1C21C88A04001D0086 /* HomeListHeader.m */; };
-		327CEC1F21C88A10001D0086 /* HomeListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 327CEC1E21C88A10001D0086 /* HomeListHeader.xib */; };
 		327CEC2421C88D9D001D0086 /* ChartTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC2321C88D9D001D0086 /* ChartTableView.m */; };
 		327CEC2821C88E45001D0086 /* ChartTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC2621C88E45001D0086 /* ChartTableCell.m */; };
 		327CEC2921C88E45001D0086 /* ChartTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 327CEC2721C88E45001D0086 /* ChartTableCell.xib */; };
@@ -124,7 +123,6 @@
 		4B229A7921E622F900152030 /* BillHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B229A7821E622F900152030 /* BillHeader.m */; };
 		4B229A7B21E6240700152030 /* BillHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B229A7A21E6240700152030 /* BillHeader.xib */; };
 		4B252CE421C6A35D002CD83D /* HomeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B252CE321C6A35D002CD83D /* HomeHeader.m */; };
-		4B252CE621C6A37C002CD83D /* HomeHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B252CE521C6A37C002CD83D /* HomeHeader.xib */; };
 		4B35F1A221CCC641007271BE /* UIView+APPViewRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B35F19821CCC641007271BE /* UIView+APPViewRequest.m */; };
 		4B35F1A321CCC641007271BE /* UIViewController+APPViewRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B35F19921CCC641007271BE /* UIViewController+APPViewRequest.m */; };
 		4B35F1A421CCC641007271BE /* APPViewRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B35F19E21CCC641007271BE /* APPViewRequest.m */; };
@@ -392,7 +390,6 @@
 		327CEC1521C882A6001D0086 /* HomeListSubCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListSubCell.m; sourceTree = "<group>"; };
 		327CEC1B21C88A04001D0086 /* HomeListHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeListHeader.h; sourceTree = "<group>"; };
 		327CEC1C21C88A04001D0086 /* HomeListHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeListHeader.m; sourceTree = "<group>"; };
-		327CEC1E21C88A10001D0086 /* HomeListHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListHeader.xib; sourceTree = "<group>"; };
 		327CEC2221C88D9D001D0086 /* ChartTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartTableView.h; sourceTree = "<group>"; };
 		327CEC2321C88D9D001D0086 /* ChartTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartTableView.m; sourceTree = "<group>"; };
 		327CEC2521C88E45001D0086 /* ChartTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartTableCell.h; sourceTree = "<group>"; };
@@ -492,7 +489,6 @@
 		4B229A7A21E6240700152030 /* BillHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BillHeader.xib; sourceTree = "<group>"; };
 		4B252CE221C6A35D002CD83D /* HomeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeHeader.h; sourceTree = "<group>"; };
 		4B252CE321C6A35D002CD83D /* HomeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeHeader.m; sourceTree = "<group>"; };
-		4B252CE521C6A37C002CD83D /* HomeHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeader.xib; sourceTree = "<group>"; };
 		4B35F19721CCC641007271BE /* NSString+API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+API.h"; sourceTree = "<group>"; };
 		4B35F19821CCC641007271BE /* UIView+APPViewRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+APPViewRequest.m"; sourceTree = "<group>"; };
 		4B35F19921CCC641007271BE /* UIViewController+APPViewRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+APPViewRequest.m"; sourceTree = "<group>"; };
@@ -1515,10 +1511,8 @@
 			children = (
 				4B252CE221C6A35D002CD83D /* HomeHeader.h */,
 				4B252CE321C6A35D002CD83D /* HomeHeader.m */,
-				4B252CE521C6A37C002CD83D /* HomeHeader.xib */,
 				327CEC1B21C88A04001D0086 /* HomeListHeader.h */,
 				327CEC1C21C88A04001D0086 /* HomeListHeader.m */,
-				327CEC1E21C88A10001D0086 /* HomeListHeader.xib */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -2343,8 +2337,6 @@
 				32A5801221DF33C4008993B2 /* ACA.plist in Resources */,
 				247AB9122D341E1B00B5F323 /* MineTableCell.xib in Resources */,
 				F35310B52876D82400D297A9 /* ShareShot.xib in Resources */,
-				327CEC1F21C88A10001D0086 /* HomeListHeader.xib in Resources */,
-				4B252CE621C6A37C002CD83D /* HomeHeader.xib in Resources */,
 				32D0B2C721C77B240030F5B2 /* ChartSegmentControl.xib in Resources */,
 				4BEB733421CE3FC800BEF013 /* InfoFooter.xib in Resources */,
 				4BA68B0B21C7F75B0063A5C2 /* ACAReusableHeader.xib in Resources */,

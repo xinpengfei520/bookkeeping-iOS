@@ -1,18 +1,17 @@
 /**
- * 头视图
+ * 头视图（code-only — pilot conversion from HomeListHeader.xib）
  * @author 郑业强 2018-12-18 创建文件
  */
 
 #import "HomeListHeader.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface HomeListHeader()
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
-@property (weak, nonatomic) IBOutlet UILabel *detailLab;
-@property (weak, nonatomic) IBOutlet UIView *line;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameConstraintL;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detaileConstraintR;
+@property (nonatomic, strong) UILabel *nameLab;
+@property (nonatomic, strong) UILabel *detailLab;
+@property (nonatomic, strong) UIView *line;
 
 @end
 
@@ -20,20 +19,53 @@
 #pragma mark - 实现
 @implementation HomeListHeader
 
-- (void)initUI {
-    // XIB 里 backgroundColor 用了 systemColor="groupTableViewBackgroundColor"，
-    // Xcode 在某些版本会烘焙成静态 sRGB 不再随 trait collection 翻 — 在代码里
-    // 显式设置一个 dynamic provider 覆盖，确保深色模式下 header 也跟着翻。
-    [self setBackgroundColor:[UIColor systemGroupedBackgroundColor]];
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithReuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self buildSubviews];
+        [self initUI];
+    }
+    return self;
+}
 
+- (void)buildSubviews {
+    // UITableViewHeaderFooterView 的背景必须走 backgroundView，直接 setBackgroundColor
+    // 在不同 iOS 版本上行为不一致，且 iOS 14+ 会建议改用 backgroundConfiguration。
+    UIView *bg = [[UIView alloc] init];
+    bg.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    self.backgroundView = bg;
+
+    _nameLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_nameLab];
+
+    _detailLab = [[UILabel alloc] init];
+    _detailLab.textAlignment = NSTextAlignmentRight;
+    [self.contentView addSubview:_detailLab];
+
+    _line = [[UIView alloc] init];
+    _line.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    [self.contentView addSubview:_line];
+
+    [_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(countcoordinatesX(15));
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.contentView);
+        make.height.equalTo(@0.5);
+    }];
+    [_detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView).offset(-countcoordinatesX(15));
+        make.top.equalTo(self.contentView);
+        make.bottom.equalTo(self->_line.mas_top);
+    }];
+}
+
+- (void)initUI {
     [self.nameLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]];
     [self.nameLab setTextColor:kColor_Text_Gary];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(10)]];
     [self.detailLab setTextColor:kColor_Text_Gary];
-    [self.line setBackgroundColor:kColor_Line_Color];
-
-    [self.nameConstraintL setConstant:countcoordinatesX(15)];
-    [self.detaileConstraintR setConstant:countcoordinatesX(15)];
 }
 
 
