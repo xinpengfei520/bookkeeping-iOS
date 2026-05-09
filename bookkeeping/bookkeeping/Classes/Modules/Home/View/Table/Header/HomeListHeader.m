@@ -31,8 +31,12 @@
 - (void)buildSubviews {
     // UITableViewHeaderFooterView 的背景必须走 backgroundView，直接 setBackgroundColor
     // 在不同 iOS 版本上行为不一致，且 iOS 14+ 会建议改用 backgroundConfiguration。
+    //
+    // 用 systemBackgroundColor（白/黑）跟 cell 的 systemBackgroundColor 同色——header
+    // 与 cell 在视觉上是一整段连续面板，仅靠底部 0.5pt 浅灰 line 分隔。之前用
+    // systemGroupedBackgroundColor 的浅灰底色会让 header 看起来比 cell 暗一档。
     UIView *bg = [[UIView alloc] init];
-    bg.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    bg.backgroundColor = [UIColor systemBackgroundColor];
     self.backgroundView = bg;
 
     _nameLab = [[UILabel alloc] init];
@@ -43,6 +47,8 @@
     [self.contentView addSubview:_detailLab];
 
     _line = [[UIView alloc] init];
+    // line 使用 systemGroupedBackgroundColor（浅灰）当作底部 hairline 分隔，
+    // 在浅色 / 深色模式下都能从 systemBackgroundColor 背景上分辨出来。
     _line.backgroundColor = [UIColor systemGroupedBackgroundColor];
     [self.contentView addSubview:_line];
 
