@@ -39,9 +39,9 @@
 - (void)setNavigationIndex:(NSInteger)navigationIndex {
     _navigationIndex = navigationIndex;
     if (navigationIndex == 0) {
-        _nameLab.text = @"支出";
+        _nameLab.text = KKLocalized(@"支出");
     } else {
-        _nameLab.text = @"收入";
+        _nameLab.text = KKLocalized(@"收入");
     }
 }
 

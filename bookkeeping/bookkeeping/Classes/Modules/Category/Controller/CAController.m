@@ -29,9 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"类别设置";
+    self.title = KKLocalized(@"类别设置");
     self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@"完成"
+        [[UIBarButtonItem alloc] initWithTitle:KKLocalized(@"完成")
                                          style:UIBarButtonItemStyleDone
                                         target:self
                                         action:@selector(rightButtonClick)];
@@ -177,19 +177,19 @@
 // 删除cell
 - (void)deleteCellClick:(CategoryCell *)cell {
     UIAlertController *alert = [UIAlertController
-                                 alertControllerWithTitle:@"警告"
-                                 message:@"删除类别会同时删除该类别下的所有历史收支记录"
+                                 alertControllerWithTitle:KKLocalized(@"警告")
+                                 message:KKLocalized(@"删除类别会同时删除该类别下的所有历史收支记录")
                                  preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *yesButton = [UIAlertAction
-                                actionWithTitle:@"确定"
+                                actionWithTitle:KKLocalized(@"确定")
                                 style:UIAlertActionStyleDefault
                                 handler:^(UIAlertAction * action) {
         [self deleteWithCell:cell];
     }];
     
     UIAlertAction *noButton = [UIAlertAction
-                               actionWithTitle:@"取消"
+                               actionWithTitle:KKLocalized(@"取消")
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action) {
     }];
@@ -267,7 +267,7 @@
             CGFloat top = SCREEN_HEIGHT - height - NavigationBarHeight;
             CGRectMake(0, top, SCREEN_WIDTH, height);
         })];
-        [_bootom setName:@"添加类别"];
+        [_bootom setName:KKLocalized(@"添加类别")];
         [self.view addSubview:_bootom];
     }
     return _bootom;

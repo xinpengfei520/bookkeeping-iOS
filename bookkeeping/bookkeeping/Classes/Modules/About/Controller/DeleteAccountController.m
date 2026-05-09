@@ -22,8 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"删除账号";
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
+    self.title = KKLocalized(@"删除账号");
     [self setupUI];
     [self setupConstraints];
 }
@@ -32,14 +32,14 @@
 - (void)setupUI {
     // 标题
     _titleLabel = [[UILabel alloc] init];
-    _titleLabel.text = @"你正在进行删除账号操作";
+    _titleLabel.text = KKLocalized(@"你正在进行删除账号操作");
     _titleLabel.font = [UIFont systemFontOfSize:AdjustFont(16) weight:UIFontWeightMedium];
     _titleLabel.textColor = kColor_Text_Black;
     [self.view addSubview:_titleLabel];
     
     // 描述
     _descLabel = [[UILabel alloc] init];
-    _descLabel.text = @"账号一旦删除，将无法恢复。请务必仔细思考，谨慎操作。";
+    _descLabel.text = KKLocalized(@"账号一旦删除，将无法恢复。请务必仔细思考，谨慎操作。");
     _descLabel.font = [UIFont systemFontOfSize:AdjustFont(12)];
     _descLabel.textColor = kColor_Text_Gary;
     _descLabel.numberOfLines = 0;
@@ -47,7 +47,7 @@
     
     // 条件1
     _conditionLabel1 = [[UILabel alloc] init];
-    _conditionLabel1.text = @"- 删除账号后，您的所有数据将被清除，包括账单记录、预算设置等；";
+    _conditionLabel1.text = KKLocalized(@"- 删除账号后，您的所有数据将被清除，包括账单记录、预算设置等；");
     _conditionLabel1.font = [UIFont systemFontOfSize:AdjustFont(12)];
     _conditionLabel1.textColor = kColor_Text_Gary;
     _conditionLabel1.numberOfLines = 0;
@@ -55,7 +55,7 @@
     
     // 条件2
     _conditionLabel2 = [[UILabel alloc] init];
-    _conditionLabel2.text = @"- 删除账号后，您将无法找回任何历史数据；";
+    _conditionLabel2.text = KKLocalized(@"- 删除账号后，您将无法找回任何历史数据；");
     _conditionLabel2.font = [UIFont systemFontOfSize:AdjustFont(12)];
     _conditionLabel2.textColor = kColor_Text_Gary;
     _conditionLabel2.numberOfLines = 0;
@@ -63,7 +63,7 @@
     
     // 条件3
     _conditionLabel3 = [[UILabel alloc] init];
-    _conditionLabel3.text = @"- 删除账号后，您可以使用相同的手机号重新注册，但之前的数据无法恢复。";
+    _conditionLabel3.text = KKLocalized(@"- 删除账号后，您可以使用相同的手机号重新注册，但之前的数据无法恢复。");
     _conditionLabel3.font = [UIFont systemFontOfSize:AdjustFont(12)];
     _conditionLabel3.textColor = kColor_Text_Gary;
     _conditionLabel3.numberOfLines = 0;
@@ -71,10 +71,10 @@
     
     // 删除按钮
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteButton setTitle:@"申请删除" forState:UIControlStateNormal];
+    [_deleteButton setTitle:KKLocalized(@"申请删除") forState:UIControlStateNormal];
     [_deleteButton setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
     _deleteButton.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
-    _deleteButton.backgroundColor = [UIColor whiteColor];
+    _deleteButton.backgroundColor = [UIColor systemBackgroundColor];
     _deleteButton.layer.cornerRadius = 8;
     _deleteButton.layer.borderWidth = 1;
     _deleteButton.layer.borderColor = kColor_Line_Color.CGColor;
@@ -83,7 +83,7 @@
     
     // 取消按钮
     _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_cancelButton setTitle:@"我再想想" forState:UIControlStateNormal];
+    [_cancelButton setTitle:KKLocalized(@"我再想想") forState:UIControlStateNormal];
     [_cancelButton setTitleColor:kColor_Text_White forState:UIControlStateNormal];
     _cancelButton.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
     _cancelButton.backgroundColor = kColor_Main_Color;
@@ -137,13 +137,13 @@
 - (void)deleteButtonClick {
     // 按钮二维数组，array[0] 存放 title 数组, array[1] 存放 style 数组
     NSArray<NSArray *> *buttonArray = @[
-        @[@"删除"],
+        @[KKLocalized(@"删除")],
         @[[NSNumber numberWithInteger:UIAlertActionStyleDestructive]]
     ];
     
-    [[AlertViewManager sharedInstacne] showSheet:@"记呀" 
-                                       message:@"删除后账号将无法恢复，确定要删除吗？" 
-                                  cancelTitle:@"取消" 
+    [[AlertViewManager sharedInstacne] showSheet:KKLocalized(@"记呀") 
+                                       message:KKLocalized(@"删除后账号将无法恢复，确定要删除吗？") 
+                                  cancelTitle:KKLocalized(@"取消") 
                                viewController:self 
                                     confirm:^(NSInteger buttonTag, NSString *buttonTitle) {
         if (buttonTag == 0) {
@@ -164,7 +164,7 @@
         @strongify(self)
         [self hideHUD];
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [self showTextHUD:@"账号已删除" delay:1.5f];
+            [self showTextHUD:KKLocalized(@"账号已删除") delay:1.5f];
             [UserInfo clearUserInfo];
             [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGOUT_COMPLETE object:nil];
             [self.navigationController popToRootViewControllerAnimated:YES];

@@ -73,7 +73,13 @@
 #import "Single.h"
 #import "KKEmptyPch.h"
 #import "KKWeakify.h"
+#import "KKI18n.h"
+#import "KKTheme.h"
 #import "UserInfo.h"
+
+// 业务代码全局使用 KKLocalized() 取本地化字符串。key 即中文原文；
+// en 模式查 KKEnglishTable，缺项回退到中文 key。详见 KKI18n.h。
+#define KKLocalized(key) [KKI18n stringForKey:(key)]
 #import "CountDown.h"
 #import "PINCache_Header.h"
 #import "ScreenBlurry.h"
@@ -107,6 +113,8 @@
 #import "BookDetailController.h"
 #import "SearchViewController.h"
 #import "PasswordController.h"
+#import "LanguageSettingsController.h"
+#import "ThemeSettingsController.h"
 
 //================================= Model ===============================//
 #import "MarkModel.h"

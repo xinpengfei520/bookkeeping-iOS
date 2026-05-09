@@ -42,9 +42,9 @@ typedef NS_ENUM(NSInteger, KKPullToRefreshState) {
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _pullingTitle = @"下拉刷新";
-        _willRefreshTitle = @"松开刷新";
-        _refreshingTitle = @"加载中…";
+        _pullingTitle = KKLocalized(@"下拉刷新");
+        _willRefreshTitle = KKLocalized(@"松开刷新");
+        _refreshingTitle = KKLocalized(@"加载中…");
         _state = KKPullToRefreshStateIdle;
         [self buildSubviews];
     }

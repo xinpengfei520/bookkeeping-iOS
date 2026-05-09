@@ -28,9 +28,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"添加类别";
+    self.title = KKLocalized(@"添加类别");
     self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@"完成"
+        [[UIBarButtonItem alloc] initWithTitle:KKLocalized(@"完成")
                                          style:UIBarButtonItemStyleDone
                                         target:self
                                         action:@selector(rightButtonClick)];
@@ -46,7 +46,7 @@
 //    [self addCategoryRequest];
     
     if ([_textField.textField.text length] == 0) {
-        [self showTextHUD:@"类别名称不能为空" delay:1.f];
+        [self showTextHUD:KKLocalized(@"类别名称不能为空") delay:1.f];
         return;
     }
     
@@ -92,7 +92,7 @@
         [NSUserDefaults setObject:cateCusHasIncomeSyncedArr forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
     }
     
-    [self showTextHUD:@"添加中..." delay:1.f];
+    [self showTextHUD:KKLocalized(@"添加中...") delay:1.f];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self hideHUD];
         if ([self complete]) {
@@ -135,7 +135,7 @@
 // 添加自定义类别
 - (void)addCategoryRequest {
     if (_textField.textField.text.length == 0) {
-        [self showTextHUD:@"类别名称不能为空" delay:1.f];
+        [self showTextHUD:KKLocalized(@"类别名称不能为空") delay:1.f];
         return;
     }
     

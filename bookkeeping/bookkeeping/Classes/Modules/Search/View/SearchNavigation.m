@@ -16,7 +16,7 @@
 
 - (void)initUI {
 	[self setBackgroundColor:kColor_Main_Color];
-	self.searchTextField.placeholder = @"类别/备注/金额";
+	self.searchTextField.placeholder = KKLocalized(@"类别/备注/金额");
 
 	UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_search_gray.png"]];
 	[self.searchTextField setLeftView:imageView];

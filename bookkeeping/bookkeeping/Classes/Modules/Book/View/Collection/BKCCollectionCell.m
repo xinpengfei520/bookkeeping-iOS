@@ -23,7 +23,7 @@
 }
 
 - (void)setupUI {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor systemBackgroundColor];
     
     // 图标
     _iconImageView = [[UIImageView alloc] init];

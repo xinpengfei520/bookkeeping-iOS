@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"帮助";
+    self.title = KKLocalized(@"帮助");
 
     // Override system back: tap routes through WKWebView history first;
     // only pops the controller when web history is empty. Template image

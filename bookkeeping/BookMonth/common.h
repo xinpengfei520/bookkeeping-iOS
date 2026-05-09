@@ -24,6 +24,10 @@
 #import "NSUserDefaults+Extension.h"
 #import "NSMutableArray+Extension.h"
 
+// i18n
+#import "KKI18n.h"
+#define KKLocalized(key) [KKI18n stringForKey:(key)]
+
 
 // model
 #import "BaseModel.h"

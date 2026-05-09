@@ -47,7 +47,7 @@
                                   nil];
     
     @weakify(self)
-    [self showWindowTextHUD:@"同步中..."];
+    [self showWindowTextHUD:KKLocalized(@"同步中...")];
     [AFNManager POST:SyncedDataRequest params:param complete:^(APPResult *result) {
         @strongify(self)
         [self hideWindowHUD];

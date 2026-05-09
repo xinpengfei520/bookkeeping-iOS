@@ -27,25 +27,25 @@
 - (NSString *)getDateDescribe {
     NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
     NSDate *date = [NSDate dateWithYMD:dateStr];
-    return [NSString stringWithFormat:@"%02ld月%02ld日   %@", _month, _day, [date dayFromWeekday]];
+    return [NSString stringWithFormat:KKLocalized(@"%02ld月%02ld日   %@"), _month, _day, [date dayFromWeekday]];
 }
 
 - (NSString *)getDateDescribeWithYear {
     NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
     NSDate *date = [NSDate dateWithYMD:dateStr];
-    return [NSString stringWithFormat:@"%ld年%02ld月%02ld日   %@", _year,_month, _day, [date dayFromWeekday]];
+    return [NSString stringWithFormat:KKLocalized(@"%ld年%02ld月%02ld日   %@"), _year,_month, _day, [date dayFromWeekday]];
 }
 
 - (NSString *)getMoneyDescribe {
     NSMutableString *strm = [NSMutableString string];
     if (_income != 0) {
-        [strm appendFormat:@"收入: %@", [self getPriceStr:_income]];
+        [strm appendFormat:KKLocalized(@"收入: %@"), [self getPriceStr:_income]];
     }
     if (_income != 0 && _pay != 0) {
         [strm appendString:@"    "];
     }
     if (_pay != 0) {
-        [strm appendFormat:@"支出: %@", [self getPriceStr:_pay]];
+        [strm appendFormat:KKLocalized(@"支出: %@"), [self getPriceStr:_pay]];
     }
     return strm;
 }

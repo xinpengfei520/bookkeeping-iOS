@@ -20,7 +20,7 @@
         return;
     }
     
-    NSString *message = IS_IPHONE_X ? @"面容 ID 短时间内失败多次，需要验证手机密码" : @"请把你的手指放到Home键上"; // 当 deviceType 为 LAPolicyDeviceOwnerAuthentication 的时候，iPhone X 会需要前面这段描述
+    NSString *message = IS_IPHONE_X ? KKLocalized(@"面容 ID 短时间内失败多次，需要验证手机密码") : KKLocalized(@"请把你的手指放到Home键上"); // 当 deviceType 为 LAPolicyDeviceOwnerAuthentication 的时候，iPhone X 会需要前面这段描述
     NSInteger deviceType = LAPolicyDeviceOwnerAuthenticationWithBiometrics; // 单纯指纹或 FaceID,LAPolicyDeviceOwnerAuthentication 会有密码验证
     LAContext *laContext = [[LAContext alloc] init];
     laContext.localizedFallbackTitle = @""; // 隐藏左边的按钮(默认是忘记密码的按钮)

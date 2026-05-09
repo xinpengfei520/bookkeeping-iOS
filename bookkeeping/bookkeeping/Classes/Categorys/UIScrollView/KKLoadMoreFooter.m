@@ -43,10 +43,10 @@ typedef NS_ENUM(NSInteger, KKLoadMoreState) {
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _pullingTitle = @"上拉加载更多";
-        _willRefreshTitle = @"松开加载更多";
-        _refreshingTitle = @"加载中…";
-        _noMoreTitle = @"没有更多了";
+        _pullingTitle = KKLocalized(@"上拉加载更多");
+        _willRefreshTitle = KKLocalized(@"松开加载更多");
+        _refreshingTitle = KKLocalized(@"加载中…");
+        _noMoreTitle = KKLocalized(@"没有更多了");
         _state = KKLoadMoreStateIdle;
         [self buildSubviews];
     }

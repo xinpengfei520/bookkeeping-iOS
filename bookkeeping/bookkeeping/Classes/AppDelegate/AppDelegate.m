@@ -41,8 +41,11 @@
 // 根控制器
 - (void)makeRootController {
     [self setWindow:[[UIWindow alloc] initWithFrame:SCREEN_BOUNDS]];
-    [self.window setBackgroundColor:[UIColor whiteColor]];
-    
+    [self.window setBackgroundColor:[UIColor systemBackgroundColor]];
+
+    // 应用用户的深色模式偏好（nil = 跟随系统）
+    [KKTheme applyToWindow:self.window];
+
     HomeController *homeController = [[HomeController alloc] init];
     BaseNavigationController *navigationController = [[BaseNavigationController alloc] initWithRootViewController:homeController];
     [self.window setRootViewController:navigationController];

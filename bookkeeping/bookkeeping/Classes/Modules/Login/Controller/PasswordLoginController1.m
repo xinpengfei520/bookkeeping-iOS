@@ -31,7 +31,7 @@
 - (void)setupUI {
     // 标题
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.text = @"密码登录";
+    titleLabel.text = KKLocalized(@"密码登录");
     titleLabel.font = [UIFont systemFontOfSize:32];
     [self.view addSubview:titleLabel];
     
@@ -44,10 +44,10 @@
     
     // 输入框背景
     _inputBgView = [[UIView alloc] init];
-    _inputBgView.backgroundColor = [UIColor whiteColor];
+    _inputBgView.backgroundColor = [UIColor systemBackgroundColor];
     _inputBgView.layer.cornerRadius = 8;
     _inputBgView.layer.borderWidth = 1;
-    _inputBgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _inputBgView.layer.borderColor = [UIColor separatorColor].CGColor;
     [self.view addSubview:_inputBgView];
     
     // 区号标签
@@ -64,7 +64,7 @@
     
     // 手机号输入框
     _phoneField = [[UITextField alloc] init];
-    _phoneField.placeholder = @"请输入手机号";
+    _phoneField.placeholder = KKLocalized(@"请输入手机号");
     _phoneField.font = [UIFont systemFontOfSize:14];
     _phoneField.keyboardType = UIKeyboardTypeNumberPad;
     _phoneField.delegate = self;
@@ -73,7 +73,7 @@
     
     // 下一步按钮
     _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_nextButton setTitle:@"下一步" forState:UIControlStateNormal];
+    [_nextButton setTitle:KKLocalized(@"下一步") forState:UIControlStateNormal];
     [_nextButton addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_nextButton];
     [self buttonCanTap:NO btn:_nextButton];
@@ -215,14 +215,14 @@
 
 - (void)agreementViewDidTapUserAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
-    vc.title = @"用户协议";
+    vc.title = KKLocalized(@"用户协议");
     [vc setUrl:kAgreementURL];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)agreementViewDidTapPrivacyAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
-    vc.title = @"隐私协议";
+    vc.title = KKLocalized(@"隐私协议");
     [vc setUrl:kPrivacyURL];
     [self.navigationController pushViewController:vc animated:YES];
 }

@@ -39,7 +39,7 @@
 #pragma mark - set
 - (void)setTime:(NSString *)time {
     _time = time;
-    _nameLab.text = @"提醒时间";
+    _nameLab.text = KKLocalized(@"提醒时间");
     _detailLab.text = time;
 }
 

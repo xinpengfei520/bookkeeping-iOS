@@ -22,13 +22,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"账单";
+    self.title = KKLocalized(@"账单");
     [self setDate:[NSDate date]];
     {
         // Composite year + arrow as the only customView right bar item — wrapped
         // in a plain UIView so the year label keeps its tag-10 lookup contract.
         NSDate *date = [NSDate date];
-        NSString *year = [NSString stringWithFormat:@"%ld年", date.year];
+        NSString *year = [NSString stringWithFormat:KKLocalized(@"%ld年"), date.year];
         UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(14)];
         CGFloat labWidth = [year sizeWithMaxSize:CGSizeMake(MAXFLOAT, 0) font:font].width;
         CGFloat arrowWidth = 10;
@@ -72,7 +72,7 @@
     BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
     // 2.设置属性
     datePickerView.pickerMode = BRDatePickerModeY;
-    datePickerView.title = @"选择日期";
+    datePickerView.title = KKLocalized(@"选择日期");
     datePickerView.selectDate = self.date;
     datePickerView.minDate = min;
     datePickerView.maxDate = max;
@@ -90,7 +90,7 @@
 - (void)updateYearValue:(NSString *)selectValue {
     [self setDate:[NSDate dateWithYMD:[NSString stringWithFormat:@"%@-01-01", selectValue]]];
     [(UILabel *)[self.navigationItem.rightBarButtonItem.customView viewWithTag:10]
-        setText:[NSString stringWithFormat:@"%ld年", self.date.year]];
+        setText:[NSString stringWithFormat:KKLocalized(@"%ld年"), self.date.year]];
     [self updateData];
 }
 
@@ -118,7 +118,7 @@
         CGFloat income = [[incomeModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];
         CGFloat pay = [[payModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];
         
-        NSDictionary *param = @{@"month": [NSString stringWithFormat:@"%ld月", i],
+        NSDictionary *param = @{@"month": [NSString stringWithFormat:KKLocalized(@"%ld月"), i],
                                 @"income": [NSString stringWithFormat:@"%.2f", income],
                                 @"pay": [NSString stringWithFormat:@"%.2f", pay],
                                 @"sum": [NSString stringWithFormat:@"%.2f", income - pay]

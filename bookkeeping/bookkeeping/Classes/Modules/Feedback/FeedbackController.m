@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"反馈";
+    self.title = KKLocalized(@"反馈");
     [self textField];
     [self.textField becomeFirstResponder];
 }
@@ -27,8 +27,8 @@
     if (!_textField) {
         CGFloat padding = 16;
         _textField = [[UITextField alloc]initWithFrame:CGRectMake(padding,0,SCREEN_WIDTH-padding*2, countcoordinatesX(64))];
-        _textField.backgroundColor = [UIColor whiteColor];
-        _textField.placeholder = @"请输入您的问题";
+        _textField.backgroundColor = [UIColor systemBackgroundColor];
+        _textField.placeholder = KKLocalized(@"请输入您的问题");
         [self.textField setClearButtonMode:UITextFieldViewModeWhileEditing];
         // 变为发送按钮
         _textField.returnKeyType = UIReturnKeySend;

@@ -225,7 +225,7 @@ forHTTPHeaderField:@"Content-Type"];
     r.data = nil;
     r.status = HttpStatusFail;
     r.cache = CacheStatusFail;
-    r.msg = @"请求失败";
+    r.msg = KKLocalized(@"请求失败");
     dispatch_async(dispatch_get_main_queue(), ^{
         complete(r);
     });

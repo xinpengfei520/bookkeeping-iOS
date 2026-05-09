@@ -23,7 +23,7 @@
 
 
 - (void)initUI {
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
     [self.editButton.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
     [self.editButton setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
     [self.editButton setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];

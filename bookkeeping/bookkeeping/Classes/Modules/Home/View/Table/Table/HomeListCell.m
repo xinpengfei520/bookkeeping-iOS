@@ -29,7 +29,7 @@
 }
 
 - (void)setupUI {
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
     
     // 初始化表格
     [self table];
@@ -113,7 +113,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     @weakify(self)
     UIContextualAction *delete = [UIContextualAction
         contextualActionWithStyle:UIContextualActionStyleDestructive
-                            title:@"删除"
+                            title:KKLocalized(@"删除")
                           handler:^(UIContextualAction * _Nonnull action,
                                     __kindof UIView * _Nonnull sourceView,
                                     void (^ _Nonnull completion)(BOOL)) {
@@ -151,9 +151,9 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
             @strongify(self)
             [self routerEventWithName:HOME_TABLE_PULL data:nil];
         }];
-        header.pullingTitle = @"下拉查看下月数据";
-        header.willRefreshTitle = @"松开查看下月数据";
-        header.refreshingTitle = @"查找数据中";
+        header.pullingTitle = KKLocalized(@"下拉查看下月数据");
+        header.willRefreshTitle = KKLocalized(@"松开查看下月数据");
+        header.refreshingTitle = KKLocalized(@"查找数据中");
         _table.kk_pullToRefreshHeader = header;
 
         // 上拉切换上月
@@ -161,9 +161,9 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
             @strongify(self)
             [self routerEventWithName:HOME_TABLE_UP data:nil];
         }];
-        footer.pullingTitle = @"上拉查看上月数据";
-        footer.willRefreshTitle = @"松开查看上月数据";
-        footer.refreshingTitle = @"查找数据中";
+        footer.pullingTitle = KKLocalized(@"上拉查看上月数据");
+        footer.willRefreshTitle = KKLocalized(@"松开查看上月数据");
+        footer.refreshingTitle = KKLocalized(@"查找数据中");
         _table.kk_loadMoreFooter = footer;
         [_table lineHide];
         [_table lineAll];

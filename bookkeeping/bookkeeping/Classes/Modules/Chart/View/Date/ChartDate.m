@@ -75,7 +75,7 @@
             [submodel setSelectIndex:0];
             [submodels addObject:submodel];
             
-            if ([[submodel detail] isEqualToString:@"本周"] && self.selectIndexs.count == 0) {
+            if ([[submodel detail] isEqualToString:KKLocalized(@"本周")] && self.selectIndexs.count == 0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 [self.selectIndexs addObject:indexPath];
             }

@@ -41,7 +41,7 @@
     [self.descLab3 setFont:[UIFont systemFontOfSize:AdjustFont(8) weight:UIFontWeightLight]];
     [self.descLab3 setTextColor:kColor_Text_Black];
     
-    [self.bookBtn setTitle:@"记一笔" forState:UIControlStateNormal];
+    [self.bookBtn setTitle:KKLocalized(@"记一笔") forState:UIControlStateNormal];
     [self.bookBtn.layer setCornerRadius:3];
     [self.bookBtn.layer setMasksToBounds:true];
     [self.bookBtn setBackgroundColor:kColor_Main_Color];

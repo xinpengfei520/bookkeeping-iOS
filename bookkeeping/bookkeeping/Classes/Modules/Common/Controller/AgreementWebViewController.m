@@ -17,10 +17,10 @@
 }
 
 - (void)setupUI {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
     
     // 设置标题
-    self.title = self.type == AgreementTypeUserAgreement ? @"用户协议" : @"隐私政策";
+    self.title = self.type == AgreementTypeUserAgreement ? KKLocalized(@"用户协议") : KKLocalized(@"隐私政策");
     
     // 创建 WebView
     _webView = [[WKWebView alloc] init];

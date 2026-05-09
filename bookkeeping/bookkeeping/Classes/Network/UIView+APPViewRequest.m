@@ -54,7 +54,7 @@ static void *kUIView_APPViewRequest;
         result.cache = CacheStatusMemoryCache;
         result.status = HttpStatusSuccess;
         result.data = responseObject;
-        result.msg = @"读取缓存成功";
+        result.msg = KKLocalized(@"读取缓存成功");
         complete(result);
     }
 }
@@ -67,7 +67,7 @@ static void *kUIView_APPViewRequest;
         result.cache = CacheStatusDiskCache;
         result.status = HttpStatusSuccess;
         result.data = responseObject;
-        result.msg = @"读取缓存成功";
+        result.msg = KKLocalized(@"读取缓存成功");
         complete(result);
     }
 }
@@ -80,7 +80,7 @@ static void *kUIView_APPViewRequest;
         result.data = nil;
         result.cache = CacheStatusFail;
         result.status = HttpStatusFail;
-        result.msg = @"请求失败";
+        result.msg = KKLocalized(@"请求失败");
         complete(result);
     }
 }

@@ -56,7 +56,7 @@
 - (void)setModel:(BKCModel *)model {
     _model = model;
     [_nameLab setText:model.name];
-    [_detailLab setText:model.is_system == false ? @"(自定义)" : @""];
+    [_detailLab setText:model.is_system == false ? KKLocalized(@"(自定义)") : @""];
     [_icon setImage:[UIImage imageNamed:model.icon_n]];
 }
 

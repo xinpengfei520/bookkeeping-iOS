@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"分享";
+    self.title = KKLocalized(@"分享");
     [self.view setBackgroundColor:kColor_Line_Color];
     [self scroll];
     [self shot1];

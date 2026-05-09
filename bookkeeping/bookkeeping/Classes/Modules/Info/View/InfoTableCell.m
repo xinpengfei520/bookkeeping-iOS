@@ -88,9 +88,9 @@
     
     // name
     NSArray *arr= @[
-        @[@"头像", @"ID", @"昵称", @"性别", @"手机号", @"邮箱"],
-        @[@"修改密码"],
-        @[@"删除账号"]
+        @[KKLocalized(@"头像"), @"ID", KKLocalized(@"昵称"), KKLocalized(@"性别"), KKLocalized(@"手机号"), KKLocalized(@"邮箱")],
+        @[KKLocalized(@"修改密码")],
+        @[KKLocalized(@"删除账号")]
     ];
     [self setName:arr[indexPath.section][indexPath.row]];
 }
@@ -105,19 +105,19 @@
         } else if (_indexPath.row == 2) {
             [self setDetail:model.nickname];
         } else if (_indexPath.row == 3) {
-            [self setDetail:model.sex==true?@"男":@"女"];
+            [self setDetail:model.sex==true?KKLocalized(@"男"):KKLocalized(@"女")];
         } else if (_indexPath.row == 4) {
             if (model.userName) {
                 [self setDetail:model.userName];
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Text_Gary];
             } else {
-                [self setDetail:@"未绑定"];
+                [self setDetail:KKLocalized(@"未绑定")];
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Red_Color];
             }
         }else if (_indexPath.row == 5) {
-            [self setDetail:@"未绑定"];
+            [self setDetail:KKLocalized(@"未绑定")];
             [self setStatus:InfoTableCellStatusNext];
             [self.detailLab setTextColor:kColor_Red_Color];
         }

@@ -64,7 +64,16 @@
     MineTableCell *cell = [MineTableCell loadFirstNib:tableView];
     cell.indexPath = indexPath;
     cell.nameLab.text = self.datas[0][indexPath.section][indexPath.row];
-    cell.icon.image = [UIImage imageNamed:self.datas[1][indexPath.section][indexPath.row]];
+    NSString *iconName = self.datas[1][indexPath.section][indexPath.row];
+    if ([iconName hasPrefix:@"sf:"]) {
+        // Prefix "sf:" → SF Symbol（iOS 13+，本项目最低 iOS 16），colored via tintColor
+        UIImage *symbol = [[UIImage systemImageNamed:[iconName substringFromIndex:3]]
+                           imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.icon.image = symbol;
+        cell.icon.tintColor = kColor_Text_Black;
+    } else {
+        cell.icon.image = [UIImage imageNamed:iconName];
+    }
     cell.status = [self.datas[2][indexPath.section][indexPath.row] integerValue];
     cell.detailLab.hidden = indexPath.section != 0;
 
@@ -125,18 +134,18 @@
 - (NSArray<NSArray<NSArray *> *> *)datas {
     _datas = @[
         @[
-            @[@"我的账单"],
-            @[@"类别设置",@"定时提醒",@"面容解锁",@"导出数据"],
-            @[@"邀请好友",@"意见反馈",@"帮助",@"关于"]
+            @[KKLocalized(@"我的账单")],
+            @[KKLocalized(@"类别设置"),KKLocalized(@"定时提醒"),KKLocalized(@"面容解锁"),KKLocalized(@"导出数据"),KKLocalized(@"语言"),KKLocalized(@"深色模式")],
+            @[KKLocalized(@"邀请好友"),KKLocalized(@"意见反馈"),KKLocalized(@"帮助"),KKLocalized(@"关于")]
         ],
         @[
             @[@"mine_bill"],
-            @[@"mine_category",@"mine_remind",@"mine_face_id",@"mine_export"],
+            @[@"mine_category",@"mine_remind",@"mine_face_id",@"mine_export",@"sf:globe",@"sf:moon.circle"],
             @[@"mine_invite",@"mine_feedback",@"mine_help",@"mine_about"]
         ],
         @[
             @[@(0)],
-            @[@(0),@(0),@(1),@(0)],
+            @[@(0),@(0),@(1),@(0),@(0),@(0)],
             @[@(0),@(0),@(0),@(0)]
         ]
     ];

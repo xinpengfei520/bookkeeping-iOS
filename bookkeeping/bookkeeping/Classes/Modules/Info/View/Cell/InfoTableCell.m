@@ -8,14 +8,14 @@
         } else if (_indexPath.row == 2) {
             [self setDetail:model.nickname];
         } else if (_indexPath.row == 3) {
-            [self setDetail:model.sex==true?@"男":@"女"];
+            [self setDetail:model.sex==true?KKLocalized(@"男"):KKLocalized(@"女")];
         } else if (_indexPath.row == 4) {
             if (model.userName) {
                 [self setDetail:model.userName];
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Text_Gary];
             } else {
-                [self setDetail:@"未绑定"];
+                [self setDetail:KKLocalized(@"未绑定")];
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Red_Color];
             }
@@ -25,7 +25,7 @@
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Text_Gary];
             } else {
-                [self setDetail:@"未绑定"];
+                [self setDetail:KKLocalized(@"未绑定")];
                 [self setStatus:InfoTableCellStatusNext];
                 [self.detailLab setTextColor:kColor_Red_Color];
             }

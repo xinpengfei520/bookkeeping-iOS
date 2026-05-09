@@ -101,7 +101,7 @@
 - (NSArray<NSArray<NSString *> *> *)arr {
     if (!_arr) {
         _arr =  @[
-            @[@"保存",@"微信",@"朋友圈",@"QQ"],
+            @[KKLocalized(@"保存"),KKLocalized(@"微信"),KKLocalized(@"朋友圈"),@"QQ"],
             @[@"share_download",
               @"share_wx",
               @"share_wxfc",

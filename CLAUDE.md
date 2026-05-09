@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Source root is `bookkeeping/`, **not** the repo root. CocoaPods is the dependency manager.
 - First-time setup: `cd bookkeeping && pod install`, then open `bookkeeping/bookkeeping.xcworkspace` (never `.xcodeproj`).
 - Build/run from Xcode. There is no test target — adding tests requires creating one first.
-- Deployment target: iOS 15.6 (main app) / iOS 15.0 (BookMonth widget). Podfile pins `IPHONEOS_DEPLOYMENT_TARGET = 11.0`, but project settings override.
+- Deployment target: iOS 16.0 (main app and BookMonth widget). Podfile platform and post_install hook enforce `IPHONEOS_DEPLOYMENT_TARGET = 16.0` for all pods.
 - iPhone-only (`TARGETED_DEVICE_FAMILY = 1`); macOS support was removed.
 - Simulator builds exclude `arm64` (`EXCLUDED_ARCHS[sdk=iphonesimulator*]`); Apple Silicon hosts must use Rosetta or run on device.
 - Production API host is hard-coded in `bookkeeping/bookkeeping/Classes/Network/NSString+API.h` (`KHost`). The test host is commented out — toggle by editing the macro, there is no scheme-based switch.

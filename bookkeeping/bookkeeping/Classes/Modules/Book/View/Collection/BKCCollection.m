@@ -53,8 +53,8 @@
             [nav dismissViewControllerAnimated:YES completion:nil];
         }
     }];
-    collection.kk_pullToRefreshHeader.pullingTitle = @"下拉关闭页面";
-    collection.kk_pullToRefreshHeader.willRefreshTitle = @"松开关闭页面";
+    collection.kk_pullToRefreshHeader.pullingTitle = KKLocalized(@"下拉关闭页面");
+    collection.kk_pullToRefreshHeader.willRefreshTitle = KKLocalized(@"松开关闭页面");
     collection.kk_pullToRefreshHeader.refreshingTitle = @"";
     return collection;
 }

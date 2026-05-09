@@ -27,7 +27,7 @@
     
     // 标题
     _nameLab = [[UILabel alloc] init];
-    _nameLab.text = @"我的";
+    _nameLab.text = KKLocalized(@"我的");
     _nameLab.font = [UIFont systemFontOfSize:AdjustFont(15)];
     _nameLab.textColor = kColor_Text_White;
     _nameLab.textAlignment = NSTextAlignmentCenter;

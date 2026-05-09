@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"关于";
+    self.title = KKLocalized(@"关于");
     [self setupUI];
     [self setupConstraints];
 }
@@ -42,7 +42,7 @@
     // App名称（动态获取）
     _titleLabel = [[UILabel alloc] init];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    _titleLabel.text = [infoDictionary objectForKey:@"CFBundleDisplayName"] ?: @"记呀";
+    _titleLabel.text = [infoDictionary objectForKey:@"CFBundleDisplayName"] ?: KKLocalized(@"记呀");
     _titleLabel.font = [UIFont systemFontOfSize:24 weight:UIFontWeightMedium];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_titleLabel];
@@ -59,7 +59,7 @@
     
     // 用户协议按钮
     _userAgreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_userAgreementBtn setTitle:@"用户协议" forState:UIControlStateNormal];
+    [_userAgreementBtn setTitle:KKLocalized(@"用户协议") forState:UIControlStateNormal];
     [_userAgreementBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
     _userAgreementBtn.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
     [_userAgreementBtn addTarget:self action:@selector(userAgreementClick) forControlEvents:UIControlEventTouchUpInside];
@@ -67,7 +67,7 @@
     
     // 隐私政策按钮
     _privacyPolicyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_privacyPolicyBtn setTitle:@"隐私政策" forState:UIControlStateNormal];
+    [_privacyPolicyBtn setTitle:KKLocalized(@"隐私政策") forState:UIControlStateNormal];
     [_privacyPolicyBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
     _privacyPolicyBtn.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
     [_privacyPolicyBtn addTarget:self action:@selector(privacyPolicyClick) forControlEvents:UIControlEventTouchUpInside];
@@ -75,7 +75,7 @@
     
     // 备案号
     _icpLabel = [[UILabel alloc] init];
-    _icpLabel.text = @"沪ICP备2022014461号-3A";
+    _icpLabel.text = KKLocalized(@"沪ICP备2022014461号-3A");
     _icpLabel.font = [UIFont systemFontOfSize:AdjustFont(12)];
     _icpLabel.textColor = kColor_Text_Gary;
     _icpLabel.textAlignment = NSTextAlignmentCenter;

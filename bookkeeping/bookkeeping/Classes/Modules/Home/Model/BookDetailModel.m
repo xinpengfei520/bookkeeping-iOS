@@ -59,14 +59,14 @@
 - (NSString *)getDateStr {
     NSString *str = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
     NSDate *date = [NSDate dateWithYMD:str];
-    return [NSString stringWithFormat:@"%ld年%02ld月%02ld日   %@", _year, _month, _day, [date dayFromWeekday]];
+    return [NSString stringWithFormat:KKLocalized(@"%ld年%02ld月%02ld日   %@"), _year, _month, _day, [date dayFromWeekday]];
 }
 
 -(NSString *)getTypeDesc{
     if (_categoryId <= 32) {
-        return @"支出";
+        return KKLocalized(@"支出");
     }else{
-        return @"收入";
+        return KKLocalized(@"收入");
     }
 }
 

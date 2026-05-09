@@ -29,9 +29,9 @@
 - (void)setNavigationIndex:(NSInteger)navigationIndex {
     _navigationIndex = navigationIndex;
     if (navigationIndex == 0) {
-        [_nameLab setText:@"支出排行榜"];
+        [_nameLab setText:KKLocalized(@"支出排行榜")];
     } else {
-        [_nameLab setText:@"收入排行榜"];
+        [_nameLab setText:KKLocalized(@"收入排行榜")];
     }
 }
 

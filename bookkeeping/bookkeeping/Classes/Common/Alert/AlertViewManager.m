@@ -97,7 +97,7 @@
     
     // 确定操作
     if (!titleArray || titleArray.count == 0) {
-        UIAlertAction  *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault  handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction  *confirmAction = [UIAlertAction actionWithTitle:KKLocalized(@"确定") style:UIAlertActionStyleDefault  handler:^(UIAlertAction * _Nonnull action) {
             if (confirm)confirm(0,action.title);
         }];
         [alert addAction:confirmAction];
@@ -118,7 +118,7 @@
 - (void)showSheetAlertController:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle titleArray:(NSArray *)titleArray viewController:(UIViewController *)vc confirm:(alertViewBlock)confirm {
     
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
-    if (!cancelTitle) cancelTitle = @"取消";
+    if (!cancelTitle) cancelTitle = KKLocalized(@"取消");
     // 取消
     UIAlertAction  *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         if (confirm)confirm(cancelIndex,action.title);
@@ -140,7 +140,7 @@
 - (void)showSheetAlertController:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle buttonArray:(NSArray<NSArray *> *)buttonArray viewController:(UIViewController *)vc confirm:(alertViewBlock)confirm {
     
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
-    if (!cancelTitle) cancelTitle = @"取消";
+    if (!cancelTitle) cancelTitle = KKLocalized(@"取消");
     // 取消
     UIAlertAction  *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         if (confirm)confirm(cancelIndex,action.title);

@@ -30,9 +30,9 @@
 - (void)setIndexPath:(NSIndexPath *)indexPath {
     _indexPath = indexPath;
     if (indexPath.row == 0) {
-        [self.nameLab setText:@"支出"];
+        [self.nameLab setText:KKLocalized(@"支出")];
     } else {
-        [self.nameLab setText:@"收入"];
+        [self.nameLab setText:KKLocalized(@"收入")];
     }
 }
 

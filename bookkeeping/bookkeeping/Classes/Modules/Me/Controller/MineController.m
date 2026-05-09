@@ -127,6 +127,16 @@
             ExportController *vc = [[ExportController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
+        // 语言
+        else if (indexPath.row == 4) {
+            LanguageSettingsController *vc = [[LanguageSettingsController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        // 深色模式
+        else if (indexPath.row == 5) {
+            ThemeSettingsController *vc = [[ThemeSettingsController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     else if (indexPath.section == 2) {
         // 邀请好友
@@ -140,7 +150,7 @@
         // 帮助
         else if (indexPath.row == 2) {
             WebViewController *vc = [[WebViewController alloc] init];
-            vc.title = @"帮助";
+            vc.title = KKLocalized(@"帮助");
             [vc setUrl:kHelpURL];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -261,7 +271,7 @@
 - (void)feedbackClick {
     // 准备邮件内容
     NSString *toEmail = @"542270559@qq.com";
-    NSString *subject = @"记呀 - 意见反馈";
+    NSString *subject = KKLocalized(@"记呀 - 意见反馈");
     
     // 获取设备信息
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -270,9 +280,9 @@
     
     NSString *body = [NSString stringWithFormat:@"\n\n\n\n\n\n"
                      @"----------\n"
-                     @"App版本：%@\n"
-                     @"系统版本：iOS %@\n"
-                     @"设备型号：%@\n",
+                     KKLocalized(@"App版本：%@\n")
+                     KKLocalized(@"系统版本：iOS %@\n")
+                     KKLocalized(@"设备型号：%@\n"),
                      appVersion, systemVersion, deviceModel];
     
     // URL 编码
@@ -292,7 +302,7 @@
                                             options:@{} 
                                   completionHandler:^(BOOL success) {
                 if (!success) {
-                    [self showTextHUD:@"无法打开邮件应用" delay:2.f];
+                    [self showTextHUD:KKLocalized(@"无法打开邮件应用") delay:2.f];
                 }
             }];
         } else {
@@ -302,7 +312,7 @@
             #pragma clang diagnostic pop
         }
     } else {
-        [self showTextHUD:@"设备不支持发送邮件" delay:2.f];
+        [self showTextHUD:KKLocalized(@"设备不支持发送邮件") delay:2.f];
     }
 }
 
@@ -316,8 +326,8 @@
 #pragma mark - 邀请好友
 - (void)inviteFriendsClick {
     // 准备分享内容
-    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"] ?: @"记呀";
-    NSString *text = [NSString stringWithFormat:@"推荐一个好用的记账App：%@", appName];
+    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"] ?: KKLocalized(@"记呀");
+    NSString *text = [NSString stringWithFormat:KKLocalized(@"推荐一个好用的记账App：%@"), appName];
     UIImage *image = [UIImage imageNamed:@"AppPreview"];
     NSURL *appUrl = [NSURL URLWithString:kAppStoreURL];
     
@@ -343,7 +353,7 @@
                                             NSArray *returnedItems, 
                                             NSError *activityError) {
         if (completed) {
-            [self showTextHUD:@"分享成功" delay:2.f];
+            [self showTextHUD:KKLocalized(@"分享成功") delay:2.f];
         }
     };
     

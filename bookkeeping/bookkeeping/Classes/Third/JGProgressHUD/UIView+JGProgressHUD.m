@@ -233,7 +233,7 @@ static NSString *jgBackSetGetKey = @"jgBackSetGetKey";
     }
     
     if (text == nil) {
-        text = @"请求失败";
+        text = KKLocalized(@"请求失败");
     }
     
     __unused JGProgressHUDInteractionType type = self.hud_type;
