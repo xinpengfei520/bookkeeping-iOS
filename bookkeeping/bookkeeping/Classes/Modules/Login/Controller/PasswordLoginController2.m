@@ -49,15 +49,15 @@
     }
     phoneLabel.text = [NSString stringWithFormat:@"+86 %@", formattedPhone];
     phoneLabel.font = [UIFont systemFontOfSize:14];
-    phoneLabel.textColor = [UIColor lightGrayColor];
+    phoneLabel.textColor = [UIColor secondaryLabelColor];
     [self.view addSubview:phoneLabel];
     
     // 输入框背景
     _inputBgView = [[UIView alloc] init];
-    _inputBgView.backgroundColor = [UIColor whiteColor];
+    _inputBgView.backgroundColor = [UIColor systemBackgroundColor];
     _inputBgView.layer.cornerRadius = 8;
     _inputBgView.layer.borderWidth = 1;
-    _inputBgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _inputBgView.layer.borderColor = [UIColor separatorColor].CGColor;
     [self.view addSubview:_inputBgView];
     
     // 密码输入框

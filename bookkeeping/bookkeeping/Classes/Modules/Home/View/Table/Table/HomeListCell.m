@@ -29,7 +29,7 @@
 }
 
 - (void)setupUI {
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
     
     // 初始化表格
     [self table];

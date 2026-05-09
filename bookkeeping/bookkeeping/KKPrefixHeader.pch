@@ -10,26 +10,34 @@
 // 外部间距
 #define OUT_PADDING countcoordinatesX(15)
 
-// 单色
-#define kColor_White               HexColor(@"#FFFFFF")     // 白色
+// 颜色：动态色（trait collection 自动适配 dark mode）
+// 用法保持原样：kColor_BG 等仍是表达式，不需要改调用点。
+NS_INLINE UIColor *KKDynamicColor(UIColor *light, UIColor *dark) {
+    return [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *trait) {
+        return trait.userInterfaceStyle == UIUserInterfaceStyleDark ? dark : light;
+    }];
+}
 
-// 背景色
-#define kColor_BG                  RGBA(250,250,250,1)      // 日间背景色
-#define kColor_Line_Color          RGBA(245,245,245,1)      // 日间背景色
-#define kColor_Line_Gray           RGBA(225,225,225,1)      // Cell 线条
+// 单色（不动态——总是白）
+#define kColor_White               HexColor(@"#FFFFFF")
 
-// TODO: 夜间模式 — 当前未接 trait collection；接入前不要新增占位色，避免"伪完成"。
+// 背景色（动态）
+#define kColor_BG                  KKDynamicColor(RGBA(250,250,250,1), RGBA(28,28,30,1))
+#define kColor_Line_Color          KKDynamicColor(RGBA(245,245,245,1), RGBA(44,44,46,1))
+#define kColor_Line_Gray           KKDynamicColor(RGBA(225,225,225,1), RGBA(58,58,60,1))
 
-// 文字颜色
-#define kColor_Text_White          HexColor(@"#FFFFFF")      // 白
-#define kColor_Text_Black          RGBA(52, 50, 51, 1)       // 深
-#define kColor_Text_Gary           HexColor(@"#999999")      // 灰
-#define kColor_Text_Light          HexColor(@"#8B8B8B")      // 浅
-#define kColor_Text_Red            HexColor(@"#FD4751")      // 红
+// 文字颜色（除 White 是固定品牌色 / Red 是警示色）
+#define kColor_Text_White          HexColor(@"#FFFFFF")     // 品牌绿底上始终白
+#define kColor_Text_Black          KKDynamicColor(RGBA(52,50,51,1), HexColor(@"#E5E5EA"))
+#define kColor_Text_Gary           KKDynamicColor(HexColor(@"#999999"), HexColor(@"#8E8E93"))
+#define kColor_Text_Light          KKDynamicColor(HexColor(@"#8B8B8B"), HexColor(@"#6E6E73"))
+#define kColor_Text_Red            HexColor(@"#FD4751")
 
-#define kColor_Chart_Header        RGBA(79, 76, 77, 1)       // 图表头视图底部
-#define kColor_Chart_Text          RGBA(220, 220, 220, 1)    // 图表文字
+// 图表（动态）
+#define kColor_Chart_Header        KKDynamicColor(RGBA(79,76,77,1), RGBA(44,44,46,1))
+#define kColor_Chart_Text          KKDynamicColor(RGBA(220,220,220,1), RGBA(150,150,155,1))
 
+// 品牌色：跨 light/dark 保持一致
 #define kColor_Main_Color          RGBA(30,177,138,1)
 #define kColor_Main_Dark_Color     RGBA(30,200,138,1)
 #define kColor_Red_Color           HexColor(@"FF4500")

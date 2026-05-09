@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
     self.title = KKLocalized(@"删除账号");
     [self setupUI];
     [self setupConstraints];
@@ -74,7 +74,7 @@
     [_deleteButton setTitle:KKLocalized(@"申请删除") forState:UIControlStateNormal];
     [_deleteButton setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
     _deleteButton.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
-    _deleteButton.backgroundColor = [UIColor whiteColor];
+    _deleteButton.backgroundColor = [UIColor systemBackgroundColor];
     _deleteButton.layer.cornerRadius = 8;
     _deleteButton.layer.borderWidth = 1;
     _deleteButton.layer.borderColor = kColor_Line_Color.CGColor;

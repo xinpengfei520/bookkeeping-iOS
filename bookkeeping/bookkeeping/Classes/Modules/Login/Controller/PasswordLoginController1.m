@@ -44,10 +44,10 @@
     
     // 输入框背景
     _inputBgView = [[UIView alloc] init];
-    _inputBgView.backgroundColor = [UIColor whiteColor];
+    _inputBgView.backgroundColor = [UIColor systemBackgroundColor];
     _inputBgView.layer.cornerRadius = 8;
     _inputBgView.layer.borderWidth = 1;
-    _inputBgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _inputBgView.layer.borderColor = [UIColor separatorColor].CGColor;
     [self.view addSubview:_inputBgView];
     
     // 区号标签

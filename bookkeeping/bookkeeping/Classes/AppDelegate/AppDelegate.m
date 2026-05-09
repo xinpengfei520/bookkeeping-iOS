@@ -41,7 +41,7 @@
 // 根控制器
 - (void)makeRootController {
     [self setWindow:[[UIWindow alloc] initWithFrame:SCREEN_BOUNDS]];
-    [self.window setBackgroundColor:[UIColor whiteColor]];
+    [self.window setBackgroundColor:[UIColor systemBackgroundColor]];
     
     HomeController *homeController = [[HomeController alloc] init];
     BaseNavigationController *navigationController = [[BaseNavigationController alloc] initWithRootViewController:homeController];

@@ -36,7 +36,7 @@
     return view;
 }
 - (void)initUI {
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
     [self noNet];
     [self common];
     [self loading];

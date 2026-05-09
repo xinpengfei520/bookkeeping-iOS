@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
     self.title = KKLocalized(@"修改密码");
     [self setupUI];
     [self setupConstraints];

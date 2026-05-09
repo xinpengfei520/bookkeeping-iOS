@@ -68,7 +68,7 @@
     _textLabel = [[UILabel alloc] init];
     _textLabel.text = KKLocalized(@"我已阅读并同意");
     _textLabel.font = [UIFont systemFontOfSize:12];
-    _textLabel.textColor = [UIColor lightGrayColor];
+    _textLabel.textColor = [UIColor secondaryLabelColor];
     [containerView addSubview:_textLabel];  // 直接添加到容器视图
     
     // 用户协议按钮
@@ -83,7 +83,7 @@
     UILabel *separatorLabel = [[UILabel alloc] init];
     separatorLabel.text = @"、";
     separatorLabel.font = [UIFont systemFontOfSize:12];
-    separatorLabel.textColor = [UIColor lightGrayColor];
+    separatorLabel.textColor = [UIColor secondaryLabelColor];
     [containerView addSubview:separatorLabel];  // 直接添加到容器视图
     
     // 隐私协议按钮
@@ -99,7 +99,7 @@
         _textLabelTail = [[UILabel alloc] init];
         _textLabelTail.text = KKLocalized(@"未注册的手机号将自动注册");
         _textLabelTail.font = [UIFont systemFontOfSize:12];
-        _textLabelTail.textColor = [UIColor lightGrayColor];
+        _textLabelTail.textColor = [UIColor secondaryLabelColor];
         [containerView addSubview:_textLabelTail];  // 直接添加到容器视图
     }
     

@@ -25,7 +25,7 @@
 - (void)setupUI {
     [self setUserInteractionEnabled:NO];
     [self setHidden:YES];
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
     
     // 空状态图标
     _iconView = [[UIImageView alloc] init];

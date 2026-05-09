@@ -55,17 +55,17 @@
     // 密码登录按钮
     _passwordLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_passwordLoginBtn setTitle:KKLocalized(@"密码登录") forState:UIControlStateNormal];
-    [_passwordLoginBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [_passwordLoginBtn setTitleColor:[UIColor secondaryLabelColor] forState:UIControlStateNormal];
     _passwordLoginBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_passwordLoginBtn addTarget:self action:@selector(passwordLoginClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_passwordLoginBtn];
     
     // 输入框背景
     _inputBgView = [[UIView alloc] init];
-    _inputBgView.backgroundColor = [UIColor whiteColor];
+    _inputBgView.backgroundColor = [UIColor systemBackgroundColor];
     _inputBgView.layer.cornerRadius = 8;
     _inputBgView.layer.borderWidth = 1;
-    _inputBgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _inputBgView.layer.borderColor = [UIColor separatorColor].CGColor;
     [self.view addSubview:_inputBgView];
     
     // 区号标签
