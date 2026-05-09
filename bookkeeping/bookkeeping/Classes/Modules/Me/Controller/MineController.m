@@ -278,12 +278,13 @@
     NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
     NSString *deviceModel = [[UIDevice currentDevice] model];
     
-    NSString *body = [NSString stringWithFormat:@"\n\n\n\n\n\n"
-                     @"----------\n"
-                     KKLocalized(@"App版本：%@\n")
-                     KKLocalized(@"系统版本：iOS %@\n")
-                     KKLocalized(@"设备型号：%@\n"),
-                     appVersion, systemVersion, deviceModel];
+    // 三条信息分别本地化后再拼接（KKLocalized 是函数调用，不能与 @"..." 字面量
+    // 邻接拼接，所以走 NSMutableString.appendFormat）。
+    NSMutableString *bodyBuilder = [NSMutableString stringWithString:@"\n\n\n\n\n\n----------\n"];
+    [bodyBuilder appendFormat:KKLocalized(@"App版本：%@\n"), appVersion];
+    [bodyBuilder appendFormat:KKLocalized(@"系统版本：iOS %@\n"), systemVersion];
+    [bodyBuilder appendFormat:KKLocalized(@"设备型号：%@\n"), deviceModel];
+    NSString *body = bodyBuilder;
     
     // URL 编码
     subject = [subject stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
