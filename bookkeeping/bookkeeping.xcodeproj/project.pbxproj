@@ -2869,6 +2869,23 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/bookkeeping/Classes/Utils",
+					"$(SRCROOT)/bookkeeping/Classes/Base/model",
+					"$(SRCROOT)/bookkeeping/Classes/Base/view",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/UIFont",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSDate",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSString",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSObject",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/UIColor",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSUserDefaults",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSMutableArray",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/Home/Model",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/AddCategory/Model",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/Book/Model",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/Category/Model",
+				);
 			};
 			name = Debug;
 		};
@@ -2898,6 +2915,23 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/bookkeeping/Classes/Utils",
+					"$(SRCROOT)/bookkeeping/Classes/Base/model",
+					"$(SRCROOT)/bookkeeping/Classes/Base/view",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/UIFont",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSDate",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSString",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSObject",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/UIColor",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSUserDefaults",
+					"$(SRCROOT)/bookkeeping/Classes/Categorys/NSMutableArray",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/Home/Model",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/AddCategory/Model",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/Book/Model",
+					"$(SRCROOT)/bookkeeping/Classes/Modules/Category/Model",
+				);
 			};
 			name = Release;
 		};
