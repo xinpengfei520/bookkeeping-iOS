@@ -11,6 +11,17 @@ NSString * const KKLanguageDidChangeNotification = @"KKLanguageDidChangeNotifica
 
 static NSString * const kKKLanguageDefaultsKey = @"kk_app_language";
 
+/// Shared App Group defaults so widget reads the same preference as host.
+/// Must match the suite used by NSUserDefaults+Extension / UserInfo.
+static NSUserDefaults *KKSharedDefaults(void) {
+    static NSUserDefaults *defaults;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
+    });
+    return defaults;
+}
+
 /// Chinese → English translation table. Keys are the literal Chinese strings as
 /// they appear in source. Missing entries fall back to the key itself (i.e.
 /// degrade visibly to Chinese in en mode but never blank).
@@ -301,12 +312,12 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
 }
 
 + (NSString *)userPreferredLanguageCode {
-    NSString *code = [[NSUserDefaults standardUserDefaults] stringForKey:kKKLanguageDefaultsKey];
+    NSString *code = [KKSharedDefaults() stringForKey:kKKLanguageDefaultsKey];
     return code.length > 0 ? code : nil;
 }
 
 + (void)setUserPreferredLanguageCode:(NSString *)code {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults = KKSharedDefaults();
     if (code.length > 0) {
         [defaults setObject:code forKey:kKKLanguageDefaultsKey];
     } else {
