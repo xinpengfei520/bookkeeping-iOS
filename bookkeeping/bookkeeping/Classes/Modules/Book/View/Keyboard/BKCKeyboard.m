@@ -51,9 +51,13 @@
     [self setIsLess:NO];
     [self setCurrentDate:[NSDate date]];
     
+    // XIB 静态文本：nameLab="备注:" / markField placeholder="点击写备注"
+    [self.nameLab setText:KKLocalized(@"备注:")];
+    [self.markField setPlaceholder:KKLocalized(@"点击写备注")];
+
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(10)]];
     [self.nameLab setTextColor:kColor_Text_Black];
-    
+
     [self.moneyLab setFont:[UIFont systemFontOfSize:AdjustFont(18)]];
     [self.markField setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.markField setTintColor:kColor_Main_Color];

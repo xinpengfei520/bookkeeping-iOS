@@ -18,6 +18,7 @@
 
 
 - (void)initUI {
+    [self.nameLab setText:KKLocalized(@"更多类别")];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];
 }

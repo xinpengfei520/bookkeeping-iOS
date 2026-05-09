@@ -26,7 +26,10 @@
 }
 
 - (void)setupUI {
-    [self setBackgroundColor:kColor_White];
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
+    // XIB 静态文本：dayLab="每天"
+    [self.dayLab setText:KKLocalized(@"每天")];
+
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Gary];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(12)]];

@@ -45,6 +45,16 @@
     self.title = registerTitle;
     [self.view setBackgroundColor:kColor_BG];
     
+    // XIB 静态文本本地化：标签 / textField placeholder / 按钮标题
+    [self.nameLab1 setText:KKLocalized(@"手机号")];
+    [self.nameLab2 setText:KKLocalized(@"验证码")];
+    [self.phoneField setPlaceholder:KKLocalized(@"请输入手机号")];
+    [self.codeField setPlaceholder:KKLocalized(@"输入验证码")];
+    [self.codeBtn setTitle:KKLocalized(@"重新获取") forState:UIControlStateNormal];
+    [self.codeBtn setTitle:KKLocalized(@"重新获取") forState:UIControlStateHighlighted];
+    [self.nextBtn setTitle:KKLocalized(@"下一步") forState:UIControlStateNormal];
+    [self.nextBtn setTitle:KKLocalized(@"下一步") forState:UIControlStateHighlighted];
+
     [self.nameLab1 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab1 setTextColor:kColor_Text_Black];
     [self.nameLab2 setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];

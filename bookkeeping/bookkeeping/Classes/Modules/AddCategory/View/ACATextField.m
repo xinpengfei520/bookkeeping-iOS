@@ -21,6 +21,8 @@
 - (void)initUI {
     [self.line setBackgroundColor:kColor_Line_Color];
     [self setBackgroundColor:kColor_BG];
+    // XIB placeholder 写死成 zh，覆盖一下走 KKLocalized
+    [self.textField setPlaceholder:KKLocalized(@"请输入类别名称(不超过4个汉字)")];
     [self.textField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
 }
 

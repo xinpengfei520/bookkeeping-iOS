@@ -103,6 +103,7 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"密码长度为6-18位": @"Password must be 6–18 characters",
             @"验证码": @"Verification code",
             @"请输入验证码": @"Enter verification code",
+            @"输入验证码": @"Enter verification code",
             @"验证": @"Verify",
             @"重新发送": @"Resend",
             @"重新获取": @"Resend",
@@ -144,7 +145,10 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"添加类别": @"Add category",
             @"删除类别会同时删除该类别下的所有历史收支记录": @"Deleting this category will also delete all related entries",
             @"(自定义)": @"(Custom)",
+            @"自定义": @"Custom",
+            @"更多类别": @"More categories",
             @"类别名称不能为空": @"Category name can't be empty",
+            @"请输入类别名称(不超过4个汉字)": @"Enter category name (4 chars max)",
 
             // ---- Reminders ----
             @"定时提醒": @"Reminders",
@@ -213,6 +217,8 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
 
             // ---- Bills / chart ----
             @"账单": @"Bills",
+            @"月份": @"Month",
+            @"结余": @"Balance",
             @"明细": @"Details",
             @"收入: %@": @"Income: %@",
             @"支出: %@": @"Expense: %@",
@@ -233,8 +239,11 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"金额": @"Amount",
             @"日期": @"Date",
             @"备注": @"Note",
+            @"备注:": @"Note:",
+            @"点击写备注": @"Tap to add a note",
             @"推荐备注": @"Suggested notes",
             @"请输入金额": @"Enter amount",
+            @"编辑": @"Edit",
 
             // ---- Search ----
             @"关键字不能为空": @"Keyword can't be empty",
@@ -254,6 +263,12 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             // ---- Feedback / sharing ----
             @"反馈": @"Feedback",
             @"请输入您的问题": @"Enter your message",
+            // 分享页：模板/截图里的固定文案（部分可能由 setModel 动态覆盖，但为安全提供 en 默认值）
+            @"记账成就": @"Bookkeeping milestones",
+            @"爱记账，爱生活": @"Love bookkeeping, love life",
+            @"成功是持续积累而成": @"Success comes from steady persistence",
+            @"连续3天打卡徽章": @"3-day streak badge",
+            @"兼职": @"Part-time",
             @"记呀 - 意见反馈": @"Jiya — Feedback",
             @"App版本：%@\n": @"App version: %@\n",
             @"系统版本：iOS %@\n": @"iOS version: %@\n",

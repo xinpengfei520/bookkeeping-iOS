@@ -29,6 +29,11 @@
 
 
 - (void)initUI {
+    // XIB 静态文本（"记账成就" 标题 + "爱记账，爱生活" 副标）。XIB 里另有 2 个未绑定
+    // outlet 的 label（"记账总笔数" / "记账总天数"），需要直接编辑 XIB 才能 localize。
+    [self.titleLab setText:KKLocalized(@"记账成就")];
+    [self.tipLab1 setText:KKLocalized(@"爱记账，爱生活")];
+
     [self.titleLab setFont:[UIFont systemFontOfSize:AdjustFont(14)]];
     [self.titleLab setTextColor:kColor_Text_Black];
     

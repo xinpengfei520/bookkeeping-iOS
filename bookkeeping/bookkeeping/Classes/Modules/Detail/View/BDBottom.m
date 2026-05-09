@@ -24,6 +24,12 @@
 
 - (void)initUI {
     [self setBackgroundColor:[UIColor systemBackgroundColor]];
+    // XIB 写死 button title="编辑" / "删除"，覆盖一下走 KKLocalized
+    [self.editButton setTitle:KKLocalized(@"编辑") forState:UIControlStateNormal];
+    [self.editButton setTitle:KKLocalized(@"编辑") forState:UIControlStateHighlighted];
+    [self.deleteButton setTitle:KKLocalized(@"删除") forState:UIControlStateNormal];
+    [self.deleteButton setTitle:KKLocalized(@"删除") forState:UIControlStateHighlighted];
+
     [self.editButton.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
     [self.editButton setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
     [self.editButton setTitleColor:kColor_Text_Black forState:UIControlStateHighlighted];
@@ -31,7 +37,6 @@
     [self.deleteButton setTitleColor:kColor_Text_Red forState:UIControlStateNormal];
     [self.deleteButton setTitleColor:kColor_Text_Red forState:UIControlStateHighlighted];
     [self.editConstraintB setConstant:SafeAreaBottomHeight];
-    
 }
 - (IBAction)editBtnClick:(UIButton *)sender {
     [self routerEventWithName:BD_BOTTOM_CLICK data:@(0)];

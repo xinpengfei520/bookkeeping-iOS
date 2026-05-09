@@ -19,8 +19,16 @@
 
 - (void)initUI {
     CGFloat height = 28;
-    
+
     [self setBackgroundColor:kColor_Main_Color];
+
+    // XIB 写死的 segments（周/月/年）。这里用 site-specific 直接设置，避免污染
+    // KKEnglishTable 全局映射（@"月" 已被 HomeHeader 占用为 "Mo." 后缀）。
+    BOOL isEn = [[KKI18n effectiveLanguageCode] isEqualToString:KKLanguageCodeEnglish];
+    [self.seg setTitle:isEn ? @"Week"  : @"周" forSegmentAtIndex:0];
+    [self.seg setTitle:isEn ? @"Month" : @"月" forSegmentAtIndex:1];
+    [self.seg setTitle:isEn ? @"Year"  : @"年" forSegmentAtIndex:2];
+
     [self.seg setBackgroundColor:kColor_Main_Color];
     [self.seg setBackgroundImage:[UIColor createImageWithColor:kColor_Main_Color size:CGSizeMake(1, height)]
                         forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

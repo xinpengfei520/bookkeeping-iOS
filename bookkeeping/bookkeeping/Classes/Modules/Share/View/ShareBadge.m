@@ -27,6 +27,11 @@
 
 - (void)initUI {
     [self.layer setMasksToBounds:YES];
+    // XIB 静态文本：徽章模板上的标题 / 励志语 / 副标题
+    [self.titleLab setText:KKLocalized(@"连续3天打卡徽章")];
+    [self.detailLab setText:KKLocalized(@"成功是持续积累而成")];
+    [self.tipLab1 setText:KKLocalized(@"爱记账，爱生活")];
+
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];
     [self.titleLab setFont:[UIFont systemFontOfSize:AdjustFont(14) weight:UIFontWeightLight]];
@@ -35,9 +40,8 @@
     [self.detailLab setTextColor:kColor_Text_Black];
     [self.tipLab1 setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.tipLab1 setTextColor:kColor_Text_Black];
-    
+
     [self.bottomConstraintH setConstant:countcoordinatesX(70)];
-    
 }
 
 @end

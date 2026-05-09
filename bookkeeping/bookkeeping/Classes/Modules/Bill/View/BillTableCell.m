@@ -31,6 +31,12 @@
             lab.textColor = kColor_Text_Black;
         }
     }
+    // XIB 静态文本本地化（lab1=月份 lab2=收入 lab3=支出 lab4=结余）。lab1 在 setModel 时
+    // 会被 model[@"month"] 覆盖（月份数字），其它三个保持作为 column header。
+    [self.lab1 setText:KKLocalized(@"月份")];
+    [self.lab2 setText:KKLocalized(@"收入")];
+    [self.lab3 setText:KKLocalized(@"支出")];
+    [self.lab4 setText:KKLocalized(@"结余")];
 }
 
 

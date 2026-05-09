@@ -18,6 +18,11 @@
 - (void)initUI {
     CGFloat height = 30;
     [self setBackgroundColor:kColor_Main_Color];
+
+    // XIB 写死的 segment titles（支出 / 收入），覆盖走 KKLocalized
+    [self.seg setTitle:KKLocalized(@"支出") forSegmentAtIndex:0];
+    [self.seg setTitle:KKLocalized(@"收入") forSegmentAtIndex:1];
+
     [self.seg setBackgroundColor:kColor_Main_Color];
     [self.seg setBackgroundImage:[UIColor createImageWithColor:kColor_Main_Color size:CGSizeMake(1, height)]
                         forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

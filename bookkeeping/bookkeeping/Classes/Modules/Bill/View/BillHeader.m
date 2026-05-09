@@ -31,6 +31,12 @@
     [self.line setBackgroundColor:kColor_Text_White];
     [self.line1 setBackgroundColor:[kColor_Text_White colorWithAlphaComponent:0.5]];
     [self.labConstraintL setConstant:countcoordinatesX(20)];
+
+    // XIB 静态文本本地化（lab1=结余 lab2=收入 lab3=支出）；XIB 里另有 4 个未绑定
+    // outlet 的 label 暂未处理，需要直接编辑 XIB 才能 localize。
+    [self.lab1 setText:KKLocalized(@"结余")];
+    [self.lab2 setText:KKLocalized(@"收入")];
+    [self.lab3 setText:KKLocalized(@"支出")];
     
     for (id obj in self.subviews) {
         if ([obj isKindOfClass:[UILabel class]]) {

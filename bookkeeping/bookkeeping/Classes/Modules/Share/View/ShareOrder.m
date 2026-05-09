@@ -22,6 +22,11 @@
 @implementation ShareOrder
 
 - (void)initUI {
+    // XIB 静态文本（分享样图模板）：cateLab="兼职" 是示例类别名，cateDescLab="收入" 是
+    // 示例收支类型。如果 setModel 没接，至少给一个 en 默认值。
+    [self.cateLab setText:KKLocalized(@"兼职")];
+    [self.cateDescLab setText:KKLocalized(@"收入")];
+
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];
     [self.cateLab setFont:[UIFont systemFontOfSize:AdjustFont(20) weight:UIFontWeightLight]];
