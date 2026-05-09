@@ -4,6 +4,7 @@
 //
 
 #import "LanguageSettingsController.h"
+#import "bookkeeping-Swift.h"  // 自动生成；暴露 WidgetReloader（Swift @objc）给 OC
 
 #pragma mark - 声明
 @interface LanguageSettingsController ()<UITableViewDelegate, UITableViewDataSource>
@@ -92,6 +93,9 @@
     [KKI18n setUserPreferredLanguageCode:toSave];
     [tableView reloadData];
 
+    // 触发 widget timeline 重载，下一次 Provider.getTimeline 拿到最新语言
+    [WidgetReloader reloadAllTimelines];
+
     UIAlertController *alert = [UIAlertController
         alertControllerWithTitle:KKLocalized(@"语言已切换")
         message:KKLocalized(@"需要重启 App 后完全生效。")
@@ -100,6 +104,10 @@
         // 0.2s 让 alert dismiss 动画走完，避免 exit(0) 截断动画导致系统警报
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)),
                        dispatch_get_main_queue(), ^{
+            // exit 前再 kick 一次 widget reload —— exit(0) 后主 app 进程
+            // 立刻死掉，但 reloadAllTimelines 是 IPC 给 widgetkit 的请求，
+            // 已经发出，iOS 会调度下一次 timeline 拿新语言。
+            [WidgetReloader reloadAllTimelines];
             exit(0);
         });
     }]];

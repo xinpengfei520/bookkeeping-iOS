@@ -5,17 +5,24 @@
 
 import WidgetKit
 import Foundation
+import SwiftUI
 
 struct BookMonthEntry: TimelineEntry {
     let date: Date
     let month: Int
     let income: CGFloat
     let pay: CGFloat
+    /// 主 app Me → 深色模式 的偏好。nil = 跟随系统（不覆盖）。
+    /// "light" → .light；"dark" → .dark。从共享 App Group suite 读，与
+    /// KKTheme.kk_app_theme_mode 同步。WidgetKit 进程自己有独立的 trait
+    /// collection，不会自动跟主 app 的 overrideUserInterfaceStyle，所以
+    /// 这里要手动把偏好搬过来。
+    let preferredScheme: ColorScheme?
     var balance: CGFloat { income - pay }
 
     static var placeholder: BookMonthEntry {
         BookMonthEntry(date: Date(), month: Calendar.current.component(.month, from: Date()),
-                       income: 0, pay: 0)
+                       income: 0, pay: 0, preferredScheme: nil)
     }
 
     /// Read live data from the shared App Group. Reuses the main-app
@@ -48,7 +55,23 @@ struct BookMonthEntry: TimelineEntry {
             .filter { $0.categoryId >= 33 }
             .reduce(0) { $0 + CGFloat($1.price) }
 
-        return BookMonthEntry(date: now, month: month, income: income, pay: pay)
+        return BookMonthEntry(date: now, month: month, income: income, pay: pay,
+                              preferredScheme: readPreferredScheme())
+    }
+
+    /// 读 KKTheme 在共享 suite 写下的 mode 偏好。key/value 的格式必须与
+    /// KKTheme.m / KKTheme.h 保持同步（kk_app_theme_mode + "light" / "dark"）。
+    private static func readPreferredScheme() -> ColorScheme? {
+        guard let defaults = UserDefaults(suiteName: "group.xpf.widget"),
+              let mode = defaults.string(forKey: "kk_app_theme_mode"),
+              !mode.isEmpty else {
+            return nil
+        }
+        switch mode {
+        case "light": return .light
+        case "dark":  return .dark
+        default:      return nil
+        }
     }
 }
 

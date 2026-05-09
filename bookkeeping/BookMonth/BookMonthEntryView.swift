@@ -23,17 +23,36 @@ struct BookMonthTheme {
     static let dim = Color(.secondaryLabel)
 }
 
+/// 把 entry.preferredScheme 应用到子树。nil 时 no-op，让 SwiftUI 跟随系统。
+struct ColorSchemeOverride: ViewModifier {
+    let scheme: ColorScheme?
+
+    func body(content: Content) -> some View {
+        if let s = scheme {
+            content.environment(\.colorScheme, s)
+        } else {
+            content
+        }
+    }
+}
+
 struct BookMonthEntryView: View {
     @Environment(\.widgetFamily) var family
     let entry: BookMonthEntry
 
     var body: some View {
-        switch family {
-        case .systemSmall:
-            small
-        default:
-            medium
+        // 先选 family 渲染对应布局，再叠加用户的 colorScheme 偏好（如果设了）。
+        // entry.preferredScheme == nil 表示"跟随系统"，让 SwiftUI 自己解析；
+        // 否则把整个子树锁到 .light 或 .dark。
+        Group {
+            switch family {
+            case .systemSmall:
+                small
+            default:
+                medium
+            }
         }
+        .modifier(ColorSchemeOverride(scheme: entry.preferredScheme))
     }
 
     // 158x158 — 月份 + 收支结余三行 + 记一笔按钮
