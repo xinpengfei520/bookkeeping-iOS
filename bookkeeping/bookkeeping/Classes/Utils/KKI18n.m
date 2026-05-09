@@ -49,11 +49,11 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"温馨提示": @"Reminder",
             @"今天": @"Today",
             @"昨天": @"Yesterday",
-            // 单字"月"在 HomeHeader 上独立出现：英文里数字本身已暗示月份（"5"），
-            // 不需要 month suffix，故映射为空串。如果将来其它地方也用到 KKLocalized(@"月")，
-            // 注意它在 en 模式下会变空。
-            @"月": @"",
-            @"年": @"",
+            // HomeHeader 用 KKLocalized(@"月") 作为 monthLab 旁边的小后缀。
+            // 之前曾尝试 @"" 让英文模式不显示后缀，但 monthDescLab intrinsic
+            // 尺寸坍缩到 0 会带动 XIB 里几个 centerY 锚定的元素飘移，导致用户
+            // 反馈"布局高度变了"。给 en 一个短缩写保持视觉宽度。
+            @"月": @"Mo.",
 
             // ---- Empty / loading / network states ----
             @"请求失败": @"Request failed",

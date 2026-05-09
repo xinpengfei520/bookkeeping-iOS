@@ -42,6 +42,15 @@
     [self.incomeDescLab setText:KKLocalized(@"收入")];
     [self.monthDescLab setText:KKLocalized(@"月")];
 
+    // 锁定 monthDescLab 的最小 intrinsic 尺寸：XIB 里 dJd 箭头的 centerY 是锚到
+    // monthDescLab.centerY 的，monthDescLab 文字若收缩会带动 dJd 上移，整个 header
+    // 视觉重心下沉。这里用 huggingPriority + 最小宽 / 最小高 防止坍缩，确保
+    // 任何语言下的布局视觉一致。
+    [self.monthDescLab.widthAnchor constraintGreaterThanOrEqualToConstant:countcoordinatesX(14)].active = YES;
+    [self.monthDescLab.heightAnchor constraintGreaterThanOrEqualToConstant:countcoordinatesX(12)].active = YES;
+    [self.monthDescLab setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.monthDescLab setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+
     [self.payDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.payDescLab setTextColor:kColor_Text_White];
     [self.incomeDescLab setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
