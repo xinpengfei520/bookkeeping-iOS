@@ -5,6 +5,7 @@
 
 #import "ThemeSettingsController.h"
 #import "KKTheme.h"
+#import "bookkeeping-Swift.h"  // 自动生成；暴露 WidgetReloader（Swift @objc）给 OC
 
 #pragma mark - 声明
 @interface ThemeSettingsController ()<UITableViewDelegate, UITableViewDataSource>
@@ -103,6 +104,9 @@
         }
     }
     [KKTheme applyToWindow:keyWindow];
+
+    // 触发 widget timeline 重载，下一次 Provider.getTimeline 把新主题写进 entry
+    [WidgetReloader reloadAllTimelines];
 }
 
 @end

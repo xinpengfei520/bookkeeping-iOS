@@ -14,6 +14,25 @@
 
 ---
 
+## [1.0.7] (build 8) — 2026-05-09
+
+### 新增
+- **WidgetKit 替代 Today extension**: 老的 Today extension（`NCWidgetProviding` + UIKit + XIB）自 iOS 14 起被系统 widget gallery 隐藏，iOS 17 起彻底移除——这也是用户反馈"小组件搜不到"的根因。整体迁移到 WidgetKit (Swift + SwiftUI)：`BookMonthWidget.swift` (`@main` WidgetBundle) / `BookMonthProvider.swift` (TimelineProvider，30 min refresh) / `BookMonthEntryView.swift` (SwiftUI 视图)。提供 `.systemSmall` + `.systemMedium` 两档；大月份 + 收/支/结余三行 + 绿色 "记一笔" 按钮的视觉跟老 widget 保持一致。`kbook://month` URL scheme 不变，AppDelegate 路由零改动。
+- **Widget 即时跟随主 app 主题与语言切换**: 新增 `Classes/Utils/WidgetReloader.swift`（`@objc(WidgetReloader)` shim 暴露 `WidgetCenter.shared.reloadAllTimelines()` 给 OC，因为 `WidgetCenter` 是 Swift-only `public final class`）。`LanguageSettingsController` / `ThemeSettingsController` 在保存偏好后调一次 reload，下一个 runloop tick widget 就跟着翻，不用等自然 30 min 缓存过期。
+- **Widget 主题独立于 iOS 系统**: WidgetKit 进程的 `UITraitCollection` 由系统决定、跟主 app 的 `window.overrideUserInterfaceStyle` 互不通气。`BookMonthEntry` 现在携带 `preferredScheme`（从共享 suite 读 `kk_app_theme_mode`），`BookMonthEntryView` 用 SwiftUI 原生 `.primary` / `.secondary` 替代 `Color(.label)` / `Color(.secondaryLabel)`（UIKit-bridged 色不听 `\.colorScheme` env override），背景按 `effectiveScheme = preferredScheme ?? systemScheme` 直接算字面色。结果：主 app 选「深色」widget 立即变深，跟系统当前模式无关。
+
+### 重构
+- **Home headers XIB → code (pilot)**: `HomeHeader.xib` + `HomeListHeader.xib` 转纯代码 Masonry 实现。两个 XIB 删除（净 -106 行）。`HomeListHeader` 改走 `UITableViewHeaderFooterView` 的 `registerClass:` + `dequeueReusableHeaderFooterViewWithIdentifier:` 标准 cell 复用，替代以前的 `loadFirstNib:table:`。`CLAUDE.md` 同步加 "no new XIB" convention：新视图全代码，已有 XIB 视情况按需转换；列出 XIB 三大维护痛点（i18n grep 漏扫 / `systemColor` 烘焙 / IBOutlet 重命名 silent drift）。
+- **首页 section header 背景色对齐 cell**: pilot 转换初版用了 `systemGroupedBackgroundColor`（浅色 sRGB ≈ 0.949 浅灰）跟 cell 的 `systemBackgroundColor`（纯白）有色差。改成两者一致：`backgroundView` 用 `systemBackgroundColor`，line 保留 `systemGroupedBackgroundColor` 作底部 0.5pt 分隔。
+
+### 内部
+- **主 app 改为 OC + Swift 混编**: `SWIFT_VERSION = 5.0` 加到 bookkeeping target；自动生成 `bookkeeping-Swift.h`；OC 文件可 `#import "bookkeeping-Swift.h"` 调 `@objc` 暴露的 Swift 类。
+- **Widget target 也是 OC + Swift 混编**: 通过 `BookMonth-Bridging-Header.h` 让 Swift 复用主 app 已有的 OC 数据层（`BookDetailModel` / `BookMonthModel` / `KKI18n` 等已编进 widget Sources），不重写一份业务逻辑。
+- **pbxproj**: `bookkeeping` target 链接 `WidgetKit.framework`；`BookMonth` target 链接 `WidgetKit.framework` + `SwiftUI.framework`，移除 deprecated `NotificationCenter.framework`。两侧 `ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES`（extension 自己不能带 Swift runtime，必须从主 app 继承）。
+- Widget Info.plist：`NSExtensionPointIdentifier` `com.apple.widget-extension` → `com.apple.widgetkit-extension`，删除 `NSExtensionPrincipalClass`（WidgetKit 用 `@main` 不再需要 principal class）。
+
+---
+
 ## [1.0.6] (build 7) — 2026-05-09
 
 ### 新增
