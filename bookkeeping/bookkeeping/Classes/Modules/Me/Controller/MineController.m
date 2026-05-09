@@ -141,7 +141,7 @@
         else if (indexPath.row == 2) {
             WebViewController *vc = [[WebViewController alloc] init];
             vc.title = @"帮助";
-            [vc setUrl:@"https://book.vance.xin/help_ios.html"];
+            [vc setUrl:kHelpURL];
             [self.navigationController pushViewController:vc animated:YES];
         }
         // 关于
@@ -319,7 +319,7 @@
     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"] ?: @"记呀";
     NSString *text = [NSString stringWithFormat:@"推荐一个好用的记账App：%@", appName];
     UIImage *image = [UIImage imageNamed:@"AppPreview"];
-    NSURL *appUrl = [NSURL URLWithString:@"https://apps.apple.com/app/6739944920"]; // 替换为你的App Store链接
+    NSURL *appUrl = [NSURL URLWithString:kAppStoreURL];
     
     // 创建分享内容
     NSArray *activityItems = @[];

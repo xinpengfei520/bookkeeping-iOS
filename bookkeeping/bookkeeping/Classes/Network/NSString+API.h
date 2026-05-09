@@ -25,8 +25,6 @@
 #define CategoryListRequest Request(@"/shayu/getCategoryRequest.action")
 // 用户类别列表
 #define CustomerCategoryListRequest Request(@"/shayu/getCustomerCategoryListRequest.action")
-// 添加系统类别
-#define AddSystemCategoryRequest Request(@"/shayu/addSystemCategoryRequest.action")
 // 删除系统类别
 #define RemoveSystemCategoryRequest Request(@"/shayu/removeSystemCategoryRequest.action")
 // 添加用户类别
@@ -37,28 +35,6 @@
 #define CreateCoderequest Request(@"/shayu/createCodeRequest.action")
 // 验证验证码
 #define ValidateCoderequest Request(@"/shayu/validateCodeRequest.action")
-// 忘记密码
-#define ForgetPassRequest Request(@"/shayu/forgetPassRequest.action")
-// 绑定第三方账号
-#define BindThirdRequest Request(@"/shayu/bindThirdRequest.action")
-// 绑定手机号
-#define BindPhoneRequest Request(@"/shayu/bindPhoneRequest.action")
-// 声音
-#define SoundRequest Request(@"/shayu/soundRequest.action")
-// 详情
-#define DetailRequest Request(@"/shayu/detailRequest.action")
-// 定时列表
-#define TimeListRequest Request(@"/shayu/timeListRequest.action")
-// 添加定时
-#define AddTimeRequest Request(@"/shayu/addTimeRequest.action")
-// 删除定时
-#define RemoveTimeRequest Request(@"/shayu/removeTimeRequest.action")
-// 记账
-#define CreateBookRequest Request(@"/shayu/createBookRequest.action")
-// 查账(条)
-#define GetBookListRequest Request(@"/shayu/getBookListRequest.action")
-// 查账(组)
-#define getBookGroupRequest Request(@"/shayu/getBookGroupRequest.action")
 
 // 新增记账
 #define bookDetailSaveRequest Request(@"/book/detail/save")
@@ -92,3 +68,19 @@
 #define ChangePassRequest Request(@"/book/user/password/update")
 // 删除账号
 #define DeleteAccountRequest Request(@"/book/user/delete/account")
+
+
+// =================== Web 页面 / 外链 ===================
+#define KWebHost @"https://book.vance.xin"
+#define WebPage(A) [NSString stringWithFormat:@"%@%@", KWebHost, A]
+
+// 登录页脚链接
+#define kAgreementURL          WebPage(@"/agreement.html")
+#define kPrivacyURL            WebPage(@"/privacy.html")
+// 设置/关于的正式法律页（与登录页脚是不同文档，注意保留）
+#define kTermsOfServiceURL     WebPage(@"/apps/jiya/legal/terms_of_service.html")
+#define kPrivacyPolicyURL      WebPage(@"/apps/jiya/legal/privacy_policy.html")
+// 帮助
+#define kHelpURL               WebPage(@"/help_ios.html")
+// App Store
+#define kAppStoreURL           @"https://apps.apple.com/app/6739944920"

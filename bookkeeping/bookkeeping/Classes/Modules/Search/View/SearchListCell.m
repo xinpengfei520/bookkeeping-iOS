@@ -21,7 +21,6 @@
 
 - (void)initUI {
     [self setBackgroundColor:[UIColor brownColor]];
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self table];
 }
 

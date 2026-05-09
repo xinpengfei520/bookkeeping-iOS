@@ -24,7 +24,6 @@
 }
 
 - (void)setupUI {
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     // 图标
     _icon = [[UIImageView alloc] init];

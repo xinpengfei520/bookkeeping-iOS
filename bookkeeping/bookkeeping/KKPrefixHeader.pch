@@ -18,9 +18,7 @@
 #define kColor_Line_Color          RGBA(245,245,245,1)      // 日间背景色
 #define kColor_Line_Gray           RGBA(225,225,225,1)      // Cell 线条
 
-#define kColor_Night_Back_Small    HexColor(@"#232226")     // 夜间背景色 浅
-#define kColor_Night_Back_Medium   HexColor(@"#232226")     // 夜间背景色 中等
-#define kColor_Night_Back_Big      HexColor(@"#201523")     // 夜间背景色 深
+// TODO: 夜间模式 — 当前未接 trait collection；接入前不要新增占位色，避免"伪完成"。
 
 // 文字颜色
 #define kColor_Text_White          HexColor(@"#FFFFFF")      // 白
@@ -32,12 +30,6 @@
 #define kColor_Chart_Header        RGBA(79, 76, 77, 1)       // 图表头视图底部
 #define kColor_Chart_Text          RGBA(220, 220, 220, 1)    // 图表文字
 
-// Cell高亮
-#define kColor_Cell_High_Light     HexColor(@"D9D9D9")       // Cell点击高亮色
-#define kColor_Cell_High_Night     HexColor(@"1B1B1B")       // Cell点击高亮色
-
-// 线条
-#define kColor_Line_Night          HexColor(@"27262A")       // Cell 线条
 #define kColor_Main_Color          RGBA(30,177,138,1)
 #define kColor_Main_Dark_Color     RGBA(30,200,138,1)
 #define kColor_Red_Color           HexColor(@"FF4500")

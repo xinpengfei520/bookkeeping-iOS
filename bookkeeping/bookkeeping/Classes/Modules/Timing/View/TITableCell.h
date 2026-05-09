@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TITableCell : UITableViewCell
+@interface TITableCell : BaseTableCell
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) NSString *time;

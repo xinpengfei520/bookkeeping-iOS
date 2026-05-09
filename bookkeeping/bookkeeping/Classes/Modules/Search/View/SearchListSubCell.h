@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SearchListSubCell : UITableViewCell
+@interface SearchListSubCell : BaseTableCell
 
 @property (nonatomic, strong) BookDetailModel *model;
 

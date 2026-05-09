@@ -21,7 +21,6 @@
 @implementation SearchListSubCell
 
 - (void)initUI {
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];
     [self.detailLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];

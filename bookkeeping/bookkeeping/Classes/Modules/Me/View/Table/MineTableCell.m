@@ -46,7 +46,6 @@
         self.sw.hidden = NO;
         self.detailLab.hidden = YES;
         self.nextIcn.hidden = YES;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 }
 

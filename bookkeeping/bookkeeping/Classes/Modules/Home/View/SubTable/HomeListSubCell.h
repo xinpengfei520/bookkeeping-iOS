@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeListSubCell : UITableViewCell
+@interface HomeListSubCell : BaseTableCell
 
 @property (nonatomic, strong) BookDetailModel *model;
 

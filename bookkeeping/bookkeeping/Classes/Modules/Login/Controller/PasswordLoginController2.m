@@ -206,14 +206,14 @@
 - (void)agreementViewDidTapUserAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
     vc.title = @"用户协议";
-    [vc setUrl:@"https://book.vance.xin/agreement.html"];
+    [vc setUrl:kAgreementURL];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)agreementViewDidTapPrivacyAgreement {
     WebViewController *vc = [[WebViewController alloc] init];
     vc.title = @"隐私协议";
-    [vc setUrl:@"https://book.vance.xin/privacy.html"];
+    [vc setUrl:kPrivacyURL];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

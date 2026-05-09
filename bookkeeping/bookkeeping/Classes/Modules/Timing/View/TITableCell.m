@@ -27,7 +27,6 @@
 
 - (void)setupUI {
     [self setBackgroundColor:kColor_White];
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Gary];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(12)]];

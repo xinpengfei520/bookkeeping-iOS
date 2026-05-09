@@ -61,9 +61,16 @@
         });
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
-    
+    @weakify(self)
+    [self kk_observeNotification:UIKeyboardWillShowNotification usingBlock:^(NSNotification *note) {
+        @strongify(self)
+        [self showKeyboard:note];
+    }];
+    [self kk_observeNotification:UIKeyboardWillHideNotification usingBlock:^(NSNotification *note) {
+        @strongify(self)
+        [self hideKeyboard:note];
+    }];
+
     [self getBookMarkListRequest];
 }
 
@@ -370,10 +377,5 @@
     }];
 }
 
-
-#pragma mark - 系统
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 @end

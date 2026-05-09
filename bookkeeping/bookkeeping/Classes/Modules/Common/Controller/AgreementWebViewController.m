@@ -36,10 +36,10 @@
     NSString *urlString;
     switch (self.type) {
         case AgreementTypeUserAgreement:
-            urlString = @"https://book.vance.xin/apps/jiya/legal/terms_of_service.html";  // 使用原来的用户协议URL
+            urlString = kTermsOfServiceURL;
             break;
         case AgreementTypePrivacyPolicy:
-            urlString = @"https://book.vance.xin/apps/jiya/legal/privacy_policy.html";    // 使用原来的隐私政策URL
+            urlString = kPrivacyPolicyURL;
             break;
     }
     

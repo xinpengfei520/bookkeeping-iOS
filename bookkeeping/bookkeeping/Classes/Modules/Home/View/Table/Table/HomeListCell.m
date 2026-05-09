@@ -30,7 +30,6 @@
 
 - (void)setupUI {
     [self setBackgroundColor:[UIColor whiteColor]];
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     // 初始化表格
     [self table];

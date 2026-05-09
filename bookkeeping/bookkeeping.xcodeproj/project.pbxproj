@@ -78,8 +78,6 @@
 		32A4C22421CB15B100DF4327 /* JHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C22021CB15B000DF4327 /* JHCollectionViewFlowLayout.m */; };
 		32A5800F21DF08BC008993B2 /* NSObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A5800E21DF08BC008993B2 /* NSObject+NSCoding.m */; };
 		32A5801221DF33C4008993B2 /* ACA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32A5801121DF33C4008993B2 /* ACA.plist */; };
-		32AF269821ED63C1004F46A2 /* NSMutableArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF269721ED63C1004F46A2 /* NSMutableArray+Extension.m */; };
-		32AF269921ED6556004F46A2 /* NSMutableArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF269721ED63C1004F46A2 /* NSMutableArray+Extension.m */; };
 		32AF269E21ED72E6004F46A2 /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF269D21ED72E6004F46A2 /* UITableViewCell+Extension.m */; };
 		32BFA7E821E483F300B926F3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32BFA7E721E483F300B926F3 /* NotificationCenter.framework */; };
 		32BFA7F321E483F400B926F3 /* BookMonth.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32BFA7E621E483F300B926F3 /* BookMonth.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -407,8 +405,6 @@
 		32A5800D21DF08BC008993B2 /* NSObject+NSCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+NSCoding.h"; sourceTree = "<group>"; };
 		32A5800E21DF08BC008993B2 /* NSObject+NSCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NSCoding.m"; sourceTree = "<group>"; };
 		32A5801121DF33C4008993B2 /* ACA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ACA.plist; sourceTree = "<group>"; };
-		32AF269621ED63C1004F46A2 /* NSMutableArray+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extension.h"; sourceTree = "<group>"; };
-		32AF269721ED63C1004F46A2 /* NSMutableArray+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extension.m"; sourceTree = "<group>"; };
 		32AF269C21ED72E6004F46A2 /* UITableViewCell+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Extension.h"; sourceTree = "<group>"; };
 		32AF269D21ED72E6004F46A2 /* UITableViewCell+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Extension.m"; sourceTree = "<group>"; };
 		32BFA7E621E483F300B926F3 /* BookMonth.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BookMonth.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1227,8 +1223,6 @@
 		32AF269521ED63A7004F46A2 /* NSMutableArray */ = {
 			isa = PBXGroup;
 			children = (
-				32AF269621ED63C1004F46A2 /* NSMutableArray+Extension.h */,
-				32AF269721ED63C1004F46A2 /* NSMutableArray+Extension.m */,
 			);
 			path = NSMutableArray;
 			sourceTree = "<group>";
@@ -2486,7 +2480,6 @@
 				4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */,
 				F3AE5FDF2847CDBB00E95086 /* SearchNavigation.m in Sources */,
 				247AB8922D302ECD00B5F323 /* AgreementWebViewController.m in Sources */,
-				32AF269821ED63C1004F46A2 /* NSMutableArray+Extension.m in Sources */,
 				4B132AA221C68B2200D5B489 /* BaseTabBar.m in Sources */,
 				247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */,
 				247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */,
@@ -2602,7 +2595,6 @@
 				4B38C07E21E4E6A800D28B34 /* BaseModel.m in Sources */,
 				4BFD381B21E4D7C000BAB0BB /* NSDate+Extension.m in Sources */,
 				4BFD380D21E4C5D500BAB0BB /* UIFont+Extension.m in Sources */,
-				32AF269921ED6556004F46A2 /* NSMutableArray+Extension.m in Sources */,
 				32BFA80B21E4A0FD00B926F3 /* BaseView.m in Sources */,
 				4BFD381021E4C6C700BAB0BB /* UIColor+HEX.m in Sources */,
 				4B38C08021E4E6F000D28B34 /* BKCIncomeModel.m in Sources */,

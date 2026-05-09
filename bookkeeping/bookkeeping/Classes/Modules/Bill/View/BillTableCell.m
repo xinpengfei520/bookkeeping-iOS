@@ -23,7 +23,6 @@
 
 
 - (void)initUI {
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self.labConstraintL setConstant:countcoordinatesX(20)];
     for (id obj in self.contentView.subviews) {
         if ([obj isKindOfClass:[UILabel class]]) {

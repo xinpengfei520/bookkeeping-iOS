@@ -52,7 +52,6 @@
         self.icon.hidden = YES;
         self.nextConstraintW.constant = 0;
         self.nextConstraintL.constant = 0;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if (status == InfoTableCellStatusNext) {
         self.detailLab.hidden = NO;
         self.nextIcn.hidden = NO;
