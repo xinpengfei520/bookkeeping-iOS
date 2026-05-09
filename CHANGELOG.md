@@ -29,10 +29,21 @@
   - 2 处 `setTitleColor:[UIColor lightGrayColor]` → `secondaryLabelColor`。
   - 保留 3 处 `whiteColor`：WebView 进度条 / 导出按钮文字（绿底白字）/ JGProgressHUD 三方代码。
 
+### 修复
+post-merge 阶段联调发现 + 修复：
+- **Widget 编译失败 `'KKI18n.h' file not found`**：BookMonth target 没有显式 `USER_HEADER_SEARCH_PATHS`，历史靠 Xcode 隐式 header map 凑合，新加的 `.h` 命中率不可靠。给 widget Debug/Release 两套 config 显式列入 `Classes/Utils` / `Categorys/*` / `Base/*` / `Modules/*/Model` 等主 app 目录，从此添加新主 app 头文件 widget 不再炸。顺便兑现了 README backlog 里 "BookMonth widget header path" 历史 TODO。
+- **PCH 编译失败 `Unknown type name 'NS_INLINE'`**：`KKDynamicColor` 内联函数原本放在 `#import "Common.h"` 之前，UIColor / Foundation 类型还没引入。挪到 import 之后，`#define kColor_*` 文本宏保持原位（在使用点延迟展开，顺序无关）。
+- **`MineController` 反馈邮件正文编译失败 `Expected ']'`**：Phase 2C wrap 脚本误把 `[NSString stringWithFormat:@"..." @"App版本：%@\n" @"系统版本：…" ...]` 这种 Objective-C 字面量拼接里的中文段替换成 `KKLocalized(...)` 函数调用，破坏拼接。改为 `NSMutableString.appendFormat` 增量构造（每段独立本地化）。全仓 audit 只有这一处踩雷。
+- **首页顶部布局随语言切换走形**：`@"月": @""` 让 `monthDescLab` intrinsic 尺寸坍缩到 0，XIB 里几个 centerY 锚定它的元素跟着飘。改 `@"月": @"Mo."` 保持视觉宽度，并给 `monthDescLab` 加 widthAnchor / heightAnchor 最小尺寸约束；任何语言下的 header 视觉一致。
+- **首页记账列表分组 header 不跟随深色模式**：`HomeListHeader.xib` 用 `groupTableViewBackgroundColor`（被 Xcode 烘焙成静态 sRGB），`HomeListCell` 表格 / footer 写死 `kColor_White`。改为 `systemGroupedBackgroundColor` / `systemBackgroundColor` 三处。
+- **个人中心新加的语言 / 深色模式行图标颜色不搭**：SF Symbol 用 `kColor_Text_Black` tint，与同栏品牌绿 PNG 资产风格冲突。改 tint 为 `kColor_Main_Color`，symbol 加 22pt SymbolConfiguration，`moon.circle` → `moon.fill`。
+- **XIB 写死的中文字面量 i18n 漏扫**：Phase 2C wrap 脚本只扫 `.m/.h`，XIB 里 `text=` / `placeholder=` / button title / segment title 全漏。本轮在 14 个模块的 `initUI`/`setupUI` 里加 `KKLocalized()` 覆盖（Bill / Book / Category / Chart / Detail / Register / Share / Timing / AddCategory / Home / Info）。剩 6 处无 IBOutlet 的 XIB-only label 留待按需处理。
+
 ### 内部
 - 新增 `Classes/Utils/KKI18n.{h,m}`、`KKTheme.{h,m}`；`Modules/Me/Controller/LanguageSettingsController.{h,m}`、`ThemeSettingsController.{h,m}`。
-- `MineTableView` 接入 SF Symbol 图标（`sf:` 前缀），section 1 增加 "语言" / "深色模式" 两行（`sf:globe` / `sf:moon.circle`）。
+- `MineTableView` 接入 SF Symbol 图标（`sf:` 前缀），section 1 增加 "语言" / "深色模式" 两行（`sf:globe` / `sf:moon.fill`）。
 - pbxproj 文件注册全部通过 `xcodeproj` Ruby gem，避免手工编辑出错。
+- KKEnglishTable 累计 230+ 翻译条目（含本轮 XIB 补量 14 条）。
 
 ---
 
