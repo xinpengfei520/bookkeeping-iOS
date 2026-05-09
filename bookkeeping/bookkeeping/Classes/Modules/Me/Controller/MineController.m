@@ -127,6 +127,11 @@
             ExportController *vc = [[ExportController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
+        // 语言
+        else if (indexPath.row == 4) {
+            LanguageSettingsController *vc = [[LanguageSettingsController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     else if (indexPath.section == 2) {
         // 邀请好友

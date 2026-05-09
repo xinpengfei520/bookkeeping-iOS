@@ -112,6 +112,7 @@
 #import "BookDetailController.h"
 #import "SearchViewController.h"
 #import "PasswordController.h"
+#import "LanguageSettingsController.h"
 
 //================================= Model ===============================//
 #import "MarkModel.h"

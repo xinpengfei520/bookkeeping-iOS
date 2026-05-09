@@ -239,6 +239,7 @@
 		F3CD73EC2889CD46008EBBEE /* MarkCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EA2889CD46008EBBEE /* MarkCollectionViewCell.m */; };
 		F3CD73ED2889CD46008EBBEE /* MarkCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3CD73EB2889CD46008EBBEE /* MarkCollectionViewCell.xib */; };
 		F3CD73F02889D102008EBBEE /* MarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EF2889D102008EBBEE /* MarkModel.m */; };
+		F3FD3CCDE7B970B523F65C1C /* LanguageSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -614,9 +615,11 @@
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
 		AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKLoadMoreFooter.m; sourceTree = "<group>"; };
 		B9EBAD74D344F480E53BD56F /* UIControl+KKBlock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIControl+KKBlock.h"; sourceTree = "<group>"; };
+		BC531A2BF06A2F19B926849F /* LanguageSettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LanguageSettingsController.h; sourceTree = "<group>"; };
 		C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookMonth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2DE293D47C15C852DD6195 /* KKWeakify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKWeakify.h; sourceTree = "<group>"; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
+		EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingsController.m; sourceTree = "<group>"; };
 		F35310822875EF1F00D297A9 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		F35310832875EF1F00D297A9 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		F353108A2875FC6D00D297A9 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -723,6 +726,8 @@
 			children = (
 				247AB8FF2D341E1B00B5F323 /* MineController.h */,
 				247AB9002D341E1B00B5F323 /* MineController.m */,
+				BC531A2BF06A2F19B926849F /* LanguageSettingsController.h */,
+				EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2594,6 +2599,7 @@
 				C17169EEEBD351968561C40B /* KKLoadMoreFooter.m in Sources */,
 				62F2584B5D8D13F8291F76E9 /* KKPullToRefreshHeader.m in Sources */,
 				78CEE456FC70F6392910FE8F /* KKI18n.m in Sources */,
+				F3FD3CCDE7B970B523F65C1C /* LanguageSettingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
