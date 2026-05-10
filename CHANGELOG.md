@@ -14,6 +14,32 @@
 
 ---
 
+## [1.0.8] (build 9) — 2026-05-10
+
+### 重构
+- **底部 tab bar + 设置页拆分**：根从 `BaseNavigationController(HomeController)` 单根改为 `UITabBarController` 双 tab —— 「记账」(home) + 「我的」(me)，tintColor = brand green。Me 页瘦身：原 section 1 的 6 条设置入口（类别 / 定时 / 面容 / 导出 / 语言 / 深色模式）全部抽到独立的 `SettingsController`，Me 页保留单条「设置」入口（`sf:gearshape.fill`）。Home 顶部头像（mineButton）隐藏（me 已是 tab，顶部入口冗余）。`MineController.viewDidLoad` 仅在被 push (`nav.viewControllers.count > 1`) 时才挂手动返回按钮。kbook://month URL handler 重写适配新结构（取最顶层 VC 弹窗，与 root 是 nav 还是 tabbar 解耦）。
+
+### 修复
+- **首页 + 按钮误触「我的」tab**：老 frame `y = height - 120` 落在 TabbarHeight ≈ 83pt 范围内，点下半区被 tab bar 截走。改 `y = height - 200`（离 tab bar top 还有 ~37pt 余量）+ `setEnlargeEdgeWithTop:right:bottom:left:10` 加 10pt 安全 hit-zone。
+- **Me 页头像左边距 64 → 20**：1.0.4 P2 时为避让 MineController 自带的返回按钮把 left offset 挪到 64pt；现在 me 是 tab root 没返回按钮，回归标准 20pt。
+- **Settings 页字体跟项目其它 cell 不一致**：`LanguageSettingsController` / `ThemeSettingsController` / `SettingsController` 的 cell 用默认 system 17pt regular，与 `MineTableCell` 等 `AdjustFont(12) Light + kColor_Text_Black` 视觉割裂。统一字体。
+- **关于页 用户协议 / 隐私政策 没看出可点击**：改 `attributedTitle` 加 `systemBlueColor` + `NSUnderlineStyleSingle`，跨 light / dark 自动适配。
+- **关于页 用户协议 / 隐私政策 英文模式下重叠**：原 `centerX ± 50` 写死 100pt 间距，对中文按钮（~56pt）够用，对英文 "Terms of Service" (~110pt) × "Privacy Policy" (~95pt) 必然重叠。改成中间 1pt 竖线 separator 居中当锚点，两按钮按 intrinsic content size 紧贴 separator ±12pt 自动撑开。
+- **新增记账页顶部「支出 / 收入」tab 英文截断成 [...]**：BKCNavigation 按钮 width 写死 `countcoordinatesX(60)` ≈ 64pt，英文 "Expense" / "Income" 加默认内边距触发 `truncatingTail`。改成按当前语言两 title 的较宽者 + 24pt padding 算 `self.btnWidth` ivar，按钮宽 / centerX / line / `setOffsetX` 滑动刻度全部基于这个 ivar。
+- **面容解锁开关无效（1.0.7 引入的回归）**：重构 SettingsController 时漏了原 Mine 流程的"先 LAContext 验证再持久化" contract（防止设备没生物识别时被误开 face id 锁）。恢复链路：toggle → `callLAContextManagerWithController:` → success 写 `PIN_SETTING_FACE_ID`；failure 撤回 switch + 按 `LAError.code` 给 actionable 提示（NotEnrolled → 引导去 iOS Settings 注册；NotAvailable → 引导到隐私与安全授权；Lockout → 引导用锁屏密码解锁；PasscodeNotSet → 引导先设锁屏密码），不再是模糊的 "unavailable"。
+- **时间选择器「取消 / 确定」不本地化**：`BRPickerView` Pod 自带 zh bundle，不响应 `KKI18n` in-app override。4 个调用点（Home / Bill / Timing / BKCKeyboard）显式设 `pickerStyle.cancelBtnTitle` / `.doneBtnTitle` 走 `KKLocalized`。
+- **深色模式下记账键盘白底白字**：数字键 `setBackgroundImage:kColor_White`（固定白）+ `kColor_Text_Black`（dynamic）→ 深色下白底白字。改 normal `systemBackgroundColor` / highlighted `secondarySystemBackgroundColor`。同时强制 dynamic 覆盖 BKCKeyboard 顶层 view + `textContent` 容器（"备注:" 标签 + markField 输入框 + moneyLab 数字所在的横条）+ `MarkCollectionView`（备注推荐条）的写死白色。
+
+### 内部
+- 新增 `Modules/Settings/Controller/SettingsController.{h,m}`，复用 `MineTableCell` 渲染保持视觉一致；6 条入口排序与原 Mine section 1 一致。
+- `AppDelegate.makeRootController` + `kbook://month` URL handler 重写。
+- KKEnglishTable 扩展 ~6 条 Face ID 诊断 / fallback 翻译。
+
+### 1.0.7 后续小修
+- Widget 字体在固定 widget 画布上加大（big number 28→38、stat label 9→12 等）；Language / Theme settings 页字体对齐项目其它 cell（commit 3915dfc，1.0.7 发版后落到 master 的 incremental，本版本一并打 tag）。
+
+---
+
 ## [1.0.7] (build 8) — 2026-05-09
 
 ### 新增

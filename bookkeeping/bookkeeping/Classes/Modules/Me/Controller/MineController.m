@@ -26,7 +26,11 @@
     self.prefersNavigationBarHidden = YES;
     [self mine];
     [self setupUI];
-    [self setupBackButton];
+    // 作为 tab root 时（nav.viewControllers.count == 1）不显示返回按钮——
+    // 没有上层可返回。仅在被 push 进入时才挂返回入口。
+    if (self.navigationController.viewControllers.count > 1) {
+        [self setupBackButton];
+    }
 }
 
 // 个人中心顶部左上角的返回按钮 —— 隐藏导航条页面里手动提供入口，
@@ -112,29 +116,9 @@
         }
     }
     else if (indexPath.section == 1) {
-        // 类别设置
+        // 设置（统一入口）—— 类别 / 定时 / 面容 / 导出 / 语言 / 深色 全在 SettingsController 里
         if (indexPath.row == 0) {
-            CAController *vc = [[CAController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        // 定时提醒
-        else if (indexPath.row == 1) {
-            TimeRemindController *vc = [[TimeRemindController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        // 导出数据
-        else if (indexPath.row == 3) {
-            ExportController *vc = [[ExportController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        // 语言
-        else if (indexPath.row == 4) {
-            LanguageSettingsController *vc = [[LanguageSettingsController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        // 深色模式
-        else if (indexPath.row == 5) {
-            ThemeSettingsController *vc = [[ThemeSettingsController alloc] init];
+            SettingsController *vc = [[SettingsController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

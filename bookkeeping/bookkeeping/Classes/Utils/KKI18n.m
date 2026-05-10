@@ -91,6 +91,12 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             // ---- Auth / verification / accounts ----
             @"面容 ID 短时间内失败多次，需要验证手机密码": @"Face ID failed too many times — please enter your passcode",
             @"请把你的手指放到Home键上": @"Place your finger on the Home button",
+            @"面容 ID 不可用": @"Face ID unavailable",
+            @"未开启 Face ID 或设备不支持": @"Face ID is not enabled, or this device doesn't support it",
+            @"未注册 Face ID 或 Touch ID。请到 iOS 设置中先注册": @"Face ID / Touch ID is not set up. Please enroll one in iOS Settings first.",
+            @"应用未获得 Face ID 权限。请在 iOS 设置 → 隐私与安全 → Face ID 中允许本应用": @"This app hasn't been granted Face ID access. Allow it in iOS Settings → Privacy & Security → Face ID.",
+            @"Face ID 已锁定。请用锁屏密码解锁后重试": @"Face ID is locked. Unlock the device with your passcode and try again.",
+            @"未设置锁屏密码，无法启用面容解锁": @"A device passcode is required before Face ID can be enabled.",
             @"修改密码": @"Change password",
             @"旧密码": @"Old password",
             @"请输入旧密码": @"Enter old password",

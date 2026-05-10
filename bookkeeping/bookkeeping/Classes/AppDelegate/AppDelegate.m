@@ -46,9 +46,31 @@
     // 应用用户的深色模式偏好（nil = 跟随系统）
     [KKTheme applyToWindow:self.window];
 
-    HomeController *homeController = [[HomeController alloc] init];
-    BaseNavigationController *navigationController = [[BaseNavigationController alloc] initWithRootViewController:homeController];
-    [self.window setRootViewController:navigationController];
+    BOOL isEn = [[KKI18n effectiveLanguageCode] isEqualToString:KKLanguageCodeEnglish];
+
+    // Tab 0 — 记账（首页）
+    HomeController *homeVC = [[HomeController alloc] init];
+    BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVC];
+    homeNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:(isEn ? @"Records" : @"记账")
+                                                       image:[UIImage systemImageNamed:@"house"]
+                                               selectedImage:[UIImage systemImageNamed:@"house.fill"]];
+
+    // Tab 1 — 我的
+    MineController *mineVC = [[MineController alloc] init];
+    BaseNavigationController *mineNav = [[BaseNavigationController alloc] initWithRootViewController:mineVC];
+    mineNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:KKLocalized(@"我的")
+                                                       image:[UIImage systemImageNamed:@"person"]
+                                               selectedImage:[UIImage systemImageNamed:@"person.fill"]];
+
+    UITabBarController *tab = [[UITabBarController alloc] init];
+    tab.viewControllers = @[homeNav, mineNav];
+    // 选中态用品牌绿（kColor_Main_Color）。iOS 26 启用 Liquid Glass 后这里
+    // 会被系统外观自动接管，颜色会保持品牌色但材质变玻璃。如果 Info.plist
+    // UIDesignRequiresCompatibility=YES 还在（当前如此），tab bar 仍然是
+    // iOS 25 风格半透明灰底；要切到 Liquid Glass 把 plist 那个 key 删了即可。
+    tab.tabBar.tintColor = kColor_Main_Color;
+
+    [self.window setRootViewController:tab];
     [self.window makeKeyAndVisible];
 }
 
@@ -94,32 +116,29 @@
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
 
-    // 记一笔
+    // 记一笔（widget 触发）
     if ([url.absoluteString isEqualToString:@"kbook://month"]) {
-        BaseNavigationController *tab = (BaseNavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-        BOOL condition1 = [tab isKindOfClass:[BaseNavigationController class]];
-        BOOL condition2 = ![[UIViewController getCurrentVC] isKindOfClass:[BookController class]];
-        if (condition1 && condition2) {
-            BookController *vc = [[BookController alloc] init];
-            UIViewController *current = [UIViewController getCurrentVC];
-            if (current.presentedViewController) {
-                [current.navigationController pushViewController:vc animated:true];
-            } else {
-                BaseNavigationController *nav = nil;
-                if ([UserInfo isLogin]) {
-                    nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
-                    // Modal Presentation Styles（弹出风格）
-                    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
-                }else{
-                    LoginController *loginController = [[LoginController alloc] init];
-                    nav = [[BaseNavigationController alloc] initWithRootViewController:loginController];
-                }
-                
-                [tab presentViewController:nav animated:true completion:^{
-                    
-                }];
-            }
+        UIViewController *current = [UIViewController getCurrentVC];
+        if ([current isKindOfClass:[BookController class]]) {
+            return YES; // 已经在记账页，不重复弹
         }
+
+        BookController *vc = [[BookController alloc] init];
+        BaseNavigationController *nav = nil;
+        if ([UserInfo isLogin]) {
+            nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+            nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+        } else {
+            LoginController *loginController = [[LoginController alloc] init];
+            nav = [[BaseNavigationController alloc] initWithRootViewController:loginController];
+        }
+
+        // 取最顶层 VC 弹窗呈现 — root 现在是 UITabBarController，
+        // 简单 [root presentViewController:] 不可靠（有 modal 已盖时会出 warning）。
+        UIViewController *top = self.window.rootViewController;
+        while (top.presentedViewController) top = top.presentedViewController;
+        [top presentViewController:nav animated:YES completion:nil];
+
         return YES;
     }
     // 记账完成

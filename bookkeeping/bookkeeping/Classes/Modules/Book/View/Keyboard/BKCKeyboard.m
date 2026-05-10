@@ -47,6 +47,13 @@
 
 - (void)initUI {
     [self borderForColor:kColor_BG borderWidth:1.f borderType:UIBorderSideTypeTop];
+    // XIB 顶层 view backgroundColor 是固定白 —— 深色模式下背景不会翻；强制
+    // 一次 dynamic systemBackgroundColor 覆盖。
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
+    // textContent 容器（备注: + markField 输入框 + moneyLab 数字所在的横条）
+    // 在 XIB 里也是写死白色 → 深色模式下"备注"标签 + textField placeholder
+    // 浮在白底上跟黑色文字反白看不清。强制 dynamic。
+    [self.textContent setBackgroundColor:[UIColor systemBackgroundColor]];
     [self setAnimation:NO];
     [self setIsLess:NO];
     [self setCurrentDate:[NSDate date]];
@@ -94,8 +101,10 @@
                 [btn setBackgroundImage:[UIColor createImageWithColor:kColor_Main_Dark_Color] forState:UIControlStateHighlighted];
             }
             else {
-                [btn setBackgroundImage:[UIColor createImageWithColor:kColor_White] forState:UIControlStateNormal];
-                [btn setBackgroundImage:[UIColor createImageWithColor:kColor_BG] forState:UIControlStateHighlighted];
+                // 数字键背景：原本 kColor_White (固定白) → 深色模式下白底碰白字
+                // (kColor_Text_Black 是 dynamic) 看不清。改 dynamic 色。
+                [btn setBackgroundImage:[UIColor createImageWithColor:[UIColor systemBackgroundColor]] forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIColor createImageWithColor:[UIColor secondarySystemBackgroundColor]] forState:UIControlStateHighlighted];
             }
             
             // 数字
@@ -289,6 +298,10 @@
         // 1.创建日期选择器
         BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
         // 2.设置属性
+        BRPickerStyle *style = [[BRPickerStyle alloc] init];
+        style.cancelBtnTitle = KKLocalized(@"取消");
+        style.doneBtnTitle = KKLocalized(@"确定");
+        datePickerView.pickerStyle = style;
         datePickerView.pickerMode = BRDatePickerModeYMD;
         datePickerView.title = KKLocalized(@"选择日期");
         datePickerView.selectDate = self.currentDate;

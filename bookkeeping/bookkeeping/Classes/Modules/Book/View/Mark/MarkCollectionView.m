@@ -30,7 +30,9 @@
         flow;
     })];
     [collection setShowsHorizontalScrollIndicator:NO];
-    [collection setBackgroundColor:kColor_White];
+    // kColor_White 是固定白（不是 dynamic），深色模式下 Mark 推荐条会保留
+    // 白底跟周围键盘黑底分割开。换 systemBackgroundColor 跟键盘对齐。
+    [collection setBackgroundColor:[UIColor systemBackgroundColor]];
     [collection setDelegate:collection];
     [collection setDataSource:collection];
     [collection registerNib:[UINib nibWithNibName:@"MarkCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"MarkCollectionViewCell"];

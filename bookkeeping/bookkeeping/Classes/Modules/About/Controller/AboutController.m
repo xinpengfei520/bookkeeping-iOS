@@ -57,19 +57,24 @@
     _versionLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_versionLabel];
     
-    // 用户协议按钮
+    // 用户协议 / 隐私政策按钮：用蓝色 + 下划线 attributedTitle 模拟超链接
+    // 视觉，让用户一眼看到"可点击"。systemBlueColor 是 dynamic color，深色
+    // 模式下自动切到夜间蓝（约 RGB 10/132/255），不需要手动 colorScheme 分支。
+    NSDictionary *linkAttrs = @{
+        NSForegroundColorAttributeName: [UIColor systemBlueColor],
+        NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+        NSFontAttributeName: [UIFont systemFontOfSize:AdjustFont(14)],
+    };
+
     _userAgreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_userAgreementBtn setTitle:KKLocalized(@"用户协议") forState:UIControlStateNormal];
-    [_userAgreementBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-    _userAgreementBtn.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
+    [_userAgreementBtn setAttributedTitle:[[NSAttributedString alloc] initWithString:KKLocalized(@"用户协议") attributes:linkAttrs]
+                                 forState:UIControlStateNormal];
     [_userAgreementBtn addTarget:self action:@selector(userAgreementClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_userAgreementBtn];
-    
-    // 隐私政策按钮
+
     _privacyPolicyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_privacyPolicyBtn setTitle:KKLocalized(@"隐私政策") forState:UIControlStateNormal];
-    [_privacyPolicyBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
-    _privacyPolicyBtn.titleLabel.font = [UIFont systemFontOfSize:AdjustFont(14)];
+    [_privacyPolicyBtn setAttributedTitle:[[NSAttributedString alloc] initWithString:KKLocalized(@"隐私政策") attributes:linkAttrs]
+                                 forState:UIControlStateNormal];
     [_privacyPolicyBtn addTarget:self action:@selector(privacyPolicyClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_privacyPolicyBtn];
     
@@ -103,16 +108,29 @@
         make.top.equalTo(_titleLabel.mas_bottom).offset(10);
     }];
     
-    // 用户协议按钮
+    // 中间一个 1pt 竖线 + 居中。两个按钮自动按 intrinsic content width 紧贴
+    // 分隔左右 —— 中英文都不需要写死间距 (中文按钮各 ~56pt，英文 "Terms
+    // of Service" ~110pt × "Privacy Policy" ~95pt，原 ±50pt 间距英文必撞)。
+    UIView *linkSeparator = [[UIView alloc] init];
+    linkSeparator.backgroundColor = [UIColor separatorColor];
+    [self.view addSubview:linkSeparator];
+    [linkSeparator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(_userAgreementBtn);
+        make.width.equalTo(@1);
+        make.height.equalTo(@14);
+    }];
+
+    // 用户协议按钮 —— 紧贴分隔左侧
     [_userAgreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view).offset(-50);
+        make.right.equalTo(linkSeparator.mas_left).offset(-12);
         make.top.equalTo(_versionLabel.mas_bottom).offset(30);
         make.height.equalTo(@44);
     }];
-    
-    // 隐私政策按钮
+
+    // 隐私政策按钮 —— 紧贴分隔右侧
     [_privacyPolicyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view).offset(50);
+        make.left.equalTo(linkSeparator.mas_right).offset(12);
         make.centerY.equalTo(_userAgreementBtn);
         make.height.equalTo(@44);
     }];

@@ -82,14 +82,8 @@
     }
     cell.status = [self.datas[2][indexPath.section][indexPath.row] integerValue];
     cell.detailLab.hidden = indexPath.section != 0;
-
-    // 给区块 1 里面下标为 3 的 Item 开关赋值
-    if (indexPath.section == 1) {
-        if (indexPath.row == 3) {
-            NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
-            [cell.sw setOn:[faceId boolValue]];
-        }
-    }
+    // 「面容解锁 + switch」原本挂在 section 1，已随设置项一并迁出到
+    // SettingsController；这里不再有任何 switch 行。
     return cell;
 }
 
@@ -138,20 +132,22 @@
 }
 
 - (NSArray<NSArray<NSArray *> *> *)datas {
+    // Section 1 的 6 条设置（类别/定时/面容/导出/语言/深色模式）已经搬到独立的
+    // SettingsController；这里 Section 1 只剩单条「设置」入口。
     _datas = @[
         @[
             @[KKLocalized(@"我的账单")],
-            @[KKLocalized(@"类别设置"),KKLocalized(@"定时提醒"),KKLocalized(@"面容解锁"),KKLocalized(@"导出数据"),KKLocalized(@"语言"),KKLocalized(@"深色模式")],
+            @[KKLocalized(@"设置")],
             @[KKLocalized(@"邀请好友"),KKLocalized(@"意见反馈"),KKLocalized(@"帮助"),KKLocalized(@"关于")]
         ],
         @[
             @[@"mine_bill"],
-            @[@"mine_category",@"mine_remind",@"mine_face_id",@"mine_export",@"sf:globe",@"sf:moon.fill"],
+            @[@"sf:gearshape.fill"],
             @[@"mine_invite",@"mine_feedback",@"mine_help",@"mine_about"]
         ],
         @[
             @[@(0)],
-            @[@(0),@(0),@(1),@(0),@(0),@(0)],
+            @[@(0)],
             @[@(0),@(0),@(0),@(0)]
         ]
     ];

@@ -115,6 +115,7 @@
 #import "PasswordController.h"
 #import "LanguageSettingsController.h"
 #import "ThemeSettingsController.h"
+#import "SettingsController.h"
 
 //================================= Model ===============================//
 #import "MarkModel.h"
