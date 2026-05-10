@@ -103,19 +103,34 @@
 }
 
 - (void)faceIDSwitchChanged:(UISwitch *)sw {
-    // 老 Mine 流程的 contract：toggle 后必须先过 LAContext 验证才真正持久化。
-    // 防止设备没有 biometrics 的时候被误开 face id 锁，下次启动陷入死循环。
-    // 这一步在 1.0.7 重构 SettingsController 时漏了，导致用户报告"开关
-    // 打开但是没有起作用" —— 因为没有验证步骤把开关行为闭环。
+    // toggle 后必须先过 LAContext 验证才真正持久化（防止设备没有 biometrics
+    // 时误开 face id 锁，下次启动陷入死循环）。
     BOOL targetValue = sw.on;
     [LAContextManager callLAContextManagerWithController:self success:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [NSUserDefaults setObject:@(targetValue) forKey:PIN_SETTING_FACE_ID];
         });
-    } failure:^(NSError *tyError, LAContextErrorType feedType) {
+    } failure:^(NSError *error, LAContextErrorType feedType) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            // 验证失败 / 用户取消 → 撤回 switch UI
+            // 任何失败 / 取消 → 撤回 switch UI
             [sw setOn:!targetValue animated:YES];
+            // 设备不支持时（模拟器未注册 face id / 真机未启用 face id）给用户
+            // 明确解释 —— 否则用户会以为 switch 是坏的（实际触发了，但 LAContext
+            // canEvaluatePolicy 立即 fail，setOn 把视觉撤回）。用户主动取消
+            // (LAContextErrorAuthorFailure) 不弹窗，静默撤回即可。
+            if (feedType == LAContextErrorAuthorNotAccess) {
+                NSString *msg = error.localizedDescription.length > 0
+                    ? error.localizedDescription
+                    : KKLocalized(@"未开启 Face ID 或设备不支持");
+                UIAlertController *alert = [UIAlertController
+                    alertControllerWithTitle:KKLocalized(@"面容 ID 不可用")
+                                     message:msg
+                              preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定")
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
         });
     }];
 }

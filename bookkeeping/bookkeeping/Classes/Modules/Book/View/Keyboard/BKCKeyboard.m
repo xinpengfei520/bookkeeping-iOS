@@ -50,6 +50,10 @@
     // XIB 顶层 view backgroundColor 是固定白 —— 深色模式下背景不会翻；强制
     // 一次 dynamic systemBackgroundColor 覆盖。
     [self setBackgroundColor:[UIColor systemBackgroundColor]];
+    // textContent 容器（备注: + markField 输入框 + moneyLab 数字所在的横条）
+    // 在 XIB 里也是写死白色 → 深色模式下"备注"标签 + textField placeholder
+    // 浮在白底上跟黑色文字反白看不清。强制 dynamic。
+    [self.textContent setBackgroundColor:[UIColor systemBackgroundColor]];
     [self setAnimation:NO];
     [self setIsLess:NO];
     [self setCurrentDate:[NSDate date]];
