@@ -56,9 +56,9 @@ struct BookMonthEntryView: View {
 
     // 158x158 — 月份 + 收支结余三行 + 记一笔按钮
     private var small: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             monthHeader
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 statRow(KKI18n.string(forKey: "收入"), value: entry.income)
                 statRow(KKI18n.string(forKey: "支出"), value: entry.pay)
                 statRow(KKI18n.string(forKey: "结余"), value: entry.balance)
@@ -78,7 +78,7 @@ struct BookMonthEntryView: View {
                 bookButton
             }
             Divider()
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 10) {
                 statRow(KKI18n.string(forKey: "收入"), value: entry.income)
                 statRow(KKI18n.string(forKey: "支出"), value: entry.pay)
                 statRow(KKI18n.string(forKey: "结余"), value: entry.balance)
@@ -91,12 +91,12 @@ struct BookMonthEntryView: View {
     // 月份 + 后缀（"月" / "Mo."）。点 monthHeader 整块也跳记账页。
     private var monthHeader: some View {
         Link(destination: URL(string: "kbook://month")!) {
-            HStack(alignment: .firstTextBaseline, spacing: 2) {
+            HStack(alignment: .firstTextBaseline, spacing: 3) {
                 Text("\(entry.month)")
-                    .font(.system(size: 28, weight: .light))
+                    .font(.system(size: 38, weight: .light))
                     .foregroundColor(.primary)
                 Text(KKI18n.string(forKey: "月"))
-                    .font(.system(size: 12, weight: .light))
+                    .font(.system(size: 16, weight: .light))
                     .foregroundColor(.primary)
             }
         }
@@ -105,11 +105,11 @@ struct BookMonthEntryView: View {
     private func statRow(_ label: String, value: CGFloat) -> some View {
         HStack(spacing: 6) {
             Text(label)
-                .font(.system(size: 9, weight: .light))
+                .font(.system(size: 12, weight: .light))
                 .foregroundColor(.secondary)
             Spacer()
             Text(formatPrice(value))
-                .font(.system(size: 13, weight: .light))
+                .font(.system(size: 16, weight: .light))
                 .foregroundColor(.primary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
@@ -131,11 +131,11 @@ struct BookMonthEntryView: View {
     private var bookButton: some View {
         Link(destination: URL(string: "kbook://month")!) {
             Text(KKI18n.string(forKey: "记一笔"))
-                .font(.system(size: 12, weight: .light))
+                .font(.system(size: 14, weight: .light))
                 .foregroundColor(.white)
-                .frame(maxWidth: .infinity, minHeight: 28)
+                .frame(maxWidth: .infinity, minHeight: 32)
                 .background(BookMonthTheme.brandGreen)
-                .cornerRadius(3)
+                .cornerRadius(4)
         }
     }
 }

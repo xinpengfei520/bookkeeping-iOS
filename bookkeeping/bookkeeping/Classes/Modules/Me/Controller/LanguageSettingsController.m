@@ -62,6 +62,9 @@
     }
     NSDictionary *opt = self.options[indexPath.row];
     cell.textLabel.text = opt[@"title"];
+    // 跟项目其它 cell 字体保持一致（MineTableCell / TimeRemindCell 等都用这套）
+    cell.textLabel.font = [UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight];
+    cell.textLabel.textColor = kColor_Text_Black;
     cell.accessoryType = [self isOptionCurrent:opt]
         ? UITableViewCellAccessoryCheckmark
         : UITableViewCellAccessoryNone;
