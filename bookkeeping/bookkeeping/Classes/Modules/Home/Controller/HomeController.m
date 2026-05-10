@@ -369,10 +369,10 @@
     if (!_navigation) {
         _navigation = [HomeNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         
-        // 切到「我的」tab —— Me 已经是 tab root 之一，不再 push
-        [_navigation.mineButton kk_addEventHandler:^(UIControl *button) {
-            self.tabBarController.selectedIndex = 1;
-        } forControlEvents:UIControlEventTouchUpInside];
+        // 头像/菜单按钮先隐藏 —— me 已是独立 tab，顶部入口冗余。如果将来想留个
+        // 直达 tab 的快捷点，把 hidden = NO 取消即可，tap 行为已挪到下面那个
+        // closure；但目前用户希望整体藏起来。
+        _navigation.mineButton.hidden = YES;
         [self.view addSubview:_navigation];
         
         // 增大可点击区域，上下左右各 10
@@ -410,9 +410,14 @@
 
 - (void)addButton {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height-120, 80, 80);
+    // 老布局 y = height-120 时，按钮 frame 底边 = height-40，落在 tab bar
+    // 范围内（TabbarHeight≈83pt），点击下半区会被 tab bar 截走，把人带到
+    // "我的" tab。改为 height-200 让按钮整体挂在 tab bar 上方，并用
+    // setEnlargeEdgeWithTop:... 在视觉 80×80 之外再加 10pt 安全 hit-zone。
+    button.frame = CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height-200, 80, 80);
     [button setImage:[UIImage imageNamed:@"tabbar_add_n.png"] forState:0];
     [button setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    [button setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     
     // 设置阴影
     button.layer.shadowColor = [UIColor grayColor].CGColor;

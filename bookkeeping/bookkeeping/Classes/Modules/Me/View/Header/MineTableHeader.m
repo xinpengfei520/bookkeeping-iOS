@@ -118,9 +118,10 @@
 }
 
 - (void)setupConstraints {
-    // 头像约束 —— 左边距向右挪开，给左上角返回按钮（44x44 + 8pt 偏移）让位
+    // 头像约束 —— Me 现在是 tab root 没有左上角返回按钮，左边距回归 20pt 标准。
+    // 之前 (1.0.4 P2) 因为返回按钮占位才挪到 64pt。
     [_icon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(countcoordinatesX(64));
+        make.left.equalTo(self).offset(countcoordinatesX(20));
         make.top.equalTo(self).offset(StatusBarHeight + countcoordinatesX(60));
         make.size.mas_equalTo(CGSizeMake(countcoordinatesX(60), countcoordinatesX(60)));
     }];
