@@ -369,10 +369,9 @@
     if (!_navigation) {
         _navigation = [HomeNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         
-        // push 到 MineController
+        // 切到「我的」tab —— Me 已经是 tab root 之一，不再 push
         [_navigation.mineButton kk_addEventHandler:^(UIControl *button) {
-            MineController *vc = [[MineController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            self.tabBarController.selectedIndex = 1;
         } forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_navigation];
         
