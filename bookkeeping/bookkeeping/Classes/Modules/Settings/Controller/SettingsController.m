@@ -6,6 +6,7 @@
 #import "SettingsController.h"
 #import "MineTableCell.h"
 #import "LAContextManager.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 #import <Masonry/Masonry.h>
 
 #pragma mark - 声明
@@ -114,25 +115,41 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             // 任何失败 / 取消 → 撤回 switch UI
             [sw setOn:!targetValue animated:YES];
-            // 设备不支持时（模拟器未注册 face id / 真机未启用 face id）给用户
-            // 明确解释 —— 否则用户会以为 switch 是坏的（实际触发了，但 LAContext
-            // canEvaluatePolicy 立即 fail，setOn 把视觉撤回）。用户主动取消
-            // (LAContextErrorAuthorFailure) 不弹窗，静默撤回即可。
-            if (feedType == LAContextErrorAuthorNotAccess) {
-                NSString *msg = error.localizedDescription.length > 0
-                    ? error.localizedDescription
-                    : KKLocalized(@"未开启 Face ID 或设备不支持");
-                UIAlertController *alert = [UIAlertController
-                    alertControllerWithTitle:KKLocalized(@"面容 ID 不可用")
-                                     message:msg
-                              preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定")
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:nil]];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
+            // 用户主动取消 (LAContextErrorAuthorFailure) 静默撤回即可，不打扰；
+            // 设备 / 权限层面的拒绝 (LAContextErrorAuthorNotAccess) 给详细诊断。
+            if (feedType != LAContextErrorAuthorNotAccess) return;
+
+            NSString *msg = [self faceIDDiagnosticMessageForError:error];
+            UIAlertController *alert = [UIAlertController
+                alertControllerWithTitle:KKLocalized(@"面容 ID 不可用")
+                                 message:msg
+                          preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定")
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
         });
     }];
+}
+
+/// 把 LAError code 翻译成用户能 act-on 的中文 / 英文提示。比 system 提供
+/// 的 localizedDescription 更直接告诉用户该去哪里改。
+- (NSString *)faceIDDiagnosticMessageForError:(NSError *)error {
+    switch (error.code) {
+        case LAErrorBiometryNotEnrolled:
+            return KKLocalized(@"未注册 Face ID 或 Touch ID。请到 iOS 设置中先注册");
+        case LAErrorBiometryNotAvailable:
+            // 设备硬件支持但应用没获得权限（设置里被关了），或硬件根本不支持
+            return KKLocalized(@"应用未获得 Face ID 权限。请在 iOS 设置 → 隐私与安全 → Face ID 中允许本应用");
+        case LAErrorBiometryLockout:
+            return KKLocalized(@"Face ID 已锁定。请用锁屏密码解锁后重试");
+        case LAErrorPasscodeNotSet:
+            return KKLocalized(@"未设置锁屏密码，无法启用面容解锁");
+        default:
+            return error.localizedDescription.length > 0
+                ? error.localizedDescription
+                : KKLocalized(@"未开启 Face ID 或设备不支持");
+    }
 }
 
 
