@@ -15,6 +15,9 @@
 @property (nonatomic, strong) UIButton *btn2;
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UIButton *cancleBtn;
+/// 按钮 + 下划线的实际宽度（按当前语言下"支出"/"收入"两个 title 的较宽
+/// 者 + 24pt padding 算）。setOffsetX: 滑动 line 时也用它做基础刻度。
+@property (nonatomic, assign) CGFloat btnWidth;
 
 @end
 
@@ -57,20 +60,27 @@
     bottomLine.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
     [self addSubview:bottomLine];
     
-    // 下划线
-    CGFloat width = [KKLocalized(@"收入") sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
+    // 按钮宽度按当前语言下两个 title 的较宽者 + padding 算 —— 之前固定
+    // countcoordinatesX(60) ≈ 64pt 对中文"支出/收入"够用，但英文 "Expense"
+    // (~52pt) / "Income" (~44pt) 加按钮内边距就触发 truncate 出 `[...]`.
+    CGFloat title1Width = [KKLocalized(@"支出") sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
+    CGFloat title2Width = [KKLocalized(@"收入") sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width;
+    self.btnWidth = MAX(title1Width, title2Width) + 24; // 两侧各 12pt padding
+
+    // 下划线宽度 = 按钮容器宽（线条比较显眼，跟容器同宽视觉舒服）
     _line = [[UIView alloc] init];
     _line.backgroundColor = kColor_Text_White;
     [self addSubview:_line];
-    
-    // 设置约束
+
+    // 设置约束 —— 两按钮宽都用 self.btnWidth；centerX 偏移也按 btnWidth 的
+    // 一半，让两按钮紧贴居中且整体不重叠。
     [_btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(StatusBarHeight + countcoordinatesX(20));
-        make.centerX.equalTo(self).offset(-countcoordinatesX(30));
-        make.width.equalTo(@(countcoordinatesX(60)));
+        make.centerX.equalTo(self).offset(-self.btnWidth / 2);
+        make.width.equalTo(@(self.btnWidth));
         make.bottom.equalTo(self);
     }];
-    
+
     [_btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.width.bottom.equalTo(_btn1);
         make.left.equalTo(_btn1.mas_right);
@@ -90,7 +100,7 @@
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(-2);
-        make.width.equalTo(@(width));
+        make.width.equalTo(@(self.btnWidth));
         make.height.equalTo(@2);
         make.centerX.equalTo(_btn1);
     }];
@@ -125,7 +135,7 @@
     [UIView animateWithDuration:time animations:^{
         [self.line mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self).offset(-2);
-            make.width.equalTo(@([KKLocalized(@"收入") sizeWithMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT) font:BTN_FONT].width));
+            make.width.equalTo(@(self.btnWidth));
             make.height.equalTo(@2);
             make.centerX.equalTo(targetBtn);
         }];
@@ -135,8 +145,10 @@
 
 - (void)setOffsetX:(CGFloat)offsetX {
     _offsetX = offsetX;
-    CGFloat moveOffset = offsetX / SCREEN_WIDTH * countcoordinatesX(60);
-    
+    // 滑动 line 的距离 = 容器滑动比例 × 单按钮宽。固定 60 → 用 self.btnWidth
+    // 后能随语言自适应（"Expense" 比 "支出" 宽，line 跟着拉伸）。
+    CGFloat moveOffset = offsetX / SCREEN_WIDTH * self.btnWidth;
+
     [_line mas_updateConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_btn1).offset(moveOffset);
     }];

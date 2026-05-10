@@ -108,16 +108,29 @@
         make.top.equalTo(_titleLabel.mas_bottom).offset(10);
     }];
     
-    // 用户协议按钮
+    // 中间一个 1pt 竖线 + 居中。两个按钮自动按 intrinsic content width 紧贴
+    // 分隔左右 —— 中英文都不需要写死间距 (中文按钮各 ~56pt，英文 "Terms
+    // of Service" ~110pt × "Privacy Policy" ~95pt，原 ±50pt 间距英文必撞)。
+    UIView *linkSeparator = [[UIView alloc] init];
+    linkSeparator.backgroundColor = [UIColor separatorColor];
+    [self.view addSubview:linkSeparator];
+    [linkSeparator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(_userAgreementBtn);
+        make.width.equalTo(@1);
+        make.height.equalTo(@14);
+    }];
+
+    // 用户协议按钮 —— 紧贴分隔左侧
     [_userAgreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view).offset(-50);
+        make.right.equalTo(linkSeparator.mas_left).offset(-12);
         make.top.equalTo(_versionLabel.mas_bottom).offset(30);
         make.height.equalTo(@44);
     }];
-    
-    // 隐私政策按钮
+
+    // 隐私政策按钮 —— 紧贴分隔右侧
     [_privacyPolicyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view).offset(50);
+        make.left.equalTo(linkSeparator.mas_right).offset(12);
         make.centerY.equalTo(_userAgreementBtn);
         make.height.equalTo(@44);
     }];
