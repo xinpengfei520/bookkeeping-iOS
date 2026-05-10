@@ -281,6 +281,10 @@
     // 1.创建日期选择器
     BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
     // 2.设置属性
+    BRPickerStyle *style = [[BRPickerStyle alloc] init];
+    style.cancelBtnTitle = KKLocalized(@"取消");
+    style.doneBtnTitle = KKLocalized(@"确定");
+    datePickerView.pickerStyle = style;
     datePickerView.pickerMode = BRDatePickerModeHM;
     datePickerView.title = KKLocalized(@"每天");
     datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {

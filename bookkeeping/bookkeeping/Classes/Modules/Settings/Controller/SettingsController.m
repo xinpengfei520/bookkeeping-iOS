@@ -5,6 +5,7 @@
 
 #import "SettingsController.h"
 #import "MineTableCell.h"
+#import "LAContextManager.h"
 #import <Masonry/Masonry.h>
 
 #pragma mark - 声明
@@ -102,7 +103,21 @@
 }
 
 - (void)faceIDSwitchChanged:(UISwitch *)sw {
-    [NSUserDefaults setObject:@(sw.on) forKey:PIN_SETTING_FACE_ID];
+    // 老 Mine 流程的 contract：toggle 后必须先过 LAContext 验证才真正持久化。
+    // 防止设备没有 biometrics 的时候被误开 face id 锁，下次启动陷入死循环。
+    // 这一步在 1.0.7 重构 SettingsController 时漏了，导致用户报告"开关
+    // 打开但是没有起作用" —— 因为没有验证步骤把开关行为闭环。
+    BOOL targetValue = sw.on;
+    [LAContextManager callLAContextManagerWithController:self success:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [NSUserDefaults setObject:@(targetValue) forKey:PIN_SETTING_FACE_ID];
+        });
+    } failure:^(NSError *tyError, LAContextErrorType feedType) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 验证失败 / 用户取消 → 撤回 switch UI
+            [sw setOn:!targetValue animated:YES];
+        });
+    }];
 }
 
 

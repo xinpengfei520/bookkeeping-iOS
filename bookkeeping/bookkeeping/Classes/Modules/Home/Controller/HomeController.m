@@ -313,6 +313,7 @@
     // 1.创建日期选择器
     BRDatePickerView *datePickerView = [[BRDatePickerView alloc]init];
     // 2.设置属性
+    datePickerView.pickerStyle = [self kk_localizedPickerStyle];
     datePickerView.pickerMode = BRDatePickerModeYM;
     datePickerView.title = KKLocalized(@"选择日期");
     datePickerView.selectDate = date;
@@ -406,6 +407,17 @@
         [self.view addSubview:_list];
     }
     return _list;
+}
+
+// BRPickerView 自带 bundle 的"取消/确定"按钮文案不响应 KKI18n 偏好（用 in-app
+// override 而非 AppleLanguages，BRPickerView 看不到我们的语言）。每个调用点
+// 显式覆盖 cancel/done btn title。这个 helper 给本文件 4-5 个 picker 调用点
+// 共用。Bill / Timing / BKCKeyboard 那 3 处也各自 inline 同样的 style 设置。
+- (BRPickerStyle *)kk_localizedPickerStyle {
+    BRPickerStyle *style = [[BRPickerStyle alloc] init];
+    style.cancelBtnTitle = KKLocalized(@"取消");
+    style.doneBtnTitle = KKLocalized(@"确定");
+    return style;
 }
 
 - (void)addButton {
