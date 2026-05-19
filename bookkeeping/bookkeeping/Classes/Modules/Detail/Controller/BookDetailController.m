@@ -114,7 +114,7 @@
 
 - (BDBottom *)bottom {
     if (!_bottom) {
-        _bottom = [BDBottom loadFirstNib:({
+        _bottom = [[BDBottom alloc] initWithFrame:({
             CGFloat height = countcoordinatesX(50) + SafeAreaBottomHeight;
             CGRectMake(0, SCREEN_HEIGHT - height, SCREEN_WIDTH, height);
         })];

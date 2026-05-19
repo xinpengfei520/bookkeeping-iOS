@@ -55,7 +55,7 @@
 
 #pragma mark - UITableViewDelegate
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    SearchListHeader *header = [SearchListHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(30))];
+    SearchListHeader *header = [[SearchListHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(30))];
     header.model = self.models[section];
     return header;
 }

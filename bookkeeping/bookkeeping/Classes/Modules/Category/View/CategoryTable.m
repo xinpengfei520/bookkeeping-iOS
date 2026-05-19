@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, LYFTableViewType) {
     if (section == 0) {
         return [UIView new];
     }
-    CategorySectionHeader *header = [CategorySectionHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(40))];
+    CategorySectionHeader *header = [[CategorySectionHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(40))];
     return header;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

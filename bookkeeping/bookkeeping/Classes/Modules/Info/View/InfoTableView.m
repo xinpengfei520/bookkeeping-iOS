@@ -118,7 +118,7 @@
 
 - (InfoFooter *)footer {
     if (!_footer) {
-        _footer = [InfoFooter loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(60))];
+        _footer = [[InfoFooter alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(60))];
     }
     return _footer;
 }
