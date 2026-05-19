@@ -361,10 +361,11 @@
         [_table setShowsHorizontalScrollIndicator:NO];
         [_table setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
-        // 设置表格内容偏移以匹配导航栏
-        UIEdgeInsets insets = UIEdgeInsetsMake(NavigationBarHeight, 0, 0, 0);
+        // 系统 UINavigationController 已经把 self.view 摆在 nav bar 下面，
+        // 这里再加 NavigationBarHeight 的 top inset 等于双重 padding（~88pt 空白）。
+        // 只需要给 bottom 留出"添加提醒"按钮高度，避免最后一个 item 被按钮挡住。
+        UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, self.bottom.height, 0);
         [_table setContentInset:insets];
-        // 设置滚动指示器的偏移
         [_table setScrollIndicatorInsets:insets];
         
         // 禁用自动调整内容边距

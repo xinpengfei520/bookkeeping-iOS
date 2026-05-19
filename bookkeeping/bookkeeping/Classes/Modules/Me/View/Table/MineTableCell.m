@@ -24,6 +24,13 @@
 }
 
 - (void)buildSubviews {
+    // cell 默认 systemBackgroundColor 在 dark 模式 = #000，与 table 的 kColor_BG / section
+    // header 的 kColor_BG（#1C1C1E）之间形成 #000↔#1C1C1E 的色断层。
+    // 设置行单独占一个 section 时这道断层尤其刺眼。统一走 secondarySystemGroupedBackgroundColor
+    // —— iOS 标准 Grouped 表卡片色，dark 模式恰是 #1C1C1E，与 section header 完全衔接。
+    self.backgroundColor = [UIColor secondarySystemGroupedBackgroundColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
+
     _icon = [[UIImageView alloc] init];
     _icon.contentMode = UIViewContentModeScaleAspectFit;
     [self.contentView addSubview:_icon];
