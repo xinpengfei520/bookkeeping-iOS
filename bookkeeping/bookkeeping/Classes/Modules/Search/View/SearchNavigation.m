@@ -20,10 +20,15 @@
 	self.searchTextField.placeholder = KKLocalized(@"类别/备注/金额");
 
     // 圆角胶囊（Spotlight 风格）：XIB 的 borderStyle=roundedRect 系统边框在 iOS 16+
-    // 渲染极弱、视觉上几乎看不出圆角。关掉系统 border 自画 cornerRadius + 半透明白底。
+    // 渲染极弱、视觉上几乎看不出圆角。关掉系统 border 自画 cornerRadius + 动态色背景。
     // 去掉 border 后 textfield 的 intrinsic 高度会塌缩，显式补一个 height 约束。
     self.searchTextField.borderStyle = UITextBorderStyleNone;
-    self.searchTextField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.95];
+    // background 必须随 trait 翻转：textColor 用动态 kColor_Text_Black（dark 模式翻浅灰），
+    // 如果 bg 锁死成白色，dark 模式就是浅灰文字叠白底——什么都看不见。
+    self.searchTextField.backgroundColor = KKDynamicColor(
+        [UIColor colorWithWhite:1.0 alpha:0.95],
+        [UIColor colorWithWhite:0.18 alpha:0.85]
+    );
     self.searchTextField.textColor = kColor_Text_Black;
     self.searchTextField.font = [UIFont systemFontOfSize:AdjustFont(14)];
     self.searchTextField.layer.cornerRadius = 17;
