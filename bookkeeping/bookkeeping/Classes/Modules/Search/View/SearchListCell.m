@@ -47,7 +47,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SearchListSubCell *cell = [SearchListSubCell loadFirstNib:tableView];
+    SearchListSubCell *cell = [SearchListSubCell loadCode:tableView];
     cell.model = self.models[indexPath.section].array[indexPath.row];
     return cell;
 }

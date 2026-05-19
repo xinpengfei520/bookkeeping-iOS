@@ -33,7 +33,7 @@
 #pragma mark - get
 - (SearchNavigation *)navigation {
     if (!_navigation) {
-        _navigation = [SearchNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+        _navigation = [[SearchNavigation alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
         [self.view addSubview:_navigation];
     }
     return _navigation;

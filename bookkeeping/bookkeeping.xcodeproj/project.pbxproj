@@ -221,15 +221,12 @@
 		F3570A1A2886995600B10976 /* UITableViewHeaderFooterView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */; };
 		F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3581D9E287ADD2C007B17CD /* VerifyController.m */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
-		F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0524E285510E700DB2E99 /* SearchListCell.xib */; };
 		F3A052522855116F00DB2E99 /* SearchListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A052512855116F00DB2E99 /* SearchListCell.m */; };
 		F3A0525528560FFB00DB2E99 /* SearchListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0525428560FFB00DB2E99 /* SearchListHeader.m */; };
 		F3A0525A2856125B00DB2E99 /* SearchListSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A052592856125B00DB2E99 /* SearchListSubCell.m */; };
-		F3A0525C2856127700DB2E99 /* SearchListSubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A0525B2856127700DB2E99 /* SearchListSubCell.xib */; };
 		F3A052642858FDED00DB2E99 /* AlertViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A052632858FDED00DB2E99 /* AlertViewManager.m */; };
 		F3AE5FCB28466EAD00E95086 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FCA28466EAD00E95086 /* UIButton+EnlargeTouchArea.m */; };
 		F3AE5FD82847C9D100E95086 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FD72847C9D100E95086 /* SearchViewController.m */; };
-		F3AE5FDC2847CCFF00E95086 /* SearchNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3AE5FDB2847CCFF00E95086 /* SearchNavigation.xib */; };
 		F3AE5FDF2847CDBB00E95086 /* SearchNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FDE2847CDBB00E95086 /* SearchNavigation.m */; };
 		F3AE5FE2284A28C800E95086 /* BookMonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE1284A28C700E95086 /* BookMonthModel.m */; };
 		F3AE5FE5284A299F00E95086 /* BookChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3AE5FE4284A299F00E95086 /* BookChartModel.m */; };
@@ -652,21 +649,18 @@
 		F375540E27D3CB8B00C22EB3 /* BookMonthRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookMonthRelease.entitlements; sourceTree = "<group>"; };
 		F3A0524B28550BBD00DB2E99 /* SearchList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchList.h; sourceTree = "<group>"; };
 		F3A0524C28550BBD00DB2E99 /* SearchList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchList.m; sourceTree = "<group>"; };
-		F3A0524E285510E700DB2E99 /* SearchListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchListCell.xib; sourceTree = "<group>"; };
 		F3A052502855116F00DB2E99 /* SearchListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchListCell.h; sourceTree = "<group>"; };
 		F3A052512855116F00DB2E99 /* SearchListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchListCell.m; sourceTree = "<group>"; };
 		F3A0525328560FFB00DB2E99 /* SearchListHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchListHeader.h; sourceTree = "<group>"; };
 		F3A0525428560FFB00DB2E99 /* SearchListHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchListHeader.m; sourceTree = "<group>"; };
 		F3A052582856125B00DB2E99 /* SearchListSubCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchListSubCell.h; sourceTree = "<group>"; };
 		F3A052592856125B00DB2E99 /* SearchListSubCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchListSubCell.m; sourceTree = "<group>"; };
-		F3A0525B2856127700DB2E99 /* SearchListSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchListSubCell.xib; sourceTree = "<group>"; };
 		F3A052622858FDED00DB2E99 /* AlertViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertViewManager.h; sourceTree = "<group>"; };
 		F3A052632858FDED00DB2E99 /* AlertViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertViewManager.m; sourceTree = "<group>"; };
 		F3AE5FC928466E0D00E95086 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		F3AE5FCA28466EAD00E95086 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		F3AE5FD62847C9D100E95086 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		F3AE5FD72847C9D100E95086 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		F3AE5FDB2847CCFF00E95086 /* SearchNavigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchNavigation.xib; sourceTree = "<group>"; };
 		F3AE5FDD2847CDBB00E95086 /* SearchNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchNavigation.h; sourceTree = "<group>"; };
 		F3AE5FDE2847CDBB00E95086 /* SearchNavigation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchNavigation.m; sourceTree = "<group>"; };
 		F3AE5FE0284A28C700E95086 /* BookMonthModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookMonthModel.h; sourceTree = "<group>"; };
@@ -2177,17 +2171,14 @@
 		F3AE5FD52847C9AE00E95086 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F3AE5FDB2847CCFF00E95086 /* SearchNavigation.xib */,
 				F3AE5FDD2847CDBB00E95086 /* SearchNavigation.h */,
 				F3AE5FDE2847CDBB00E95086 /* SearchNavigation.m */,
 				F3A0524B28550BBD00DB2E99 /* SearchList.h */,
 				F3A0524C28550BBD00DB2E99 /* SearchList.m */,
-				F3A0524E285510E700DB2E99 /* SearchListCell.xib */,
 				F3A052502855116F00DB2E99 /* SearchListCell.h */,
 				F3A052512855116F00DB2E99 /* SearchListCell.m */,
 				F3A0525328560FFB00DB2E99 /* SearchListHeader.h */,
 				F3A0525428560FFB00DB2E99 /* SearchListHeader.m */,
-				F3A0525B2856127700DB2E99 /* SearchListSubCell.xib */,
 				F3A052582856125B00DB2E99 /* SearchListSubCell.h */,
 				F3A052592856125B00DB2E99 /* SearchListSubCell.m */,
 			);
@@ -2333,8 +2324,6 @@
 				4B229A7621E622E900152030 /* BillTableCell.xib in Resources */,
 				4BF0649821E10FE4005F1665 /* HomeNavigation.xib in Resources */,
 				32A04B2921DE04D8002B0766 /* SC.plist in Resources */,
-				F3AE5FDC2847CCFF00E95086 /* SearchNavigation.xib in Resources */,
-				F3A0525C2856127700DB2E99 /* SearchListSubCell.xib in Resources */,
 				4B8D636B21D8D507002AEB4A /* BCHUDContentCell.xib in Resources */,
 				327CEC2E21C89201001D0086 /* ChartSectionHeader.xib in Resources */,
 				4B1893C621D67081005002E2 /* ChartHUDCell.xib in Resources */,
@@ -2359,7 +2348,6 @@
 				4BA68B0121C7F66A0063A5C2 /* ACATextField.xib in Resources */,
 				4BA68AF021C7EEAA0063A5C2 /* CategoryCell.xib in Resources */,
 				3219837C21C642BB00311885 /* Main.storyboard in Resources */,
-				F3A0524F285510E700DB2E99 /* SearchListCell.xib in Resources */,
 				32D0B2CC21C782270030F5B2 /* ChartDateCell.xib in Resources */,
 				3257AEDD21C877E500787A34 /* TITableCell.xib in Resources */,
 				F35310B82876D82400D297A9 /* ShareOrder.xib in Resources */,

@@ -1,5 +1,5 @@
 //
-//  SearchListSubCell.m
+//  SearchListSubCell.m (code-only — converted from SearchListSubCell.xib)
 //  bookkeeping
 //
 //  Created by PengfeiXin on 2022/6/12.
@@ -7,33 +7,57 @@
 //
 
 #import "SearchListSubCell.h"
+#import <Masonry/Masonry.h>
 
 @interface SearchListSubCell()
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
-@property (weak, nonatomic) IBOutlet UILabel *detailLab;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconConstraintL;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailConstraintR;
+@property (nonatomic, strong) UIImageView *icon;
+@property (nonatomic, strong) UILabel *nameLab;
+@property (nonatomic, strong) UILabel *detailLab;
 
 @end
 
 @implementation SearchListSubCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self buildSubviews];
+    }
+    return self;
+}
+
+- (void)buildSubviews {
+    _icon = [[UIImageView alloc] init];
+    _icon.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:_icon];
+
+    _nameLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_nameLab];
+
+    _detailLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_detailLab];
+
+    [_icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(countcoordinatesX(15));
+        make.top.bottom.equalTo(self.contentView);
+        make.width.equalTo(@25);
+    }];
+    [_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_icon.mas_right).offset(10);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView).offset(-countcoordinatesX(15));
+        make.top.bottom.equalTo(self.contentView);
+    }];
+}
 
 - (void)initUI {
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Black];
     [self.detailLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.detailLab setTextColor:kColor_Text_Black];
-    [self.iconConstraintL setConstant:countcoordinatesX(15)];
-    [self.detailConstraintR setConstant:countcoordinatesX(15)];
-}
-
-
-#pragma mark - 点击
-// 删除
-- (IBAction)actionClick:(UIButton *)sender {
-    [self routerEventWithName:HOME_CELL_REMOVE data:self];
 }
 
 
