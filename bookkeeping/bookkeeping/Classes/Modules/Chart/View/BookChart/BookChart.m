@@ -34,7 +34,15 @@
 @implementation BookChart
 
 - (void)initUI {
-    
+
+}
+
+// drawRect 把整个 chart 区域涂成纯色背景，UIView 在 trait 切换时不会自动 invalidate；这里强制重画
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+        [self setNeedsDisplay];
+    }
 }
 
 #pragma mark - 点击
@@ -125,7 +133,7 @@
 
 #pragma mark - 绘图
 - (void)drawRect:(CGRect)rect {
-    [kColor_White setFill];
+    [[UIColor systemBackgroundColor] setFill];
     UIRectFill(rect);
     
     // 顶部
@@ -222,7 +230,7 @@
     [self drawLine:kColor_Text_Gary points:lines];
     for (int i=0; i<self.numbers.count; i++) {
         CGFloat value = [self.numbers[i] floatValue];
-        UIColor *color = value == 0 ? kColor_White : kColor_Main_Color;
+        UIColor *color = value == 0 ? [UIColor systemBackgroundColor] : kColor_Main_Color;
         
         NSValue *point = self.points[i];
         CGRect pointFrame = [point CGRectValue];

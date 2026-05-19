@@ -19,6 +19,8 @@
 
 
 - (void)initUI {
+    // XIB 烤死的 sRGB 白底覆盖 dark mode，这里改回 system 自适应
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
     // setNavigationIndex 会根据 0/1 设置最终文本，但在它被调用之前 XIB 默认"支出排行榜"
     // 是 zh 写死的；在 en 模式下会闪一下。给个 en 友好的初始值
     [self.nameLab setText:KKLocalized(@"支出排行榜")];

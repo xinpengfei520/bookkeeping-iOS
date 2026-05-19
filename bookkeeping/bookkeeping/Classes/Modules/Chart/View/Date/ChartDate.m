@@ -21,7 +21,7 @@
 
 
 - (void)initUI {
-    [self setBackgroundColor:kColor_White];
+    [self setBackgroundColor:[UIColor systemBackgroundColor]];
     [self collection];
     [self line];
     [self borderForColor:kColor_Line_Gray borderWidth:1.f borderType:UIBorderSideTypeBottom];
@@ -240,7 +240,7 @@
             flow;
         })];
         [_collection setShowsHorizontalScrollIndicator:NO];
-        [_collection setBackgroundColor:kColor_White];
+        [_collection setBackgroundColor:[UIColor systemBackgroundColor]];
         [_collection setDelegate:self];
         [_collection setDataSource:self];
         [_collection registerNib:[UINib nibWithNibName:@"ChartDateCell" bundle:nil] forCellWithReuseIdentifier:@"ChartDateCell"];
