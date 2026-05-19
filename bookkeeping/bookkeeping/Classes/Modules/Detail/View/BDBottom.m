@@ -47,6 +47,13 @@
     [_deleteButton addTarget:self action:@selector(delBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_deleteButton];
 
+    // splitLine 先约束；按钮挨着 splitLine 的左右边而不是 self.centerX，避免按钮覆盖
+    [_splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.centerY.equalTo(self->_editButton);
+        make.width.equalTo(@1);
+        make.height.equalTo(@41);
+    }];
     [_topLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
         make.height.equalTo(@1);
@@ -54,28 +61,22 @@
     [_editButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
         make.top.equalTo(self->_topLine.mas_bottom);
-        // editConstraintB 在 initUI 里被设成 SafeAreaBottomHeight，原 XIB 行为是 bottom = self.bottom - SafeAreaBottomHeight
         make.bottom.equalTo(self).offset(-SafeAreaBottomHeight);
-        make.right.equalTo(self.mas_centerX);
+        make.right.equalTo(self->_splitLine.mas_left);
     }];
     [_deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_centerX);
+        make.left.equalTo(self->_splitLine.mas_right);
         make.right.equalTo(self);
         make.top.bottom.equalTo(self->_editButton);
-    }];
-    [_splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.centerY.equalTo(self->_editButton);
-        make.width.equalTo(@1);
-        make.height.equalTo(@41);
     }];
 }
 
 - (void)initUI {
     [self setBackgroundColor:[UIColor systemBackgroundColor]];
-    // XIB 把 line 烤成 sRGB groupTableViewBackgroundColor，dark mode 锁色；改走 systemGroupedBackgroundColor
-    [self.topLine setBackgroundColor:[UIColor systemGroupedBackgroundColor]];
-    [self.splitLine setBackgroundColor:[UIColor systemGroupedBackgroundColor]];
+    // systemGroupedBackgroundColor 在 dark 模式接近纯黑、叠在 systemBackgroundColor 上完全看不见；
+    // 改用项目标准 kColor_Line_Color（light=#F5F5F5 / dark=#2C2C2E），与 SearchListHeader 等一致
+    [self.topLine setBackgroundColor:kColor_Line_Color];
+    [self.splitLine setBackgroundColor:kColor_Line_Color];
 
     [self.editButton setTitle:KKLocalized(@"编辑") forState:UIControlStateNormal];
     [self.editButton setTitle:KKLocalized(@"编辑") forState:UIControlStateHighlighted];
