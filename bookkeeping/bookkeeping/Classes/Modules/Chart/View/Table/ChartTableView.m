@@ -86,7 +86,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChartTableCell *cell = [ChartTableCell loadFirstNib:tableView];
+    ChartTableCell *cell = [ChartTableCell loadCode:tableView];
     cell.isBookDetail = _isBookDetail;
     cell.maxPrice = [[self.model.groupArr valueForKeyPath:@"@max.price.floatValue"] floatValue];
     cell.sumPrice = [[self.model.chartArr valueForKeyPath:@"@sum.price.floatValue"] floatValue];

@@ -1,19 +1,19 @@
 /**
- * 列表Cell
+ * 列表Cell (code-only — converted from BillTableCell.xib)
  * @author 郑业强 2019-01-09 创建文件
  */
 
 #import "BillTableCell.h"
+#import <Masonry/Masonry.h>
 
 
 #pragma mark - 声明
 @interface BillTableCell()
 
-@property (weak, nonatomic) IBOutlet UILabel *lab1;
-@property (weak, nonatomic) IBOutlet UILabel *lab2;
-@property (weak, nonatomic) IBOutlet UILabel *lab3;
-@property (weak, nonatomic) IBOutlet UILabel *lab4;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labConstraintL;
+@property (nonatomic, strong) UILabel *lab1;
+@property (nonatomic, strong) UILabel *lab2;
+@property (nonatomic, strong) UILabel *lab3;
+@property (nonatomic, strong) UILabel *lab4;
 
 @end
 
@@ -21,9 +21,52 @@
 #pragma mark - 实现
 @implementation BillTableCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self buildSubviews];
+    }
+    return self;
+}
+
+- (void)buildSubviews {
+    _lab1 = [[UILabel alloc] init];
+    [self.contentView addSubview:_lab1];
+
+    _lab2 = [[UILabel alloc] init];
+    [self.contentView addSubview:_lab2];
+
+    _lab3 = [[UILabel alloc] init];
+    [self.contentView addSubview:_lab3];
+
+    _lab4 = [[UILabel alloc] init];
+    [self.contentView addSubview:_lab4];
+
+    // 4 个 label 等宽横排：lab1 从 leading=20 开始，lab2/3/4 各占 lab1.width，
+    // lab4 右边 = contentView 右边
+    [_lab1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(countcoordinatesX(20));
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_lab2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_lab1.mas_right);
+        make.top.bottom.equalTo(self->_lab1);
+        make.width.equalTo(self->_lab1);
+    }];
+    [_lab3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_lab2.mas_right);
+        make.top.bottom.equalTo(self->_lab1);
+        make.width.equalTo(self->_lab1);
+    }];
+    [_lab4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_lab3.mas_right);
+        make.right.equalTo(self.contentView);
+        make.top.bottom.equalTo(self->_lab1);
+        make.width.equalTo(self->_lab1);
+    }];
+}
 
 - (void)initUI {
-    [self.labConstraintL setConstant:countcoordinatesX(20)];
     for (id obj in self.contentView.subviews) {
         if ([obj isKindOfClass:[UILabel class]]) {
             UILabel *lab = obj;

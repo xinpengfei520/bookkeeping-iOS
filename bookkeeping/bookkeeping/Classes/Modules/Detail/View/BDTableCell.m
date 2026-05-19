@@ -1,5 +1,5 @@
 //
-//  BDTableCell.m
+//  BDTableCell.m (code-only — converted from BDTableCell.xib)
 //  bookkeeping
 //
 //  Created by 郑业强 on 2019/1/6.
@@ -7,13 +7,13 @@
 //
 
 #import "BDTableCell.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface BDTableCell()
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
-@property (weak, nonatomic) IBOutlet UILabel *detailLab;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameConstraintL;
+@property (nonatomic, strong) UILabel *nameLab;
+@property (nonatomic, strong) UILabel *detailLab;
 
 @end
 
@@ -21,13 +21,36 @@
 #pragma mark - 实现
 @implementation BDTableCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self buildSubviews];
+    }
+    return self;
+}
+
+- (void)buildSubviews {
+    _nameLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_nameLab];
+
+    _detailLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_detailLab];
+
+    [_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(countcoordinatesX(15));
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_nameLab.mas_right).offset(20);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+}
 
 - (void)initUI {
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
     [self.nameLab setTextColor:kColor_Text_Gary];
     [self.detailLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(12)]];
     [self.detailLab setTextColor:kColor_Text_Black];
-    [self.nameConstraintL setConstant:countcoordinatesX(15)];
 }
 
 

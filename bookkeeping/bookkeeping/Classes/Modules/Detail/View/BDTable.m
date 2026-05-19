@@ -47,7 +47,7 @@
     return _model ? 4 : 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDTableCell *cell = [BDTableCell loadFirstNib:tableView];
+    BDTableCell *cell = [BDTableCell loadCode:tableView];
     cell.indexPath = indexPath;
     cell.model = _model;
     return cell;

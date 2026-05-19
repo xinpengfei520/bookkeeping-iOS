@@ -42,7 +42,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BillTableCell *cell = [BillTableCell loadFirstNib:tableView];
+    BillTableCell *cell = [BillTableCell loadCode:tableView];
     cell.model = self.models[indexPath.row];
     return cell;
 }
@@ -82,7 +82,7 @@
 #pragma mark - get
 - (BillHeader *)header {
     if (!_header) {
-        _header = [BillHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, 120)];
+        _header = [[BillHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120)];
     }
     return _header;
 }
