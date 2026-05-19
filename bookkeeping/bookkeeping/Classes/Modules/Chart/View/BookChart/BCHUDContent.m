@@ -18,7 +18,8 @@
 @implementation BCHUDContent
 
 - (void)initUI {
-    [self setBackgroundColor:kColor_Text_Black];
+    // tooltip 始终是深底高对比；kColor_Text_Black 是 dynamic 会在 dark mode 翻成浅色
+    [self setBackgroundColor:kColor_Chart_Header];
     [self.layer setCornerRadius:3];
     [self table];
     [self lab];
@@ -100,7 +101,7 @@
         })];
         [_table lineHide];
         [_table lineAll];
-        [_table setSeparatorColor:kColor_Text_Black];
+        [_table setSeparatorColor:kColor_Chart_Text];
         [_table setBackgroundColor:[UIColor clearColor]];
         [_table setEstimatedRowHeight:0];
         [_table setEstimatedSectionHeaderHeight:0];
