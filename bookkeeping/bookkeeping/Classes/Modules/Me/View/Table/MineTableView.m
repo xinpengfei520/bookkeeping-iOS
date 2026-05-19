@@ -61,7 +61,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MineTableCell *cell = [MineTableCell loadFirstNib:tableView];
+    MineTableCell *cell = [MineTableCell loadCode:tableView];
     cell.indexPath = indexPath;
     cell.nameLab.text = self.datas[0][indexPath.section][indexPath.row];
     NSString *iconName = self.datas[1][indexPath.section][indexPath.row];

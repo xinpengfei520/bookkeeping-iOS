@@ -72,7 +72,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MineTableCell *cell = [MineTableCell loadFirstNib:tableView];
+    MineTableCell *cell = [MineTableCell loadCode:tableView];
     cell.indexPath = indexPath;
     NSDictionary *row = self.rows[indexPath.row];
     cell.nameLab.text = row[@"title"];

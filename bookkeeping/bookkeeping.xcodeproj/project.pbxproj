@@ -14,7 +14,6 @@
 		247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8872D30221900B5F323 /* PasswordLoginController2.m */; };
 		247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8852D30221900B5F323 /* PasswordLoginController1.m */; };
 		247AB8922D302ECD00B5F323 /* AgreementWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */; };
-		247AB9122D341E1B00B5F323 /* MineTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247AB9092D341E1B00B5F323 /* MineTableCell.xib */; };
 		247AB9132D341E1B00B5F323 /* MineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB90E2D341E1B00B5F323 /* MineView.m */; };
 		247AB9142D341E1B00B5F323 /* MineTableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9052D341E1B00B5F323 /* MineTableHeader.m */; };
 		247AB9152D341E1B00B5F323 /* MineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB9032D341E1B00B5F323 /* MineHeader.m */; };
@@ -64,7 +63,6 @@
 		3257AED421C8750800787A34 /* TimeRemindController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED321C8750800787A34 /* TimeRemindController.m */; };
 		3257AED821C8774400787A34 /* TITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AED721C8774400787A34 /* TITableView.m */; };
 		3257AEDC21C877E500787A34 /* TITableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257AEDA21C877E500787A34 /* TITableCell.m */; };
-		3257AEDD21C877E500787A34 /* TITableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3257AEDB21C877E500787A34 /* TITableCell.xib */; };
 		326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 326F8F2321D4BFCA0030B329 /* TIModel.m */; };
 		32751F0921C8E93000D9F415 /* BKCNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 32751F0821C8E93000D9F415 /* BKCNavigation.m */; };
 		327CEC1721C882A6001D0086 /* HomeListSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 327CEC1521C882A6001D0086 /* HomeListSubCell.m */; };
@@ -179,7 +177,6 @@
 		4BEB732721CE378700BEF013 /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB732621CE378700BEF013 /* InfoController.m */; };
 		4BEB732A21CE380C00BEF013 /* InfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB732921CE380C00BEF013 /* InfoTableView.m */; };
 		4BEB732E21CE381D00BEF013 /* InfoTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB732C21CE381D00BEF013 /* InfoTableCell.m */; };
-		4BEB732F21CE381D00BEF013 /* InfoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB732D21CE381D00BEF013 /* InfoTableCell.xib */; };
 		4BEB733221CE3F9C00BEF013 /* InfoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB733121CE3F9C00BEF013 /* InfoFooter.m */; };
 		4BF0648D21E10A80005F1665 /* BookDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0648C21E10A80005F1665 /* BookDetailController.m */; };
 		4BF0649021E10BAD005F1665 /* BDHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF0648F21E10BAD005F1665 /* BDHeader.m */; };
@@ -285,7 +282,6 @@
 		247AB9052D341E1B00B5F323 /* MineTableHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableHeader.m; sourceTree = "<group>"; };
 		247AB9072D341E1B00B5F323 /* MineTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableCell.h; sourceTree = "<group>"; };
 		247AB9082D341E1B00B5F323 /* MineTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableCell.m; sourceTree = "<group>"; };
-		247AB9092D341E1B00B5F323 /* MineTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineTableCell.xib; sourceTree = "<group>"; };
 		247AB90A2D341E1B00B5F323 /* MineTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableView.h; sourceTree = "<group>"; };
 		247AB90B2D341E1B00B5F323 /* MineTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableView.m; sourceTree = "<group>"; };
 		247AB90D2D341E1B00B5F323 /* MineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineView.h; sourceTree = "<group>"; };
@@ -379,7 +375,6 @@
 		3257AED721C8774400787A34 /* TITableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TITableView.m; sourceTree = "<group>"; };
 		3257AED921C877E500787A34 /* TITableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TITableCell.h; sourceTree = "<group>"; };
 		3257AEDA21C877E500787A34 /* TITableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TITableCell.m; sourceTree = "<group>"; };
-		3257AEDB21C877E500787A34 /* TITableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TITableCell.xib; sourceTree = "<group>"; };
 		326F8F2221D4BFCA0030B329 /* TIModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TIModel.h; sourceTree = "<group>"; };
 		326F8F2321D4BFCA0030B329 /* TIModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TIModel.m; sourceTree = "<group>"; };
 		32751F0721C8E93000D9F415 /* BKCNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCNavigation.h; sourceTree = "<group>"; };
@@ -576,7 +571,6 @@
 		4BEB732921CE380C00BEF013 /* InfoTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoTableView.m; sourceTree = "<group>"; };
 		4BEB732B21CE381D00BEF013 /* InfoTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoTableCell.h; sourceTree = "<group>"; };
 		4BEB732C21CE381D00BEF013 /* InfoTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoTableCell.m; sourceTree = "<group>"; };
-		4BEB732D21CE381D00BEF013 /* InfoTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableCell.xib; sourceTree = "<group>"; };
 		4BEB733021CE3F9C00BEF013 /* InfoFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoFooter.h; sourceTree = "<group>"; };
 		4BEB733121CE3F9C00BEF013 /* InfoFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoFooter.m; sourceTree = "<group>"; };
 		4BF0648B21E10A80005F1665 /* BookDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailController.h; sourceTree = "<group>"; };
@@ -748,7 +742,6 @@
 			children = (
 				247AB9072D341E1B00B5F323 /* MineTableCell.h */,
 				247AB9082D341E1B00B5F323 /* MineTableCell.m */,
-				247AB9092D341E1B00B5F323 /* MineTableCell.xib */,
 				247AB90A2D341E1B00B5F323 /* MineTableView.h */,
 				247AB90B2D341E1B00B5F323 /* MineTableView.m */,
 			);
@@ -1607,7 +1600,6 @@
 				3257AED721C8774400787A34 /* TITableView.m */,
 				3257AED921C877E500787A34 /* TITableCell.h */,
 				3257AEDA21C877E500787A34 /* TITableCell.m */,
-				3257AEDB21C877E500787A34 /* TITableCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1890,7 +1882,6 @@
 				4BEB732921CE380C00BEF013 /* InfoTableView.m */,
 				4BEB732B21CE381D00BEF013 /* InfoTableCell.h */,
 				4BEB732C21CE381D00BEF013 /* InfoTableCell.m */,
-				4BEB732D21CE381D00BEF013 /* InfoTableCell.xib */,
 				4BEB733021CE3F9C00BEF013 /* InfoFooter.h */,
 				4BEB733121CE3F9C00BEF013 /* InfoFooter.m */,
 			);
@@ -2337,10 +2328,8 @@
 				32D0B2BF21C778FA0030F5B2 /* ChartNavigation.xib in Resources */,
 				4BF0649221E10BD3005F1665 /* BDHeader.xib in Resources */,
 				4BC7820221C918F200760DF9 /* BKCKeyboard.xib in Resources */,
-				4BEB732F21CE381D00BEF013 /* InfoTableCell.xib in Resources */,
 				4B229A7B21E6240700152030 /* BillHeader.xib in Resources */,
 				32A5801221DF33C4008993B2 /* ACA.plist in Resources */,
-				247AB9122D341E1B00B5F323 /* MineTableCell.xib in Resources */,
 				F35310B52876D82400D297A9 /* ShareShot.xib in Resources */,
 				32D0B2C721C77B240030F5B2 /* ChartSegmentControl.xib in Resources */,
 				4BA68B0B21C7F75B0063A5C2 /* ACAReusableHeader.xib in Resources */,
@@ -2349,7 +2338,6 @@
 				4BA68AF021C7EEAA0063A5C2 /* CategoryCell.xib in Resources */,
 				3219837C21C642BB00311885 /* Main.storyboard in Resources */,
 				32D0B2CC21C782270030F5B2 /* ChartDateCell.xib in Resources */,
-				3257AEDD21C877E500787A34 /* TITableCell.xib in Resources */,
 				F35310B82876D82400D297A9 /* ShareOrder.xib in Resources */,
 				327CEC2921C88E45001D0086 /* ChartTableCell.xib in Resources */,
 			);

@@ -374,7 +374,6 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
         
-        [_table registerNib:[UINib nibWithNibName:@"TITableCell" bundle:nil] forCellReuseIdentifier:@"TITableCell"];
     }
     return _table;
 }
@@ -412,7 +411,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TITableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TITableCell"];
+    TITableCell *cell = [TITableCell loadCode:tableView];
     NSLog(@"cellForRowAtIndexPath called - row: %ld, time: %@", (long)indexPath.row, self.models[indexPath.row]);
     cell.time = self.models[indexPath.row];
     cell.indexPath = indexPath;

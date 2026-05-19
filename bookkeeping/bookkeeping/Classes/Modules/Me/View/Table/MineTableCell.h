@@ -22,15 +22,15 @@ typedef NS_ENUM(NSUInteger, MineTableCellStatus) {
 // Item 的下标对象
 @property (nonatomic, strong) NSIndexPath *indexPath;
 // 开关控件
-@property (weak, nonatomic) IBOutlet UISwitch *sw;
+@property (nonatomic, strong) UISwitch *sw;
 // 文字前面的 icon
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
+@property (nonatomic, strong) UIImageView *icon;
 // icon 后面的文字
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
+@property (nonatomic, strong) UILabel *nameLab;
 // 详情描述
-@property (weak, nonatomic) IBOutlet UILabel *detailLab;
+@property (nonatomic, strong) UILabel *detailLab;
 // 下一个 icon
-@property (weak, nonatomic) IBOutlet UIImageView *nextIcn;
+@property (nonatomic, strong) UIImageView *nextIcn;
 // TableCell 状态，文字或开关
 @property (nonatomic, assign) MineTableCellStatus status;
 

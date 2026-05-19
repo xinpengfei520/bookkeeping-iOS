@@ -47,11 +47,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"TITableCell";
-    TITableCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"TITableCell" owner:nil options:nil] firstObject];
-    }
+    TITableCell *cell = [TITableCell loadCode:tableView];
     cell.time = self.models[indexPath.row];
     cell.indexPath = indexPath;
     return cell;
