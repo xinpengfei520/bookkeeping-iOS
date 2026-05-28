@@ -424,4 +424,23 @@
     return 50.0f; // 设置合适的 cell 高度
 }
 
+// 控制器是 table 的 delegate（见 -table getter），swipe-to-delete 必须实现在这里；
+// TITableView 自带的同名方法因 delegate 被控制器接管而永不触发。
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
+trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @weakify(self)
+    UIContextualAction *delete = [UIContextualAction
+        contextualActionWithStyle:UIContextualActionStyleDestructive
+                            title:KKLocalized(@"删除")
+                          handler:^(UIContextualAction * _Nonnull action,
+                                    __kindof UIView * _Nonnull sourceView,
+                                    void (^ _Nonnull completion)(BOOL)) {
+        @strongify(self)
+        [self timeCellDelete:indexPath];
+        completion(YES);
+    }];
+    delete.backgroundColor = kColor_Red_Color;
+    return [UISwipeActionsConfiguration configurationWithActions:@[delete]];
+}
+
 @end
