@@ -31,8 +31,8 @@
     [super viewDidLoad];
     self.title = KKLocalized(@"类别设置");
     self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:KKLocalized(@"完成")
-                                         style:UIBarButtonItemStyleDone
+        [[UIBarButtonItem alloc] initWithTitle:KKLocalized(@"编辑")
+                                         style:UIBarButtonItemStylePlain
                                         target:self
                                         action:@selector(rightButtonClick)];
     [self header];
@@ -284,9 +284,11 @@
     return _eventStrategy;
 }
 
-// Preserve the inherited no-op from BaseViewController. The 完成 right button
-// was historically wired to this empty selector; not changing behaviour here.
+// 切换编辑模式：默认「编辑」（纯查看），点击进入编辑显示删除/拖动/加回控件，按钮变「完成」
 - (void)rightButtonClick {
+    BOOL editing = !self.table.editingMode;
+    [self.table setEditingMode:editing];
+    self.navigationItem.rightBarButtonItem.title = editing ? KKLocalized(@"完成") : KKLocalized(@"编辑");
 }
 
 @end

@@ -62,6 +62,10 @@ typedef NS_ENUM(NSInteger, LYFTableViewType) {
     _model = model;
     [self reloadData];
 }
+- (void)setEditingMode:(BOOL)editingMode {
+    _editingMode = editingMode;
+    [self reloadData];
+}
 
 
 #pragma mark - UITableViewDataSource
@@ -80,6 +84,7 @@ typedef NS_ENUM(NSInteger, LYFTableViewType) {
     CategoryCell *cell = [CategoryCell loadFirstNib:tableView];
     cell.model = indexPath.section == 0 ? _model.insert[indexPath.row] : _model.remove[indexPath.row];
     cell.indexPath = indexPath;
+    cell.editingMode = self.editingMode;
     return cell;
 }
 
@@ -111,10 +116,10 @@ typedef NS_ENUM(NSInteger, LYFTableViewType) {
     return 0.01f;
 }
 
-// 仅 section 0（用户自建分类）允许侧滑删除
+// 仅编辑模式 + section 0（用户自建分类）允许侧滑删除；非编辑模式为纯查看
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
 trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section != 0) {
+    if (!self.editingMode || indexPath.section != 0) {
         return nil;
     }
     @weakify(self)

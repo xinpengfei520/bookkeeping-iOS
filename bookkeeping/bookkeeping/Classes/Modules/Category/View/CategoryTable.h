@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) CategoryListModel *model;
 
+/// 编辑模式：控制 cell 操作控件显隐 + 是否允许侧滑删除
+@property (nonatomic, assign) BOOL editingMode;
+
 + (instancetype)initWithFrame:(CGRect)frame;
 
 @end

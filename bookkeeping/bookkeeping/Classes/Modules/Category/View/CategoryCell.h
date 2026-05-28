@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
+/// 编辑模式：YES 才显示操作控件（section0 删除+拖动 / section1 加回）
+@property (nonatomic, assign) BOOL editingMode;
+
 @end
 
 NS_ASSUME_NONNULL_END

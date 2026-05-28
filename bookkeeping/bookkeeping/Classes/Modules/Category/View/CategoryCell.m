@@ -43,15 +43,19 @@
 #pragma mark - set
 - (void)setIndexPath:(NSIndexPath *)indexPath {
     _indexPath = indexPath;
-    if (indexPath.section == 0) {
-        [self.actionBtn setImage:[UIImage imageNamed:@"category_delete"] forState:UIControlStateNormal];
-        [self.actionBtn setImage:[UIImage imageNamed:@"category_delete"] forState:UIControlStateHighlighted];
-        [self.menuBtn setHidden:NO];
-    } else {
-        [self.actionBtn setImage:[UIImage imageNamed:@"category_add"] forState:UIControlStateNormal];
-        [self.actionBtn setImage:[UIImage imageNamed:@"category_add"] forState:UIControlStateHighlighted];
-        [self.menuBtn setHidden:YES];
-    }
+    NSString *image = indexPath.section == 0 ? @"category_delete" : @"category_add";
+    [self.actionBtn setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    [self.actionBtn setImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
+    [self refreshEditingControls];
+}
+- (void)setEditingMode:(BOOL)editingMode {
+    _editingMode = editingMode;
+    [self refreshEditingControls];
+}
+// 仅编辑模式显示操作控件；拖动手柄只在 section0（用户分类）可用，section1（已删除）不可拖动
+- (void)refreshEditingControls {
+    [self.actionBtn setHidden:!_editingMode];
+    [self.menuBtn setHidden:!_editingMode || self.indexPath.section != 0];
 }
 - (void)setModel:(BKCModel *)model {
     _model = model;
