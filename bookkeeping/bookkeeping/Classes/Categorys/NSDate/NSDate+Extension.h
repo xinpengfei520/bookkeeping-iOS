@@ -154,6 +154,14 @@
 + (NSString *)dayFromWeekday:(NSDate *)date;
 
 /**
+ *  纯整数算法(Sakamoto)由 年/月/日 直接得「星期X」中文。
+ *  不创建任何 NSDate / NSCalendar / NSDateFormatter —— 结果确定、线程安全、绝不为空。
+ *  列表渲染等热路径请优先用它，避免反复创建日历对象在快速滚动时偶发返回 nil
+ *  导致星期丢失。这是计算"星期X"字符串的唯一推荐入口。
+ */
++ (NSString *)kk_weekdayCNFromYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day;
+
+/**
  *  日期是否相等
  *
  *  @param anotherDate The another date to compare as NSDate

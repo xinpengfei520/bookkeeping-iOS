@@ -25,15 +25,13 @@
 }
 
 - (NSString *)getDateDescribe {
-    NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
-    NSDate *date = [NSDate dateWithYMD:dateStr];
-    return [NSString stringWithFormat:KKLocalized(@"%02ld月%02ld日   %@"), _month, _day, [date dayFromWeekday]];
+    // 星期用纯数学算（见 NSDate+Extension 的 kk_weekdayCNFromYear:month:day:）：
+    // 不碰 NSDate/NSCalendar，结果确定、绝不为空，根治列表滚动时"星期时有时无"。
+    return [NSString stringWithFormat:KKLocalized(@"%02ld月%02ld日   %@"), _month, _day, [NSDate kk_weekdayCNFromYear:_year month:_month day:_day]];
 }
 
 - (NSString *)getDateDescribeWithYear {
-    NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
-    NSDate *date = [NSDate dateWithYMD:dateStr];
-    return [NSString stringWithFormat:KKLocalized(@"%ld年%02ld月%02ld日   %@"), _year,_month, _day, [date dayFromWeekday]];
+    return [NSString stringWithFormat:KKLocalized(@"%ld年%02ld月%02ld日   %@"), _year, _month, _day, [NSDate kk_weekdayCNFromYear:_year month:_month day:_day]];
 }
 
 - (NSString *)getMoneyDescribe {

@@ -57,9 +57,9 @@
 }
 
 - (NSString *)getDateStr {
-    NSString *str = [NSString stringWithFormat:@"%ld-%02ld-%02ld", _year, _month, _day];
-    NSDate *date = [NSDate dateWithYMD:str];
-    return [NSString stringWithFormat:KKLocalized(@"%ld年%02ld月%02ld日   %@"), _year, _month, _day, [date dayFromWeekday]];
+    // 星期用纯数学算（见 NSDate+Extension 的 kk_weekdayCNFromYear:month:day:）：
+    // 不碰 NSDate/NSCalendar，结果确定、绝不为空。
+    return [NSString stringWithFormat:KKLocalized(@"%ld年%02ld月%02ld日   %@"), _year, _month, _day, [NSDate kk_weekdayCNFromYear:_year month:_month day:_day]];
 }
 
 -(NSString *)getTypeDesc{

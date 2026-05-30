@@ -277,32 +277,9 @@
  * 每周的第一天为星期日
  */
 + (NSString *)dayFromWeekday:(NSDate *)date {
-	switch([date weekday]) {
-	case 1:
-		return KKLocalized(@"星期日");
-		break;
-	case 2:
-		return KKLocalized(@"星期一");
-		break;
-	case 3:
-		return KKLocalized(@"星期二");
-		break;
-	case 4:
-		return KKLocalized(@"星期三");
-		break;
-	case 5:
-		return KKLocalized(@"星期四");
-		break;
-	case 6:
-		return KKLocalized(@"星期五");
-		break;
-	case 7:
-		return KKLocalized(@"星期六");
-		break;
-	default:
-		break;
-	}
-	return @"";
+	// 收敛到唯一入口 kk_weekdayCNFromYear:month:day:（纯整数计算、确定、绝不为空）。
+	// 仍按 date 的本地年月日取值，保持与旧实现一致的语义；新代码请直接用 y/m/d 版本。
+	return [NSDate kk_weekdayCNFromYear:[date year] month:[date month] day:[date day]];
 }
 
 - (BOOL)isSameDay:(NSDate *)anotherDate {
@@ -394,8 +371,33 @@
 	NSDateFormatter *fora = [self createDateWithFora:@"yyyy-MM-dd"];
 	return [fora dateFromString:dateStr];
 }
+/// 纯整数算法(Sakamoto)由 年/月/日 直接得「星期X」中文。详见头文件声明。
+/// 不创建 NSDate/NSCalendar/NSDateFormatter —— 确定、线程安全、绝不为空。
++ (NSString *)kk_weekdayCNFromYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
+    static const NSInteger t[12] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+    NSInteger y = (month < 3) ? year - 1 : year;
+    NSInteger idx = (month >= 1 && month <= 12) ? (month - 1) : 0;
+    NSInteger w = (((y + y / 4 - y / 100 + y / 400 + t[idx] + day) % 7) + 7) % 7; // 0=周日 .. 6=周六
+    switch (w) {
+        case 0: return KKLocalized(@"星期日");
+        case 1: return KKLocalized(@"星期一");
+        case 2: return KKLocalized(@"星期二");
+        case 3: return KKLocalized(@"星期三");
+        case 4: return KKLocalized(@"星期四");
+        case 5: return KKLocalized(@"星期五");
+        case 6: return KKLocalized(@"星期六");
+        default: return @"";
+    }
+}
+
 + (NSDateFormatter *)createDateWithFora:(NSString *)dateFora {
 	NSDateFormatter *fora = [[NSDateFormatter alloc] init];
+	// 强制公历 + en_US_POSIX：否则 formatter 会按「设备日历」解析 yyyy。当用户把
+	// 系统日历设成非公历(中华民国历/佛历/和历…)时，"2026" 会被当成该历的纪年
+	// (例: 民国 2026 年 = 公元 3937 年)，导致解析出的日期、星期全错甚至为 nil。
+	// 这是 NSDateFormatter 不固定 locale/calendar 的经典坑，影响所有 dateWith* 解析。
+	fora.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	fora.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
 	[fora setDateFormat:dateFora];
 	[fora setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
 	return fora;
