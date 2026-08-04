@@ -117,6 +117,7 @@
 #import "LanguageSettingsController.h"
 #import "ThemeSettingsController.h"
 #import "SettingsController.h"
+#import "RateController.h"
 
 //================================= Model ===============================//
 #import "MarkModel.h"

@@ -136,17 +136,17 @@
     // SettingsController；这里 Section 1 只剩单条「设置」入口。
     _datas = @[
         @[
-            @[KKLocalized(@"我的账单")],
+            @[KKLocalized(@"我的账单"),KKLocalized(@"今日汇率")],
             @[KKLocalized(@"设置")],
             @[KKLocalized(@"邀请好友"),KKLocalized(@"意见反馈"),KKLocalized(@"帮助"),KKLocalized(@"关于")]
         ],
         @[
-            @[@"mine_bill"],
+            @[@"mine_bill",@"sf:arrow.left.arrow.right.circle.fill"],
             @[@"sf:gearshape.fill"],
             @[@"mine_invite",@"mine_feedback",@"mine_help",@"mine_about"]
         ],
         @[
-            @[@(0)],
+            @[@(0),@(0)],
             @[@(0)],
             @[@(0),@(0),@(0),@(0)]
         ]

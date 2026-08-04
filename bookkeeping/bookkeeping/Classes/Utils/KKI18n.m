@@ -265,6 +265,14 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"汇率获取失败，已切回人民币，请稍后重试": @"Couldn't fetch the rate — switched back to CNY, please try again",
             @"当前汇率可能不是最新，请确认后再记账": @"This rate may not be the latest — please confirm before saving",
             @"汇率可能不是最新 · ": @"Rate may be stale · ",
+            @"今日汇率": @"Today's rates",
+            @"1 单位外币可兑换的人民币": @"CNY per unit of foreign currency",
+            @"1 CNY ≈ %@%.6f": @"1 CNY ≈ %@%.6f",
+            @"暂无汇率": @"No rate",
+            @"汇率生效日：%@": @"Effective date: %@",
+            @" · 数据源：%@": @" · Source: %@",
+            @"当前汇率可能不是最新（上游数据源暂时不可达，显示的是缓存值）": @"These rates may not be the latest — the upstream source was unreachable, so a cached value is shown.",
+            @"汇率由服务端统一提供，记一笔外币时用的是同一份数据。": @"Rates come from our server; a foreign-currency entry uses this exact data.",
 
             // ---- Search ----
             @"关键字不能为空": @"Keyword can't be empty",

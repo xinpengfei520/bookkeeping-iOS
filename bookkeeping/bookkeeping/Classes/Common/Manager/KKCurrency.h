@@ -53,6 +53,13 @@ extern NSString * const KKCurrencySGD;
 /// 汇率描述，如 "1 USD = 6.752650 CNY"
 + (NSString *)displayRate:(CGFloat)rate code:(nullable NSString *)code;
 
+#pragma mark - GET /book/rates 响应解析
+/// 从 result.data 里取出汇率表，语义是「1 单位外币 = N 人民币」，已按 6 位小数取整，
+/// 直接用、不要取倒数。结构不对时返回 nil。（纯解析，请求由调用方发起）
++ (nullable NSDictionary<NSString *, NSNumber *> *)ratesFromResponseData:(nullable id)data;
+/// 上游数据源当时不可达、返回的是缓存中的旧汇率 —— 需要提示用户
++ (BOOL)staleFromResponseData:(nullable id)data;
+
 @end
 
 NS_ASSUME_NONNULL_END

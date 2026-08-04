@@ -156,13 +156,11 @@
             }
             return;
         }
-        NSDictionary *data = [result.data isKindOfClass:[NSDictionary class]] ? result.data : nil;
-        NSDictionary *rates = [data[@"rates"] isKindOfClass:[NSDictionary class]] ? data[@"rates"] : nil;
         // rates 的语义是「1 单位外币 = N 人民币」，已按 6 位小数取整，直接用、不要取倒数
-        NSNumber *rate = rates[currency];
+        NSNumber *rate = [KKCurrency ratesFromResponseData:result.data][currency];
         [self.keyboard setExchangeRate:[rate doubleValue]
                            forCurrency:currency
-                                 stale:[data[@"stale"] boolValue]];
+                                 stale:[KKCurrency staleFromResponseData:result.data]];
     }];
 }
 

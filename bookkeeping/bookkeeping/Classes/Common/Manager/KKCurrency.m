@@ -82,4 +82,24 @@ NSString * const KKCurrencySGD = @"SGD";
             code.length ? code : KKCurrencyCNY, [self formatRate:rate], KKCurrencyCNY];
 }
 
+#pragma mark - GET /book/rates 响应解析
+
++ (NSDictionary<NSString *, NSNumber *> *)ratesFromResponseData:(id)data {
+    if (![data isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+    id rates = ((NSDictionary *)data)[@"rates"];
+    if (![rates isKindOfClass:[NSDictionary class]] || [rates count] == 0) {
+        return nil;
+    }
+    return rates;
+}
+
++ (BOOL)staleFromResponseData:(id)data {
+    if (![data isKindOfClass:[NSDictionary class]]) {
+        return NO;
+    }
+    return [((NSDictionary *)data)[@"stale"] boolValue];
+}
+
 @end

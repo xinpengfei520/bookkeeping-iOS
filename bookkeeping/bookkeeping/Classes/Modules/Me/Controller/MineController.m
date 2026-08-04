@@ -114,6 +114,11 @@
             BillController *vc = [[BillController alloc] init];
             [self.navigationController pushViewController:vc animated:true];
         }
+        // 今日汇率
+        else if (indexPath.row == 1) {
+            RateController *vc = [[RateController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     else if (indexPath.section == 1) {
         // 设置（统一入口）—— 类别 / 定时 / 面容 / 导出 / 语言 / 深色 全在 SettingsController 里
