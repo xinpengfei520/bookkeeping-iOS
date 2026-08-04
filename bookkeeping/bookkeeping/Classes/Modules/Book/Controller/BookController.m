@@ -378,6 +378,11 @@
             @strongify(self)
             [self getRatesRequest:currency date:date];
         }];
+        [_keyboard setMarkChanged:^(NSString *mark) {
+            @strongify(self)
+            // 手输的备注恰好是推荐项 → 列表里自动高亮并滚到对应位置
+            [self.markView selectMarkName:mark];
+        }];
         [self.view addSubview:_keyboard];
     }
     return _keyboard;

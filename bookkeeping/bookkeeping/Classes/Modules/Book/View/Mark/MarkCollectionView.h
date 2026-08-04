@@ -23,6 +23,9 @@ typedef void (^OnSelectComplete)(MarkModel *model);
 + (instancetype)initWithFrame:(CGRect)frame;
 - (void)show:(CGFloat)keyboardHeight;
 - (void)hide;
+/// 按备注文案联动选中：用户手输的备注恰好在推荐列表里时，高亮对应项并滚到可见位置；
+/// 没匹配上则清掉现有高亮。不回调 complete（避免反向覆盖输入框）。
+- (void)selectMarkName:(NSString *)name;
 
 @end
 

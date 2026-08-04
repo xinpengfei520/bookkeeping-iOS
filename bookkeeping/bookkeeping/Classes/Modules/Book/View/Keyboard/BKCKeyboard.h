@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^BookComplete)(NSString *price, NSString *mark, NSDate *date, NSString *currency, CGFloat rate);
 /// 币种或记账日期变化时上抛，由 BookController 去拉 GET /book/rates
 typedef void (^BookRateRequest)(NSString *currency, NSDate *date);
+/// 备注输入框内容变化时上抛（用户手动输入才触发，点推荐备注回填不触发），
+/// BookController 用它联动推荐备注列表的选中态
+typedef void (^BookMarkChanged)(NSString *mark);
 
 #pragma mark - 声明
 @interface BKCKeyboard : BaseView
@@ -24,6 +27,7 @@ typedef void (^BookRateRequest)(NSString *currency, NSDate *date);
 @property (nonatomic, strong) NSMutableString *money;
 @property (nonatomic, copy  ) BookComplete complete;
 @property (nonatomic, copy  ) BookRateRequest rateRequest;
+@property (nonatomic, copy  ) BookMarkChanged markChanged;
 @property (nonatomic, strong) BookDetailModel *model;
 /// 当前选中的币种，默认 CNY
 @property (nonatomic, copy, readonly) NSString *currency;

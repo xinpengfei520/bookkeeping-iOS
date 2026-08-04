@@ -73,12 +73,18 @@
 
     _nameLab = [[UILabel alloc] init];
     _nameLab.translatesAutoresizingMaskIntoConstraints = NO;
+    // "备注:" 是静态标签，钉死在固有宽度；输入条的全部剩余宽度都给 markField
+    [_nameLab setContentHuggingPriority:UILayoutPriorityRequired
+                                forAxis:UILayoutConstraintAxisHorizontal];
     [_textContent addSubview:_nameLab];
 
     _markField = [[UITextField alloc] init];
     _markField.translatesAutoresizingMaskIntoConstraints = NO;
     _markField.returnKeyType = UIReturnKeyDone;
     _markField.delegate = self;
+    // editingChanged 只在用户敲键盘时触发，程序 setText:（点推荐备注回填）不触发，
+    // 正好避免"回填 → 又反过来选自己"的循环
+    [_markField addTarget:self action:@selector(markFieldEditingChanged:) forControlEvents:UIControlEventEditingChanged];
     [_textContent addSubview:_markField];
 
     _moneyLab = [[UILabel alloc] init];
@@ -228,15 +234,23 @@
     _currencyBtn.translatesAutoresizingMaskIntoConstraints = NO;
     UIButtonConfiguration *cfg = [UIButtonConfiguration filledButtonConfiguration];
     cfg.cornerStyle = UIButtonConfigurationCornerStyleMedium;
-    cfg.contentInsets = NSDirectionalEdgeInsetsMake(3, 5, 3, 5);
+    // 尽量窄：文字贴边（左右 4pt），字号压到 10
+    cfg.contentInsets = NSDirectionalEdgeInsetsMake(2, 4, 2, 4);
     cfg.baseBackgroundColor = [kColor_Main_Color colorWithAlphaComponent:0.12f];
     cfg.baseForegroundColor = kColor_Main_Color;
     cfg.titleTextAttributesTransformer = ^NSDictionary<NSAttributedStringKey, id> *(NSDictionary<NSAttributedStringKey, id> *incoming) {
         NSMutableDictionary *attrs = [incoming mutableCopy];
-        attrs[NSFontAttributeName] = [UIFont systemFontOfSize:AdjustFont(11)];
+        attrs[NSFontAttributeName] = [UIFont systemFontOfSize:AdjustFont(10)];
         return attrs;
     };
     _currencyBtn.configuration = cfg;
+    // 输入条横向约束链里 markField 和本按钮的宽度都是自由的 —— 必须把按钮
+    // 钉死在固有宽度上，否则 Auto Layout 会拉伸按钮去填剩余空间（胶囊变超宽），
+    // 剩余宽度应该全部让备注输入框吃掉。
+    [_currencyBtn setContentHuggingPriority:UILayoutPriorityRequired
+                                    forAxis:UILayoutConstraintAxisHorizontal];
+    [_currencyBtn setContentCompressionResistancePriority:UILayoutPriorityRequired
+                                                  forAxis:UILayoutConstraintAxisHorizontal];
     [_currencyBtn addTarget:self action:@selector(currencyBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.textContent addSubview:_currencyBtn];
 
@@ -343,7 +357,7 @@
 // 币种按钮标题 + 换算提示行
 - (void)reloadCurrencyUI {
     UIButtonConfiguration *cfg = self.currencyBtn.configuration;
-    cfg.title = [NSString stringWithFormat:@"%@ ▾", [KKCurrency badgeForCode:_currency]];
+    cfg.title = [NSString stringWithFormat:@"%@ ▾", [KKCurrency badgeForCode:_currency]];   // U+2009 窄空格接 ▾，压缩胶囊宽度
     self.currencyBtn.configuration = cfg;
 
     BOOL foreign = [KKCurrency isForeignCode:_currency];
@@ -414,6 +428,13 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+// 备注输入变化 → 上抛给 BookController 联动推荐备注选中态
+- (void)markFieldEditingChanged:(UITextField *)textField {
+    if (self.markChanged) {
+        self.markChanged(textField.text ?: @"");
+    }
 }
 
 

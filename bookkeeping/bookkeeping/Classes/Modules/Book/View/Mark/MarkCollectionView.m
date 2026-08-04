@@ -102,6 +102,26 @@
     }
 }
 
+// 按备注文案联动选中（手输命中推荐项时高亮 + 滚动居中；未命中清高亮）
+- (void)selectMarkName:(NSString *)name {
+    NSString *trimmed = allTrim(name);
+    for (NSInteger i = 0; i < (NSInteger)self.models.count; i++) {
+        if ([self.models[i].markName isEqualToString:trimmed]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            if (![indexPath isEqual:self->_selectIndex]) {
+                [self collectionDidSelect:indexPath animation:YES];
+            }
+            return;
+        }
+    }
+    // 没匹配上：清掉现有高亮
+    if (_selectIndex) {
+        NSIndexPath *old = _selectIndex;
+        _selectIndex = nil;
+        [self reloadItemsAtIndexPaths:@[old]];
+    }
+}
+
 - (void)collectionDidSelect:(NSIndexPath *)indexPath animation:(BOOL)animation {
     [self scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animation];
     [self reloadItemsAtIndexPaths:({
