@@ -24,6 +24,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)insertBookModel:(BookDetailModel *)model;
 // 修改记账
 + (void)replaceBookModel:(BookDetailModel *)model;
+
+// ============ 离线记账队列（PIN_BOOK_FAILED）============
+// 网络不通导致保存失败的记账先入队，网络恢复后由 HomeController 重放到服务端。
+// 获取队列
++ (NSMutableArray<BookDetailModel *> *)getFailedBookList;
+// 入队（按 bookId 去重）
++ (void)enqueueFailedBookModel:(BookDetailModel *)model;
+// 出队
++ (void)dequeueFailedBookModel:(BookDetailModel *)model;
 // 添加分类
 + (void)insertCategoryModel:(BKCModel *)model is_income:(BOOL)is_income;
 // 删除分类

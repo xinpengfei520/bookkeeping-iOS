@@ -80,15 +80,27 @@
     if (token.length == 0) {
         return;
     }
-    [NSUserDefaults setObject:token forKey:AUTHORIZATION_TOKEN];
+    // token 只进 Keychain，不再落 NSUserDefaults（App Group plist 是明文、随备份可读）
+    [KKKeychain setString:token forKey:AUTHORIZATION_TOKEN];
 }
 
 + (NSString *)getAuthorizationToken{
-    NSString *token = [NSUserDefaults objectForKey:AUTHORIZATION_TOKEN];
+    NSString *token = [KKKeychain stringForKey:AUTHORIZATION_TOKEN];
+    // 升级迁移：老版本 token 存在 App Group NSUserDefaults 里，首次读到就
+    // 搬进 Keychain 并把明文副本删掉，用户不需要重新登录。
+    if (token.length == 0) {
+        NSString *legacy = [NSUserDefaults objectForKey:AUTHORIZATION_TOKEN];
+        if ([legacy isKindOfClass:[NSString class]] && legacy.length > 0) {
+            token = [self stripBearerPrefix:legacy];
+            [KKKeychain setString:token forKey:AUTHORIZATION_TOKEN];
+            NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
+            [sharedData removeObjectForKey:AUTHORIZATION_TOKEN];
+        }
+    }
     if (token.length == 0) {
         return nil;
     }
-    // 升级安装：本地可能还留着改动前带 `Bearer ` 前缀的旧值，读取时补剥一次。
+    // 兜底：历史数据可能带 `Bearer ` 前缀，读取时补剥一次
     return [self stripBearerPrefix:token];
 }
 
@@ -111,7 +123,8 @@
 + (void)clearUserInfo {
     NSUserDefaults *sharedData = [[NSUserDefaults alloc] initWithSuiteName:@"group.xpf.widget"];
     [sharedData removeObjectForKey:kUser];
-    [sharedData removeObjectForKey:AUTHORIZATION_TOKEN];
+    [KKKeychain removeKey:AUTHORIZATION_TOKEN];
+    [sharedData removeObjectForKey:AUTHORIZATION_TOKEN];    // 老版本可能残留的明文副本
     [sharedData removeObjectForKey:AUTHORIZATION_TIMESTAMP];
     [sharedData removeObjectForKey:AUTHORIZATION_EXPIRES_IN];
     [sharedData removeObjectForKey:All_BOOK_LIST];

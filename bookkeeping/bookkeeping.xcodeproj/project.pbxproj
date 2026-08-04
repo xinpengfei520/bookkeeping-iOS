@@ -213,6 +213,7 @@
 		F35310BB2876D82400D297A9 /* ShareOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310B32876D82400D297A9 /* ShareOrder.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
 		FDCA110000000000000000B1 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
+		FDCA110000000000000000D3 /* KKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000D2 /* KKKeychain.m */; };
 		FDCA110000000000000000B2 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
 		F3570A1A2886995600B10976 /* UITableViewHeaderFooterView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */; };
 		F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3581D9E287ADD2C007B17CD /* VerifyController.m */; };
@@ -634,6 +635,8 @@
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
 		FDCA110000000000000000A1 /* KKCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKCurrency.h; sourceTree = "<group>"; };
 		FDCA110000000000000000A2 /* KKCurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKCurrency.m; sourceTree = "<group>"; };
+		FDCA110000000000000000D1 /* KKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKKeychain.h; sourceTree = "<group>"; };
+		FDCA110000000000000000D2 /* KKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKKeychain.m; sourceTree = "<group>"; };
 		F3570A182886995600B10976 /* UITableViewHeaderFooterView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Extension.h"; sourceTree = "<group>"; };
 		F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Extension.m"; sourceTree = "<group>"; };
 		F3581D9D287ADD2C007B17CD /* VerifyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyController.h; sourceTree = "<group>"; };
@@ -2110,6 +2113,8 @@
 				F354830A27B90D6A00F2D6DE /* LAContextManager.m */,
 				FDCA110000000000000000A1 /* KKCurrency.h */,
 				FDCA110000000000000000A2 /* KKCurrency.m */,
+				FDCA110000000000000000D1 /* KKKeychain.h */,
+				FDCA110000000000000000D2 /* KKKeychain.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2508,6 +2513,7 @@
 				326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */,
 				F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */,
 				FDCA110000000000000000B1 /* KKCurrency.m in Sources */,
+				FDCA110000000000000000D3 /* KKKeychain.m in Sources */,
 				4B35F1C221CCC694007271BE /* KKEmptyLoading.m in Sources */,
 				321983FB21C6460100311885 /* UIColor+HEX.m in Sources */,
 				4B132AA921C68F4300D5B489 /* BKCCollectionCell.m in Sources */,

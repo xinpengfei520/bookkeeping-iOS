@@ -51,6 +51,26 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
 }
 
+#pragma mark - 离线记账队列
++ (NSMutableArray<BookDetailModel *> *)getFailedBookList {
+    NSMutableArray<BookDetailModel *> *arr = [NSUserDefaults objectForKey:PIN_BOOK_FAILED];
+    return arr ?: [NSMutableArray array];
+}
+
++ (void)enqueueFailedBookModel:(BookDetailModel *)model {
+    NSMutableArray<BookDetailModel *> *arr = [self getFailedBookList];
+    // BookDetailModel 的 isEqual: 按 bookId 比较，重复入队直接覆盖旧值
+    [arr removeObject:model];
+    [arr addObject:model];
+    [NSUserDefaults setObject:arr forKey:PIN_BOOK_FAILED];
+}
+
++ (void)dequeueFailedBookModel:(BookDetailModel *)model {
+    NSMutableArray<BookDetailModel *> *arr = [self getFailedBookList];
+    [arr removeObject:model];
+    [NSUserDefaults setObject:arr forKey:PIN_BOOK_FAILED];
+}
+
 + (void)saveAllBookList:(NSMutableArray *)array {
     [NSUserDefaults setObject:array forKey:All_BOOK_LIST];
 }

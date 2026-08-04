@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSMutableArray<BookMonthModel *> *models;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
+@property (nonatomic, assign) BOOL replayingFailedBooks;    // 离线队列重放中(防重入)
 
 @end
 
@@ -48,6 +49,12 @@
     }else{
         [self getData];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // 首页是根控制器，每次回到前台/回到首页都试着把离线队列补发出去
+    [self replayFailedBookRequests];
 }
 
 - (void)getData{
@@ -138,6 +145,9 @@
     // token 过期
     [self kk_observeNotification:MINE_TOKEN_EXPIRED usingBlock:^(id x) {
         @strongify(self)
+        // 重放请求碰上 token 过期时 complete 不会回调，这里把防重入标记复位，
+        // 否则重新登录后离线队列永远不再尝试。
+        self.replayingFailedBooks = NO;
         [self pushToLoginController];
     }];
 }
@@ -180,13 +190,8 @@
     [param setValue:@([[KKCurrency formatRate:model.exchangeRate] doubleValue]) forKey:@"exchangeRate"];
 }
 
-- (void)addBookRequest:(BookDetailModel *)model {
-    // 判断添加的记账年月是否是当前页面显示的记账年月
-    if (model.year == self.date.year && model.month == self.date.month) {
-        [self setModels:[BookMonthModel addData:self.models model:model]];
-    }
-    
-    NSInteger oldBookId = model.bookId;
+// 新增记账的请求体（addBookRequest 与离线队列重放共用同一份构建逻辑）
+- (NSMutableDictionary *)saveParamsWithModel:(BookDetailModel *)model {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.year) forKey:@"year"];
     [param setValue:@(model.month) forKey:@"month"];
@@ -195,6 +200,17 @@
     [param setValue:model.mark forKey:@"mark"];
     [param setValue:@(model.categoryId) forKey:@"categoryId"];
     [self appendCurrencyParams:param model:model];
+    return param;
+}
+
+- (void)addBookRequest:(BookDetailModel *)model {
+    // 判断添加的记账年月是否是当前页面显示的记账年月
+    if (model.year == self.date.year && model.month == self.date.month) {
+        [self setModels:[BookMonthModel addData:self.models model:model]];
+    }
+
+    NSInteger oldBookId = model.bookId;
+    NSMutableDictionary *param = [self saveParamsWithModel:model];
 
     [AFNManager POST:bookDetailSaveRequest params:param complete:^(APPResult *result) {
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
@@ -221,9 +237,88 @@
                 [self setDate:[NSDate dateWithYM:yearMonth]];
                 [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
             }
-        } else {
+
+            // 这次保存走通了说明网络没问题，顺手把之前离线欠下的账补发出去
+            [self replayFailedBookRequests];
+        }
+        // 传输层失败（没网/超时）：先落到本地 + 入离线队列，等网络恢复自动补发。
+        // 之前这里只弹个 toast，UI 上看着记上了、重启就没了 —— 那才是最坑的。
+        else if (result.status != HttpStatusSuccess) {
+            [NSUserDefaults insertBookModel:model];
+            [NSUserDefaults enqueueFailedBookModel:model];
+            [self showTextHUD:KKLocalized(@"网络不给力，已保存在本机，联网后自动同步") delay:1.5f];
+        }
+        // 业务拒绝（参数校验不过等）：服务端永远不会收这条，把乐观插入回滚掉，
+        // 不能让用户以为记上了。
+        else {
+            if (model.year == self.date.year && model.month == self.date.month) {
+                [self setModels:[BookMonthModel removeData:self.models model:model]];
+            }
             [self showTextHUD:result.msg delay:1.f];
         }
+    }];
+}
+
+#pragma mark - 离线记账队列重放
+// 把 PIN_BOOK_FAILED 里积压的记账逐条补发到服务端。串行发送：
+// 一旦再次碰到传输失败就整轮停下（说明还没网），等下一次触发。
+// 触发点：viewDidAppear、每次在线保存成功之后。
+- (void)replayFailedBookRequests {
+    if (self.replayingFailedBooks || ![UserInfo isLogin]) {
+        return;
+    }
+    NSMutableArray<BookDetailModel *> *queue = [NSUserDefaults getFailedBookList];
+    if (queue.count == 0) {
+        return;
+    }
+    self.replayingFailedBooks = YES;
+    [self replayNextFailedBook:queue index:0];
+}
+
+- (void)replayNextFailedBook:(NSMutableArray<BookDetailModel *> *)queue index:(NSInteger)index {
+    if (index >= (NSInteger)queue.count) {
+        self.replayingFailedBooks = NO;
+        return;
+    }
+    BookDetailModel *model = queue[index];
+    @weakify(self)
+    [AFNManager POST:bookDetailSaveRequest params:[self saveParamsWithModel:model] complete:^(APPResult *result) {
+        @strongify(self)
+        if (!self) {
+            return;
+        }
+        // 还是没网：这轮到此为止，队列原样保留
+        if (result.status != HttpStatusSuccess) {
+            self.replayingFailedBooks = NO;
+            return;
+        }
+
+        if (result.code == BIZ_SUCCESS) {
+            // 出队要在改 bookId 之前 —— 队列按 bookId 匹配删除
+            [NSUserDefaults dequeueFailedBookModel:model];
+
+            NSInteger oldBookId = model.bookId;     // 离线时分配的临时 id
+            [NSUserDefaults removeBookModel:model];
+            NSDictionary *dic = [result.data isKindOfClass:[NSDictionary class]] ? result.data : nil;
+            model.bookId = [[dic objectForKey:@"bookId"] integerValue];
+            [NSUserDefaults insertBookModel:model];
+
+            // 补发的这条正好在当前展示的月份，把临时 id 的那条换成服务端 id
+            if (model.year == self.date.year && model.month == self.date.month) {
+                [self setModels:[BookMonthModel replaceData:self.models model:model bookId:oldBookId]];
+            }
+        } else {
+            // 业务拒绝：重试多少次服务端都不会收（如类别已删/校验不过），
+            // 出队并删掉本地这条，明确告诉用户这笔没记上，别让它无限重试。
+            [NSUserDefaults dequeueFailedBookModel:model];
+            [NSUserDefaults removeBookModel:model];
+            if (model.year == self.date.year && model.month == self.date.month) {
+                [self setModels:[BookMonthModel removeData:self.models model:model]];
+            }
+            NSString *reason = result.msg.length ? result.msg : @"";
+            [self showTextHUD:[NSString stringWithFormat:KKLocalized(@"有一笔离线记账未能同步：%@"), reason] delay:2.f];
+        }
+        [self replayNextFailedBook:queue index:index + 1];
     }];
 }
 

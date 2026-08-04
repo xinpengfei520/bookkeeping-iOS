@@ -274,6 +274,10 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"当前汇率可能不是最新（上游数据源暂时不可达，显示的是缓存值）": @"These rates may not be the latest — the upstream source was unreachable, so a cached value is shown.",
             @"汇率由服务端统一提供，记一笔外币时用的是同一份数据。": @"Rates come from our server; a foreign-currency entry uses this exact data.",
 
+            // ---- 离线记账 ----
+            @"网络不给力，已保存在本机，联网后自动同步": @"You're offline — saved on this device, will sync when back online",
+            @"有一笔离线记账未能同步：%@": @"An offline entry couldn't sync: %@",
+
             // ---- Search ----
             @"关键字不能为空": @"Keyword can't be empty",
             @"类别/备注/金额": @"Category / Note / Amount",

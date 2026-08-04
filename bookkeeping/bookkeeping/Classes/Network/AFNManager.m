@@ -245,6 +245,20 @@ forHTTPHeaderField:@"Content-Type"];
     return body;
 }
 
+// 收掉所有窗口上的 JGProgressHUD（必须在主线程调用）
++ (void)dismissAllProgressHUDs {
+    for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+        if (![scene isKindOfClass:[UIWindowScene class]]) {
+            continue;
+        }
+        for (UIWindow *window in ((UIWindowScene *)scene).windows) {
+            for (JGProgressHUD *hud in [JGProgressHUD allProgressHUDsInViewHierarchy:window]) {
+                [hud dismiss];
+            }
+        }
+    }
+}
+
 #pragma mark - Progress map
 
 - (void)setProgressBlock:(AFNManagerProgressBlock)block forTask:(NSURLSessionTask *)task {
@@ -339,6 +353,9 @@ forHTTPHeaderField:@"Content-Type"];
     if (result.code == TOKEN_EXPIRED) {
         [self removeProgressBlockForTask:task];
         dispatch_async(dispatch_get_main_queue(), ^{
+            // complete 不回调意味着调用方请求前 show 的 HUD 永远等不到 hideHUD ——
+            // 在这里统一把全窗口的 JGProgressHUD 收掉，否则转圈会一直盖在登录页下面。
+            [AFNManager dismissAllProgressHUDs];
             [[NSNotificationCenter defaultCenter] postNotificationName:MINE_TOKEN_EXPIRED object:nil];
         });
         return;
