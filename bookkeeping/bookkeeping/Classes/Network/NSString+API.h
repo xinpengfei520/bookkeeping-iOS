@@ -44,6 +44,8 @@
 #define bookDetailUpdateRequest Request(@"/book/detail/update")
 // 获取所有记账列表
 #define allBookListRequest Request(@"/book/detail/list/all")
+// 汇率(GET，可选 ?date=YYYY-MM-DD)。全平台统一取数，APP 不要自己接第三方汇率源
+#define bookRatesRequest Request(@"/book/rates")
 // 获取所有记账备注列表
 #define bookMarkListRequest Request(@"/book/mark/list")
 // 保存备注

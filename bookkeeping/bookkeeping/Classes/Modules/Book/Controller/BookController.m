@@ -137,37 +137,87 @@
     }];
 }
 
+// 汇率：统一走服务端的 GET /book/rates，不接第三方源，保证各端同一天用同一个汇率
+- (void)getRatesRequest:(NSString *)currency date:(NSDate *)date {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    // 不传 date 就是最新汇率；补记旧账才带上当天日期
+    if (date && ![date isToday]) {
+        params[@"date"] = [NSString stringWithFormat:@"%ld-%02ld-%02ld", (long)date.year, (long)date.month, (long)date.day];
+    }
+
+    @weakify(self)
+    [AFNManager GET:bookRatesRequest params:params complete:^(APPResult *result) {
+        @strongify(self)
+        if (result.status != HttpStatusSuccess || result.code != BIZ_SUCCESS) {
+            // 让键盘退回人民币并提示，而不是静默按 1:1 记账
+            [self.keyboard setExchangeRate:0 forCurrency:currency stale:NO];
+            if (result.msg.length) {
+                [self showTextHUD:result.msg delay:1.5f];
+            }
+            return;
+        }
+        NSDictionary *data = [result.data isKindOfClass:[NSDictionary class]] ? result.data : nil;
+        NSDictionary *rates = [data[@"rates"] isKindOfClass:[NSDictionary class]] ? data[@"rates"] : nil;
+        // rates 的语义是「1 单位外币 = N 人民币」，已按 6 位小数取整，直接用、不要取倒数
+        NSNumber *rate = rates[currency];
+        [self.keyboard setExchangeRate:[rate doubleValue]
+                           forCurrency:currency
+                                 stale:[data[@"stale"] boolValue]];
+    }];
+}
+
 // 记账
-- (void)createBookRequest:(NSString *)price mark:(NSString *)mark date:(NSDate *)date {
+- (void)createBookRequest:(NSString *)price mark:(NSString *)mark date:(NSDate *)date currency:(NSString *)currency rate:(CGFloat)rate {
     NSInteger index = self.scroll.contentOffset.x / SCREEN_WIDTH;
     BKCCollection *collection = self.collections[index];
     BKCModel *cmodel = collection.model.list[collection.selectIndex.row];
-    
+
+    // 键盘里输入的是所选币种下的金额。price 字段永远是人民币：
+    // 外币时按 round(originalPrice × exchangeRate, 2) 自己算好再提交，
+    // 服务端会用同样的方式复算校验（只容忍 1 分误差）。
+    BOOL foreign = [KKCurrency isForeignCode:currency] && rate > 0;
+    CGFloat amount = [[NSDecimalNumber decimalNumberWithString:price] doubleValue];
+    CGFloat cnyPrice = foreign ? [KKCurrency cnyPriceForAmount:amount rate:rate] : amount;
+
     BookDetailModel *model = [[BookDetailModel alloc] init];
     model.bookId = [[BookDetailModel getBookId] integerValue];
-    model.price = [[NSDecimalNumber decimalNumberWithString:price] doubleValue];
+    model.price = cnyPrice;
     model.year = date.year;
     model.month = date.month;
     model.day = date.day;
     // 去掉备注中的空格并判空，如果为空则使用类别名作为备注
     model.mark = ([allTrim(mark)length] == 0)?cmodel.name:mark;
     model.categoryId = cmodel.Id;
-    
+    if (foreign) {
+        model.currency = currency;
+        model.originalPrice = amount;
+        model.exchangeRate = rate;
+    }
+
     // 新增
     if (!_model) {
         //[NSUserDefaults insertBookModel:model];
     }
     // 修改
     else {
-        _model.price = [price floatValue];
+        _model.price = cnyPrice;
         _model.year = date.year;
         _model.month = date.month;
         _model.day = date.day;
         _model.mark = mark;
         _model.categoryId = cmodel.Id;
+        // 改金额时三个字段一起更新，否则会留下 price 与 原价×汇率 对不上的自相矛盾数据；
+        // 从外币改回人民币则要一并清掉。
+        if (foreign) {
+            _model.currency = currency;
+            _model.originalPrice = amount;
+            _model.exchangeRate = rate;
+        } else {
+            [_model clearCurrency];
+        }
         model = _model;
     }
-    
+
     // 编辑修改完成
     if (self.navigationController.viewControllers.count != 1) {
         [self.navigationController popViewControllerAnimated:true];
@@ -322,9 +372,13 @@
     if (!_keyboard) {
         @weakify(self)
         _keyboard = [BKCKeyboard init];
-        [_keyboard setComplete:^(NSString *price, NSString *mark, NSDate *date) {
+        [_keyboard setComplete:^(NSString *price, NSString *mark, NSDate *date, NSString *currency, CGFloat rate) {
             @strongify(self)
-            [self createBookRequest:price mark:mark date:date];
+            [self createBookRequest:price mark:mark date:date currency:currency rate:rate];
+        }];
+        [_keyboard setRateRequest:^(NSString *currency, NSDate *date) {
+            @strongify(self)
+            [self getRatesRequest:currency date:date];
         }];
         [self.view addSubview:_keyboard];
     }

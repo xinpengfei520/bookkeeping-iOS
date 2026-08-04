@@ -44,7 +44,11 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _model ? 4 : 0;
+    if (!_model) {
+        return 0;
+    }
+    // 外币记录多两行：原始金额 + 汇率，让用户能回溯当时是怎么算的
+    return [_model isForeignCurrency] ? 6 : 4;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BDTableCell *cell = [BDTableCell loadCode:tableView];

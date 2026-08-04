@@ -251,6 +251,21 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"请输入金额": @"Enter amount",
             @"编辑": @"Edit",
 
+            // ---- 多币种 ----
+            @"人民币": @"CNY",
+            @"美元": @"USD",
+            @"港币": @"HKD",
+            @"新加坡元": @"SGD",
+            @"选择币种": @"Select currency",
+            @"入账金额": @"Booked amount",
+            @"原始金额": @"Original amount",
+            @"汇率": @"Rate",
+            @"汇率获取中…": @"Fetching rate…",
+            @"汇率获取失败，请稍后重试": @"Couldn't fetch the rate — please try again",
+            @"汇率获取失败，已切回人民币，请稍后重试": @"Couldn't fetch the rate — switched back to CNY, please try again",
+            @"当前汇率可能不是最新，请确认后再记账": @"This rate may not be the latest — please confirm before saving",
+            @"汇率可能不是最新 · ": @"Rate may be stale · ",
+
             // ---- Search ----
             @"关键字不能为空": @"Keyword can't be empty",
             @"类别/备注/金额": @"Category / Note / Amount",

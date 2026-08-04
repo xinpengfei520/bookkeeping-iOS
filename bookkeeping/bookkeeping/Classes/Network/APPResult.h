@@ -46,4 +46,11 @@ typedef NS_ENUM(NSInteger, HttpStatus) {
 @property (nonatomic, copy) NSString *msg;           // 响应描述(后端返回)
 @property (nonatomic, strong) id data;               // 响应数据(后端返回)
 
+// 登录/刷新 token 类接口的标准令牌字段(RFC 6750)：
+// token 是**裸 JWT**，不含 `Bearer ` 前缀；tokenType 固定 "Bearer"；expiresIn 单位秒。
+// 非登录接口不会返回这三个字段，保持为 nil / 0。
+@property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy) NSString *tokenType;
+@property (nonatomic, assign) NSInteger expiresIn;
+
 @end

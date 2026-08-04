@@ -21,6 +21,9 @@ typedef void(^__nullable AFNManagerProgressBlock)(CGFloat currentProgress, CGFlo
 #pragma mark - 声明
 @interface AFNManager : NSObject
 
+/// GET 请求，params 会被拼成 query string（值统一按字符串处理）。
++ (void)GET:(NSString *)url params:(NSDictionary * _Nullable)params complete:(AFNManagerCompleteBlock)complete;
+
 + (void)POST:(NSString *)url params:(NSDictionary * _Nullable)params complete:(AFNManagerCompleteBlock)complete;
 + (void)POST:(NSString *)url params:(NSDictionary * _Nullable)params progress:(AFNManagerProgressBlock)progress complete:(AFNManagerCompleteBlock)complete;
 + (void)POST:(NSString *)url params:(NSDictionary * _Nullable)params images:(NSArray<UIImage *> *)images progress:(AFNManagerProgressBlock)progress complete:(AFNManagerCompleteBlock)complete;

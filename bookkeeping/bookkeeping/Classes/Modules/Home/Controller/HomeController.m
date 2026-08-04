@@ -168,6 +168,18 @@
     }
 }
 
+// 多币种三字段：要么全给、要么全不给。人民币记账就是"全不给"，
+// 请求体与改造前逐字节相同。currency 必须大写、汇率 6 位小数，
+// 否则服务端的跨字段一致性校验会直接拒绝保存。
+- (void)appendCurrencyParams:(NSMutableDictionary *)param model:(BookDetailModel *)model {
+    if (![model isForeignCurrency]) {
+        return;
+    }
+    [param setValue:[model.currency uppercaseString] forKey:@"currency"];
+    [param setValue:@([[KKCurrency formatAmount:model.originalPrice] doubleValue]) forKey:@"originalPrice"];
+    [param setValue:@([[KKCurrency formatRate:model.exchangeRate] doubleValue]) forKey:@"exchangeRate"];
+}
+
 - (void)addBookRequest:(BookDetailModel *)model {
     // 判断添加的记账年月是否是当前页面显示的记账年月
     if (model.year == self.date.year && model.month == self.date.month) {
@@ -182,7 +194,8 @@
     [param setValue:@(model.price) forKey:@"price"];
     [param setValue:model.mark forKey:@"mark"];
     [param setValue:@(model.categoryId) forKey:@"categoryId"];
-    
+    [self appendCurrencyParams:param model:model];
+
     [AFNManager POST:bookDetailSaveRequest params:param complete:^(APPResult *result) {
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:result.data];
@@ -241,7 +254,8 @@
     [param setValue:@(model.price) forKey:@"price"];
     [param setValue:model.mark forKey:@"mark"];
     [param setValue:@(model.categoryId) forKey:@"categoryId"];
-    
+    [self appendCurrencyParams:param model:model];
+
     [AFNManager POST:bookDetailUpdateRequest params:param complete:^(APPResult *result) {
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
             // 修改本地所有记账

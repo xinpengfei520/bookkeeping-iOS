@@ -29,6 +29,9 @@
 #import "KKI18n.h"
 #define KKLocalized(key) [KKI18n stringForKey:(key)]
 
+// 多币种（BookDetailModel 的展示辅助方法要用；纯计算，不含网络层）
+#import "KKCurrency.h"
+
 
 // model
 #import "BaseModel.h"

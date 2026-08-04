@@ -55,29 +55,47 @@
 
 
 #pragma mark - set
+// 行文案在 setModel: 里一起刷 —— 外币记录会在"金额"后面插入两行，
+// 光看 indexPath 判断不出该显示什么。
 - (void)setIndexPath:(NSIndexPath *)indexPath {
     _indexPath = indexPath;
-    [_nameLab setText:@[KKLocalized(@"类型"),KKLocalized(@"金额"),KKLocalized(@"日期"),KKLocalized(@"备注")][indexPath.row]];
 }
 
 - (void)setModel:(BookDetailModel *)model {
     _model = model;
-    if (_indexPath.row == 0) {
-        [_detailLab setText:[model getTypeDesc]];
-    } else if (_indexPath.row == 1) {
-        [_detailLab setText:[model getPriceStr]];
-    } else if (_indexPath.row == 2) {
-        [_detailLab setText:[model getDateStr]];
-    } else if (_indexPath.row == 3) {
+
+    BOOL foreign = [model isForeignCurrency];
+    // 外币：类型 / 入账金额(人民币) / 原始金额 / 汇率 / 日期 / 备注
+    // 人民币：类型 / 金额 / 日期 / 备注（与改造前完全一致）
+    NSArray<NSString *> *names = foreign
+        ? @[KKLocalized(@"类型"), KKLocalized(@"入账金额"), KKLocalized(@"原始金额"), KKLocalized(@"汇率"), KKLocalized(@"日期"), KKLocalized(@"备注")]
+        : @[KKLocalized(@"类型"), KKLocalized(@"金额"), KKLocalized(@"日期"), KKLocalized(@"备注")];
+
+    NSMutableArray<NSString *> *details = [NSMutableArray array];
+    [details addObject:[model getTypeDesc] ?: @""];
+    [details addObject:foreign ? [NSString stringWithFormat:@"¥%@", [KKCurrency formatAmount:model.price]] : ([model getPriceStr] ?: @"")];
+    if (foreign) {
+        [details addObject:[model getOriginalPriceStr] ?: @""];
+        [details addObject:[model getExchangeRateStr] ?: @""];
+    }
+    [details addObject:[model getDateStr] ?: @""];
+    [details addObject:({
         NSString *mark;
         if ((model.mark && model.mark.length != 0)) {
             mark = model.mark;
-        }else{
+        } else {
             BKCModel *cmodel = [NSUserDefaults getCategoryModel:model.categoryId];
             mark = cmodel.name;
         }
-        [_detailLab setText:mark];
+        mark ?: @"";
+    })];
+
+    NSInteger row = _indexPath.row;
+    if (row < 0 || row >= (NSInteger)names.count) {
+        return;
     }
+    [_nameLab setText:names[row]];
+    [_detailLab setText:details[row]];
 }
 
 

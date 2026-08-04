@@ -42,6 +42,9 @@
     model.week = self.week;
     model.mark = self.mark;
     model.date = self.date;
+    model.currency = self.currency;
+    model.originalPrice = self.originalPrice;
+    model.exchangeRate = self.exchangeRate;
     return model;
 }
 
@@ -81,6 +84,46 @@
     } else {
         return [NSString stringWithFormat:@"%.2f",_price];
     }
+}
+
+- (BOOL)isForeignCurrency {
+    // 三个字段"要么全给、要么全不给"，缺一就当人民币处理，避免强解包炸掉
+    return [KKCurrency isForeignCode:_currency] && _originalPrice > 0 && _exchangeRate > 0;
+}
+
+- (NSString *)getOriginalPriceStr {
+    if (![self isForeignCurrency]) {
+        return nil;
+    }
+    return [KKCurrency displayAmount:_originalPrice code:_currency];
+}
+
+- (NSString *)getExchangeRateStr {
+    if (![self isForeignCurrency]) {
+        return nil;
+    }
+    return [KKCurrency displayRate:_exchangeRate code:_currency];
+}
+
+- (NSAttributedString *)listPriceAttributedText:(NSString *)priceText {
+    NSString *text = priceText ?: @"";
+    if (![self isForeignCurrency]) {
+        return [[NSAttributedString alloc] initWithString:text];
+    }
+    NSString *badge = [NSString stringWithFormat:@"%@  ", [self getOriginalPriceStr]];
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:badge
+                                                                            attributes:@{
+        NSFontAttributeName: [UIFont systemFontOfSize:AdjustFont(9) weight:UIFontWeightLight],
+        NSForegroundColorAttributeName: kColor_Text_Gary,
+    }];
+    [att appendAttributedString:[[NSAttributedString alloc] initWithString:text]];
+    return att;
+}
+
+- (void)clearCurrency {
+    _currency = nil;
+    _originalPrice = 0;
+    _exchangeRate = 0;
 }
 
 - (NSDate *)date {

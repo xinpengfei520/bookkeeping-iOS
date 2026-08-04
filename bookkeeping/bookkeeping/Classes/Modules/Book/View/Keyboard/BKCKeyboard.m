@@ -31,6 +31,17 @@
 @property (nonatomic, assign) BOOL isLess;          // 减
 @property (nonatomic, assign) BOOL animation;       // 动画中
 
+// 多币种
+@property (nonatomic, strong) UIButton *currencyBtn;                    // 币种选择器
+@property (nonatomic, strong) UILabel *rateLab;                         // 换算提示，仅外币时显示
+@property (nonatomic, strong) NSLayoutConstraint *moneyBottomConstraint;// 让出 rateLab 的一行
+@property (nonatomic, strong) NSLayoutConstraint *rateHeightConstraint; // 无提示时高度收成 0
+@property (nonatomic, copy  ) NSString *currency;                       // 当前币种，默认 CNY
+@property (nonatomic, assign) CGFloat exchangeRate;                     // 当前币种汇率，CNY 时为 0
+@property (nonatomic, assign) BOOL rateLoading;                         // 汇率请求中
+@property (nonatomic, assign) BOOL rateStale;                           // 服务端返回的是缓存旧汇率
+@property (nonatomic, assign) CGFloat textContentOffsetY;               // 系统键盘顶起 textContent 的位移
+
 @end
 
 
@@ -39,9 +50,10 @@
 
 
 + (instancetype)init {
+    // loadFirstNib: 内部已经调过一次 initUI，这里不能再调一次 ——
+    // 重复初始化会把币种按钮之类的代码创建的子视图加两遍。
     BKCKeyboard *view = [BKCKeyboard loadFirstNib:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH / 5 * 4 + SafeAreaBottomHeight)];
     [view setHidden:YES];
-    [view initUI];
     return view;
 }
 
@@ -74,7 +86,8 @@
     [self.keyConstraintB setConstant:SafeAreaBottomHeight];
     
     [self createBtn];
-    
+    [self buildCurrencyViews];
+
     if (!_money) {
         _money = [NSMutableString string];
     }
@@ -151,6 +164,185 @@
 }
 
 
+#pragma mark - 多币种
+// 在 XIB 的备注行里插入币种选择器，并在金额下方留出一行换算提示。
+// 这一行 XIB 原本是 [备注:][输入框][金额(120)]，金额上下占满 60pt；
+// 这里改成 [备注:][输入框][金额][币种] + 金额下方的 rateLab —— 币种跟在金额后面，
+// 读作"25.50 ¥"，默认就是人民币，用户不点它就不需要做任何选择。
+- (void)buildCurrencyViews {
+    if (_currencyBtn) {
+        return;     // initUI 可能被重复调用，子视图只建一次
+    }
+    _currency = KKCurrencyCNY;
+    _exchangeRate = 0;
+
+    // 圆角浅底的小胶囊，让用户一眼看出这是可以点的按钮
+    _currencyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _currencyBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    UIButtonConfiguration *cfg = [UIButtonConfiguration filledButtonConfiguration];
+    cfg.cornerStyle = UIButtonConfigurationCornerStyleMedium;
+    cfg.contentInsets = NSDirectionalEdgeInsetsMake(3, 5, 3, 5);
+    cfg.baseBackgroundColor = [kColor_Main_Color colorWithAlphaComponent:0.12f];
+    cfg.baseForegroundColor = kColor_Main_Color;
+    cfg.titleTextAttributesTransformer = ^NSDictionary<NSAttributedStringKey, id> *(NSDictionary<NSAttributedStringKey, id> *incoming) {
+        NSMutableDictionary *attrs = [incoming mutableCopy];
+        attrs[NSFontAttributeName] = [UIFont systemFontOfSize:AdjustFont(11)];
+        return attrs;
+    };
+    _currencyBtn.configuration = cfg;
+    [_currencyBtn addTarget:self action:@selector(currencyBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.textContent addSubview:_currencyBtn];
+
+    _rateLab = [[UILabel alloc] init];
+    _rateLab.translatesAutoresizingMaskIntoConstraints = NO;
+    [_rateLab setFont:[UIFont systemFontOfSize:AdjustFont(9) weight:UIFontWeightLight]];
+    [_rateLab setTextColor:kColor_Text_Gary];
+    [_rateLab setTextAlignment:NSTextAlignmentRight];
+    [_rateLab setHidden:YES];
+    [self.textContent addSubview:_rateLab];
+
+    // XIB 里"金额占满整行、且紧跟输入框"的那几条约束要整体换掉。
+    // 金额自身的宽度约束挂在 label 上（不在容器上），不受影响。
+    NSMutableArray<NSLayoutConstraint *> *dead = [NSMutableArray array];
+    for (NSLayoutConstraint *c in self.textContent.constraints) {
+        if (c.firstItem == self.moneyLab || c.secondItem == self.moneyLab) {
+            [dead addObject:c];
+        }
+    }
+    [NSLayoutConstraint deactivateConstraints:dead];
+
+    // 无提示时 rateLab 高度收成 0、金额行占满整行，视觉与改造前一致；
+    // 有提示时两者一起让出 16pt，避免空 label 的固有高度顶破容器底边。
+    _moneyBottomConstraint = [self.moneyLab.bottomAnchor constraintEqualToAnchor:self.textContent.bottomAnchor];
+    _rateHeightConstraint = [_rateLab.heightAnchor constraintEqualToConstant:0];
+    [NSLayoutConstraint activateConstraints:@[
+        _rateHeightConstraint,
+        [self.moneyLab.topAnchor constraintEqualToAnchor:self.textContent.topAnchor],
+        [self.moneyLab.trailingAnchor constraintEqualToAnchor:_currencyBtn.leadingAnchor constant:-8],
+        _moneyBottomConstraint,
+        [_currencyBtn.trailingAnchor constraintEqualToAnchor:self.textContent.trailingAnchor constant:-countcoordinatesX(15)],
+        [_currencyBtn.centerYAnchor constraintEqualToAnchor:self.moneyLab.centerYAnchor],
+        [self.markField.trailingAnchor constraintEqualToAnchor:self.moneyLab.leadingAnchor constant:-8],
+        [_rateLab.topAnchor constraintEqualToAnchor:self.moneyLab.bottomAnchor],
+        [_rateLab.trailingAnchor constraintEqualToAnchor:self.textContent.trailingAnchor constant:-countcoordinatesX(15)],
+        [_rateLab.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.textContent.leadingAnchor constant:countcoordinatesX(15)],
+    ]];
+
+    [self reloadCurrencyUI];
+}
+
+// 点击币种：人民币 / 美元 / 港币 / 新加坡元
+- (void)currencyBtnClick {
+    UIViewController *vc = self.viewController;
+    if (vc == nil) {
+        return;
+    }
+    [self.markField endEditing:YES];
+
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:KKLocalized(@"选择币种")
+                                                                  message:nil
+                                                           preferredStyle:UIAlertControllerStyleActionSheet];
+    for (NSString *code in [KKCurrency supportedCodes]) {
+        NSString *title = [NSString stringWithFormat:@"%@ %@", [KKCurrency nameForCode:code], [KKCurrency badgeForCode:code]];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *a) {
+            [self selectCurrency:code];
+        }];
+        [sheet addAction:action];
+    }
+    [sheet addAction:[UIAlertAction actionWithTitle:KKLocalized(@"取消") style:UIAlertActionStyleCancel handler:nil]];
+    // iPad / Mac Catalyst 上 actionSheet 必须有锚点，iPhone 上设了也无害
+    sheet.popoverPresentationController.sourceView = self.currencyBtn;
+    sheet.popoverPresentationController.sourceRect = self.currencyBtn.bounds;
+    [vc presentViewController:sheet animated:YES completion:nil];
+}
+
+- (void)selectCurrency:(NSString *)code {
+    if ([code isEqualToString:_currency]) {
+        return;
+    }
+    _currency = code;
+    _exchangeRate = 0;
+    _rateStale = NO;
+    [self reloadCurrencyUI];
+    [self requestRateIfNeeded];
+}
+
+// 币种或记账日期变了都要重新取汇率：补记旧账要用当天的汇率
+- (void)requestRateIfNeeded {
+    if (![KKCurrency isForeignCode:_currency]) {
+        return;
+    }
+    _rateLoading = YES;
+    [self reloadCurrencyUI];
+    if (self.rateRequest) {
+        self.rateRequest(_currency, self.currentDate);
+    }
+}
+
+- (void)setExchangeRate:(CGFloat)rate forCurrency:(NSString *)currency stale:(BOOL)stale {
+    // 请求返回时用户可能已经改了币种，过期回包直接丢掉
+    if (![currency isEqualToString:_currency]) {
+        return;
+    }
+    _rateLoading = NO;
+    _rateStale = stale;
+    _exchangeRate = rate;
+
+    if (rate <= 0) {
+        // 拿不到汇率就退回人民币，绝不静默按 1:1 记一笔外币
+        _currency = KKCurrencyCNY;
+        _rateStale = NO;
+        [self reloadCurrencyUI];
+        [self showTextHUD:KKLocalized(@"汇率获取失败，已切回人民币，请稍后重试") delay:2.f];
+        return;
+    }
+    [self reloadCurrencyUI];
+    if (stale) {
+        [self showTextHUD:KKLocalized(@"当前汇率可能不是最新，请确认后再记账") delay:2.f];
+    }
+}
+
+// 币种按钮标题 + 换算提示行
+- (void)reloadCurrencyUI {
+    UIButtonConfiguration *cfg = self.currencyBtn.configuration;
+    cfg.title = [NSString stringWithFormat:@"%@ ▾", [KKCurrency badgeForCode:_currency]];
+    self.currencyBtn.configuration = cfg;
+
+    BOOL foreign = [KKCurrency isForeignCode:_currency];
+    CGFloat amount = [self currentAmount];
+    NSString *hint = nil;
+    // 还没输金额（或输了 0）时不占这一行：没有金额可换算，提示也没有意义
+    if (foreign && amount > 0) {
+        if (_rateLoading) {
+            hint = KKLocalized(@"汇率获取中…");
+        } else if (_exchangeRate > 0) {
+            CGFloat cny = [KKCurrency cnyPriceForAmount:amount rate:_exchangeRate];
+            // 提交前让用户看到换算结果：US$5.20 ≈ ¥35.11（1 USD = 6.752650 CNY）
+            hint = [NSString stringWithFormat:@"%@ ≈ ¥%@（%@）",
+                    [KKCurrency displayAmount:amount code:_currency],
+                    [KKCurrency formatAmount:cny],
+                    [KKCurrency displayRate:_exchangeRate code:_currency]];
+            if (_rateStale) {
+                hint = [KKLocalized(@"汇率可能不是最新 · ") stringByAppendingString:hint];
+            }
+        }
+    }
+    [self.rateLab setText:hint];
+    [self.rateLab setHidden:(hint.length == 0)];
+    // 有提示时把金额行压上去，给提示让出一行
+    CGFloat rateHeight = (hint.length == 0) ? 0 : countcoordinatesX(16);
+    [self.moneyBottomConstraint setConstant:-rateHeight];
+    [self.rateHeightConstraint setConstant:rateHeight];
+}
+
+// 当前输入框里的金额（已计算完的数值，含加减式子时取展示值）
+- (CGFloat)currentAmount {
+    return [_moneyLab.text doubleValue];
+}
+
+
 #pragma mark - 动画
 - (void)show {
     if (_animation == YES) {
@@ -211,6 +403,8 @@
     [self reloadCompleteButton];
     // 计算
     [self calculationMath];
+    // 外币换算提示跟着金额实时更新
+    [self reloadCurrencyUI];
 }
 
 // 数字
@@ -321,6 +515,8 @@
             [btn setTitle:selectValue forState:UIControlStateNormal];
             [btn setTitle:selectValue forState:UIControlStateHighlighted];
             [btn.titleLabel setFont:[UIFont systemFontOfSize:AdjustFont(12)]];
+            // 补记旧账要用记账当天的汇率，日期一变就重新取
+            [self requestRateIfNeeded];
         };
 
         // 3.显示
@@ -354,9 +550,14 @@
             [self showTextHUD:KKLocalized(@"请输入金额") delay:1];
             return;
         }
-        
+        // 选了外币却没拿到汇率：宁可拦住，也不能静默按 1:1 记账
+        if ([KKCurrency isForeignCode:_currency] && _exchangeRate <= 0) {
+            [self showTextHUD:_rateLoading ? KKLocalized(@"汇率获取中…") : KKLocalized(@"汇率获取失败，请稍后重试") delay:1.5f];
+            return;
+        }
+
         if (self.complete) {
-            self.complete(_moneyLab.text, _markField.text, self.currentDate);
+            self.complete(_moneyLab.text, _markField.text, self.currentDate, _currency, _exchangeRate);
         }
     }
 }
@@ -558,9 +759,21 @@
     _model = model;
     NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, model.month, model.day];
     [self.markField setText:model.mark];
-    [self setMoney:[model getPriceStr].mutableCopy];
+    // 编辑外币记录：输入框里放回**原始外币金额**，币种与当时的汇率一并还原，
+    // 用户不动金额时提交回去的三个字段与原来一致，不会写出自相矛盾的数据。
+    if ([model isForeignCurrency]) {
+        _currency = model.currency;
+        _exchangeRate = model.exchangeRate;
+        _rateStale = NO;
+        [self setMoney:[KKCurrency formatAmount:model.originalPrice].mutableCopy];
+    } else {
+        _currency = KKCurrencyCNY;
+        _exchangeRate = 0;
+        [self setMoney:[model getPriceStr].mutableCopy];
+    }
+    [self reloadCurrencyUI];
     [self setCurrentDate:[NSDate dateWithYMD:key]];
-    
+
     UIButton *btn = [self viewWithTag:DATE_TAG];
     NSString *selectValue = [self.currentDate isToday] ? KKLocalized(@"今天") : key;
     [btn setTitle:selectValue forState:UIControlStateNormal];
@@ -579,22 +792,34 @@
     // 对应的 Value 是个 NSValue 对象，内部包含 CGRect 结构，分别为键盘起始时和终止时的位置信息
     // 此处应该使用终止时的位置，因为弹起软键盘的时候位置有变化
     CGFloat keyHeight = [not.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    
+
+    // countcoordinatesX(44) 是 markView 的高度
+    _textContentOffsetY = (self.height - keyHeight) - countcoordinatesX(60) - countcoordinatesX(44);
     [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        // countcoordinatesX(44) 是 markView 的高度
-        [self.textContent setTop:(self.height - keyHeight) - countcoordinatesX(60) - countcoordinatesX(44)];
+        [self.textContent setTop:self.textContentOffsetY];
     } completion:^(BOOL finished) {
-        
+
     }];
 }
 
 - (void)hideKeyboard:(NSNotification *)not {
     NSTimeInterval time = [not.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    _textContentOffsetY = 0;
     [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.textContent setTop:0];
     } completion:^(BOOL finished) {
-        
+
     }];
+}
+
+// textContent 的上移是直接改 frame 的（它自己的位置由 XIB 约束决定），
+// 任何一次重新布局都会把它拍回原位 —— 币种切换会改约束、进而触发布局，
+// 所以这里把位移重新贴回去，避免系统键盘弹起时备注行突然跳回底部。
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (_textContentOffsetY != 0 && self.textContent.top != _textContentOffsetY) {
+        [self.textContent setTop:_textContentOffsetY];
+    }
 }
 
 

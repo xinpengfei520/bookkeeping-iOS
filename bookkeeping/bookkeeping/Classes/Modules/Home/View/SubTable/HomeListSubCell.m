@@ -69,9 +69,10 @@
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     // 显示备注
     [_nameLab setText:model.mark];
-    // 显示记账信息
+    // 显示记账信息(人民币；外币记录在前面加一个小号灰字的原始金额角标)
     NSString *priceStr = [model getPriceStr];
-    [_detailLab setText:cmodel.is_income == 0 ? [@"-" stringByAppendingString: priceStr] : priceStr];
+    NSString *text = cmodel.is_income == 0 ? [@"-" stringByAppendingString: priceStr] : priceStr;
+    [_detailLab setAttributedText:[model listPriceAttributedText:text]];
 }
 
 @end

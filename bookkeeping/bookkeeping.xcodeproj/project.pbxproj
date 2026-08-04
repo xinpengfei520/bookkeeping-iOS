@@ -211,6 +211,8 @@
 		F35310BA2876D82400D297A9 /* ShareBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35310B12876D82400D297A9 /* ShareBadge.xib */; };
 		F35310BB2876D82400D297A9 /* ShareOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310B32876D82400D297A9 /* ShareOrder.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
+		FDCA110000000000000000B1 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
+		FDCA110000000000000000B2 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
 		F3570A1A2886995600B10976 /* UITableViewHeaderFooterView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */; };
 		F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3581D9E287ADD2C007B17CD /* VerifyController.m */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
@@ -627,6 +629,8 @@
 		F35310B32876D82400D297A9 /* ShareOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareOrder.m; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
+		FDCA110000000000000000A1 /* KKCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKCurrency.h; sourceTree = "<group>"; };
+		FDCA110000000000000000A2 /* KKCurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKCurrency.m; sourceTree = "<group>"; };
 		F3570A182886995600B10976 /* UITableViewHeaderFooterView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Extension.h"; sourceTree = "<group>"; };
 		F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Extension.m"; sourceTree = "<group>"; };
 		F3581D9D287ADD2C007B17CD /* VerifyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyController.h; sourceTree = "<group>"; };
@@ -2081,6 +2085,8 @@
 			children = (
 				F354830927B90D6A00F2D6DE /* LAContextManager.h */,
 				F354830A27B90D6A00F2D6DE /* LAContextManager.m */,
+				FDCA110000000000000000A1 /* KKCurrency.h */,
+				FDCA110000000000000000A2 /* KKCurrency.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2478,6 +2484,7 @@
 				247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */,
 				326F8F2421D4BFCA0030B329 /* TIModel.m in Sources */,
 				F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */,
+				FDCA110000000000000000B1 /* KKCurrency.m in Sources */,
 				4B35F1C221CCC694007271BE /* KKEmptyLoading.m in Sources */,
 				321983FB21C6460100311885 /* UIColor+HEX.m in Sources */,
 				4B132AA921C68F4300D5B489 /* BKCCollectionCell.m in Sources */,
@@ -2589,6 +2596,7 @@
 			files = (
 				F3AE5FEA284A42CF00E95086 /* BookMonthModel.m in Sources */,
 				F3AE5FE9284A424200E95086 /* BookDetailModel.m in Sources */,
+				FDCA110000000000000000B2 /* KKCurrency.m in Sources */,
 				4B38C07E21E4E6A800D28B34 /* BaseModel.m in Sources */,
 				4BFD381B21E4D7C000BAB0BB /* NSDate+Extension.m in Sources */,
 				4BFD380D21E4C5D500BAB0BB /* UIFont+Extension.m in Sources */,
@@ -2837,7 +2845,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2889,7 +2897,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

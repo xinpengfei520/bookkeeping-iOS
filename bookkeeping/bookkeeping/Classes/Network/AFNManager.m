@@ -60,6 +60,25 @@ static NSString * const kAppIDValue  = @"638c2977f1b24ba0";
 
 #pragma mark - Public class methods
 
++ (void)GET:(NSString *)url
+     params:(NSDictionary *)params
+   complete:(AFNManagerCompleteBlock)complete {
+
+    AFNManager *m = [self shared];
+    NSMutableURLRequest *req = [m buildGETRequestForURL:url params:params];
+    if (req == nil) {
+        [m deliverFailureToComplete:complete];
+        return;
+    }
+
+    __block NSURLSessionDataTask *task = nil;
+    task = [m.session dataTaskWithRequest:req
+                        completionHandler:^(NSData *data, NSURLResponse *resp, NSError *error) {
+        [m handleResponse:resp data:data error:error complete:complete forTask:task];
+    }];
+    [task resume];
+}
+
 + (void)POST:(NSString *)url
       params:(NSDictionary *)params
     complete:(AFNManagerCompleteBlock)complete {
@@ -111,11 +130,7 @@ static NSString * const kAppIDValue  = @"638c2977f1b24ba0";
     req.HTTPMethod = @"POST";
     [req setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]
 forHTTPHeaderField:@"Content-Type"];
-    NSString *auth = [UserInfo getAuthorizationToken];
-    if (auth) {
-        [req setValue:auth forHTTPHeaderField:@"Authorization"];
-    }
-    [req setValue:kAppIDValue forHTTPHeaderField:kAppIDHeader];
+    [m applyCommonHeaders:req];
 
     __block NSURLSessionUploadTask *task = nil;
     task = [m.session uploadTaskWithRequest:req
@@ -132,6 +147,40 @@ forHTTPHeaderField:@"Content-Type"];
 
 #pragma mark - Request building
 
+- (NSMutableURLRequest *)buildGETRequestForURL:(NSString *)url params:(NSDictionary *)params {
+    NSURLComponents *comp = [NSURLComponents componentsWithString:url];
+    if (comp == nil) {
+        return nil;
+    }
+    if (params.count > 0) {
+        NSMutableArray<NSURLQueryItem *> *items = [NSMutableArray array];
+        [params enumerateKeysAndObjectsUsingBlock:^(id k, id v, BOOL *stop) {
+            [items addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"%@", k]
+                                                         value:[NSString stringWithFormat:@"%@", v]]];
+        }];
+        comp.queryItems = items;
+    }
+    NSURL *u = comp.URL;
+    if (u == nil) {
+        return nil;
+    }
+
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:u];
+    req.HTTPMethod = @"GET";
+    [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [self applyCommonHeaders:req];
+    return req;
+}
+
+/// app_id + Authorization。Authorization 统一走 `Bearer <裸 JWT>`，前缀只在这里拼一次。
+- (void)applyCommonHeaders:(NSMutableURLRequest *)req {
+    [req setValue:kAppIDValue forHTTPHeaderField:kAppIDHeader];
+    NSString *auth = [UserInfo getAuthorizationHeader];
+    if (auth) {
+        [req setValue:auth forHTTPHeaderField:@"Authorization"];
+    }
+}
+
 - (NSMutableURLRequest *)buildJSONRequestForURL:(NSString *)url params:(NSDictionary *)params {
     NSURL *u = [NSURL URLWithString:url];
     if (u == nil) {
@@ -142,12 +191,7 @@ forHTTPHeaderField:@"Content-Type"];
     req.HTTPMethod = @"POST";
     [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [req setValue:kAppIDValue forHTTPHeaderField:kAppIDHeader];
-
-    NSString *auth = [UserInfo getAuthorizationToken];
-    if (auth) {
-        [req setValue:auth forHTTPHeaderField:@"Authorization"];
-    }
+    [self applyCommonHeaders:req];
 
     if (params) {
         NSError *err = nil;
@@ -281,6 +325,14 @@ forHTTPHeaderField:@"Content-Type"];
         [self removeProgressBlockForTask:task];
         [self deliverFailureToComplete:complete];
         return;
+    }
+
+    // 3.5) 登录/刷新类接口的标准令牌字段：响应体 `token` 是裸 JWT，优先于响应头。
+    //      服务端 v1.1.0 起响应头 Authorization 也已是裸值，两条路径存下来的都是裸 token。
+    if (result.token.length > 0) {
+        [UserInfo saveAuthorizationToken:result.token];
+        [UserInfo saveAuthorizationTimestamp];
+        [UserInfo saveAuthorizationExpiresIn:result.expiresIn];
     }
 
     // 4) Token expired path — match prior contract: post notification, do NOT call complete:

@@ -47,7 +47,8 @@
 #define PIN_DESENSITIZATION           @"PIN_DESENSITIZATION"            // 脱敏显示
 
 #pragma mark - 认证 token
-#define AUTHORIZATION_TOKEN           @"AUTHORIZATION_TOKEN"            // auth token
+#define AUTHORIZATION_TOKEN           @"AUTHORIZATION_TOKEN"            // auth token(裸 JWT，不含 Bearer 前缀)
 #define AUTHORIZATION_TIMESTAMP       @"AUTHORIZATION_TIMESTAMP"
+#define AUTHORIZATION_EXPIRES_IN      @"AUTHORIZATION_EXPIRES_IN"       // 服务端下发的有效期(秒)
 
 #endif
