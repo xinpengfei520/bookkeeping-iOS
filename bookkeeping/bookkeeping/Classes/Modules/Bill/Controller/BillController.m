@@ -99,7 +99,7 @@
 }
 
 - (void)updateData{
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
     
     NSString *predicate = [NSString stringWithFormat:@"year == %ld AND categoryId >= 33",self.date.year];
     NSMutableArray<BookDetailModel *> *incomeArr = [NSMutableArray kk_filteredArrayUsingStringFormat:predicate array:bookArr];

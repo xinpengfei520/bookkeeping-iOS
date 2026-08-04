@@ -127,7 +127,8 @@
     [sharedData removeObjectForKey:AUTHORIZATION_TOKEN];    // 老版本可能残留的明文副本
     [sharedData removeObjectForKey:AUTHORIZATION_TIMESTAMP];
     [sharedData removeObjectForKey:AUTHORIZATION_EXPIRES_IN];
-    [sharedData removeObjectForKey:All_BOOK_LIST];
+    [sharedData removeObjectForKey:All_BOOK_LIST];      // 老版本可能残留的归档 blob
+    [[KKBookStore shared] removeAllBooks];
 }
 
 

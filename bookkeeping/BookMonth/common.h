@@ -32,6 +32,9 @@
 // 多币种（BookDetailModel 的展示辅助方法要用；纯计算，不含网络层）
 #import "KKCurrency.h"
 
+// 记账 SQLite 存储（widget 经 NSUserDefaults+Extension 读同一份数据）
+#import "KKBookStore.h"
+
 
 // model
 #import "BaseModel.h"

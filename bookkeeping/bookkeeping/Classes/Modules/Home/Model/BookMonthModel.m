@@ -67,7 +67,7 @@
  * @param month 月份
  */
 + (NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month {
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
     NSString *preStr = [NSString stringWithFormat:@"year == %ld AND month == %ld", year, month];
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:bookArr];
     return [self assembleData:models sortType:1];
@@ -84,7 +84,7 @@
         predicate = [NSPredicate predicateWithFormat:@"categoryId == %ld OR %K contains %@", categoryId,@"mark", keyword];
     }
     
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
+    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
     NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingPredicate:predicate array:bookArr];
     return [self assembleData:models sortType:2];
 }

@@ -176,10 +176,12 @@
 		6B020F37F5DFF1B714EE8671 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98B5E90E69785BEDDA96525 /* Foundation.framework */; };
 		6FDBCC966F78C5EAF687FF8F /* KKI18n.m in Sources */ = {isa = PBXBuildFile; fileRef = F42F7C4278EC0DEC18E0B39D /* KKI18n.m */; };
 		78CEE456FC70F6392910FE8F /* KKI18n.m in Sources */ = {isa = PBXBuildFile; fileRef = F42F7C4278EC0DEC18E0B39D /* KKI18n.m */; };
+		967BF00784AF97205DDB8A7D /* KKBookStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D49F9106F303DB88EF7E3D /* KKBookStore.m */; };
 		A030175C4D2C7F14CE7DBD87 /* WidgetReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FAC9DC77DDEDD20ABE07BE /* WidgetReloader.swift */; };
 		AA5BEE312D81D8AC6B19AA6D /* Pods_BookMonth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */; };
 		AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */; };
 		B3445DDEE4E5D3C5C8FC3EC1 /* UserInfoTokenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ACF476970C1FEE6C867E38 /* UserInfoTokenTests.m */; };
+		BAA1DDFC409D637FD96805DE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F3E2F55BF8AF986EC2DB2 /* libsqlite3.tbd */; };
 		C17169EEEBD351968561C40B /* KKLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */; };
 		C2AEB3A2C4AB4C9253E39165 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 812070EF94E7B9D53C7F4FE0 /* SettingsController.m */; };
 		CADEAEF3609EA938CA3B27F2 /* NSObject+KKObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */; };
@@ -187,6 +189,8 @@
 		D9A5B9383D42CE3E31BDAAE9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */; };
 		E3EB770EB6F4E4DE8037C253 /* DateWeekdayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */; };
 		EA070754FBA1C546A1B49F2A /* CalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A216526A4847B517C64924A3 /* CalculationTests.m */; };
+		F0221DA9FB0C8F06C2208B70 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F3E2F55BF8AF986EC2DB2 /* libsqlite3.tbd */; };
+		F11036DD1D612BFDC31BF850 /* KKBookStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D49F9106F303DB88EF7E3D /* KKBookStore.m */; };
 		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
 		F353108C2875FC6D00D297A9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353108B2875FC6D00D297A9 /* WebViewController.m */; };
 		F353109B2876C88D00D297A9 /* ExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109A2876C88D00D297A9 /* ExportController.m */; };
@@ -214,6 +218,7 @@
 		F3CD73E82889CA4F008EBBEE /* MarkCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73E72889CA4F008EBBEE /* MarkCollectionView.m */; };
 		F3CD73EC2889CD46008EBBEE /* MarkCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EA2889CD46008EBBEE /* MarkCollectionViewCell.m */; };
 		F3CD73F02889D102008EBBEE /* MarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EF2889D102008EBBEE /* MarkModel.m */; };
+		F3D515339D63554F9B53FA86 /* BookStoreBenchmarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE0A0803C7EECE2B19DE2 /* BookStoreBenchmarkTests.m */; };
 		F3FD3CCDE7B970B523F65C1C /* LanguageSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */; };
 		FDCA110000000000000000B1 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
 		FDCA110000000000000000B2 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
@@ -255,6 +260,8 @@
 /* Begin PBXFileReference section */
 		00F7D112DD852D7FDCFBD731 /* NSObject+KKObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+KKObserver.h"; sourceTree = "<group>"; };
 		02ACF476970C1FEE6C867E38 /* UserInfoTokenTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UserInfoTokenTests.m; sourceTree = "<group>"; };
+		045F3E2F55BF8AF986EC2DB2 /* libsqlite3.tbd */ = {isa = PBXFileReference; includeInIndex = 1; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		0A73D9590EE2D21905618DBF /* KKBookStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKBookStore.h; sourceTree = "<group>"; };
 		0B102249E44177CC286D041C /* ThemeSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ThemeSettingsController.m; sourceTree = "<group>"; };
 		0FB1A961A9BE63A5562CDE7A /* ThemeSettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ThemeSettingsController.h; sourceTree = "<group>"; };
 		146BD453EA3062D2632AB373 /* BookMonth-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BookMonth-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -585,9 +592,11 @@
 		CC2DE293D47C15C852DD6195 /* KKWeakify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKWeakify.h; sourceTree = "<group>"; };
 		D88EA0B6020BDC17A4BB96C0 /* SettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		DBBADF454295279F0C3A6459 /* bookkeepingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookkeepingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBCEE0A0803C7EECE2B19DE2 /* BookStoreBenchmarkTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BookStoreBenchmarkTests.m; sourceTree = "<group>"; };
 		DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
 		EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingsController.m; sourceTree = "<group>"; };
+		F0D49F9106F303DB88EF7E3D /* KKBookStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKBookStore.m; sourceTree = "<group>"; };
 		F35310822875EF1F00D297A9 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		F35310832875EF1F00D297A9 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		F353108A2875FC6D00D297A9 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -657,6 +666,7 @@
 			files = (
 				AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */,
 				0F25D8DD8CFFBBAE7FFA1FD6 /* WidgetKit.framework in Frameworks */,
+				BAA1DDFC409D637FD96805DE /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +677,7 @@
 				AA5BEE312D81D8AC6B19AA6D /* Pods_BookMonth.framework in Frameworks */,
 				D9A5B9383D42CE3E31BDAAE9 /* WidgetKit.framework in Frameworks */,
 				583D79A0068717382A0882E8 /* SwiftUI.framework in Frameworks */,
+				F0221DA9FB0C8F06C2208B70 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1939,6 +1950,7 @@
 				DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */,
 				66059596F5687DED54592D18 /* SwiftUI.framework */,
 				B5009F15AC52216A3D89B564 /* iOS */,
+				045F3E2F55BF8AF986EC2DB2 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1981,6 +1993,7 @@
 				7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */,
 				2FC17C2FBD3E2FDB8A3C4B65 /* KKCurrencyTests.m */,
 				02ACF476970C1FEE6C867E38 /* UserInfoTokenTests.m */,
+				DBCEE0A0803C7EECE2B19DE2 /* BookStoreBenchmarkTests.m */,
 			);
 			name = bookkeepingTests;
 			path = bookkeepingTests;
@@ -2082,6 +2095,8 @@
 				FDCA110000000000000000A2 /* KKCurrency.m */,
 				FDCA110000000000000000D1 /* KKKeychain.h */,
 				FDCA110000000000000000D2 /* KKKeychain.m */,
+				0A73D9590EE2D21905618DBF /* KKBookStore.h */,
+				F0D49F9106F303DB88EF7E3D /* KKBookStore.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2606,6 +2621,7 @@
 				A030175C4D2C7F14CE7DBD87 /* WidgetReloader.swift in Sources */,
 				C2AEB3A2C4AB4C9253E39165 /* SettingsController.m in Sources */,
 				FDCA110000000000000000C3 /* RateController.m in Sources */,
+				F11036DD1D612BFDC31BF850 /* KKBookStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2632,6 +2648,7 @@
 				07F1D7EA2801F908437450D0 /* BookMonthWidget.swift in Sources */,
 				2C624943B0ADB89092EB9481 /* BookMonthProvider.swift in Sources */,
 				0B7D06677DD4CD294138E600 /* BookMonthEntryView.swift in Sources */,
+				967BF00784AF97205DDB8A7D /* KKBookStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2643,6 +2660,7 @@
 				E3EB770EB6F4E4DE8037C253 /* DateWeekdayTests.m in Sources */,
 				679D783E858A69B4D8E5A271 /* KKCurrencyTests.m in Sources */,
 				B3445DDEE4E5D3C5C8FC3EC1 /* UserInfoTokenTests.m in Sources */,
+				F3D515339D63554F9B53FA86 /* BookStoreBenchmarkTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2881,7 +2899,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.11;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2933,7 +2951,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.11;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

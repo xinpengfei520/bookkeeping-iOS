@@ -4,6 +4,7 @@
  */
 
 #import "NSUserDefaults+Extension.h"
+#import "KKBookStore.h"
 
 static NSMutableArray<BKCModel *> *categoryModelList;
 
@@ -31,24 +32,18 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     [sharedData synchronize];
 }
 
+// ============ 记账列表：实现已迁到 KKBookStore(SQLite) ============
+// 旧实现是把整个数组 NSKeyedArchiver 全量归档进 App Group NSUserDefaults，
+// 每记一笔都要重写全列表（O(n)），几千条后明显拖慢记账。接口保持不变。
+
 // 删除记账
 + (void)removeBookModel:(BookDetailModel *)model {
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
-    for (int i= 0; i<bookArr.count; i++) {
-        BookDetailModel *subModel = bookArr[i];
-        if (subModel.bookId == model.bookId) {
-            [bookArr removeObjectAtIndex:i];
-            break;
-        }
-    }
-    [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
+    [[KKBookStore shared] removeBookId:model.bookId];
 }
 
 // 添加记账
 + (void)insertBookModel:(BookDetailModel *)model {
-    NSMutableArray *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
-    [bookArr addObject:model];
-    [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
+    [[KKBookStore shared] saveBook:model];
 }
 
 #pragma mark - 离线记账队列
@@ -71,13 +66,13 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     [NSUserDefaults setObject:arr forKey:PIN_BOOK_FAILED];
 }
 
+// 服务端全量同步：清空后整体替换（单事务）
 + (void)saveAllBookList:(NSMutableArray *)array {
-    [NSUserDefaults setObject:array forKey:All_BOOK_LIST];
+    [[KKBookStore shared] replaceAllBooks:array];
 }
 
 + (NSMutableArray<BookDetailModel *> *)getAllBookList {
-    NSMutableArray<BookDetailModel *> *models = [NSUserDefaults objectForKey:All_BOOK_LIST];
-    return models;
+    return [[KKBookStore shared] allBooks];
 }
 
 + (void)saveAllMarkList:(NSMutableArray *)array {
@@ -103,15 +98,8 @@ static NSMutableArray<BKCModel *> *categoryModelList;
 
 // 修改记账
 + (void)replaceBookModel:(BookDetailModel *)model {
-    NSMutableArray *bookArr = [NSUserDefaults objectForKey:All_BOOK_LIST];
-    for (int i= 0; i<bookArr.count; i++) {
-        BookDetailModel *subModel = bookArr[i];
-        if (subModel.bookId == model.bookId) {
-            [bookArr replaceObjectAtIndex:i withObject:model];
-            break;
-        }
-    }
-    [NSUserDefaults setObject:bookArr forKey:All_BOOK_LIST];
+    // INSERT OR REPLACE 按 bookId 覆盖，与旧的"找到同 id 替换"语义一致
+    [[KKBookStore shared] saveBook:model];
 }
 
 // 添加分类
@@ -180,9 +168,9 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
             book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
+            [NSUserDefaults saveAllBookList:book];
             
         }
         else if (is_income == true) {
@@ -205,9 +193,9 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:sysRemoveSyncedArr forKey:PIN_CATE_SYS_REMOVE_INCOME_SYNCED];
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
             book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
+            [NSUserDefaults saveAllBookList:book];
         }
     }
     // 自定义
@@ -229,9 +217,9 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:cusRemovePaySyncedArr forKey:PIN_CATE_CUS_REMOVE_PAY_SYNCED];
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
             book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
+            [NSUserDefaults saveAllBookList:book];
             
         } else if (is_income == true) {
             NSMutableArray *cusHasIcomeEArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_HAS_INCOME];
@@ -250,17 +238,17 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:cusRemoveIncomeSyncedArr forKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
             
             NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults objectForKey:All_BOOK_LIST];
+            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
             book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults setObject:book forKey:All_BOOK_LIST];
+            [NSUserDefaults saveAllBookList:book];
         }
     }
     
     // 删除同类别信息
-    NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults objectForKey:All_BOOK_LIST];
+    NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults getAllBookList];
     NSString *preStr = [NSString stringWithFormat:@"cmodel.Id == %ld", model.Id];
     arrm = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:arrm];
-    [NSUserDefaults setObject:arrm forKey:All_BOOK_LIST];
+    [NSUserDefaults saveAllBookList:arrm];
 }
 
 // 获取分类
@@ -377,7 +365,7 @@ static NSMutableArray<BKCModel *> *categoryModelList;
         [NSUserDefaults setObject:acaArr forKey:PIN_ACA_CATE];
         
         // 记账
-        [NSUserDefaults setObject:[NSMutableArray array] forKey:All_BOOK_LIST];
+        [NSUserDefaults saveAllBookList:[NSMutableArray array]];
         
         // FaceID
         [NSUserDefaults setObject:@(0) forKey:PIN_SETTING_FACE_ID];

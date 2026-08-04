@@ -152,7 +152,7 @@
                 [bookModels addObject:model];
             }
             
-            [NSUserDefaults setObject:bookModels forKey:All_BOOK_LIST];
+            [NSUserDefaults saveAllBookList:bookModels];
             
             UserModel *model = [UserInfo loadUserInfo];
             model.faceId = [faceId integerValue];

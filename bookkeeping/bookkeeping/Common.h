@@ -81,6 +81,7 @@
 #define KKLocalized(key) [KKI18n stringForKey:(key)]
 #import "KKCurrency.h"
 #import "KKKeychain.h"
+#import "KKBookStore.h"
 #import "CountDown.h"
 #import "PINCache_Header.h"
 #import "ScreenBlurry.h"
