@@ -50,7 +50,7 @@
 // 字符串sin
 + (NSString *)sinV1:(NSString *)v1 {
     
-    NSLog(@"v1  %0.4f",v1.floatValue);
+    KKLog(@"v1  %0.4f",v1.floatValue);
     
     double result =sin([v1 floatValue]*M_PI/180.0);
     
@@ -61,7 +61,7 @@
 // 字符串cos
 + (NSString *)cosV1:(NSString *)v1 {
     
-    NSLog(@"v1  %0.4f",v1.floatValue);
+    KKLog(@"v1  %0.4f",v1.floatValue);
     
     double result =cos([v1 floatValue]*M_PI/180.0);
     
@@ -72,7 +72,7 @@
 // 字符串tan
 + (NSString *)tanV1:(NSString *)v1 {
     
-    NSLog(@"v1  %0.4f",v1.floatValue);
+    KKLog(@"v1  %0.4f",v1.floatValue);
     
     double result =tan([v1 floatValue]*M_PI/180.0);
     

@@ -6,10 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Source root is `bookkeeping/`, **not** the repo root. CocoaPods is the dependency manager.
 - First-time setup: `cd bookkeeping && pod install`, then open `bookkeeping/bookkeeping.xcworkspace` (never `.xcodeproj`).
-- Build/run from Xcode. There is no test target — adding tests requires creating one first.
+- Build/run from Xcode. Unit tests live in the `bookkeepingTests` target (host-based, `bookkeeping/bookkeepingTests/`): run with `xcodebuild test -workspace bookkeeping.xcworkspace -scheme bookkeeping -destination 'platform=iOS Simulator,name=iPhone 16 Pro'` — do NOT pass `CODE_SIGNING_ALLOWED=NO` to `test` (unsigned app ⇒ no entitlements ⇒ Keychain returns -34018 and the UserInfo suite fails). Test files re-declare the interfaces they exercise instead of importing app headers, so the test target needs no PCH/Pods; symbols resolve from the host app via `BUNDLE_LOADER`.
 - Deployment target: iOS 16.0 (main app and BookMonth widget). Podfile platform and post_install hook enforce `IPHONEOS_DEPLOYMENT_TARGET = 16.0` for all pods.
 - iPhone-only (`TARGETED_DEVICE_FAMILY = 1`); macOS support was removed.
-- Simulator builds exclude `arm64` (`EXCLUDED_ARCHS[sdk=iphonesimulator*]`); Apple Silicon hosts must use Rosetta or run on device.
+- Apple Silicon simulators build natively (arm64). The old `EXCLUDED_ARCHS`/Rosetta requirement is gone — its root cause was Bugly's device-only framework, which the Podfile post_install now strips from simulator link flags (`OTHER_LDFLAGS[sdk=iphonesimulator*]`), paired with `#if !TARGET_OS_SIMULATOR` guards in `AppDelegate.m`. Keep both sides in sync if you touch Bugly. `pop` was removed (its one user, `KKEmptyLoading`, now uses Core Animation).
 - Production API host is hard-coded in `bookkeeping/bookkeeping/Classes/Network/NSString+API.h` (`KHost`). The test host is commented out — toggle by editing the macro, there is no scheme-based switch.
 
 ## Targets

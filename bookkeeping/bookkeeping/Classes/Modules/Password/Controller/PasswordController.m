@@ -207,7 +207,7 @@
     }
     
     UserModel *model = [UserInfo loadUserInfo];
-    NSLog(@"%@, %@, %@", model.userName, self.field1.text, self.field3.text);
+    KKLog(@"%@, %@, %@", model.userName, self.field1.text, self.field3.text);
     NSDictionary *param = @{@"phone": model.userName,
                             @"oldPassword": self.field1.text,
                             @"password": self.field3.text};

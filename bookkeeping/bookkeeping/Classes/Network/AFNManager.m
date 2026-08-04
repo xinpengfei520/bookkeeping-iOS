@@ -314,7 +314,7 @@ forHTTPHeaderField:@"Content-Type"];
 
     // 2) Failure path
     if (error) {
-        NSLog(@"[AFNManager] transport error url=%@ status=%ld error=%@",
+        KKLog(@"[AFNManager] transport error url=%@ status=%ld error=%@",
               requestURL, (long)statusCode, error);
         [self removeProgressBlockForTask:task];
         [self deliverFailureToComplete:complete];
@@ -333,7 +333,7 @@ forHTTPHeaderField:@"Content-Type"];
             ? [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(0, MIN((NSUInteger)512, data.length))]
                                     encoding:NSUTF8StringEncoding]
             : @"<empty>";
-        NSLog(@"[AFNManager] decode failed url=%@ status=%ld jsonError=%@ bodyLen=%lu bodyHead=%@",
+        KKLog(@"[AFNManager] decode failed url=%@ status=%ld jsonError=%@ bodyLen=%lu bodyHead=%@",
               requestURL, (long)statusCode, jsonErr,
               (unsigned long)data.length, snippet ?: @"<binary>");
         [self removeProgressBlockForTask:task];

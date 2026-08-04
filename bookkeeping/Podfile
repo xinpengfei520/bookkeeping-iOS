@@ -3,8 +3,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'bookkeeping' do
-    pod 'pop', '1.0.12'
-    pod 'SDWebImage', '4.4.3'
+    pod 'SDWebImage', '~> 5.19'
     pod 'Masonry', '1.1.0'
     pod 'MJExtension', '3.0.15'
     pod 'JGProgressHUD', '2.0.3'
@@ -20,10 +19,6 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
-      # 添加以下设置来解决 pop 库的问题
-      config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
-      # 确保支持的架构正确
-      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
       # 避免第三方库的 chained-comparison 等历史警告被升级为 error
       config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
     end
@@ -39,4 +34,21 @@ post_install do |installer|
     end
   end
 
+  # Bugly 官方 framework 只有真机切片（arm64 slice 是 LC_VERSION_MIN_IPHONEOS），
+  # 是当年整个工程被迫 EXCLUDED_ARCHS=arm64(模拟器) + Rosetta 的根因。
+  # 现在改成：模拟器构建不链接 Bugly（AppDelegate 里有对应的 TARGET_OS_SIMULATOR 保护），
+  # 真机构建不受影响。做法是把聚合 target xcconfig 里的 OTHER_LDFLAGS 拆成
+  # 按 sdk 条件的两份，模拟器那份去掉 -framework "Bugly"。
+  Dir.glob(File.join(installer.sandbox.target_support_files_root, 'Pods-bookkeeping', '*.xcconfig')).each do |path|
+    content = File.read(path)
+    next unless content =~ /^OTHER_LDFLAGS = (.*)$/
+    all_flags = Regexp.last_match(1)
+    sim_flags = all_flags.gsub(/-framework "Bugly"\s?/, '')
+    next if sim_flags == all_flags
+    content.sub!(/^OTHER_LDFLAGS = .*$/,
+                 "OTHER_LDFLAGS[sdk=iphoneos*] = #{all_flags}\n" \
+                 "OTHER_LDFLAGS[sdk=iphonesimulator*] = #{sim_flags}")
+    # FRAMEWORK_SEARCH_PATHS 保留 Bugly 目录没关系：不链接就不会去找它
+    File.write(path, content)
+  end
 end

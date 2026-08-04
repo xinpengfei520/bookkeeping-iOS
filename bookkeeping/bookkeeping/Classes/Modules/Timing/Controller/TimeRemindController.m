@@ -63,11 +63,11 @@
         
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:time content:content trigger:trigger];
         [center addNotificationRequest:request withCompletionHandler:^(NSError *_Nullable error) {
-            NSLog(@"成功添加本地推送通知提醒");
+            KKLog(@"成功添加本地推送通知提醒");
         }];
         
         [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
-            NSLog(@"getPendingNotification: %@", requests);
+            KKLog(@"getPendingNotification: %@", requests);
         }];
     }
 }
@@ -78,7 +78,7 @@
  */
 - (void)removeNotification:(NSString *)time {
     if (!time || time.length == 0) {
-        NSLog(@"警告：尝试删除空的通知标识符");
+        KKLog(@"警告：尝试删除空的通知标识符");
         return;
     }
     
@@ -86,7 +86,7 @@
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
     
-    NSLog(@"尝试删除通知：%@", time);
+    KKLog(@"尝试删除通知：%@", time);
     
     // 尝试直接删除
     [center removePendingNotificationRequestsWithIdentifiers:@[time]];
@@ -101,14 +101,14 @@
             if ([request.identifier isEqualToString:time] || 
                 [request.identifier containsString:time]) {
                 [identifiersToRemove addObject:request.identifier];
-                NSLog(@"找到匹配通知，准备删除: %@", request.identifier);
+                KKLog(@"找到匹配通知，准备删除: %@", request.identifier);
             }
         }
         
         // 如果找到匹配的通知，删除它们
         if (identifiersToRemove.count > 0) {
             [center removePendingNotificationRequestsWithIdentifiers:identifiersToRemove];
-            NSLog(@"删除通知标识符: %@", identifiersToRemove);
+            KKLog(@"删除通知标识符: %@", identifiersToRemove);
         }
         
         // 再次检查是否删除成功
@@ -122,19 +122,19 @@
             }
             
             if (stillExists) {
-                NSLog(@"警告：通知删除失败：%@", time);
+                KKLog(@"警告：通知删除失败：%@", time);
             } else {
-                NSLog(@"通知删除成功：%@", time);
+                KKLog(@"通知删除成功：%@", time);
             }
             
-            NSLog(@"最终活跃通知列表：%@", remainingRequests);
+            KKLog(@"最终活跃通知列表：%@", remainingRequests);
         }];
     }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"viewDidLoad - 开始");
+    KKLog(@"viewDidLoad - 开始");
     self.title = KKLocalized(@"定时提醒");
     
     // 请求通知权限
@@ -149,7 +149,7 @@
     
     // 获取存储的数据
     NSMutableArray *savedData = [NSUserDefaults objectForKey:PIN_TIMING];
-    NSLog(@"viewDidLoad - 从 NSUserDefaults 获取的数据: %@", savedData);
+    KKLog(@"viewDidLoad - 从 NSUserDefaults 获取的数据: %@", savedData);
     
     // 设置数据
     [self setModels:savedData];
@@ -157,8 +157,8 @@
     // 最后设置空视图
     [self setupUI];
     
-    NSLog(@"viewDidLoad - 结束");
-    NSLog(@"table frame: %@", NSStringFromCGRect(self.table.frame));
+    KKLog(@"viewDidLoad - 结束");
+    KKLog(@"table frame: %@", NSStringFromCGRect(self.table.frame));
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -166,7 +166,7 @@
     
     // 获取最新的数据
     NSMutableArray *savedData = [NSUserDefaults objectForKey:PIN_TIMING];
-    NSLog(@"viewWillAppear - 从 NSUserDefaults 获取的数据: %@", savedData);
+    KKLog(@"viewWillAppear - 从 NSUserDefaults 获取的数据: %@", savedData);
     
     // 设置数据并更新UI
     [self setModels:savedData];
@@ -180,7 +180,7 @@
         [self.emptyView updateEmptyText:KKLocalized(@"你还没有任何提醒哦～")];
     }
     
-    NSLog(@"viewWillAppear - 空状态视图隐藏状态: %@", self.emptyView.isHidden ? @"是" : @"否");
+    KKLog(@"viewWillAppear - 空状态视图隐藏状态: %@", self.emptyView.isHidden ? @"是" : @"否");
 }
 
 // 请求通知权限
@@ -191,9 +191,9 @@
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
                               completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (granted) {
-                NSLog(@"通知权限获取成功");
+                KKLog(@"通知权限获取成功");
             } else {
-                NSLog(@"通知权限获取失败: %@", error.localizedDescription);
+                KKLog(@"通知权限获取失败: %@", error.localizedDescription);
             }
         }];
     }
@@ -216,7 +216,7 @@
 - (void)updateEmptyViewWithData:(NSArray *)data {
     // 根据数据源判断是否显示空状态
     BOOL isEmpty = (data == nil || data.count == 0);
-    NSLog(@"updateEmptyViewWithData - 数据为空: %@, 视图将%@", isEmpty ? @"是" : @"否", isEmpty ? @"显示" : @"隐藏");
+    KKLog(@"updateEmptyViewWithData - 数据为空: %@, 视图将%@", isEmpty ? @"是" : @"否", isEmpty ? @"显示" : @"隐藏");
     
     [_emptyView setHidden:!isEmpty];
     
@@ -288,7 +288,7 @@
     datePickerView.pickerMode = BRDatePickerModeHM;
     datePickerView.title = KKLocalized(@"每天");
     datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
-        NSLog(@"选择提醒的时间为每天的：%@", selectValue);
+        KKLog(@"选择提醒的时间为每天的：%@", selectValue);
         @strongify(self)
         [self addTimingRequest:selectValue];
     };
@@ -317,7 +317,7 @@
     // 移除系统通知
     [self removeNotification:timeToDelete];
     
-    NSLog(@"提醒已删除：%@", timeToDelete);
+    KKLog(@"提醒已删除：%@", timeToDelete);
 }
 
 // 修改为仅处理转发，不重复处理删除逻辑
@@ -330,13 +330,13 @@
 
 #pragma mark - set
 - (void)setModels:(NSArray *)models {
-    NSLog(@"setModels - 原始数据: %@", models);
+    KKLog(@"setModels - 原始数据: %@", models);
     if (!models) {
         _models = [NSMutableArray array];
     } else {
         _models = [NSMutableArray arrayWithArray:[models mj_JSONObject]];
     }
-    NSLog(@"setModels - 转换后数据: %@", _models);
+    KKLog(@"setModels - 转换后数据: %@", _models);
     
     // 使用统一的方法更新空状态视图显示
     [self updateEmptyViewWithData:_models];
@@ -381,7 +381,7 @@
 
 - (BottomButton *)bottom {
     if (!_bottom) {
-        NSLog(@"SCREEN_HEIGHT:%f,SCREEN_WIDTH:%f,SafeAreaBottomHeight:%f",SCREEN_HEIGHT,SCREEN_WIDTH,SafeAreaBottomHeight);
+        KKLog(@"SCREEN_HEIGHT:%f,SCREEN_WIDTH:%f,SafeAreaBottomHeight:%f",SCREEN_HEIGHT,SCREEN_WIDTH,SafeAreaBottomHeight);
         _bottom = [BottomButton initWithFrame:({
             CGFloat height = countcoordinatesX(50) + SafeAreaBottomHeight;
             // old: top = SCREEN_HEIGHT - height
@@ -407,13 +407,13 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"numberOfRowsInSection called - models count: %lu", (unsigned long)self.models.count);
+    KKLog(@"numberOfRowsInSection called - models count: %lu", (unsigned long)self.models.count);
     return self.models.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TITableCell *cell = [TITableCell loadCode:tableView];
-    NSLog(@"cellForRowAtIndexPath called - row: %ld, time: %@", (long)indexPath.row, self.models[indexPath.row]);
+    KKLog(@"cellForRowAtIndexPath called - row: %ld, time: %@", (long)indexPath.row, self.models[indexPath.row]);
     cell.time = self.models[indexPath.row];
     cell.indexPath = indexPath;
     return cell;

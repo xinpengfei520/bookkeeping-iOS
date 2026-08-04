@@ -82,7 +82,7 @@
     datePickerView.maxDate = max;
     datePickerView.isAutoSelect = false;
     datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
-        NSLog(@"选择的值：%@", selectValue);
+        KKLog(@"选择的值：%@", selectValue);
         @strongify(self)
         [self updateYearValue:selectValue];
     };

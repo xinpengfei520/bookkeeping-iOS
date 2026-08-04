@@ -54,7 +54,7 @@
             if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
                 [NSUserDefaults saveAllMarkList:markList];
             } else {
-                NSLog(@"[MarkModel update()] -> msg1: %@",result.msg);
+                KKLog(@"[MarkModel update()] -> msg1: %@",result.msg);
                 if (errorMsgBlock) {
                     errorMsgBlock(result.msg);
                 }
@@ -81,7 +81,7 @@
                 [markList addObject:saveModel];
                 [NSUserDefaults saveAllMarkList:markList];
             } else {
-                NSLog(@"[MarkModel update()] -> msg2: %@",result.msg);
+                KKLog(@"[MarkModel update()] -> msg2: %@",result.msg);
                 if (errorMsgBlock) {
                     errorMsgBlock(result.msg);
                 }

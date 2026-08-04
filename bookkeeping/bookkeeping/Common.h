@@ -15,7 +15,6 @@
 #import <MJExtension/MJExtension.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIButton+WebCache.h>
-#import <pop/POP.h>
 #import <BRPickerView/BRPickerView.h>
 
 

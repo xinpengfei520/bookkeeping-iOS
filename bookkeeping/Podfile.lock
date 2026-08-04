@@ -29,10 +29,9 @@ PODS:
   - JGProgressHUD (2.0.3)
   - Masonry (1.1.0)
   - MJExtension (3.0.15)
-  - pop (1.0.12)
-  - SDWebImage (4.4.3):
-    - SDWebImage/Core (= 4.4.3)
-  - SDWebImage/Core (4.4.3)
+  - SDWebImage (5.20.0):
+    - SDWebImage/Core (= 5.20.0)
+  - SDWebImage/Core (5.20.0)
 
 DEPENDENCIES:
   - BRPickerView (= 2.9.1)
@@ -40,8 +39,7 @@ DEPENDENCIES:
   - JGProgressHUD (= 2.0.3)
   - Masonry (= 1.1.0)
   - MJExtension (= 3.0.15)
-  - pop (= 1.0.12)
-  - SDWebImage (= 4.4.3)
+  - SDWebImage (~> 5.19)
 
 SPEC REPOS:
   trunk:
@@ -50,7 +48,6 @@ SPEC REPOS:
     - JGProgressHUD
     - Masonry
     - MJExtension
-    - pop
     - SDWebImage
 
 SPEC CHECKSUMS:
@@ -59,9 +56,8 @@ SPEC CHECKSUMS:
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 3f039575db1b135a20699ad298713b26acec1528
-  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
-  SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
+  SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
 
-PODFILE CHECKSUM: 4901a70cca184fb558674eb600a68db45e287e59
+PODFILE CHECKSUM: b7922c5521747d283a7b28a92f92cdf5d39a971c
 
 COCOAPODS: 1.11.3

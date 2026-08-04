@@ -74,7 +74,7 @@
     [LAContextManager callLAContextManagerWithController:self success:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self)
-            NSLog(@"FaceID verify success~");
+            KKLog(@"FaceID verify success~");
             [self getData];
         });
     } failure:^(NSError *tyError, LAContextErrorType feedType) {
@@ -82,25 +82,25 @@
             // @TODO
             if (tyError.code == -8) {
                 // 超出TouchID尝试次数或FaceID尝试次数，已被锁
-                NSLog(@"超出TouchID尝试次数或FaceID尝试次数，已被锁========");
+                KKLog(@"超出TouchID尝试次数或FaceID尝试次数，已被锁========");
             }
             else if (tyError.code == -7) {
                 // 未开启TouchID权限(没有可用的指纹)
-                NSLog(@"未开启TouchID权限(没有可用的指纹)========");
+                KKLog(@"未开启TouchID权限(没有可用的指纹)========");
             }
             else if (tyError.code == -6) {
                 if (IS_IPHONE_X) {
                     // iPhoneX 设置里面没有开启FaceID权限
-                    NSLog(@"iPhoneX 设置里面没有开启FaceID权限========");
+                    KKLog(@"iPhoneX 设置里面没有开启FaceID权限========");
                 }
                 else {
                     // 非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)
-                    NSLog(@"非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)========");
+                    KKLog(@"非iPhoneX手机且该手机不支持TouchID(如iPhone5、iPhone4s)========");
                 }
             }
             else {
                 // 其他error情况 如用户主动取消等
-                NSLog(@"其他error情况 如用户主动取消等========");
+                KKLog(@"其他error情况 如用户主动取消等========");
             }
         });
     }];
@@ -170,9 +170,9 @@
         [AFNManager POST:refreshTokenRequest params:nil complete:^(APPResult *result) {
             [self hideHUD];
             if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-                NSLog(@"刷新 token 成功");
+                KKLog(@"刷新 token 成功");
             } else {
-                NSLog(@"刷新 token 失败");
+                KKLog(@"刷新 token 失败");
             }
         }];
     }
@@ -233,7 +233,7 @@
             // 如果没有在当前月份时，说明记的是其他月份的账，则加载记账年月的数据
             if (model.month != self.date.month) {
                 NSString *yearMonth = [NSString stringWithFormat:@"%ld-%ld", (long)model.year,(long)model.month];
-                NSLog(@"当前记账的年月：%@", yearMonth);
+                KKLog(@"当前记账的年月：%@", yearMonth);
                 [self setDate:[NSDate dateWithYM:yearMonth]];
                 [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
             }
@@ -358,7 +358,7 @@
             
             // 修改完后重新加载数据，有可能修改的记账的年月时间等，需要加载修改后当月的数据
             NSString *yearMonth = [NSString stringWithFormat:@"%ld-%ld", (long)model.year,(long)model.month];
-            NSLog(@"修改记账的年月：%@", yearMonth);
+            KKLog(@"修改记账的年月：%@", yearMonth);
             [self setDate:[NSDate dateWithYM:yearMonth]];
             [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
         } else {
@@ -430,7 +430,7 @@
     datePickerView.maxDate = max;
     datePickerView.isAutoSelect = false;
     datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
-        NSLog(@"选择的值：%@", selectValue);
+        KKLog(@"选择的值：%@", selectValue);
         @strongify(self)
         [self setDate:[NSDate dateWithYM:selectValue]];
         [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];

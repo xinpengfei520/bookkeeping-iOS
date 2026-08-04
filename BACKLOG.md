@@ -41,7 +41,9 @@
 ### Batch 8 — 杂项模块（5 个）
 
 - [ ] `Common/Empty/View/KKGoodsEmpty.xib` — 全局空态视图
-- [ ] `Modules/Book/View/Keyboard/BKCKeyboard.xib` — 记账数字键盘
+- [x] `Modules/Book/View/Keyboard/BKCKeyboard.xib` — 记账数字键盘（2026-08-04 已迁移：
+      buildSubviews 代码布局，textContent frame 定位 + 内部 Auto Layout，按钮栅格 frame 计算；
+      模拟器截图验证过。顺带删掉了多币种插入时的"运行时拆 XIB 约束"hack）
 - [ ] `Modules/Book/View/Mark/MarkCollectionViewCell.xib` — 备注标签 cell
 - [ ] `Modules/Category/View/CAHeader.xib` — 类别页 header
 - [ ] `Modules/Category/View/CategoryCell.xib` — 类别 cell

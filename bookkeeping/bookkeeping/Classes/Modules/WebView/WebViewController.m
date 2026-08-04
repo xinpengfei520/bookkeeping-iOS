@@ -67,19 +67,19 @@
 #pragma mark - WKNavigationDelegate
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    NSLog(@"开始加载页面");
+    KKLog(@"开始加载页面");
 }
 
 // 页面加载完成时调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSLog(@"页面加载完成");
+    KKLog(@"页面加载完成");
     // 更新导航历史状态
     self.hasNavigationHistory = webView.canGoBack;
 }
 
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"页面加载失败: %@", error);
+    KKLog(@"页面加载失败: %@", error);
 }
 
 // 在发送请求之前，决定是否跳转

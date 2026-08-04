@@ -19,13 +19,11 @@
 #pragma mark - 声明
 @interface BKCKeyboard()<UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
-@property (weak, nonatomic) IBOutlet UITextField *markField;
-@property (weak, nonatomic) IBOutlet UILabel *moneyLab;
-@property (weak, nonatomic) IBOutlet UIView *textContent;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textConstraintH;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyConstraintB;
+// 顶部输入条（备注: + 输入框 + 金额 + 币种），代码创建（原 XIB 已迁移为代码布局）
+@property (nonatomic, strong) UILabel *nameLab;
+@property (nonatomic, strong) UITextField *markField;
+@property (nonatomic, strong) UILabel *moneyLab;
+@property (nonatomic, strong) UIView *textContent;
 
 @property (nonatomic, strong) NSDate *currentDate;
 @property (nonatomic, assign) BOOL isLess;          // 减
@@ -40,7 +38,6 @@
 @property (nonatomic, assign) CGFloat exchangeRate;                     // 当前币种汇率，CNY 时为 0
 @property (nonatomic, assign) BOOL rateLoading;                         // 汇率请求中
 @property (nonatomic, assign) BOOL rateStale;                           // 服务端返回的是缓存旧汇率
-@property (nonatomic, assign) CGFloat textContentOffsetY;               // 系统键盘顶起 textContent 的位移
 
 @end
 
@@ -50,27 +47,83 @@
 
 
 + (instancetype)init {
-    // loadFirstNib: 内部已经调过一次 initUI，这里不能再调一次 ——
-    // 重复初始化会把币种按钮之类的代码创建的子视图加两遍。
-    BKCKeyboard *view = [BKCKeyboard loadFirstNib:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH / 5 * 4 + SafeAreaBottomHeight)];
+    BKCKeyboard *view = [[BKCKeyboard alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH / 5 * 4 + SafeAreaBottomHeight)];
     [view setHidden:YES];
     return view;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self buildSubviews];
+        [self initUI];
+    }
+    return self;
+}
+
+// 迁移自 BKCKeyboard.xib：顶部 60pt 输入条 + 4×4 按钮栅格（1pt 间隙，底部让出安全区）。
+// textContent 用 frame 定位（系统键盘弹起时 showKeyboard 会直接改它的 top），
+// 输入条内部用 Auto Layout；按钮栅格全部 frame 计算。
+- (void)buildSubviews {
+    CGFloat textH = countcoordinatesX(60);
+
+    // ---- 顶部输入条 ----
+    _textContent = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, textH)];
+    [self addSubview:_textContent];
+
+    _nameLab = [[UILabel alloc] init];
+    _nameLab.translatesAutoresizingMaskIntoConstraints = NO;
+    [_textContent addSubview:_nameLab];
+
+    _markField = [[UITextField alloc] init];
+    _markField.translatesAutoresizingMaskIntoConstraints = NO;
+    _markField.returnKeyType = UIReturnKeyDone;
+    _markField.delegate = self;
+    [_textContent addSubview:_markField];
+
+    _moneyLab = [[UILabel alloc] init];
+    _moneyLab.translatesAutoresizingMaskIntoConstraints = NO;
+    _moneyLab.textAlignment = NSTextAlignmentRight;
+    _moneyLab.text = @"0";
+    [_textContent addSubview:_moneyLab];
+
+    [self buildCurrencyViews];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_nameLab.leadingAnchor constraintEqualToAnchor:_textContent.leadingAnchor constant:15],
+        [_nameLab.topAnchor constraintEqualToAnchor:_textContent.topAnchor],
+        [_nameLab.bottomAnchor constraintEqualToAnchor:_textContent.bottomAnchor],
+        [_markField.leadingAnchor constraintEqualToAnchor:_nameLab.trailingAnchor constant:10],
+        [_markField.topAnchor constraintEqualToAnchor:_textContent.topAnchor],
+        [_markField.bottomAnchor constraintEqualToAnchor:_textContent.bottomAnchor],
+        [_markField.trailingAnchor constraintEqualToAnchor:_moneyLab.leadingAnchor constant:-8],
+        [_moneyLab.widthAnchor constraintEqualToConstant:120],      // 与原 XIB 一致的固定宽
+    ]];
+
+    // ---- 按钮栅格 ----
+    // Row1: 7 8 9 日期 / Row2: 4 5 6 + / Row3: 1 2 3 - / Row4: . 0 删 完成
+    // tag 顺序与原 XIB 相同（10~25，getMath / 各 *_TAG 宏依赖它）
+    CGFloat gap = 1;
+    CGFloat gridTop = textH + gap;
+    CGFloat colW = (self.width - 3 * gap) / 4;
+    CGFloat rowH = (self.height - SafeAreaBottomHeight - gridTop - 3 * gap) / 4;
+    for (NSInteger i = 0; i < 16; i++) {
+        NSInteger row = i / 4, col = i % 4;
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = 10 + i;
+        btn.frame = CGRectMake(col * (colW + gap), gridTop + row * (rowH + gap), colW, rowH);
+        [self addSubview:btn];
+    }
+}
+
 - (void)initUI {
     [self borderForColor:kColor_BG borderWidth:1.f borderType:UIBorderSideTypeTop];
-    // XIB 顶层 view backgroundColor 是固定白 —— 深色模式下背景不会翻；强制
-    // 一次 dynamic systemBackgroundColor 覆盖。
     [self setBackgroundColor:[UIColor systemBackgroundColor]];
-    // textContent 容器（备注: + markField 输入框 + moneyLab 数字所在的横条）
-    // 在 XIB 里也是写死白色 → 深色模式下"备注"标签 + textField placeholder
-    // 浮在白底上跟黑色文字反白看不清。强制 dynamic。
     [self.textContent setBackgroundColor:[UIColor systemBackgroundColor]];
     [self setAnimation:NO];
     [self setIsLess:NO];
     [self setCurrentDate:[NSDate date]];
-    
-    // XIB 静态文本：nameLab="备注:" / markField placeholder="点击写备注"
+
     [self.nameLab setText:KKLocalized(@"备注:")];
     [self.markField setPlaceholder:KKLocalized(@"点击写备注")];
 
@@ -81,17 +134,13 @@
     [self.markField setFont:[UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight]];
     [self.markField setTintColor:kColor_Main_Color];
     [self.markField setTextColor:kColor_Text_Black];
-    
-    [self.textConstraintH setConstant:countcoordinatesX(60)];
-    [self.keyConstraintB setConstant:SafeAreaBottomHeight];
-    
+
     [self createBtn];
-    [self buildCurrencyViews];
 
     if (!_money) {
         _money = [NSMutableString string];
     }
-    
+
     @weakify(self)
     [self kk_observeNotification:UIKeyboardWillShowNotification usingBlock:^(NSNotification *note) {
         @strongify(self)
@@ -165,13 +214,11 @@
 
 
 #pragma mark - 多币种
-// 在 XIB 的备注行里插入币种选择器，并在金额下方留出一行换算提示。
-// 这一行 XIB 原本是 [备注:][输入框][金额(120)]，金额上下占满 60pt；
-// 这里改成 [备注:][输入框][金额][币种] + 金额下方的 rateLab —— 币种跟在金额后面，
+// 输入条的右半部分：[金额][币种] + 金额下方的 rateLab —— 币种跟在金额后面，
 // 读作"25.50 ¥"，默认就是人民币，用户不点它就不需要做任何选择。
 - (void)buildCurrencyViews {
     if (_currencyBtn) {
-        return;     // initUI 可能被重复调用，子视图只建一次
+        return;     // 子视图只建一次
     }
     _currency = KKCurrencyCNY;
     _exchangeRate = 0;
@@ -201,18 +248,8 @@
     [_rateLab setHidden:YES];
     [self.textContent addSubview:_rateLab];
 
-    // XIB 里"金额占满整行、且紧跟输入框"的那几条约束要整体换掉。
-    // 金额自身的宽度约束挂在 label 上（不在容器上），不受影响。
-    NSMutableArray<NSLayoutConstraint *> *dead = [NSMutableArray array];
-    for (NSLayoutConstraint *c in self.textContent.constraints) {
-        if (c.firstItem == self.moneyLab || c.secondItem == self.moneyLab) {
-            [dead addObject:c];
-        }
-    }
-    [NSLayoutConstraint deactivateConstraints:dead];
-
-    // 无提示时 rateLab 高度收成 0、金额行占满整行，视觉与改造前一致；
-    // 有提示时两者一起让出 16pt，避免空 label 的固有高度顶破容器底边。
+    // 无提示时 rateLab 高度收成 0、金额行占满 60pt；有提示时两者一起让出 16pt，
+    // 避免空 label 的固有高度顶破容器底边。
     _moneyBottomConstraint = [self.moneyLab.bottomAnchor constraintEqualToAnchor:self.textContent.bottomAnchor];
     _rateHeightConstraint = [_rateLab.heightAnchor constraintEqualToConstant:0];
     [NSLayoutConstraint activateConstraints:@[
@@ -222,7 +259,6 @@
         _moneyBottomConstraint,
         [_currencyBtn.trailingAnchor constraintEqualToAnchor:self.textContent.trailingAnchor constant:-countcoordinatesX(15)],
         [_currencyBtn.centerYAnchor constraintEqualToAnchor:self.moneyLab.centerYAnchor],
-        [self.markField.trailingAnchor constraintEqualToAnchor:self.moneyLab.leadingAnchor constant:-8],
         [_rateLab.topAnchor constraintEqualToAnchor:self.moneyLab.bottomAnchor],
         [_rateLab.trailingAnchor constraintEqualToAnchor:self.textContent.trailingAnchor constant:-countcoordinatesX(15)],
         [_rateLab.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.textContent.leadingAnchor constant:countcoordinatesX(15)],
@@ -503,7 +539,7 @@
         datePickerView.maxDate = max;
         datePickerView.isAutoSelect = false;
         datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
-            NSLog(@"选择的值：%@", selectValue);
+            KKLog(@"选择的值：%@", selectValue);
             @strongify(self)
             [self setCurrentDate:({
                 NSDateFormatter *fora = [[NSDateFormatter alloc] init];
@@ -685,8 +721,8 @@
         NSString *str = [NSString stringWithFormat:@"-%@", arrm[0]];
         [arrm replaceObjectAtIndex:0 withObject:str];
     }
-    NSLog(@"%@", arrm);
-    NSLog(@"123");
+    KKLog(@"%@", arrm);
+    KKLog(@"123");
     return @[];
 }
 
@@ -793,10 +829,10 @@
     // 此处应该使用终止时的位置，因为弹起软键盘的时候位置有变化
     CGFloat keyHeight = [not.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
 
-    // countcoordinatesX(44) 是 markView 的高度
-    _textContentOffsetY = (self.height - keyHeight) - countcoordinatesX(60) - countcoordinatesX(44);
+    // countcoordinatesX(44) 是 markView 的高度。textContent 是 frame 定位的，
+    // 直接改 top 即可，重新布局不会把它拍回去。
     [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.textContent setTop:self.textContentOffsetY];
+        [self.textContent setTop:(self.height - keyHeight) - countcoordinatesX(60) - countcoordinatesX(44)];
     } completion:^(BOOL finished) {
 
     }];
@@ -804,22 +840,11 @@
 
 - (void)hideKeyboard:(NSNotification *)not {
     NSTimeInterval time = [not.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    _textContentOffsetY = 0;
     [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.textContent setTop:0];
     } completion:^(BOOL finished) {
 
     }];
-}
-
-// textContent 的上移是直接改 frame 的（它自己的位置由 XIB 约束决定），
-// 任何一次重新布局都会把它拍回原位 —— 币种切换会改约束、进而触发布局，
-// 所以这里把位移重新贴回去，避免系统键盘弹起时备注行突然跳回底部。
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (_textContentOffsetY != 0 && self.textContent.top != _textContentOffsetY) {
-        [self.textContent setTop:_textContentOffsetY];
-    }
 }
 
 

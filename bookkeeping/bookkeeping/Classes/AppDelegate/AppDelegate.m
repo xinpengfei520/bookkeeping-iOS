@@ -4,7 +4,12 @@
  */
 
 #import "AppDelegate.h"
+// Bugly 官方 framework 没有 arm64-simulator 切片，模拟器构建不链接它
+// （Podfile post_install 会把 -framework Bugly 从模拟器的 ldflags 里剔掉），
+// 代码里也要同步用 TARGET_OS_SIMULATOR 挡住，否则链接报错。
+#if !TARGET_OS_SIMULATOR
 #import <Bugly/Bugly.h>
+#endif
 
 #pragma mark - 声明
 @interface AppDelegate ()
@@ -21,17 +26,41 @@
     [self makeRootController];
     // 系统配置
     [self systemConfig];
-    // Bugly
+    // Bugly（模拟器上不可用，见文件顶部说明；崩溃采集本来也只关心真机）
+#if !TARGET_OS_SIMULATOR
     [Bugly startWithAppId:@"0025184dd7"];
+#endif
+
+#if DEBUG
+    // 仅模拟器调试用：`simctl launch --setenv KK_DEBUG_OPEN book <bundle id>` 直接弹记账页
+    // 并展开键盘。simctl openurl 打自定义 scheme 会被系统"在 xx 中打开?"弹窗拦住，
+    // 无法自动化截图/联调，所以留这个环境变量后门（Release 编译不进包）。
+    if ([NSProcessInfo.processInfo.environment[@"KK_DEBUG_OPEN"] isEqualToString:@"book"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            BookController *vc = [[BookController alloc] init];
+            BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+            nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+            UIViewController *top = self.window.rootViewController;
+            while (top.presentedViewController) top = top.presentedViewController;
+            [top presentViewController:nav animated:YES completion:^{
+                // KVC 取私有 keyboard 属性直接展示，便于截图验证键盘布局
+                id keyboard = [vc valueForKey:@"keyboard"];
+                if ([keyboard respondsToSelector:@selector(show)]) {
+                    [keyboard performSelector:@selector(show)];
+                }
+            }];
+        });
+    }
+#endif
     
     // 注册通知
     if (@available(iOS 10.0, *)) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            NSLog(@"completionHandler granted -> %d",granted);
+            KKLog(@"completionHandler granted -> %d",granted);
         }];
         [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-            NSLog(@"getNotificationSettings: %@", settings);
+            KKLog(@"getNotificationSettings: %@", settings);
         }];
     }
     

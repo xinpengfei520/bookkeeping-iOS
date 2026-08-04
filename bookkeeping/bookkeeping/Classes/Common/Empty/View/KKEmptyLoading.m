@@ -76,8 +76,7 @@
 - (void)removeLoadingView {
     for (UIView *view in self.subviews) {
         if (view.tag == Shadow_Tag) {
-            [view pop_removeAllAnimations];
-            [view.layer pop_removeAllAnimations];
+            [view.layer removeAllAnimations];
             [view removeFromSuperview];
         }
     }
@@ -115,49 +114,48 @@
     [self insertSubview:view belowSubview:self.icn];
     return view;
 }
-// 创建动画
+// 创建动画（原用 pop 实现，pop 已移除 —— 改成 UIView 动画 + Core Animation，行为一致：
+// 碎片匀速飘向中心并缓慢自转，到达后消失，isLoop 时再补一个新碎片）
 - (void)createRandomAnimation:(UIImageView *)view icn:(NSString *)icn isLoop:(BOOL)isLoop {
     CGPoint point1 = view.center;
     CGPoint point2 = self.center;
-    
+
     CGFloat length = pow(ABS(point1.x - point2.x), 2);
     length += pow(ABS(point1.y - point2.y), 2);
     length = sqrt(length);
-    
-    
-    POPBasicAnimation *basic = [POPBasicAnimation animationWithPropertyNamed:kPOPViewCenter];
-    basic.toValue = @(CGPointMake(self.width / 2, self.height / 2));
-    basic.duration = length / 30.f;
-    basic.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    [view pop_addAnimation:basic forKey:@"basic"];
-    
-    
-    POPBasicAnimation *basic2 = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerRotation];
-    basic2.toValue = @(M_PI * 30);
-    basic2.duration = 50;
-    basic2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    [view.layer pop_addAnimation:basic2 forKey:@"basic2"];
-    
-    
-    [basic setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
-        [view.layer pop_removeAllAnimations];
-        [view pop_removeAllAnimations];
+
+    // 自转：50s 转 15 圈的匀速旋转（额外挂在 layer 上，不影响 center 动画）
+    CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotation.toValue = @(M_PI * 30);
+    rotation.duration = 50;
+    rotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    [view.layer addAnimation:rotation forKey:@"rotation"];
+
+    // 位移：匀速飘向中心，速度恒定（时长 = 距离 / 30pt每秒）
+    [UIView animateWithDuration:length / 30.f
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+        view.center = CGPointMake(self.width / 2, self.height / 2);
+    } completion:^(BOOL finished) {
+        [view.layer removeAllAnimations];
         [view removeFromSuperview];
-        if (isLoop == YES) {
+        // hide 时动画被打断（finished == NO），此时不能再补碎片，否则永远停不下来
+        if (isLoop == YES && finished == YES) {
             [self showLoadingAnimation:icn];
         }
     }];
 }
-// 创建大小动画
+// 创建大小动画（0.8 ↔ 1.0 的呼吸缩放，3s 一程，无限往复）
 - (void)createRotationAnimation:(UIImageView *)view value:(CGFloat)value {
-    POPBasicAnimation *basic = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    [basic setToValue:@(CGPointMake(value, value))];
-    [basic setDuration:3];
-    [basic setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [view.layer pop_addAnimation:basic forKey:@"scaleXY"];
-    [basic setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
-        [self createRotationAnimation:view value:value == 1 ? 0.8 : 1];
-    }];
+    CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scale.fromValue = @(1.0);
+    scale.toValue = @(value);
+    scale.duration = 3;
+    scale.autoreverses = YES;
+    scale.repeatCount = HUGE_VALF;
+    scale.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [view.layer addAnimation:scale forKey:@"scaleXY"];
 }
 
 // 点击

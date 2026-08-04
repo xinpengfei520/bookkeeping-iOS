@@ -207,23 +207,23 @@
 // 添加点击区域调试方法
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
-    NSLog(@"AgreementView hitTest - point: %@, hitView: %@", NSStringFromCGPoint(point), hitView);
+    KKLog(@"AgreementView hitTest - point: %@, hitView: %@", NSStringFromCGPoint(point), hitView);
     return hitView;
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     BOOL inside = [super pointInside:point withEvent:event];
-    NSLog(@"AgreementView pointInside - point: %@, inside: %d", NSStringFromCGPoint(point), inside);
+    KKLog(@"AgreementView pointInside - point: %@, inside: %d", NSStringFromCGPoint(point), inside);
     return inside;
 }
 
 // 添加调试方法
 - (void)checkBoxTouchDown:(UIButton *)sender {
-    NSLog(@"CheckBox touchDown");
+    KKLog(@"CheckBox touchDown");
 }
 
 - (void)checkBoxTouchUpOutside:(UIButton *)sender {
-    NSLog(@"CheckBox touchUpOutside");
+    KKLog(@"CheckBox touchUpOutside");
 }
 
 // 添加图片着色方法

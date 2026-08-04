@@ -182,8 +182,8 @@
 
 - (ACACollection *)collection {
     if (!_collection) {
-        NSLog(@"SCREEN_HEIGHT:%f,SCREEN_WIDTH:%f,SafeAreaBottomHeight:%f",SCREEN_HEIGHT,SCREEN_WIDTH,SafeAreaBottomHeight);
-        NSLog(@"bottom:%f,top:%f,left:%f,right:%f",_textField.bottom,_textField.top,_textField.left,_textField.right);
+        KKLog(@"SCREEN_HEIGHT:%f,SCREEN_WIDTH:%f,SafeAreaBottomHeight:%f",SCREEN_HEIGHT,SCREEN_WIDTH,SafeAreaBottomHeight);
+        KKLog(@"bottom:%f,top:%f,left:%f,right:%f",_textField.bottom,_textField.top,_textField.left,_textField.right);
         _collection = [ACACollection initWithFrame:CGRectMake(0, _textField.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - _textField.bottom - SafeAreaBottomHeight - NavigationBarHeight)];
         [self.view addSubview:_collection];
     }

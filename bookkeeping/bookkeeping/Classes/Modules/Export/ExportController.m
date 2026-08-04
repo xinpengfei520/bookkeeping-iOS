@@ -134,15 +134,15 @@
             // 用户成功完成了操作
             NSString *successMessage = [NSString stringWithFormat:KKLocalized(@"导出成功，活动类型: %@"), activityType];
             [self showTextHUD:KKLocalized(@"导出成功") delay:1.5f];
-            NSLog(@"%@", successMessage);
+            KKLog(@"%@", successMessage);
         } else if (activityError) {
             // 操作中出现错误
             [self showTextHUD:KKLocalized(@"导出过程中出现错误") delay:1.5f];
-            NSLog(@"分享错误: %@", activityError.localizedDescription);
+            KKLog(@"分享错误: %@", activityError.localizedDescription);
         } else {
             // 用户取消了操作
             [self showTextHUD:KKLocalized(@"已取消导出") delay:1.5f];
-            NSLog(@"用户取消了分享");
+            KKLog(@"用户取消了分享");
         }
     };
     

@@ -44,7 +44,7 @@ static NSMutableDictionary *KKKeychainQuery(NSString *key) {
         status = SecItemAdd((__bridge CFDictionaryRef)add, NULL);
     }
     if (status != errSecSuccess) {
-        NSLog(@"[KKKeychain] set %@ failed: %d", key, (int)status);
+        KKLog(@"[KKKeychain] set %@ failed: %d", key, (int)status);
     }
     return status == errSecSuccess;
 }

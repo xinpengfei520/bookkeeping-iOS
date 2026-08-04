@@ -310,7 +310,7 @@
     for (int i = 0; i < level; i++) {
         [indent appendString:@"  "];
     }
-    NSLog(@"%@%@ frame:%@ userInteractionEnabled:%d", indent, [view class], NSStringFromCGRect(view.frame), view.userInteractionEnabled);
+    KKLog(@"%@%@ frame:%@ userInteractionEnabled:%d", indent, [view class], NSStringFromCGRect(view.frame), view.userInteractionEnabled);
     for (UIView *subview in view.subviews) {
         [self printViewHierarchy:subview level:level + 1];
     }

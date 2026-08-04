@@ -105,6 +105,13 @@
 // 字符串判空
 #define allTrim(object)[object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
+// 日志：DEBUG 走 NSLog，Release 编译期直接消掉（业务代码一律用 KKLog，不要再写 NSLog）
+#ifdef DEBUG
+#define KKLog(...) NSLog(__VA_ARGS__)
+#else
+#define KKLog(...)
+#endif
+
 #import "Common.h"
 
 // 必须在 Common.h（带入 UIKit / Foundation）之后定义，函数体里 UIColor /

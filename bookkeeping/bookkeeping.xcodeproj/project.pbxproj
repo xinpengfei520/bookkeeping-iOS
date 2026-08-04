@@ -165,7 +165,6 @@
 		4BA68B0B21C7F75B0063A5C2 /* ACAReusableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BA68B0921C7F75B0063A5C2 /* ACAReusableHeader.xib */; };
 		4BC41CFE21CF930600B397BD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC41CFC21CF930600B397BD /* LoginController.m */; };
 		4BC7820021C917FA00760DF9 /* BKCKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */; };
-		4BC7820221C918F200760DF9 /* BKCKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC7820121C918F200760DF9 /* BKCKeyboard.xib */; };
 		4BE7846021C6791E00B8EC46 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7845F21C6791E00B8EC46 /* HomeController.m */; };
 		4BE7846321C6796900B8EC46 /* ChartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846221C6796900B8EC46 /* ChartController.m */; };
 		4BE7846621C6799200B8EC46 /* BookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE7846521C6799200B8EC46 /* BookController.m */; };
@@ -189,17 +188,21 @@
 		4BFD381C21E4D84B00BAB0BB /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		583D79A0068717382A0882E8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66059596F5687DED54592D18 /* SwiftUI.framework */; };
 		62F2584B5D8D13F8291F76E9 /* KKPullToRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A7ADFECE6C196E9719EB4721 /* KKPullToRefreshHeader.m */; };
+		679D783E858A69B4D8E5A271 /* KKCurrencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC17C2FBD3E2FDB8A3C4B65 /* KKCurrencyTests.m */; };
+		6B020F37F5DFF1B714EE8671 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98B5E90E69785BEDDA96525 /* Foundation.framework */; };
 		6FDBCC966F78C5EAF687FF8F /* KKI18n.m in Sources */ = {isa = PBXBuildFile; fileRef = F42F7C4278EC0DEC18E0B39D /* KKI18n.m */; };
 		78CEE456FC70F6392910FE8F /* KKI18n.m in Sources */ = {isa = PBXBuildFile; fileRef = F42F7C4278EC0DEC18E0B39D /* KKI18n.m */; };
 		A030175C4D2C7F14CE7DBD87 /* WidgetReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FAC9DC77DDEDD20ABE07BE /* WidgetReloader.swift */; };
 		AA5BEE312D81D8AC6B19AA6D /* Pods_BookMonth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */; };
 		AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */; };
+		B3445DDEE4E5D3C5C8FC3EC1 /* UserInfoTokenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ACF476970C1FEE6C867E38 /* UserInfoTokenTests.m */; };
 		C17169EEEBD351968561C40B /* KKLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */; };
 		C2AEB3A2C4AB4C9253E39165 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 812070EF94E7B9D53C7F4FE0 /* SettingsController.m */; };
-		FDCA110000000000000000C3 /* RateController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000C2 /* RateController.m */; };
 		CADEAEF3609EA938CA3B27F2 /* NSObject+KKObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */; };
 		D3ABAD6ED66558AAEF834A23 /* ThemeSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B102249E44177CC286D041C /* ThemeSettingsController.m */; };
 		D9A5B9383D42CE3E31BDAAE9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */; };
+		E3EB770EB6F4E4DE8037C253 /* DateWeekdayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */; };
+		EA070754FBA1C546A1B49F2A /* CalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A216526A4847B517C64924A3 /* CalculationTests.m */; };
 		F35310842875EF1F00D297A9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310832875EF1F00D297A9 /* AboutController.m */; };
 		F353108C2875FC6D00D297A9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353108B2875FC6D00D297A9 /* WebViewController.m */; };
 		F353109B2876C88D00D297A9 /* ExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = F353109A2876C88D00D297A9 /* ExportController.m */; };
@@ -212,9 +215,6 @@
 		F35310BA2876D82400D297A9 /* ShareBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35310B12876D82400D297A9 /* ShareBadge.xib */; };
 		F35310BB2876D82400D297A9 /* ShareOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = F35310B32876D82400D297A9 /* ShareOrder.m */; };
 		F354830B27B90D6A00F2D6DE /* LAContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F354830A27B90D6A00F2D6DE /* LAContextManager.m */; };
-		FDCA110000000000000000B1 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
-		FDCA110000000000000000D3 /* KKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000D2 /* KKKeychain.m */; };
-		FDCA110000000000000000B2 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
 		F3570A1A2886995600B10976 /* UITableViewHeaderFooterView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */; };
 		F3581DA0287ADD2C007B17CD /* VerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3581D9E287ADD2C007B17CD /* VerifyController.m */; };
 		F3A0524D28550BBD00DB2E99 /* SearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A0524C28550BBD00DB2E99 /* SearchList.m */; };
@@ -235,6 +235,10 @@
 		F3CD73ED2889CD46008EBBEE /* MarkCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3CD73EB2889CD46008EBBEE /* MarkCollectionViewCell.xib */; };
 		F3CD73F02889D102008EBBEE /* MarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EF2889D102008EBBEE /* MarkModel.m */; };
 		F3FD3CCDE7B970B523F65C1C /* LanguageSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */; };
+		FDCA110000000000000000B1 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
+		FDCA110000000000000000B2 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
+		FDCA110000000000000000C3 /* RateController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000C2 /* RateController.m */; };
+		FDCA110000000000000000D3 /* KKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000D2 /* KKKeychain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,6 +248,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 32BFA7E521E483F300B926F3;
 			remoteInfo = BookMonth;
+		};
+		9DAB2DEEA1A5D57518090771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3219836921C642BB00311885 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3219837021C642BB00311885;
+			remoteInfo = bookkeeping;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -263,6 +274,7 @@
 
 /* Begin PBXFileReference section */
 		00F7D112DD852D7FDCFBD731 /* NSObject+KKObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+KKObserver.h"; sourceTree = "<group>"; };
+		02ACF476970C1FEE6C867E38 /* UserInfoTokenTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UserInfoTokenTests.m; sourceTree = "<group>"; };
 		0B102249E44177CC286D041C /* ThemeSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ThemeSettingsController.m; sourceTree = "<group>"; };
 		0FB1A961A9BE63A5562CDE7A /* ThemeSettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ThemeSettingsController.h; sourceTree = "<group>"; };
 		146BD453EA3062D2632AB373 /* BookMonth-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BookMonth-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -294,6 +306,7 @@
 		247AB9212D36431700B5F323 /* InfoTableDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoTableDataSource.m; sourceTree = "<group>"; };
 		2635A08EED44DE7FE2353DEA /* KKLoadMoreFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKLoadMoreFooter.h; sourceTree = "<group>"; };
 		2EF218BBC5103A7ADC00AB25 /* Pods-BookMonth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.release.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.release.xcconfig"; sourceTree = "<group>"; };
+		2FC17C2FBD3E2FDB8A3C4B65 /* KKCurrencyTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKCurrencyTests.m; sourceTree = "<group>"; };
 		3219837121C642BB00311885 /* bookkeeping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookkeeping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219837421C642BB00311885 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3219837521C642BB00311885 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -552,7 +565,6 @@
 		4BC41CFC21CF930600B397BD /* LoginController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		4BC781FE21C917FA00760DF9 /* BKCKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCKeyboard.h; sourceTree = "<group>"; };
 		4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCKeyboard.m; sourceTree = "<group>"; };
-		4BC7820121C918F200760DF9 /* BKCKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BKCKeyboard.xib; sourceTree = "<group>"; };
 		4BE7845E21C6791E00B8EC46 /* HomeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeController.h; sourceTree = "<group>"; };
 		4BE7845F21C6791E00B8EC46 /* HomeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeController.m; sourceTree = "<group>"; };
 		4BE7846121C6796900B8EC46 /* ChartController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartController.h; sourceTree = "<group>"; };
@@ -595,10 +607,10 @@
 		6A24864819274E39BEF5C08B /* UIControl+KKBlock.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIControl+KKBlock.m"; sourceTree = "<group>"; };
 		734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookkeeping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D18B97B807F044BE4EFE105 /* KKTheme.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKTheme.m; sourceTree = "<group>"; };
+		7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DateWeekdayTests.m; sourceTree = "<group>"; };
 		812070EF94E7B9D53C7F4FE0 /* SettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
-		FDCA110000000000000000C1 /* RateController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RateController.h; sourceTree = "<group>"; };
-		FDCA110000000000000000C2 /* RateController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RateController.m; sourceTree = "<group>"; };
 		9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KKObserver.m"; sourceTree = "<group>"; };
+		A216526A4847B517C64924A3 /* CalculationTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CalculationTests.m; sourceTree = "<group>"; };
 		A7ADFECE6C196E9719EB4721 /* KKPullToRefreshHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKPullToRefreshHeader.m; sourceTree = "<group>"; };
 		A93F626B7FA6D097EACA5FF2 /* KKPullToRefreshHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKPullToRefreshHeader.h; sourceTree = "<group>"; };
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
@@ -609,6 +621,7 @@
 		C8FAC9DC77DDEDD20ABE07BE /* WidgetReloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetReloader.swift; sourceTree = "<group>"; };
 		CC2DE293D47C15C852DD6195 /* KKWeakify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKWeakify.h; sourceTree = "<group>"; };
 		D88EA0B6020BDC17A4BB96C0 /* SettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		DBBADF454295279F0C3A6459 /* bookkeepingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookkeepingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
 		EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingsController.m; sourceTree = "<group>"; };
@@ -633,10 +646,6 @@
 		F35310B32876D82400D297A9 /* ShareOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareOrder.m; sourceTree = "<group>"; };
 		F354830927B90D6A00F2D6DE /* LAContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAContextManager.h; sourceTree = "<group>"; };
 		F354830A27B90D6A00F2D6DE /* LAContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAContextManager.m; sourceTree = "<group>"; };
-		FDCA110000000000000000A1 /* KKCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKCurrency.h; sourceTree = "<group>"; };
-		FDCA110000000000000000A2 /* KKCurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKCurrency.m; sourceTree = "<group>"; };
-		FDCA110000000000000000D1 /* KKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKKeychain.h; sourceTree = "<group>"; };
-		FDCA110000000000000000D2 /* KKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKKeychain.m; sourceTree = "<group>"; };
 		F3570A182886995600B10976 /* UITableViewHeaderFooterView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Extension.h"; sourceTree = "<group>"; };
 		F3570A192886995600B10976 /* UITableViewHeaderFooterView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Extension.m"; sourceTree = "<group>"; };
 		F3581D9D287ADD2C007B17CD /* VerifyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyController.h; sourceTree = "<group>"; };
@@ -673,6 +682,13 @@
 		F3CD73EE2889D102008EBBEE /* MarkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkModel.h; sourceTree = "<group>"; };
 		F3CD73EF2889D102008EBBEE /* MarkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkModel.m; sourceTree = "<group>"; };
 		F42F7C4278EC0DEC18E0B39D /* KKI18n.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKI18n.m; sourceTree = "<group>"; };
+		F98B5E90E69785BEDDA96525 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		FDCA110000000000000000A1 /* KKCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKCurrency.h; sourceTree = "<group>"; };
+		FDCA110000000000000000A2 /* KKCurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKCurrency.m; sourceTree = "<group>"; };
+		FDCA110000000000000000C1 /* RateController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RateController.h; sourceTree = "<group>"; };
+		FDCA110000000000000000C2 /* RateController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RateController.m; sourceTree = "<group>"; };
+		FDCA110000000000000000D1 /* KKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKKeychain.h; sourceTree = "<group>"; };
+		FDCA110000000000000000D2 /* KKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKKeychain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -692,6 +708,14 @@
 				AA5BEE312D81D8AC6B19AA6D /* Pods_BookMonth.framework in Frameworks */,
 				D9A5B9383D42CE3E31BDAAE9 /* WidgetKit.framework in Frameworks */,
 				583D79A0068717382A0882E8 /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9C209D652C70155653A868 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B020F37F5DFF1B714EE8671 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,6 +819,7 @@
 				3219837221C642BB00311885 /* Products */,
 				A1D1082896A0BADABB09EB51 /* Pods */,
 				5BA81AE5E9A23B63357F8783 /* Frameworks */,
+				AC855CEF37D348B847E2B843 /* bookkeepingTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -803,6 +828,7 @@
 			children = (
 				3219837121C642BB00311885 /* bookkeeping.app */,
 				32BFA7E621E483F300B926F3 /* BookMonth.appex */,
+				DBBADF454295279F0C3A6459 /* bookkeepingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1970,6 +1996,7 @@
 				734C8869AE9029E634B80CC3 /* Pods_bookkeeping.framework */,
 				DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */,
 				66059596F5687DED54592D18 /* SwiftUI.framework */,
+				B5009F15AC52216A3D89B564 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2005,6 +2032,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AC855CEF37D348B847E2B843 /* bookkeepingTests */ = {
+			isa = PBXGroup;
+			children = (
+				A216526A4847B517C64924A3 /* CalculationTests.m */,
+				7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */,
+				2FC17C2FBD3E2FDB8A3C4B65 /* KKCurrencyTests.m */,
+				02ACF476970C1FEE6C867E38 /* UserInfoTokenTests.m */,
+			);
+			name = bookkeepingTests;
+			path = bookkeepingTests;
+			sourceTree = "<group>";
+		};
+		B5009F15AC52216A3D89B564 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F98B5E90E69785BEDDA96525 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		E7C191A7266ADB4197A31C36 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2012,25 +2059,6 @@
 			);
 			name = Settings;
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		FDCA110000000000000000C4 /* Rate */ = {
-			isa = PBXGroup;
-			children = (
-				FDCA110000000000000000C5 /* Controller */,
-			);
-			name = Rate;
-			path = Rate;
-			sourceTree = "<group>";
-		};
-		FDCA110000000000000000C5 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				FDCA110000000000000000C1 /* RateController.h */,
-				FDCA110000000000000000C2 /* RateController.m */,
-			);
-			name = Controller;
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		F35310802875EF1F00D297A9 /* About */ = {
@@ -2224,7 +2252,6 @@
 			children = (
 				4BC781FE21C917FA00760DF9 /* BKCKeyboard.h */,
 				4BC781FF21C917FA00760DF9 /* BKCKeyboard.m */,
-				4BC7820121C918F200760DF9 /* BKCKeyboard.xib */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -2238,6 +2265,25 @@
 				4B132AA721C68F4300D5B489 /* BKCCollectionCell.m */,
 			);
 			path = Collection;
+			sourceTree = "<group>";
+		};
+		FDCA110000000000000000C4 /* Rate */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA110000000000000000C5 /* Controller */,
+			);
+			name = Rate;
+			path = Rate;
+			sourceTree = "<group>";
+		};
+		FDCA110000000000000000C5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA110000000000000000C1 /* RateController.h */,
+				FDCA110000000000000000C2 /* RateController.m */,
+			);
+			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2282,6 +2328,24 @@
 			productReference = 32BFA7E621E483F300B926F3 /* BookMonth.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		4B83D8E8419A27993D4B1AA7 /* bookkeepingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6301213395BA1D442E1A8E1 /* Build configuration list for PBXNativeTarget "bookkeepingTests" */;
+			buildPhases = (
+				AD02C3BA13EDFB82DBA99401 /* Sources */,
+				8E9C209D652C70155653A868 /* Frameworks */,
+				48CB674C2B25E020FFD65AB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				88062CE60721789AF251C1ED /* PBXTargetDependency */,
+			);
+			name = bookkeepingTests;
+			productName = bookkeepingTests;
+			productReference = DBBADF454295279F0C3A6459 /* bookkeepingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2324,6 +2388,7 @@
 			targets = (
 				3219837021C642BB00311885 /* bookkeeping */,
 				32BFA7E521E483F300B926F3 /* BookMonth */,
+				4B83D8E8419A27993D4B1AA7 /* bookkeepingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2347,7 +2412,6 @@
 				4BA68B0621C7F6FB0063A5C2 /* ACACollectionCell.xib in Resources */,
 				32D0B2BF21C778FA0030F5B2 /* ChartNavigation.xib in Resources */,
 				4BF0649221E10BD3005F1665 /* BDHeader.xib in Resources */,
-				4BC7820221C918F200760DF9 /* BKCKeyboard.xib in Resources */,
 				32A5801221DF33C4008993B2 /* ACA.plist in Resources */,
 				F35310B52876D82400D297A9 /* ShareShot.xib in Resources */,
 				32D0B2C721C77B240030F5B2 /* ChartSegmentControl.xib in Resources */,
@@ -2362,6 +2426,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		32BFA7E421E483F300B926F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48CB674C2B25E020FFD65AB8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2646,6 +2717,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AD02C3BA13EDFB82DBA99401 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA070754FBA1C546A1B49F2A /* CalculationTests.m in Sources */,
+				E3EB770EB6F4E4DE8037C253 /* DateWeekdayTests.m in Sources */,
+				679D783E858A69B4D8E5A271 /* KKCurrencyTests.m in Sources */,
+				B3445DDEE4E5D3C5C8FC3EC1 /* UserInfoTokenTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2653,6 +2735,12 @@
 			isa = PBXTargetDependency;
 			target = 32BFA7E521E483F300B926F3 /* BookMonth */;
 			targetProxy = 32BFA7F121E483F400B926F3 /* PBXContainerItemProxy */;
+		};
+		88062CE60721789AF251C1ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = bookkeeping;
+			target = 3219837021C642BB00311885 /* bookkeeping */;
+			targetProxy = 9DAB2DEEA1A5D57518090771 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2961,6 +3049,43 @@
 			};
 			name = Release;
 		};
+		8D06DC8643FF225043A9EBBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bookkeeping.app/bookkeeping";
+			};
+			name = Debug;
+		};
+		F96455641551248973A4BFA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bookkeeping.app/bookkeeping";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2987,6 +3112,15 @@
 			buildConfigurations = (
 				32BFA7F421E483F400B926F3 /* Debug */,
 				32BFA7F521E483F400B926F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6301213395BA1D442E1A8E1 /* Build configuration list for PBXNativeTarget "bookkeepingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F96455641551248973A4BFA2 /* Release */,
+				8D06DC8643FF225043A9EBBF /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -277,7 +277,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *
     [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
         // 获取第1个输入框；
         UITextField *titleTextField = alertController.textFields.firstObject;
-        NSLog(@"%@", titleTextField.text);
+        KKLog(@"%@", titleTextField.text);
         if (titleTextField.text.length == 0) {
             [self showTextHUD:KKLocalized(@"昵称不能为空") delay:1.f];
             return;
@@ -300,7 +300,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *
     [alertController addAction:[UIAlertAction actionWithTitle:KKLocalized(@"确定") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
         // 获取第1个输入框；
         UITextField *titleTextField = alertController.textFields.firstObject;
-        NSLog(@"%@", titleTextField.text);
+        KKLog(@"%@", titleTextField.text);
         if (titleTextField.text.length == 0) {
             [self showTextHUD:KKLocalized(@"手机号不能为空") delay:1.f];
             return;
