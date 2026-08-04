@@ -101,7 +101,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ChartSectionHeader *header = [ChartSectionHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(40))];
+    ChartSectionHeader *header = [ChartSectionHeader loadCode:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(40))];
     header.navigationIndex = _navigationIndex;
     return header;
 }

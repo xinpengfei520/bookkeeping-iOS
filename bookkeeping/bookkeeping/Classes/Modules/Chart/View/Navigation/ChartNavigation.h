@@ -11,7 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ChartNavigation : BaseView
 
 @property (nonatomic, assign) NSInteger navigationIndex;
-@property (weak, nonatomic) IBOutlet UIButton *button;
+/// 罩在「支出/收入 ▾」上的透明热区按钮，ChartController 挂点击事件
+@property (nonatomic, strong) UIButton *button;
 @property (nonatomic, strong) BookDetailModel *cmodel;
 
 @end

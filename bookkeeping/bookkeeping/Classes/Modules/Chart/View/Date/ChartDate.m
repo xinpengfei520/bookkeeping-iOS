@@ -243,7 +243,7 @@
         [_collection setBackgroundColor:[UIColor systemBackgroundColor]];
         [_collection setDelegate:self];
         [_collection setDataSource:self];
-        [_collection registerNib:[UINib nibWithNibName:@"ChartDateCell" bundle:nil] forCellWithReuseIdentifier:@"ChartDateCell"];
+        [_collection registerClass:ChartDateCell.class forCellWithReuseIdentifier:@"ChartDateCell"];
         [self addSubview:_collection];
     }
     return _collection;

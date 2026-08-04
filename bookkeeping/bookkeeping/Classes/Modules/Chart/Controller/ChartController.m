@@ -210,7 +210,7 @@
 - (ChartNavigation *)navigation {
     if (!_navigation) {
         @weakify(self)
-        _navigation = [ChartNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
+        _navigation = [ChartNavigation loadCode:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         [_navigation setCmodel:_cmodel];
         [_navigation.button kk_addEventHandler:^(UIControl *button) {
             @strongify(self)
@@ -224,7 +224,7 @@
 - (ChartSegmentControl *)segment {
     if (!_segment) {
         @weakify(self)
-        _segment = [ChartSegmentControl loadFirstNib:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(50))];
+        _segment = [ChartSegmentControl loadCode:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(50))];
         [_segment.seg kk_addEventHandler:^(UISegmentedControl *seg) {
             @strongify(self)
             [self setDate:({

@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger, LYFTableViewType) {
     return 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CategoryCell *cell = [CategoryCell loadFirstNib:tableView];
+    CategoryCell *cell = [CategoryCell loadCode:tableView];
     cell.model = indexPath.section == 0 ? _model.insert[indexPath.row] : _model.remove[indexPath.row];
     cell.indexPath = indexPath;
     cell.editingMode = self.editingMode;

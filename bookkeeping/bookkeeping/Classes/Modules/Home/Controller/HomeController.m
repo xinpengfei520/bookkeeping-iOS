@@ -477,7 +477,7 @@
 #pragma mark - get
 - (HomeNavigation *)navigation {
     if (!_navigation) {
-        _navigation = [HomeNavigation loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
+        _navigation = [HomeNavigation loadCode:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight)];
         
         // 头像/菜单按钮先隐藏 —— me 已是独立 tab，顶部入口冗余。如果将来想留个
         // 直达 tab 的快捷点，把 hidden = NO 取消即可，tap 行为已挪到下面那个

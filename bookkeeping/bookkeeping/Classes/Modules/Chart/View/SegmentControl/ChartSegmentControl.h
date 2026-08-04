@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChartSegmentControl : BaseView
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *seg;
+@property (nonatomic, strong) UISegmentedControl *seg;
 
 @end
 

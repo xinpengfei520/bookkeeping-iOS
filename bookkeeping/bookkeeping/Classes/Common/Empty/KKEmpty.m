@@ -174,7 +174,7 @@
 }
 - (KKGoodsEmpty *)emptyGoods {
     if (!_emptyGoods) {
-        _emptyGoods = [KKGoodsEmpty loadFirstNib:self.bounds];
+        _emptyGoods = [KKGoodsEmpty loadCode:self.bounds];
         [self addSubview:_emptyGoods];
     }
     return _emptyGoods;

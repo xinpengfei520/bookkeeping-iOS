@@ -4,17 +4,36 @@
 //
 //  Created by PengfeiXin on 2022/7/22.
 //  Copyright © 2022 kk. All rights reserved.
+//  2026-08-04 XIB → 代码布局（Batch 8），注册方式改 registerClass
 //
 
 #import "MarkCollectionViewCell.h"
+#import <Masonry/Masonry.h>
 
 @interface MarkCollectionViewCell()
 
-@property (weak, nonatomic) IBOutlet UILabel *markLabel;
+@property (nonatomic, strong) UILabel *markLabel;
 
 @end
 
 @implementation MarkCollectionViewCell
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self buildSubviews];
+    }
+    return self;
+}
+
+- (void)buildSubviews {
+    _markLabel = [[UILabel alloc] init];
+    _markLabel.textAlignment = NSTextAlignmentCenter;
+    [self.contentView addSubview:_markLabel];
+    [_markLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
+}
 
 - (void)initUI {
     self.markLabel.font = [UIFont systemFontOfSize:AdjustFont(10) weight:UIFontWeightLight];

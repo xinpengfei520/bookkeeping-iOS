@@ -54,7 +54,7 @@
     return 2;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChartHUDCell *cell = [ChartHUDCell loadFirstNib:tableView];
+    ChartHUDCell *cell = [ChartHUDCell loadCode:tableView];
     cell.choose = _current == indexPath.row;
     cell.indexPath = indexPath;
     return cell;

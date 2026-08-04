@@ -1,18 +1,20 @@
 /**
  * 分类
  * @author 郑业强 2018-12-17 创建文件
+ * 2026-08-04 XIB → 代码布局（Batch 8）
  */
 
 #import "CategoryCell.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface CategoryCell()
 
-@property (weak, nonatomic) IBOutlet UIButton *actionBtn;
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
-@property (weak, nonatomic) IBOutlet UILabel *detailLab;
-@property (weak, nonatomic) IBOutlet UIButton *menuBtn;
+@property (nonatomic, strong) UIButton *actionBtn;
+@property (nonatomic, strong) UIImageView *icon;
+@property (nonatomic, strong) UILabel *nameLab;
+@property (nonatomic, strong) UILabel *detailLab;
+@property (nonatomic, strong) UIButton *menuBtn;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longG;
 
 @end
@@ -21,6 +23,59 @@
 #pragma mark - 实现
 @implementation CategoryCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self buildSubviews];
+    }
+    return self;
+}
+
+// 原 XIB：[操作按钮(25)][图标(25)][名称][（自定义）]……[拖动手柄(靠右)]，全部纵向占满
+- (void)buildSubviews {
+    _actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.contentView addSubview:_actionBtn];
+
+    _icon = [[UIImageView alloc] init];
+    _icon.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:_icon];
+
+    _nameLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_nameLab];
+
+    _detailLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_detailLab];
+
+    _menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_menuBtn setImage:[UIImage imageNamed:@"guide_sort"] forState:UIControlStateNormal];
+    [_menuBtn setImage:[UIImage imageNamed:@"guide_sort"] forState:UIControlStateHighlighted];
+    [self.contentView addSubview:_menuBtn];
+
+    [_actionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(15);
+        make.top.bottom.equalTo(self.contentView);
+        make.width.equalTo(@25);
+    }];
+    [_icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_actionBtn.mas_right).offset(15);
+        make.top.bottom.equalTo(self.contentView);
+        make.width.equalTo(self->_actionBtn);
+    }];
+    [_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_icon.mas_right).offset(15);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_nameLab.mas_right).offset(5);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_menuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+
+    [_actionBtn addTarget:self action:@selector(actionClick:) forControlEvents:UIControlEventTouchUpInside];
+}
 
 - (void)initUI {
     [self.nameLab setFont:[UIFont systemFontOfSize:AdjustFont(12) weight:UIFontWeightLight]];
@@ -35,7 +90,7 @@
 
 #pragma mark - 点击
 // 删除
-- (IBAction)actionClick:(UIButton *)sender {
+- (void)actionClick:(UIButton *)sender {
     [self routerEventWithName:CATEGORY_ACTION_CLICK data:self];
 }
 

@@ -66,7 +66,7 @@
 
 - (ShareShot *)shot1 {
     if (!_shot1) {
-        _shot1 = [ShareShot loadFirstNib:({
+        _shot1 = [ShareShot loadCode:({
             CGFloat paddingW = countcoordinatesX(50);
             CGFloat paddingH = countcoordinatesX(30);
             CGFloat left = paddingW;
@@ -81,7 +81,7 @@
 
 - (ShareOrder *)shot2 {
     if (!_shot2) {
-        _shot2 = [ShareOrder loadFirstNib:self.shot1.frame];
+        _shot2 = [ShareOrder loadCode:self.shot1.frame];
         [self.scroll addSubview:_shot2];
     }
     return _shot2;
@@ -89,7 +89,7 @@
 
 - (ShareBadge *)shot3 {
     if (!_shot3) {
-        _shot3 = [ShareBadge loadFirstNib:self.shot1.frame];
+        _shot3 = [ShareBadge loadCode:self.shot1.frame];
         [self.scroll addSubview:_shot3];
     }
     return _shot3;

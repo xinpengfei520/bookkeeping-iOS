@@ -246,7 +246,7 @@
 - (CAHeader *)header {
     if (!_header) {
         // old: NavigationBarHeight
-        _header = [CAHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(50))];
+        _header = [CAHeader loadCode:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(50))];
         [self.view addSubview:_header];
     }
     return _header;

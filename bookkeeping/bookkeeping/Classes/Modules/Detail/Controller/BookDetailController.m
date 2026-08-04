@@ -98,7 +98,7 @@
 #pragma mark - get
 - (BDHeader *)header {
     if (!_header) {
-        _header = [BDHeader loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight + 90)];
+        _header = [BDHeader loadCode:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBarHeight + 90)];
         [self.view addSubview:_header];
     }
     return _header;

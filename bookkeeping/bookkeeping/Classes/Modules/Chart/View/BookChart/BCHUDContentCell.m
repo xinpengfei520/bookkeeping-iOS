@@ -1,27 +1,70 @@
 /**
  * 图表页面：点击折线图的弹框 cell
  * @author 郑业强 2019-01-07
+ * 2026-08-04 XIB → 代码布局（Batch 6）
  */
 
 #import "BCHUDContentCell.h"
+#import <Masonry/Masonry.h>
 
 #pragma mark - 声明
 @interface BCHUDContentCell()
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UILabel *nameLab;
-@property (weak, nonatomic) IBOutlet UILabel *priceLab;
-@property (weak, nonatomic) IBOutlet UILabel *detailLab;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailConstraintL;
+@property (nonatomic, strong) UIImageView *icon;
+@property (nonatomic, strong) UILabel *nameLab;
+@property (nonatomic, strong) UILabel *priceLab;
+@property (nonatomic, strong) UILabel *detailLab;
 
 @end
 
 #pragma mark - 实现
 @implementation BCHUDContentCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self buildSubviews];
+    }
+    return self;
+}
+
+// 原 XIB：[icon(10)][日期][ 16 ]类别 …… 金额(靠右)]，全部纵向占满
+- (void)buildSubviews {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    _icon = [[UIImageView alloc] init];
+    _icon.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:_icon];
+
+    _nameLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_nameLab];
+
+    _detailLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_detailLab];
+
+    _priceLab = [[UILabel alloc] init];
+    [self.contentView addSubview:_priceLab];
+
+    [_icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(self.contentView);
+        make.width.equalTo(@10);
+    }];
+    [_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_icon.mas_right).offset(10);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_nameLab.mas_right).offset(countcoordinatesX(16));
+        make.top.bottom.equalTo(self.contentView);
+    }];
+    [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+}
+
 - (void)initUI {
-    // 配合 BCHUDContent 的深色 tooltip 底：cell 也用 Chart_Header；XIB 烤死白字在 dark mode
-    // 接管不到，统一在这里显式设为 Chart_Text（两态都是浅灰），确保深底浅字可读
+    // tooltip 深底浅字（kColor_Chart_* 两态皆为深底浅灰），保持与 BCHUDContent 一致
     [self setBackgroundColor:kColor_Chart_Header];
     [self.contentView setBackgroundColor:kColor_Chart_Header];
     [self.nameLab setFont:[UIFont fontWithName:@"Helvetica Neue" size:AdjustFont(8)]];
@@ -30,8 +73,6 @@
     [self.nameLab setTextColor:kColor_Chart_Text];
     [self.detailLab setTextColor:kColor_Chart_Text];
     [self.priceLab setTextColor:kColor_Chart_Text];
-    // detailLab 距离 _nameLab 的距离
-    [self.detailConstraintL setConstant:countcoordinatesX(16)];
 }
 
 #pragma mark - set

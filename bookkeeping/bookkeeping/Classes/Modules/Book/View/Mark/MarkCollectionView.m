@@ -35,7 +35,7 @@
     [collection setBackgroundColor:[UIColor systemBackgroundColor]];
     [collection setDelegate:collection];
     [collection setDataSource:collection];
-    [collection registerNib:[UINib nibWithNibName:@"MarkCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"MarkCollectionViewCell"];
+    [collection registerClass:MarkCollectionViewCell.class forCellWithReuseIdentifier:@"MarkCollectionViewCell"];
     [collection registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MarkCollectionViewHeader"];
     return collection;
 }

@@ -30,8 +30,8 @@
     [collection setDelegate:collection];
     [collection setDataSource:collection];
     [collection setBackgroundColor:kColor_BG];
-    [collection registerNib:[UINib nibWithNibName:@"ACACollectionCell" bundle:nil] forCellWithReuseIdentifier:@"ACACollectionCell"];
-    [collection registerNib:[UINib nibWithNibName:@"ACAReusableHeader" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ACAReusableHeader"];
+    [collection registerClass:ACACollectionCell.class forCellWithReuseIdentifier:@"ACACollectionCell"];
+    [collection registerClass:ACAReusableHeader.class forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ACAReusableHeader"];
     [collection setShowsVerticalScrollIndicator:NO];
     return collection;
 }

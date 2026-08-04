@@ -174,7 +174,7 @@
 #pragma mark - get
 - (ACATextField *)textField {
     if (!_textField) {
-        _textField = [ACATextField loadFirstNib:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(60))];
+        _textField = [ACATextField loadCode:CGRectMake(0, 0, SCREEN_WIDTH, countcoordinatesX(60))];
         [self.view addSubview:_textField];
     }
     return _textField;

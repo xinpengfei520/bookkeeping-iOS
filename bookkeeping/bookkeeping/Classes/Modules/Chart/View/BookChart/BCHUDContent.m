@@ -49,7 +49,7 @@
     return self.models.count > 3 ? 3 : self.models.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BCHUDContentCell *cell = [BCHUDContentCell loadFirstNib:tableView];
+    BCHUDContentCell *cell = [BCHUDContentCell loadCode:tableView];
     cell.model = self.models[indexPath.row];
     return cell;
 }

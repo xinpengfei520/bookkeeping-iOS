@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAHeader : BaseView
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *seg;
+@property (nonatomic, strong) UISegmentedControl *seg;
 
 @end
 
