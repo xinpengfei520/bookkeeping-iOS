@@ -34,6 +34,7 @@
 
 // 记账 SQLite 存储（widget 经 NSUserDefaults+Extension 读同一份数据）
 #import "KKBookStore.h"
+#import "KKPendingBookOp.h"
 
 
 // model

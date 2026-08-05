@@ -11,6 +11,7 @@
 #import "BKCIncomeModel.h"
 #import "NSUserDefaults+Extension.h"
 #import "KKBookStore.h"
+#import "KKPendingBookOp.h"
 #import "KKI18n.h"
 
 #endif

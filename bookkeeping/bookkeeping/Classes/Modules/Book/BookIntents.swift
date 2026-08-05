@@ -7,7 +7,7 @@
 //
 //  落库策略：走与离线记账完全相同的管线 —— 本地 SQLite 先落一笔（临时
 //  bookId），同时入 PIN_BOOK_FAILED 离线队列；下次打开 App 时
-//  HomeController.replayFailedBookRequests 自动补发到服务端并换成正式 id。
+//  HomeController.replayPendingBookOps 自动补发到服务端并换成正式 id。
 //  好处：不用在 intent 进程里做网络 + 登录态处理，弱网/未登录一样能记。
 //
 
@@ -69,7 +69,7 @@ struct AddBookEntryIntent: AppIntent {
 
         // 本地 SQLite 落库 + 入离线队列（下次打开 App 自动补发到服务端）
         UserDefaults.insertBook(model)
-        UserDefaults.enqueueFailedBook(model)
+        UserDefaults.enqueuePendingAdd(model)
         // 小组件立刻反映新账单
         WidgetReloader.reloadAllTimelines()
 

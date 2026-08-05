@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSMutableArray<BookMonthModel *> *models;
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
 @property (nonatomic, assign) BOOL replayingFailedBooks;    // 离线队列重放中(防重入)
+@property (nonatomic, assign) BOOL pendingInitialLoad;     // 后台启动时推迟首屏加载
 
 @end
 
@@ -41,20 +42,35 @@
     [self addButton];
     [self setDate:[NSDate date]];
     [self monitorNotification];
-    
-    // 从缓存中取出 PIN_SETTING_FACE_ID 的值，如果没有则默认为 0
-    NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
-    if ([faceId boolValue] == true) {
-        [self verifyFaceID];
-    }else{
-        [self getData];
+
+    // Siri 的「记一笔」（AppIntents）会在后台把 App 进程拉起来执行，此时
+    // 走 Face ID 验证必然失败、拉网络同步也没意义 —— 推迟到真正进前台再做。
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        self.pendingInitialLoad = YES;
+        return;
     }
+    [self startInitialLoad];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    if (self.pendingInitialLoad) {
+        self.pendingInitialLoad = NO;
+        [self startInitialLoad];
+    }
     // 首页是根控制器，每次回到前台/回到首页都试着把离线队列补发出去
-    [self replayFailedBookRequests];
+    [self replayPendingBookOps];
+}
+
+// 首屏加载：Face ID 开着就先验证，验证通过再取数据
+- (void)startInitialLoad {
+    // 从缓存中取出 PIN_SETTING_FACE_ID 的值，如果没有则默认为 0
+    NSNumber *faceId = [NSUserDefaults objectForKey:PIN_SETTING_FACE_ID];
+    if ([faceId boolValue] == true) {
+        [self verifyFaceID];
+    } else {
+        [self getData];
+    }
 }
 
 - (void)getData{
@@ -233,13 +249,13 @@
             }
 
             // 这次保存走通了说明网络没问题，顺手把之前离线欠下的账补发出去
-            [self replayFailedBookRequests];
+            [self replayPendingBookOps];
         }
         // 传输层失败（没网/超时）：先落到本地 + 入离线队列，等网络恢复自动补发。
         // 之前这里只弹个 toast，UI 上看着记上了、重启就没了 —— 那才是最坑的。
         else if (result.status != HttpStatusSuccess) {
             [NSUserDefaults insertBookModel:model];
-            [NSUserDefaults enqueueFailedBookModel:model];
+            [NSUserDefaults enqueuePendingAdd:model];
             [self showTextHUD:KKLocalized(@"网络不给力，已保存在本机，联网后自动同步") delay:1.5f];
         }
         // 业务拒绝（参数校验不过等）：服务端永远不会收这条，把乐观插入回滚掉，
@@ -253,30 +269,50 @@
     }];
 }
 
-#pragma mark - 离线记账队列重放
-// 把 PIN_BOOK_FAILED 里积压的记账逐条补发到服务端。串行发送：
+#pragma mark - 离线待办队列重放
+// 把 PIN_BOOK_FAILED 里积压的增/改/删逐条补发到服务端。串行发送：
 // 一旦再次碰到传输失败就整轮停下（说明还没网），等下一次触发。
-// 触发点：viewDidAppear、每次在线保存成功之后。
-- (void)replayFailedBookRequests {
+// 触发点：viewDidAppear、每次在线请求成功之后。
+- (void)replayPendingBookOps {
     if (self.replayingFailedBooks || ![UserInfo isLogin]) {
         return;
     }
-    NSMutableArray<BookDetailModel *> *queue = [NSUserDefaults getFailedBookList];
+    NSMutableArray<KKPendingBookOp *> *queue = [NSUserDefaults getPendingBookOps];
     if (queue.count == 0) {
         return;
     }
     self.replayingFailedBooks = YES;
-    [self replayNextFailedBook:queue index:0];
+    [self replayPendingOps:queue index:0];
 }
 
-- (void)replayNextFailedBook:(NSMutableArray<BookDetailModel *> *)queue index:(NSInteger)index {
+- (void)replayPendingOps:(NSMutableArray<KKPendingBookOp *> *)queue index:(NSInteger)index {
     if (index >= (NSInteger)queue.count) {
         self.replayingFailedBooks = NO;
         return;
     }
-    BookDetailModel *model = queue[index];
+    KKPendingBookOp *op = queue[index];
+    BookDetailModel *model = op.model;
+
+    NSString *url = nil;
+    NSMutableDictionary *param = nil;
+    switch (op.type) {
+        case KKBookOpTypeAdd:
+            url = bookDetailSaveRequest;
+            param = [self saveParamsWithModel:model];
+            break;
+        case KKBookOpTypeUpdate:
+            url = bookDetailUpdateRequest;
+            param = [self saveParamsWithModel:model];
+            [param setValue:@(model.bookId) forKey:@"bookId"];
+            break;
+        case KKBookOpTypeDelete:
+            url = bookDetailDeleteRequest;
+            param = [NSMutableDictionary dictionaryWithObject:@(model.bookId) forKey:@"bookId"];
+            break;
+    }
+
     @weakify(self)
-    [AFNManager POST:bookDetailSaveRequest params:[self saveParamsWithModel:model] complete:^(APPResult *result) {
+    [AFNManager POST:url params:param complete:^(APPResult *result) {
         @strongify(self)
         if (!self) {
             return;
@@ -287,32 +323,37 @@
             return;
         }
 
+        // 无论成功还是业务拒绝都要出队 —— 业务拒绝重试多少次服务端都不会收
+        // （类别已删 / 校验不过 / 记录不存在），不能让它无限重试。
+        [NSUserDefaults dequeuePendingBookOpForBookId:model.bookId];
+
         if (result.code == BIZ_SUCCESS) {
-            // 出队要在改 bookId 之前 —— 队列按 bookId 匹配删除
-            [NSUserDefaults dequeueFailedBookModel:model];
+            if (op.type == KKBookOpTypeAdd) {
+                NSInteger oldBookId = model.bookId;     // 离线时分配的临时 id
+                [NSUserDefaults removeBookModel:model];
+                NSDictionary *dic = [result.data isKindOfClass:[NSDictionary class]] ? result.data : nil;
+                model.bookId = [[dic objectForKey:@"bookId"] integerValue];
+                [NSUserDefaults insertBookModel:model];
 
-            NSInteger oldBookId = model.bookId;     // 离线时分配的临时 id
-            [NSUserDefaults removeBookModel:model];
-            NSDictionary *dic = [result.data isKindOfClass:[NSDictionary class]] ? result.data : nil;
-            model.bookId = [[dic objectForKey:@"bookId"] integerValue];
-            [NSUserDefaults insertBookModel:model];
-
-            // 补发的这条正好在当前展示的月份，把临时 id 的那条换成服务端 id
-            if (model.year == self.date.year && model.month == self.date.month) {
-                [self setModels:[BookMonthModel replaceData:self.models model:model bookId:oldBookId]];
+                // 补发的这条正好在当前展示的月份，把临时 id 的那条换成服务端 id
+                if (model.year == self.date.year && model.month == self.date.month) {
+                    [self setModels:[BookMonthModel replaceData:self.models model:model bookId:oldBookId]];
+                }
             }
+            // update / delete 的本地状态在入队时就已经是目标状态了，补发成功无需再动
         } else {
-            // 业务拒绝：重试多少次服务端都不会收（如类别已删/校验不过），
-            // 出队并删掉本地这条，明确告诉用户这笔没记上，别让它无限重试。
-            [NSUserDefaults dequeueFailedBookModel:model];
-            [NSUserDefaults removeBookModel:model];
-            if (model.year == self.date.year && model.month == self.date.month) {
-                [self setModels:[BookMonthModel removeData:self.models model:model]];
+            // 新增被拒 → 本地这条服务端永远不会有，删掉并告知；
+            // 改/删被拒 → 本地保留当前状态，下次全量同步以服务端为准纠正。
+            if (op.type == KKBookOpTypeAdd) {
+                [NSUserDefaults removeBookModel:model];
+                if (model.year == self.date.year && model.month == self.date.month) {
+                    [self setModels:[BookMonthModel removeData:self.models model:model]];
+                }
             }
             NSString *reason = result.msg.length ? result.msg : @"";
             [self showTextHUD:[NSString stringWithFormat:KKLocalized(@"有一笔离线记账未能同步：%@"), reason] delay:2.f];
         }
-        [self replayNextFailedBook:queue index:index + 1];
+        [self replayPendingOps:queue index:index + 1];
     }];
 }
 
@@ -321,14 +362,29 @@
     if (model.year == self.date.year && model.month == self.date.month) {
         [self setModels:[BookMonthModel removeData:self.models model:model]];
     }
-    
+
+    // 本地立刻删（乐观）：旧实现只在成功分支删本地，失败时界面已经移除、
+    // SQLite 还留着，切个月份回来这条记录就"复活"了。
+    [NSUserDefaults removeBookModel:model];
+
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:@(model.bookId) forKey:@"bookId"];
-    
+
     [AFNManager POST:bookDetailDeleteRequest params:param complete:^(APPResult *result) {
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            [NSUserDefaults removeBookModel:model];
-        } else {
+            [self replayPendingBookOps];
+        }
+        // 没网：入队等联网补发（本地已删，界面与存储一致）
+        else if (result.status != HttpStatusSuccess) {
+            [NSUserDefaults enqueuePendingDelete:model];
+            [self showTextHUD:KKLocalized(@"网络不给力，已在本机删除，联网后自动同步") delay:1.5f];
+        }
+        // 业务拒绝：服务端明确不接受这次删除，本地回滚
+        else {
+            [NSUserDefaults insertBookModel:model];
+            if (model.year == self.date.year && model.month == self.date.month) {
+                [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
+            }
             [self showTextHUD:result.msg delay:1.f];
         }
     }];
@@ -345,18 +401,27 @@
     [param setValue:@(model.categoryId) forKey:@"categoryId"];
     [self appendCurrencyParams:param model:model];
 
+    // 本地立刻改（乐观）：BookController 是就地修改同一个 model 对象并已发出
+    // 通知，界面早就是新值了；旧实现只在成功分支写 SQLite，失败时重启就回滚。
+    [NSUserDefaults replaceBookModel:model];
+    // 有可能改了年月，跳到修改后那个月
+    NSString *yearMonth = [NSString stringWithFormat:@"%ld-%ld", (long)model.year, (long)model.month];
+    [self setDate:[NSDate dateWithYM:yearMonth]];
+    [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
+
     [AFNManager POST:bookDetailUpdateRequest params:param complete:^(APPResult *result) {
         if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
-            // 修改本地所有记账
-            [NSUserDefaults replaceBookModel:model];
-            
-            // 修改完后重新加载数据，有可能修改的记账的年月时间等，需要加载修改后当月的数据
-            NSString *yearMonth = [NSString stringWithFormat:@"%ld-%ld", (long)model.year,(long)model.month];
-            KKLog(@"修改记账的年月：%@", yearMonth);
-            [self setDate:[NSDate dateWithYM:yearMonth]];
-            [self setModels:[BookMonthModel statisticalMonthWithYear:model.year month:model.month]];
-        } else {
-            [self showTextHUD:result.msg delay:1.f];
+            [self replayPendingBookOps];
+        }
+        // 没网：入队等联网补发（本地已是新值，界面与存储一致）
+        else if (result.status != HttpStatusSuccess) {
+            [NSUserDefaults enqueuePendingUpdate:model];
+            [self showTextHUD:KKLocalized(@"网络不给力，已改在本机，联网后自动同步") delay:1.5f];
+        }
+        // 业务拒绝：服务端不接受这次修改，本地保留改动但明确告知未同步，
+        // 下次全量同步会以服务端为准纠正回来
+        else {
+            [self showTextHUD:result.msg delay:1.5f];
         }
     }];
 }

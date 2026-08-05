@@ -129,6 +129,10 @@
     [sharedData removeObjectForKey:AUTHORIZATION_EXPIRES_IN];
     [sharedData removeObjectForKey:All_BOOK_LIST];      // 老版本可能残留的归档 blob
     [[KKBookStore shared] removeAllBooks];
+    // 下面两项也是账号数据，漏清会串号：A 账号没补发完的离线记账会被补发到
+    // B 账号名下，推荐备注也会跨账号泄露。
+    [NSUserDefaults clearPendingBookOps];
+    [NSUserDefaults saveAllMarkList:[NSMutableArray array]];
 }
 
 

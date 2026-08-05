@@ -148,14 +148,19 @@
 }
 
 // 获取 bookId
+// 本地临时 bookId。取负数区间：服务端 id 恒为正，这样临时 id 与服务端 id
+// 永不冲突（旧实现从 1000000 起自增，服务端 id 涨上去就会撞主键），
+// 而且一眼能看出"这条还没同步到服务端"。
 + (NSNumber *)getBookId {
     NSNumber *bookId = [NSUserDefaults objectForKey:BookDetailModelId];
-    if (!bookId) {
-        bookId = @(1000000);
+    NSInteger next = [bookId integerValue];
+    if (next >= 0) {
+        next = 0;   // 首次，或从旧的正数序列切过来
     }
-    bookId = @([bookId integerValue] + 1);
-    [NSUserDefaults setObject:bookId forKey:BookDetailModelId];
-    return bookId;
+    next -= 1;
+    NSNumber *result = @(next);
+    [NSUserDefaults setObject:result forKey:BookDetailModelId];
+    return result;
 }
 
 @end

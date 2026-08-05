@@ -299,6 +299,8 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
 
             // ---- 离线记账 ----
             @"网络不给力，已保存在本机，联网后自动同步": @"You're offline — saved on this device, will sync when back online",
+            @"网络不给力，已在本机删除，联网后自动同步": @"You're offline — deleted on this device, will sync when back online",
+            @"网络不给力，已改在本机，联网后自动同步": @"You're offline — changes saved on this device, will sync when back online",
             @"有一笔离线记账未能同步：%@": @"An offline entry couldn't sync: %@",
 
             // ---- Search ----

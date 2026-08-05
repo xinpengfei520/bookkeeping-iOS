@@ -46,24 +46,77 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     [[KKBookStore shared] saveBook:model];
 }
 
-#pragma mark - 离线记账队列
-+ (NSMutableArray<BookDetailModel *> *)getFailedBookList {
-    NSMutableArray<BookDetailModel *> *arr = [NSUserDefaults objectForKey:PIN_BOOK_FAILED];
-    return arr ?: [NSMutableArray array];
+#pragma mark - 离线待办队列
++ (NSMutableArray<KKPendingBookOp *> *)getPendingBookOps {
+    NSArray *raw = [NSUserDefaults objectForKey:PIN_BOOK_FAILED];
+    NSMutableArray<KKPendingBookOp *> *ops = [NSMutableArray array];
+    for (id item in raw) {
+        if ([item isKindOfClass:[KKPendingBookOp class]]) {
+            [ops addObject:item];
+        } else if ([item isKindOfClass:[BookDetailModel class]]) {
+            // 1.0.16 及更早的旧格式：队列里直接存 BookDetailModel，语义是"待新增"
+            [ops addObject:[KKPendingBookOp opWithType:KKBookOpTypeAdd model:item]];
+        }
+    }
+    return ops;
 }
 
-+ (void)enqueueFailedBookModel:(BookDetailModel *)model {
-    NSMutableArray<BookDetailModel *> *arr = [self getFailedBookList];
-    // BookDetailModel 的 isEqual: 按 bookId 比较，重复入队直接覆盖旧值
-    [arr removeObject:model];
-    [arr addObject:model];
-    [NSUserDefaults setObject:arr forKey:PIN_BOOK_FAILED];
++ (void)enqueuePendingBookOp:(KKPendingBookOp *)op {
+    if (op.model == nil) {
+        return;
+    }
+    NSMutableArray<KKPendingBookOp *> *ops = [self getPendingBookOps];
+    NSInteger existingIndex = NSNotFound;
+    for (NSInteger i = 0; i < (NSInteger)ops.count; i++) {
+        if (ops[i].model.bookId == op.model.bookId) {
+            existingIndex = i;
+            break;
+        }
+    }
+
+    if (existingIndex == NSNotFound) {
+        [ops addObject:op];
+    } else {
+        KKPendingBookOp *existing = ops[existingIndex];
+        if (existing.type == KKBookOpTypeAdd && op.type == KKBookOpTypeDelete) {
+            // 还没送到服务端就被删了 —— 整条撤销，不必发任何请求
+            [ops removeObjectAtIndex:existingIndex];
+        } else if (existing.type == KKBookOpTypeAdd) {
+            // 仍是新增，只更新内容（临时 bookId 的记录不能发 update，服务端没有它）
+            existing.model = op.model;
+        } else {
+            existing.type = op.type;
+            existing.model = op.model;
+        }
+    }
+    [NSUserDefaults setObject:ops forKey:PIN_BOOK_FAILED];
 }
 
-+ (void)dequeueFailedBookModel:(BookDetailModel *)model {
-    NSMutableArray<BookDetailModel *> *arr = [self getFailedBookList];
-    [arr removeObject:model];
-    [NSUserDefaults setObject:arr forKey:PIN_BOOK_FAILED];
++ (void)enqueuePendingAdd:(BookDetailModel *)model {
+    [self enqueuePendingBookOp:[KKPendingBookOp opWithType:KKBookOpTypeAdd model:model]];
+}
+
++ (void)enqueuePendingUpdate:(BookDetailModel *)model {
+    [self enqueuePendingBookOp:[KKPendingBookOp opWithType:KKBookOpTypeUpdate model:model]];
+}
+
++ (void)enqueuePendingDelete:(BookDetailModel *)model {
+    [self enqueuePendingBookOp:[KKPendingBookOp opWithType:KKBookOpTypeDelete model:model]];
+}
+
++ (void)dequeuePendingBookOpForBookId:(NSInteger)bookId {
+    NSMutableArray<KKPendingBookOp *> *ops = [self getPendingBookOps];
+    NSMutableArray<KKPendingBookOp *> *kept = [NSMutableArray array];
+    for (KKPendingBookOp *op in ops) {
+        if (op.model.bookId != bookId) {
+            [kept addObject:op];
+        }
+    }
+    [NSUserDefaults setObject:kept forKey:PIN_BOOK_FAILED];
+}
+
++ (void)clearPendingBookOps {
+    [NSUserDefaults setObject:[NSMutableArray array] forKey:PIN_BOOK_FAILED];
 }
 
 // 服务端全量同步：清空后整体替换（单事务）
