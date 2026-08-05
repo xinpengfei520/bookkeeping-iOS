@@ -14,6 +14,59 @@
 
 ---
 
+## [1.0.15] (build 16) — 2026-08-04
+
+### 移除
+- 清除 fork 遗留的 9 个 `/shayu/*.action` 死接口宏及全部残余调用（整个 `UIView+SyncedData`、6 个死网络方法、`SYNCED_DATA_COMPLETE` 通知、月缓存方法），净删约 350 行。
+
+### 新增
+- 图表折线图 tooltip 补齐外币原始金额角标（6pt），与首页列表 / 搜索 / 详情页对齐。
+
+## [1.0.14] (build 15) — 2026-08-04
+
+### 修复
+- 删除类别不再崩溃（旧代码用不存在的 `cmodel.Id` keyPath 过滤记账，NSPredicate 抛异常），也不再有"账单列表被洗成只剩被删类别"的风险；改为 SQLite 按 categoryId 删除并补回归测试。
+
+## [1.0.13] (build 14) — 2026-08-04
+
+### 变更
+- 记账页币种胶囊钉死在固有宽度（修复 Auto Layout 拉伸根因），备注输入框独占剩余宽度。
+- 备注手输命中推荐项时，推荐列表自动高亮并滚动到对应标签。
+
+## [1.0.12] (build 13) — 2026-08-04
+
+### 变更
+- **记账本地存储迁 SQLite**（`KKBookStore`，App Group 内 `book.sqlite`，主 App 与 widget 共用）：存量 2000 笔时单笔写入 524.89ms → 0.04ms，启动加载 23.8ms → 0.8ms，全量同步 536.4ms → 3.5ms。旧 NSUserDefaults 归档数据首次启动自动迁移，升级无感。
+
+## [1.0.11] (build 12) — 2026-08-04
+
+### 重构
+- 最后 19 个遗留 XIB 全部迁为代码 + Masonry 布局，工程 100% 代码布局；零引用的 `Modules/Register/` 模块删除。
+
+### 修复（随本版发布的未打 tag 提交 3778548 / ff11048）
+- 离线记账闭环：传输失败先本地落库并入 `PIN_BOOK_FAILED` 队列，联网后自动补发；业务拒绝则回滚提示，不再静默丢数据。
+- TOKEN_EXPIRED 时统一收掉所有 JGProgressHUD，不再卡转圈。
+- 登录 token 从 App Group NSUserDefaults（明文）迁入 Keychain，升级自动迁移不掉登录。
+
+### 变更（同上）
+- Apple Silicon 模拟器原生 arm64（移除 EXCLUDED_ARCHS/Rosetta；根因是 Bugly 仅真机切片，模拟器构建不再链接它）；移除 pop，SDWebImage 升 5.20。
+- 新增 `bookkeepingTests` 单测 target；`NSLog` 全量收敛为 DEBUG-only 的 `KKLog`。
+
+## [1.0.10] (build 11) — 2026-08-04
+
+### 新增
+- 「我的」新增「今日汇率」入口与汇率页：USD / HKD / SGD 当日汇率、生效日、数据源，支持下拉刷新；数据与记账时用的完全一致。
+
+## [1.0.9] (build 10) — 2026-08-04
+
+### 新增
+- **多币种记账**（USD / HKD / SGD）：记账页币种选择 + 实时汇率换算预览（`GET /book/rates`），详情页展示原始金额 / 汇率 / 入账金额，列表带原始金额角标；统计口径不变（`price` 永远是人民币）。
+
+### 变更
+- **登录令牌规范化**（RFC 6750）：本地只存裸 JWT，请求头统一拼 `Bearer ` 前缀，兼容存量 token 不掉登录。
+
+---
+
 ## [1.0.8] (build 9) — 2026-05-10
 
 ### 重构
