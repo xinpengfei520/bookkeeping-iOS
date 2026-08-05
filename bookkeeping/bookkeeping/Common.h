@@ -66,7 +66,6 @@
 #import "UIWindow+JGProgressHUD.h"
 #import "UIViewController+Extension.h"
 #import "CALayer+Extension.h"
-#import "UIView+SyncedData.h"
 
 //================================= Util =====================================//
 #import "Single.h"

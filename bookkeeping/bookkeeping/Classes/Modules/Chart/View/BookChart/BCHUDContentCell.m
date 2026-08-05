@@ -82,7 +82,11 @@
     [_icon setImage:[UIImage imageNamed:cmodel.icon_l]];
     [_nameLab setText:[NSString stringWithFormat:@"%ld/%02ld/%02ld", model.year, model.month, model.day]];
     [_detailLab setText:cmodel.name];
-    [_priceLab setText:[model getPriceStr]];
+    // 外币记录带小号原始金额角标（tooltip 金额本身 8pt，角标压到 6pt）；
+    // 人民币记录原样显示，主体文字颜色仍走 label 的 Chart_Text
+    [_priceLab setAttributedText:
+        [model listPriceAttributedText:[model getPriceStr]
+                             badgeFont:[UIFont systemFontOfSize:AdjustFont(6) weight:UIFontWeightLight]]];
 }
 
 @end

@@ -60,7 +60,6 @@
 - (void)getData{
     if ([UserInfo isLogin]) {
         [self syncDataRequest:_date.year month:_date.month];
-        //[self.view syncedDataRequest];
         [self refreshToken];
     }else{
         // 设置空数据
@@ -134,11 +133,6 @@
     }];
     // 退出登录
     [self kk_observeNotification:USER_LOGOUT_COMPLETE usingBlock:^(id x) {
-        @strongify(self)
-        [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
-    }];
-    // 同步数据成功
-    [self kk_observeNotification:SYNCED_DATA_COMPLETE usingBlock:^(id x) {
         @strongify(self)
         [self setModels:[BookMonthModel statisticalMonthWithYear:self.date.year month:self.date.month]];
     }];

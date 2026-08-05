@@ -84,18 +84,6 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     return models;
 }
 
-+ (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array {
-    // 拼接key: 年 + 月 + BOOK_DETAIL, 例：202206_BOOK_DETAIL
-    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];
-    [NSUserDefaults setObject:array forKey:key];
-}
-
-+ (NSMutableArray<BookMonthModel *> *)getMonthModelList:(NSInteger)year month:(NSInteger)month {
-    NSString *key = [NSString stringWithFormat:@"%ld%ld_BOOK_DETAIL", year, month];
-    NSMutableArray<BookMonthModel *> *models = [NSUserDefaults objectForKey:key];
-    return models;
-}
-
 // 修改记账
 + (void)replaceBookModel:(BookDetailModel *)model {
     // INSERT OR REPLACE 按 bookId 覆盖，与旧的"找到同 id 替换"语义一致

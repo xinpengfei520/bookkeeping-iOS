@@ -73,13 +73,6 @@
         [self updateDataWithAsync];
         [self updateDateRangeWithAsync];
     }];
-    // 同步数据成功
-    [self kk_observeNotification:SYNCED_DATA_COMPLETE usingBlock:^(id x) {
-        @strongify(self)
-        [self setDate:[NSDate date]];
-        [self updateDataWithAsync];
-        [self updateDateRangeWithAsync];
-    }];
 }
 
 - (void)updateDateRangeWithAsync {

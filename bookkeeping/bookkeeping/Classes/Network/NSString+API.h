@@ -7,34 +7,11 @@
 
 // 生产环境
 #define KHost @"https://api.vance.xin"
-#define KStatic(str) [NSString stringWithFormat:@"https://api.vance.xin/media/%@", str]
 
 // 测试环境
 //#define KHost @"http://139.224.162.55:80"
-//#define KStatic(str) [NSString stringWithFormat:@"http://139.224.162.55:80/media/%@", str]
 #define kUser  @"kUser"
 #define Request(A) [NSString stringWithFormat:@"%@%@", KHost, A]
-
-
-
-// 同步数据
-#define SyncedDataRequest Request(@"/shayu/syncedDataRequest.action")
-// 类别设置列表
-#define CategorySetListRequest Request(@"/shayu/getCategorySetRequest.action")
-// 全部类别
-#define CategoryListRequest Request(@"/shayu/getCategoryRequest.action")
-// 用户类别列表
-#define CustomerCategoryListRequest Request(@"/shayu/getCustomerCategoryListRequest.action")
-// 删除系统类别
-#define RemoveSystemCategoryRequest Request(@"/shayu/removeSystemCategoryRequest.action")
-// 添加用户类别
-#define AddInsertCategoryListRequest Request(@"/shayu/addInsertCategoryRequest.action")
-// 删除用户类别
-#define RemoveInsertCategoryListRequest Request(@"/shayu/removeInsertCategoryRequest.action")
-// 创建验证码
-#define CreateCoderequest Request(@"/shayu/createCodeRequest.action")
-// 验证验证码
-#define ValidateCoderequest Request(@"/shayu/validateCodeRequest.action")
 
 // 新增记账
 #define bookDetailSaveRequest Request(@"/book/detail/save")

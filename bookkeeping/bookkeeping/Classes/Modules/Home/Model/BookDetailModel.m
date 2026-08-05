@@ -106,6 +106,11 @@
 }
 
 - (NSAttributedString *)listPriceAttributedText:(NSString *)priceText {
+    return [self listPriceAttributedText:priceText
+                               badgeFont:[UIFont systemFontOfSize:AdjustFont(9) weight:UIFontWeightLight]];
+}
+
+- (NSAttributedString *)listPriceAttributedText:(NSString *)priceText badgeFont:(UIFont *)badgeFont {
     NSString *text = priceText ?: @"";
     if (![self isForeignCurrency]) {
         return [[NSAttributedString alloc] initWithString:text];
@@ -113,7 +118,7 @@
     NSString *badge = [NSString stringWithFormat:@"%@  ", [self getOriginalPriceStr]];
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:badge
                                                                             attributes:@{
-        NSFontAttributeName: [UIFont systemFontOfSize:AdjustFont(9) weight:UIFontWeightLight],
+        NSFontAttributeName: badgeFont,
         NSForegroundColorAttributeName: kColor_Text_Gary,
     }];
     [att appendAttributedString:[[NSAttributedString alloc] initWithString:text]];

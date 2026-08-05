@@ -36,15 +36,12 @@
                                         action:@selector(rightButtonClick)];
     [self textField];
     [self collection];
-//    [self getCategoryListRequest];
 
     NSMutableArray<ACAListModel *> *arrm = [NSUserDefaults objectForKey:PIN_ACA_CATE];
     [self setModels:arrm];
 }
 
 - (void)rightButtonClick {
-//    [self addCategoryRequest];
-    
     if ([_textField.textField.text length] == 0) {
         [self showTextHUD:KKLocalized(@"类别名称不能为空") delay:1.f];
         return;
@@ -119,48 +116,6 @@
 - (void)itemClick:(ACAModel *)model {
     _selectModel = model;
     [self.textField setModel:model];
-}
-
-
-#pragma mark - 请求
-// 添加类别列表
-- (void)getCategoryListRequest {
-    @weakify(self)
-    [self.collection createRequest:CustomerCategoryListRequest params:@{} complete:^(APPResult *result) {
-        @strongify(self)
-        [self setModels:[ACAListModel mj_objectArrayWithKeyValuesArray:result.data]];
-    }];
-}
-
-// 添加自定义类别
-- (void)addCategoryRequest {
-    if (_textField.textField.text.length == 0) {
-        [self showTextHUD:KKLocalized(@"类别名称不能为空") delay:1.f];
-        return;
-    }
-    
-    @weakify(self)
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:
-                           _textField.textField.text, @"name",
-                           @(_selectModel.Id), @"category_insert_id",
-                           @(1), @"customer_id",
-                           @(_is_income), @"is_income", nil];
-    [self showProgressHUD];
-    [AFNManager POST:AddInsertCategoryListRequest params:param complete:^(APPResult * _Nonnull result) {
-        @strongify(self)
-        [self hideHUD];
-        if (result.status == HttpStatusSuccess) {
-            [self showTextHUD:result.msg delay:1.5f];
-//            if (self.complete) {
-//                self.complete();
-//            }
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        } else {
-            [self showTextHUD:result.msg delay:1.5f];
-        }
-    }];
 }
 
 

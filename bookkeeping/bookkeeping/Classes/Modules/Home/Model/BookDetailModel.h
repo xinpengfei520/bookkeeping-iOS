@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 列表行的金额展示：外币记录在人民币金额前加一个小号灰字的原始金额角标(如 "US$5.20 -35.11")，
 /// 人民币记录原样返回，右侧金额的对齐位置不变。
 -(NSAttributedString *)listPriceAttributedText:(NSString *)priceText;
+/// 同上，但角标字体可指定（图表 tooltip 等金额本身就很小的场景，角标要再小一号）
+-(NSAttributedString *)listPriceAttributedText:(NSString *)priceText badgeFont:(UIFont *)badgeFont;
 // 获取日期(例: 2022年01月03日 星期五)
 -(NSString *)getDateStr;
 

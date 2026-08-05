@@ -34,7 +34,6 @@
     [self collections];
     [self keyboard];
     [self markView];
-//    [self getCategoryListRequest];
     [self initData];
     
     if (_model) {
@@ -107,15 +106,6 @@
 
 
 #pragma mark - request
-// 获取我的分类
-- (void)getCategoryListRequest {
-    @weakify(self)
-    [self.scroll createRequest:CategoryListRequest params:@{} complete:^(APPResult *result) {
-        @strongify(self)
-        [self setModels:[BKCIncomeModel mj_objectArrayWithKeyValuesArray:result.data]];
-    }];
-}
-
 - (void)getBookMarkListRequest {
     // 先从本地缓存中取
     NSMutableArray<MarkModel *> *list = [NSUserDefaults getAllMarkList];

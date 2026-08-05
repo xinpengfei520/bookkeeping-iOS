@@ -62,7 +62,6 @@
     if ([UserInfo isLogin]) {
         [self getUserInfoRequest];
         // 同步数据
-        //[self.view syncedDataRequest];
     }
     // 未登录
     else {

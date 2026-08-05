@@ -53,10 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)saveAllMarkList:(NSMutableArray *)array;
 // 获取所有备注列表
 + (NSMutableArray<MarkModel *> *)getAllMarkList;
-// 保存月记账列表
-+ (void)saveMonthModelList:(NSInteger)year month:(NSInteger)month array:(NSMutableArray *)array;
-// 获取月记账列表
-+ (NSMutableArray<BookMonthModel *> *)getMonthModelList:(NSInteger)year month:(NSInteger)month;
 
 @end
 
