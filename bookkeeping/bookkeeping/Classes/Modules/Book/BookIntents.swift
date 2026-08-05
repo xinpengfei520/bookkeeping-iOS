@@ -73,6 +73,10 @@ struct AddBookEntryIntent: AppIntent {
         // 小组件立刻反映新账单
         WidgetReloader.reloadAllTimelines()
 
+        // 向系统捐赠本次执行：Siri 会逐步提高本 App 在"记一笔/记账"类口令上的
+        // 匹配权重（模板短语是模糊匹配，容易被同类 App 抢走，捐赠是官方的纠偏手段）
+        _ = try? await IntentDonationManager.shared.donate(intent: self)
+
         let priceText = String(format: "%.2f", price)
         return .result(dialog: "已记一笔\(cmodel.name) ¥\(priceText)，打开记呀后自动同步")
     }
@@ -83,13 +87,33 @@ struct BookAppShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
             intent: AddBookEntryIntent(),
+            // 模板短语是模糊匹配："记一笔/记账"是高频词，容易被其它记账 App 抢走。
+            // 多给变体（App 名在句首/句中、独特后缀"快记"）提高命中率；
+            // 真正 100% 可靠的触发是用户在快捷指令 App 里包一层自命名指令
+            // （SiriShortcutsController 里有指引入口）。
             phrases: [
                 "用\(.applicationName)记一笔",
+                "\(.applicationName)记一笔",
                 "\(.applicationName)记账",
+                "用\(.applicationName)记账",
+                "\(.applicationName)记个账",
+                "\(.applicationName)快记",
+                "在\(.applicationName)记一笔",
                 "在\(.applicationName)里记一笔账",
             ],
             shortTitle: "记一笔",
             systemImageName: "plus.circle.fill"
         )
+    }
+}
+
+/// 供 ObjC 侧（AppDelegate）在启动时刷新 App Shortcuts 注册。
+/// 短语列表变更后老安装不会自动更新，显式刷一次保证生效。
+@objc(KKAppShortcutsRefresher)
+public final class KKAppShortcutsRefresher: NSObject {
+    @objc public static func refresh() {
+        if #available(iOS 16.0, *) {
+            BookAppShortcuts.updateAppShortcutParameters()
+        }
     }
 }

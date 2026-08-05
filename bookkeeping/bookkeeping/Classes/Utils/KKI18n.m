@@ -289,7 +289,13 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"看看账单": @"Show my bills",
             @"对 Siri 说 “%@”": @"Say to Siri: “%@”",
             @"添加到 Siri": @"Add to Siri",
-            @"「记一笔」无需添加：直接对 Siri 说“用记呀记一笔”，按提示报金额即可。\n下面的捷径可录制你自己的口令：": @"\"Log an entry\" needs no setup — just say \"用记呀记一笔\" to Siri. The shortcuts below let you record your own phrase:",
+            @"「记一笔」默认口令易被同类 App 抢走时，点“自定口令”按指引设置专属口令；其余捷径可直接录制你自己的口令：": @"If the default \"Log an entry\" phrase gets hijacked by other apps, tap \"Custom phrase\" for a guaranteed trigger. Other shortcuts can record your own phrase directly:",
+            @"记一笔（对话式）": @"Log an entry (voice dialog)",
+            @"用记呀记一笔": @"用记呀记一笔",
+            @"自定口令": @"Custom phrase",
+            @"自定义「记一笔」口令": @"Custom phrase for \"Log an entry\"",
+            @"默认口令被其它 App 抢走时，可以这样设置一个 100% 精准的口令：\n\n1. 打开「快捷指令」App\n2. 点右上角 + 新建快捷指令\n3. 搜索“记呀”，选择「记一笔」\n4. 把快捷指令命名为你想说的话（如“快记”）\n\n之后对 Siri 说出这个名字，就会直接进入报金额的对话，无需打开 App。": @"When the default phrase gets hijacked, set up an exact-match one:\n\n1. Open the Shortcuts app\n2. Tap + to create a shortcut\n3. Search \"记呀\" and pick \"Log an entry\"\n4. Name the shortcut whatever you want to say\n\nSaying that name to Siri starts the amount dialog directly, without opening the app.",
+            @"去快捷指令": @"Open Shortcuts",
 
             // ---- 离线记账 ----
             @"网络不给力，已保存在本机，联网后自动同步": @"You're offline — saved on this device, will sync when back online",

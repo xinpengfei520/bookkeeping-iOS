@@ -31,6 +31,9 @@
     [Bugly startWithAppId:@"0025184dd7"];
 #endif
 
+    // 刷新 App Shortcuts 短语注册（短语列表变更后老安装不会自动更新）
+    [NSClassFromString(@"KKAppShortcutsRefresher") performSelector:@selector(refresh)];
+
 #if DEBUG
     // 仅模拟器调试用：`simctl launch --setenv KK_DEBUG_OPEN book <bundle id>` 直接弹记账页
     // 并展开键盘。simctl openurl 打自定义 scheme 会被系统"在 xx 中打开?"弹窗拦住，

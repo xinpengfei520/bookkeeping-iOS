@@ -163,7 +163,11 @@ NSString * const KKActivityTypeChart = @"com.xpf.light.record.activity.chart";
 
     INVoiceShortcut *existing = self.added[type];
     UIButtonConfiguration *cfg = cell.actionBtn.configuration;
-    if (existing) {
+    if ([type isEqualToString:@"__intent__"]) {
+        // AppIntents 对话式记账：默认口令即可用；易误触发时去快捷指令 App 包一层自命名指令
+        cell.phraseLab.text = [NSString stringWithFormat:KKLocalized(@"对 Siri 说 “%@”"), item[2]];
+        cfg.title = KKLocalized(@"自定口令");
+    } else if (existing) {
         // 已添加：显示用户实际录的口令 + 编辑（编辑页里自带移除）
         cell.phraseLab.text = [NSString stringWithFormat:KKLocalized(@"对 Siri 说 “%@”"), existing.invocationPhrase];
         cfg.title = KKLocalized(@"编辑");
@@ -196,7 +200,7 @@ NSString * const KKActivityTypeChart = @"com.xpf.light.record.activity.chart";
     lab.font = [UIFont systemFontOfSize:AdjustFont(11) weight:UIFontWeightLight];
     lab.textColor = kColor_Text_Gary;
     lab.numberOfLines = 0;
-    lab.text = KKLocalized(@"「记一笔」无需添加：直接对 Siri 说“用记呀记一笔”，按提示报金额即可。\n下面的捷径可录制你自己的口令：");
+    lab.text = KKLocalized(@"「记一笔」默认口令易被同类 App 抢走时，点“自定口令”按指引设置专属口令；其余捷径可直接录制你自己的口令：");
     [view addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(view).offset(countcoordinatesX(15));
@@ -211,6 +215,25 @@ NSString * const KKActivityTypeChart = @"com.xpf.light.record.activity.chart";
 - (void)actionBtnClick:(UIButton *)btn {
     NSArray *item = self.items[btn.tag];
     NSString *type = item[0];
+
+    // 对话式「记一笔」：系统不提供给 AppIntents 录口令的界面，
+    // 100% 可靠的自定口令方式是在快捷指令 App 里包一层自命名指令 —— 给出步骤指引。
+    if ([type isEqualToString:@"__intent__"]) {
+        UIAlertController *alert = [UIAlertController
+            alertControllerWithTitle:KKLocalized(@"自定义「记一笔」口令")
+                             message:KKLocalized(@"默认口令被其它 App 抢走时，可以这样设置一个 100% 精准的口令：\n\n1. 打开「快捷指令」App\n2. 点右上角 + 新建快捷指令\n3. 搜索“记呀”，选择「记一笔」\n4. 把快捷指令命名为你想说的话（如“快记”）\n\n之后对 Siri 说出这个名字，就会直接进入报金额的对话，无需打开 App。")
+                      preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:KKLocalized(@"取消") style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:KKLocalized(@"去快捷指令")
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction *action) {
+            NSURL *url = [NSURL URLWithString:@"shortcuts://"];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+
     INVoiceShortcut *existing = self.added[type];
 
     if (existing) {
@@ -278,6 +301,8 @@ NSString * const KKActivityTypeChart = @"com.xpf.light.record.activity.chart";
 - (NSArray<NSArray *> *)items {
     if (!_items) {
         _items = @[
+            // 特殊行：AppIntents 对话式记账（不走 INShortcut，见 actionBtnClick）
+            @[@"__intent__",       KKLocalized(@"记一笔（对话式）"), KKLocalized(@"用记呀记一笔")],
             @[KKActivityTypeBook,  KKLocalized(@"打开记账键盘"), KKLocalized(@"记一笔账")],
             @[KKActivityTypeRate,  KKLocalized(@"看今日汇率"),   KKLocalized(@"今日汇率")],
             @[KKActivityTypeChart, KKLocalized(@"看图表账单"),   KKLocalized(@"看看账单")],
