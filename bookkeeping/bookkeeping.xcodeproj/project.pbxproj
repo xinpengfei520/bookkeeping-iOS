@@ -11,6 +11,8 @@
 		0B7D06677DD4CD294138E600 /* BookMonthEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99D56E06D97996F59D9E76 /* BookMonthEntryView.swift */; };
 		0F25D8DD8CFFBBAE7FFA1FD6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */; };
 		18C2DADC830F94C98C020C12 /* KKTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18B97B807F044BE4EFE105 /* KKTheme.m */; };
+		2046D03A9379264C23995A54 /* KKRateTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9E4EEB738E93812A7030AA /* KKRateTrendView.m */; };
+		23DA42A937871007C0AFF210 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221A0633FFAE3C8E783BDE53 /* IntentsUI.framework */; };
 		247AB8882D30221900B5F323 /* PasswordLoginController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8872D30221900B5F323 /* PasswordLoginController2.m */; };
 		247AB8892D30221900B5F323 /* PasswordLoginController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB8852D30221900B5F323 /* PasswordLoginController1.m */; };
 		247AB8922D302ECD00B5F323 /* AgreementWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247AB88F2D302ECD00B5F323 /* AgreementWebViewController.m */; };
@@ -184,7 +186,9 @@
 		C17169EEEBD351968561C40B /* KKLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */; };
 		C2AEB3A2C4AB4C9253E39165 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 812070EF94E7B9D53C7F4FE0 /* SettingsController.m */; };
 		CADEAEF3609EA938CA3B27F2 /* NSObject+KKObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */; };
+		D2E35E1622501877B8C94A4C /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D9B6BA5DABB02BFA8DA2B5 /* Intents.framework */; };
 		D3ABAD6ED66558AAEF834A23 /* ThemeSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B102249E44177CC286D041C /* ThemeSettingsController.m */; };
+		D5618E55BF3F6BFBAB25F869 /* BookIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CD2DE8A1DC37E9F75FD59E /* BookIntents.swift */; };
 		D9A5B9383D42CE3E31BDAAE9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */; };
 		E3EB770EB6F4E4DE8037C253 /* DateWeekdayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */; };
 		EA070754FBA1C546A1B49F2A /* CalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A216526A4847B517C64924A3 /* CalculationTests.m */; };
@@ -219,6 +223,7 @@
 		F3CD73F02889D102008EBBEE /* MarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD73EF2889D102008EBBEE /* MarkModel.m */; };
 		F3D515339D63554F9B53FA86 /* BookStoreBenchmarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE0A0803C7EECE2B19DE2 /* BookStoreBenchmarkTests.m */; };
 		F3FD3CCDE7B970B523F65C1C /* LanguageSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */; };
+		FCA71D88511700EC0074AE89 /* SiriShortcutsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CC1B96A6FF428454AE3C63 /* SiriShortcutsController.m */; };
 		FDCA110000000000000000B1 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
 		FDCA110000000000000000B2 /* KKCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000A2 /* KKCurrency.m */; };
 		FDCA110000000000000000C3 /* RateController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA110000000000000000C2 /* RateController.m */; };
@@ -264,7 +269,10 @@
 		0B102249E44177CC286D041C /* ThemeSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ThemeSettingsController.m; sourceTree = "<group>"; };
 		0FB1A961A9BE63A5562CDE7A /* ThemeSettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ThemeSettingsController.h; sourceTree = "<group>"; };
 		146BD453EA3062D2632AB373 /* BookMonth-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BookMonth-Bridging-Header.h"; sourceTree = "<group>"; };
+		1508FD91CA44BDAED41550B7 /* SiriShortcutsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SiriShortcutsController.h; sourceTree = "<group>"; };
 		1E85EB0ADA9DDFB82B8DA50B /* Pods-BookMonth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMonth.debug.xcconfig"; path = "Target Support Files/Pods-BookMonth/Pods-BookMonth.debug.xcconfig"; sourceTree = "<group>"; };
+		21CD2DE8A1DC37E9F75FD59E /* BookIntents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BookIntents.swift; sourceTree = "<group>"; };
+		221A0633FFAE3C8E783BDE53 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		2394D79B3B4F8B9338E4B547 /* KKI18n.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKI18n.h; sourceTree = "<group>"; };
 		247AB8842D30221900B5F323 /* PasswordLoginController1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordLoginController1.h; sourceTree = "<group>"; };
 		247AB8852D30221900B5F323 /* PasswordLoginController1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordLoginController1.m; sourceTree = "<group>"; };
@@ -576,17 +584,21 @@
 		7D18B97B807F044BE4EFE105 /* KKTheme.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKTheme.m; sourceTree = "<group>"; };
 		7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DateWeekdayTests.m; sourceTree = "<group>"; };
 		812070EF94E7B9D53C7F4FE0 /* SettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		86D9B6BA5DABB02BFA8DA2B5 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		87CC1B96A6FF428454AE3C63 /* SiriShortcutsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SiriShortcutsController.m; sourceTree = "<group>"; };
 		9F5D43D95D457567259808E0 /* NSObject+KKObserver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KKObserver.m"; sourceTree = "<group>"; };
 		A216526A4847B517C64924A3 /* CalculationTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CalculationTests.m; sourceTree = "<group>"; };
 		A7ADFECE6C196E9719EB4721 /* KKPullToRefreshHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKPullToRefreshHeader.m; sourceTree = "<group>"; };
 		A93F626B7FA6D097EACA5FF2 /* KKPullToRefreshHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKPullToRefreshHeader.h; sourceTree = "<group>"; };
 		ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.debug.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"; sourceTree = "<group>"; };
 		AF8A2F3A91A0F7B887BF4CF8 /* KKLoadMoreFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKLoadMoreFooter.m; sourceTree = "<group>"; };
+		B525C368B9027B6031917EB4 /* KKRateTrendView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKRateTrendView.h; sourceTree = "<group>"; };
 		B9EBAD74D344F480E53BD56F /* UIControl+KKBlock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIControl+KKBlock.h"; sourceTree = "<group>"; };
 		BC531A2BF06A2F19B926849F /* LanguageSettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LanguageSettingsController.h; sourceTree = "<group>"; };
 		C51257E5BA4074D7BB459348 /* Pods_BookMonth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookMonth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8FAC9DC77DDEDD20ABE07BE /* WidgetReloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetReloader.swift; sourceTree = "<group>"; };
 		CC2DE293D47C15C852DD6195 /* KKWeakify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKWeakify.h; sourceTree = "<group>"; };
+		CF9E4EEB738E93812A7030AA /* KKRateTrendView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKRateTrendView.m; sourceTree = "<group>"; };
 		D88EA0B6020BDC17A4BB96C0 /* SettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		DBBADF454295279F0C3A6459 /* bookkeepingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookkeepingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCEE0A0803C7EECE2B19DE2 /* BookStoreBenchmarkTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BookStoreBenchmarkTests.m; sourceTree = "<group>"; };
@@ -664,6 +676,8 @@
 				AC11D6D007F89BBFAB79C300 /* Pods_bookkeeping.framework in Frameworks */,
 				0F25D8DD8CFFBBAE7FFA1FD6 /* WidgetKit.framework in Frameworks */,
 				BAA1DDFC409D637FD96805DE /* libsqlite3.tbd in Frameworks */,
+				D2E35E1622501877B8C94A4C /* Intents.framework in Frameworks */,
+				23DA42A937871007C0AFF210 /* IntentsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +936,7 @@
 				324484A421C727810051B8B6 /* Login */,
 				E7C191A7266ADB4197A31C36 /* Settings */,
 				FDCA110000000000000000C4 /* Rate */,
+				5E15EFD6783251142F78AA62 /* Siri */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1333,6 +1348,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		444097EE4B7033A61F058F18 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B525C368B9027B6031917EB4 /* KKRateTrendView.h */,
+				CF9E4EEB738E93812A7030AA /* KKRateTrendView.m */,
+			);
+			name = View;
+			path = View;
+			sourceTree = "<group>";
+		};
 		4B1917C421CD45C900137215 /* JGProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -1713,6 +1738,7 @@
 				4BE7845721C678FB00B8EC46 /* Controller */,
 				4BE7845821C678FB00B8EC46 /* Model */,
 				4BE7845921C678FB00B8EC46 /* View */,
+				21CD2DE8A1DC37E9F75FD59E /* BookIntents.swift */,
 			);
 			path = Book;
 			sourceTree = "<group>";
@@ -1938,8 +1964,19 @@
 				66059596F5687DED54592D18 /* SwiftUI.framework */,
 				B5009F15AC52216A3D89B564 /* iOS */,
 				045F3E2F55BF8AF986EC2DB2 /* libsqlite3.tbd */,
+				86D9B6BA5DABB02BFA8DA2B5 /* Intents.framework */,
+				221A0633FFAE3C8E783BDE53 /* IntentsUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5E15EFD6783251142F78AA62 /* Siri */ = {
+			isa = PBXGroup;
+			children = (
+				958A1F399D3F897BB59446A7 /* Controller */,
+			);
+			name = Siri;
+			path = Siri;
 			sourceTree = "<group>";
 		};
 		6BF8B8CE07603BD64AC56F51 /* Controller */ = {
@@ -1960,6 +1997,16 @@
 			);
 			name = UIControl;
 			path = UIControl;
+			sourceTree = "<group>";
+		};
+		958A1F399D3F897BB59446A7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1508FD91CA44BDAED41550B7 /* SiriShortcutsController.h */,
+				87CC1B96A6FF428454AE3C63 /* SiriShortcutsController.m */,
+			);
+			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		A1D1082896A0BADABB09EB51 /* Pods */ = {
@@ -2211,6 +2258,7 @@
 			isa = PBXGroup;
 			children = (
 				FDCA110000000000000000C5 /* Controller */,
+				444097EE4B7033A61F058F18 /* View */,
 			);
 			name = Rate;
 			path = Rate;
@@ -2608,6 +2656,9 @@
 				C2AEB3A2C4AB4C9253E39165 /* SettingsController.m in Sources */,
 				FDCA110000000000000000C3 /* RateController.m in Sources */,
 				F11036DD1D612BFDC31BF850 /* KKBookStore.m in Sources */,
+				2046D03A9379264C23995A54 /* KKRateTrendView.m in Sources */,
+				D5618E55BF3F6BFBAB25F869 /* BookIntents.swift in Sources */,
+				FCA71D88511700EC0074AE89 /* SiriShortcutsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2828,6 +2879,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "bookkeeping/bookkeeping-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2861,6 +2913,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "bookkeeping/bookkeeping-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2885,7 +2938,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.15;
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2937,7 +2990,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.15;
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

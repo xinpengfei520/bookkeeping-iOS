@@ -46,6 +46,7 @@
             @{@"title": KKLocalized(@"导出数据"), @"icon": @"mine_export",    @"status": @0},
             @{@"title": KKLocalized(@"语言"),     @"icon": @"sf:globe",       @"status": @0},
             @{@"title": KKLocalized(@"深色模式"), @"icon": @"sf:moon.fill",   @"status": @0},
+            @{@"title": KKLocalized(@"Siri 捷径"), @"icon": @"sf:mic.fill",   @"status": @0},
         ];
     }
     return _rows;
@@ -203,6 +204,11 @@
         }
         case 5: {
             ThemeSettingsController *vc = [[ThemeSettingsController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 6: {
+            SiriShortcutsController *vc = [[SiriShortcutsController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
             break;
         }

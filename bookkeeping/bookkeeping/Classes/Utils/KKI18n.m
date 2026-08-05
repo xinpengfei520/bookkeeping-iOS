@@ -273,6 +273,23 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @" · 数据源：%@": @" · Source: %@",
             @"当前汇率可能不是最新（上游数据源暂时不可达，显示的是缓存值）": @"These rates may not be the latest — the upstream source was unreachable, so a cached value is shown.",
             @"汇率由服务端统一提供，记一笔外币时用的是同一份数据。": @"Rates come from our server; a foreign-currency entry uses this exact data.",
+            @"1 单位外币可兑换的人民币（点击切换走势币种）": @"CNY per unit of foreign currency (tap a row to switch the trend)",
+            @"近 7 天走势 · %@ %@": @"7-day trend · %@ %@",
+            @"走势加载中…": @"Loading trend…",
+            @"暂无走势数据": @"No trend data",
+            @"高 %.6f": @"High %.6f",
+            @"低 %.6f": @"Low %.6f",
+
+            // ---- Siri 捷径 ----
+            @"Siri 捷径": @"Siri Shortcuts",
+            @"打开记账键盘": @"Open booking keyboard",
+            @"看今日汇率": @"Check today's rates",
+            @"看图表账单": @"View charts",
+            @"记一笔账": @"Log an entry",
+            @"看看账单": @"Show my bills",
+            @"对 Siri 说 “%@”": @"Say to Siri: “%@”",
+            @"添加到 Siri": @"Add to Siri",
+            @"「记一笔」无需添加：直接对 Siri 说“用记呀记一笔”，按提示报金额即可。\n下面的捷径可录制你自己的口令：": @"\"Log an entry\" needs no setup — just say \"用记呀记一笔\" to Siri. The shortcuts below let you record your own phrase:",
 
             // ---- 离线记账 ----
             @"网络不给力，已保存在本机，联网后自动同步": @"You're offline — saved on this device, will sync when back online",

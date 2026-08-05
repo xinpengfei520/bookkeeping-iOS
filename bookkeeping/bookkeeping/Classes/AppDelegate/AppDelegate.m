@@ -35,7 +35,8 @@
     // 仅模拟器调试用：`simctl launch --setenv KK_DEBUG_OPEN book <bundle id>` 直接弹记账页
     // 并展开键盘。simctl openurl 打自定义 scheme 会被系统"在 xx 中打开?"弹窗拦住，
     // 无法自动化截图/联调，所以留这个环境变量后门（Release 编译不进包）。
-    if ([NSProcessInfo.processInfo.environment[@"KK_DEBUG_OPEN"] isEqualToString:@"book"]) {
+    NSString *debugOpen = NSProcessInfo.processInfo.environment[@"KK_DEBUG_OPEN"];
+    if ([debugOpen isEqualToString:@"book"]) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             BookController *vc = [[BookController alloc] init];
             BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
@@ -49,6 +50,22 @@
                     [keyboard performSelector:@selector(show)];
                 }
             }];
+        });
+    }
+    // KK_DEBUG_OPEN=siri 直开 Siri 捷径管理页
+    else if ([debugOpen isEqualToString:@"siri"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self presentModalController:[[SiriShortcutsController alloc] init]];
+        });
+    }
+    // KK_DEBUG_OPEN=rate 直开今日汇率页（验证走势布局）
+    else if ([debugOpen isEqualToString:@"rate"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            RateController *vc = [[RateController alloc] init];
+            BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+            UIViewController *top = self.window.rootViewController;
+            while (top.presentedViewController) top = top.presentedViewController;
+            [top presentViewController:nav animated:YES completion:nil];
         });
     }
 #endif
@@ -147,27 +164,7 @@
 
     // 记一笔（widget 触发）
     if ([url.absoluteString isEqualToString:@"kbook://month"]) {
-        UIViewController *current = [UIViewController getCurrentVC];
-        if ([current isKindOfClass:[BookController class]]) {
-            return YES; // 已经在记账页，不重复弹
-        }
-
-        BookController *vc = [[BookController alloc] init];
-        BaseNavigationController *nav = nil;
-        if ([UserInfo isLogin]) {
-            nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
-            nav.modalPresentationStyle = UIModalPresentationCurrentContext;
-        } else {
-            LoginController *loginController = [[LoginController alloc] init];
-            nav = [[BaseNavigationController alloc] initWithRootViewController:loginController];
-        }
-
-        // 取最顶层 VC 弹窗呈现 — root 现在是 UITabBarController，
-        // 简单 [root presentViewController:] 不可靠（有 modal 已盖时会出 warning）。
-        UIViewController *top = self.window.rootViewController;
-        while (top.presentedViewController) top = top.presentedViewController;
-        [top presentViewController:nav animated:YES completion:nil];
-
+        [self presentBookController];
         return YES;
     }
     // 记账完成
@@ -175,6 +172,87 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:nil];
     }
     return YES;
+}
+
+#pragma mark - Siri 捷径（NSUserActivity 路由，见 SiriShortcutsController）
+- (BOOL)application:(UIApplication *)application
+    continueUserActivity:(NSUserActivity *)userActivity
+      restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *))restorationHandler {
+
+    if ([userActivity.activityType isEqualToString:KKActivityTypeBook]) {
+        [self presentBookController];
+        return YES;
+    }
+    if ([userActivity.activityType isEqualToString:KKActivityTypeRate]) {
+        [self presentModalController:[[RateController alloc] init]];
+        return YES;
+    }
+    if ([userActivity.activityType isEqualToString:KKActivityTypeChart]) {
+        // ChartController 自带的返回按钮走 pop，必须 push 进导航栈（模态会退不出去）
+        [self pushOnHomeTab:[[ChartController alloc] init]];
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark - 页面呈现辅助
+
+// 记账键盘（kbook://month 与 Siri 捷径共用；未登录先弹登录）
+- (void)presentBookController {
+    UIViewController *current = [UIViewController getCurrentVC];
+    if ([current isKindOfClass:[BookController class]]) {
+        return; // 已经在记账页，不重复弹
+    }
+
+    BookController *vc = [[BookController alloc] init];
+    BaseNavigationController *nav = nil;
+    if ([UserInfo isLogin]) {
+        nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+        nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+    } else {
+        LoginController *loginController = [[LoginController alloc] init];
+        nav = [[BaseNavigationController alloc] initWithRootViewController:loginController];
+    }
+
+    // 取最顶层 VC 弹窗呈现 — root 现在是 UITabBarController，
+    // 简单 [root presentViewController:] 不可靠（有 modal 已盖时会出 warning）。
+    UIViewController *top = self.window.rootViewController;
+    while (top.presentedViewController) top = top.presentedViewController;
+    [top presentViewController:nav animated:YES completion:nil];
+}
+
+// 模态打开某个普通页面，导航栏左侧补一个关闭按钮（模态没有系统返回）
+- (void)presentModalController:(UIViewController *)vc {
+    vc.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemClose
+                                                      target:self
+                                                      action:@selector(dismissTopController)];
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    UIViewController *top = self.window.rootViewController;
+    while (top.presentedViewController) top = top.presentedViewController;
+    [top presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)dismissTopController {
+    UIViewController *top = self.window.rootViewController;
+    while (top.presentedViewController) top = top.presentedViewController;
+    [top dismissViewControllerAnimated:YES completion:nil];
+}
+
+// 收掉所有 modal → 切到首页 tab → push（供需要导航栈返回的页面用）
+- (void)pushOnHomeTab:(UIViewController *)vc {
+    UIViewController *root = self.window.rootViewController;
+    if (root.presentedViewController) {
+        [root dismissViewControllerAnimated:NO completion:nil];
+    }
+    if ([root isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tab = (UITabBarController *)root;
+        tab.selectedIndex = 0;
+        UIViewController *selected = tab.selectedViewController;
+        if ([selected isKindOfClass:[UINavigationController class]]) {
+            [(UINavigationController *)selected pushViewController:vc animated:YES];
+        }
+    }
 }
 
 // 去后台

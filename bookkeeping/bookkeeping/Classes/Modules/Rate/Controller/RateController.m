@@ -1,9 +1,11 @@
 /**
  * 今日汇率
  * 说明见 RateController.h
+ * 2026-08-05 增加近 7 天走势（逐日 GET /book/rates?date=，服务端按天缓存 30 天）
  */
 
 #import "RateController.h"
+#import "KKRateTrendView.h"
 #import <Masonry/Masonry.h>
 
 #pragma mark - Cell（只在本页用，代码创建，不建 XIB）
@@ -67,6 +69,7 @@
 
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UILabel *footerLab;
+@property (nonatomic, strong) KKRateTrendView *trendView;
 @property (nonatomic, copy  ) NSArray<NSString *> *codes;                    // 展示的外币列表
 @property (nonatomic, copy  ) NSDictionary<NSString *, NSNumber *> *rates;   // 1 外币 = N 人民币
 @property (nonatomic, copy  ) NSString *effectiveDate;
@@ -74,6 +77,12 @@
 @property (nonatomic, copy  ) NSString *errorMsg;
 @property (nonatomic, assign) BOOL stale;
 @property (nonatomic, assign) BOOL loaded;
+
+// 走势：按日期缓存整天的 rates（一次抓 7 天所有币种，切换币种不用重新请求）
+@property (nonatomic, copy  ) NSString *selectedCode;                        // 走势展示的币种，默认 USD
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSDictionary *> *dailyRates;
+@property (nonatomic, copy  ) NSArray<NSString *> *trendDateKeys;            // yyyy-MM-dd 升序
+@property (nonatomic, assign) BOOL trendLoaded;
 
 @end
 
@@ -85,6 +94,8 @@
     [super viewDidLoad];
     self.title = KKLocalized(@"今日汇率");
     self.view.backgroundColor = kColor_BG;
+    self.selectedCode = KKCurrencyUSD;
+    self.dailyRates = [NSMutableDictionary dictionary];
 
     [self.view addSubview:self.table];
     [self.table mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,6 +104,7 @@
 
     [self showProgressHUD];
     [self getRatesRequest];
+    [self getTrendRequest];
 }
 
 
@@ -132,8 +144,53 @@
     }];
 }
 
+// 近 7 天走势：逐日请求（含今天），dispatch_group 汇集。
+// 一次拿全所有币种的 7 天数据，之后切换币种纯本地切换、零请求。
+- (void)getTrendRequest {
+    self.trendLoaded = NO;
+    [self.trendView showLoading];
+
+    NSMutableArray<NSString *> *keys = [NSMutableArray array];
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    fmt.dateFormat = @"yyyy-MM-dd";
+    for (NSInteger i = 6; i >= 0; i--) {
+        NSDate *day = [NSDate dateWithTimeIntervalSinceNow:-i * 24 * 60 * 60];
+        [keys addObject:[fmt stringFromDate:day]];
+    }
+    self.trendDateKeys = keys;
+
+    @weakify(self)
+    dispatch_group_t group = dispatch_group_create();
+    for (NSString *dateKey in keys) {
+        if (self.dailyRates[dateKey] != nil) {
+            continue;       // 下拉刷新时历史日已有缓存，只补今天
+        }
+        dispatch_group_enter(group);
+        [AFNManager GET:bookRatesRequest params:@{@"date": dateKey} complete:^(APPResult *result) {
+            @strongify(self)
+            NSDictionary *rates = nil;
+            if (result.status == HttpStatusSuccess && result.code == BIZ_SUCCESS) {
+                rates = [KKCurrency ratesFromResponseData:result.data];
+            }
+            if (rates) {
+                self.dailyRates[dateKey] = rates;
+            }
+            dispatch_group_leave(group);
+        }];
+    }
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        @strongify(self)
+        self.trendLoaded = YES;
+        [self reloadTrend];
+    });
+}
+
 - (void)refreshControlChanged {
+    // 今天的汇率可能更新（最新档 6 小时缓存），走势里今天这格重新取
+    [self.dailyRates removeObjectForKey:self.trendDateKeys.lastObject];
     [self getRatesRequest];
+    [self getTrendRequest];
 }
 
 - (void)reload {
@@ -141,6 +198,28 @@
     // footer 是自适应高度的，内容变了要让 table 重新问一次高度
     [self.table beginUpdates];
     [self.table endUpdates];
+}
+
+// 把选中币种的 7 天数据喂给 sparkline（缺失日剔除，节假日回退导致的平线也能画）
+- (void)reloadTrend {
+    if (!self.trendLoaded) {
+        [self.trendView showLoading];
+        return;
+    }
+    NSMutableArray<NSNumber *> *values = [NSMutableArray array];
+    NSMutableArray<NSString *> *labels = [NSMutableArray array];
+    for (NSString *dateKey in self.trendDateKeys) {
+        NSNumber *rate = self.dailyRates[dateKey][self.selectedCode];
+        if (rate != nil) {
+            [values addObject:rate];
+            // yyyy-MM-dd → M/d 短标签
+            NSArray *parts = [dateKey componentsSeparatedByString:@"-"];
+            [labels addObject:parts.count == 3
+                ? [NSString stringWithFormat:@"%ld/%ld", (long)[parts[1] integerValue], (long)[parts[2] integerValue]]
+                : dateKey];
+        }
+    }
+    [self.trendView setValues:values dates:labels];
 }
 
 
@@ -181,11 +260,31 @@
 
 
 #pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;       // 0: 今日汇率列表  1: 近 7 天走势
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.codes.count;
+    return section == 0 ? self.codes.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 走势行
+    if (indexPath.section == 1) {
+        static NSString *trendId = @"RateTrendCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:trendId];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:trendId];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:self.trendView];
+            [self.trendView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(cell.contentView);
+            }];
+        }
+        [self reloadTrend];
+        return cell;
+    }
+
     static NSString *identifier = @"RateCell";
     RateCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -195,6 +294,8 @@
     NSString *code = self.codes[indexPath.row];
     CGFloat rate = [self.rates[code] doubleValue];
     cell.nameLab.text = [NSString stringWithFormat:@"%@ %@", [KKCurrency nameForCode:code], [KKCurrency badgeForCode:code]];
+    // 选中的币种（走势正在展示的）名称高亮
+    cell.nameLab.textColor = [code isEqualToString:self.selectedCode] ? kColor_Main_Color : kColor_Text_Black;
     if (rate > 0) {
         cell.valueLab.text = [NSString stringWithFormat:@"¥%@", [KKCurrency formatRate:rate]];
         // 反向报价只作参考，记账一律用正向的「1 外币 = N 人民币」
@@ -209,8 +310,22 @@
 
 
 #pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section != 0) {
+        return;
+    }
+    // 点币种行 → 走势切到该币种（数据已缓存，纯本地切换）
+    NSString *code = self.codes[indexPath.row];
+    if ([code isEqualToString:self.selectedCode]) {
+        return;
+    }
+    self.selectedCode = code;
+    [self.table reloadData];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return countcoordinatesX(60);
+    return indexPath.section == 1 ? countcoordinatesX(150) : countcoordinatesX(60);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -223,7 +338,10 @@
     UILabel *lab = [[UILabel alloc] init];
     lab.font = [UIFont systemFontOfSize:AdjustFont(11) weight:UIFontWeightLight];
     lab.textColor = kColor_Text_Gary;
-    lab.text = KKLocalized(@"1 单位外币可兑换的人民币");
+    lab.text = section == 0
+        ? KKLocalized(@"1 单位外币可兑换的人民币（点击切换走势币种）")
+        : [NSString stringWithFormat:KKLocalized(@"近 7 天走势 · %@ %@"),
+           [KKCurrency nameForCode:self.selectedCode], [KKCurrency badgeForCode:self.selectedCode]];
     [view addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(view).offset(countcoordinatesX(15));
@@ -233,6 +351,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0.01f;
+    }
     CGFloat width = SCREEN_WIDTH - countcoordinatesX(30);
     CGSize size = [self.footerText boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                                                 options:NSStringDrawingUsesLineFragmentOrigin
@@ -241,6 +362,9 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return [UIView new];
+    }
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = kColor_BG;
     self.footerLab.attributedText = [self footerText];
@@ -272,6 +396,14 @@
         });
     }
     return _table;
+}
+
+- (KKRateTrendView *)trendView {
+    if (!_trendView) {
+        _trendView = [[KKRateTrendView alloc] initWithFrame:CGRectZero];
+        _trendView.backgroundColor = [UIColor systemBackgroundColor];
+    }
+    return _trendView;
 }
 
 - (UILabel *)footerLab {

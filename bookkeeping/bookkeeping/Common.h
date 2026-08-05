@@ -118,6 +118,7 @@
 #import "ThemeSettingsController.h"
 #import "SettingsController.h"
 #import "RateController.h"
+#import "SiriShortcutsController.h"
 
 //================================= Model ===============================//
 #import "MarkModel.h"
