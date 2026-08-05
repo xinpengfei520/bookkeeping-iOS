@@ -167,10 +167,6 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:sysRemoveSyncedArr forKey:PIN_CATE_SYS_REMOVE_PAY_SYNCED];
             
             
-            NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
-            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults saveAllBookList:book];
             
         }
         else if (is_income == true) {
@@ -192,10 +188,6 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:sysHasSyncedArr forKey:PIN_CATE_SYS_Has_INCOME_SYNCED];
             [NSUserDefaults setObject:sysRemoveSyncedArr forKey:PIN_CATE_SYS_REMOVE_INCOME_SYNCED];
             
-            NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
-            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults saveAllBookList:book];
         }
     }
     // 自定义
@@ -216,10 +208,6 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:cusHasPaySyncedArr forKey:PIN_CATE_CUS_HAS_PAY_SYNCED];
             [NSUserDefaults setObject:cusRemovePaySyncedArr forKey:PIN_CATE_CUS_REMOVE_PAY_SYNCED];
             
-            NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
-            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults saveAllBookList:book];
             
         } else if (is_income == true) {
             NSMutableArray *cusHasIcomeEArr = [NSUserDefaults objectForKey:PIN_CATE_CUS_HAS_INCOME];
@@ -237,18 +225,15 @@ static NSMutableArray<BKCModel *> *categoryModelList;
             [NSUserDefaults setObject:cusHasIncomeSyncedArr forKey:PIN_CATE_CUS_HAS_INCOME_SYNCED];
             [NSUserDefaults setObject:cusRemoveIncomeSyncedArr forKey:PIN_CATE_CUS_REMOVE_INCOME_SYNCED];
             
-            NSString *preStr = [NSString stringWithFormat:@"cmodel.Id != %ld", model.Id];
-            NSMutableArray<BookDetailModel *> *book = [NSUserDefaults getAllBookList];
-            book = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:book];
-            [NSUserDefaults saveAllBookList:book];
         }
     }
     
-    // 删除同类别信息
-    NSMutableArray<BookDetailModel *> *arrm = [NSUserDefaults getAllBookList];
-    NSString *preStr = [NSString stringWithFormat:@"cmodel.Id == %ld", model.Id];
-    arrm = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:arrm];
-    [NSUserDefaults saveAllBookList:arrm];
+    // 删除该类别下的全部历史记账。
+    // 旧实现用谓词 "cmodel.Id != %ld" 过滤 BookDetailModel —— 模型上根本没有
+    // cmodel 属性，NSPredicate 求值直接抛 NSUnknownKeyException（删除类别即崩）；
+    // 末段还把 "== 被删类别" 的过滤结果整体存回列表，方向是反的。
+    // 现在收敛成一条按 categoryId 的 SQL DELETE。
+    [[KKBookStore shared] removeBooksWithCategoryId:model.Id];
 }
 
 // 获取分类

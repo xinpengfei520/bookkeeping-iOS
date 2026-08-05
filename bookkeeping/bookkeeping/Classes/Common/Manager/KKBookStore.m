@@ -260,6 +260,18 @@ static const char *kUpsertSQL =
     });
 }
 
+- (void)removeBooksWithCategoryId:(NSInteger)categoryId {
+    dispatch_sync(self.queue, ^{
+        if (self.db == NULL) return;
+        sqlite3_stmt *stmt = NULL;
+        if (sqlite3_prepare_v2(self.db, "DELETE FROM book_detail WHERE category_id = ?;", -1, &stmt, NULL) == SQLITE_OK) {
+            sqlite3_bind_int64(stmt, 1, categoryId);
+            sqlite3_step(stmt);
+        }
+        sqlite3_finalize(stmt);
+    });
+}
+
 - (void)removeAllBooks {
     dispatch_sync(self.queue, ^{
         if (self.db == NULL) return;

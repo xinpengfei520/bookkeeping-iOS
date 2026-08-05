@@ -37,6 +37,7 @@
 - (NSInteger)count;
 - (void)saveBook:(BookDetailModel *)model;
 - (void)replaceAllBooks:(NSArray *)models;
+- (void)removeBooksWithCategoryId:(NSInteger)categoryId;
 - (void)removeAllBooks;
 @end
 
@@ -179,6 +180,30 @@ static double MS(CFTimeInterval start) {
     // 单笔写入是本次改造的核心指标，必须有量级提升；松断言防机器波动误报
     XCTAssertLessThan(sqliteInsert50, legacyInsert50,
                       @"SQLite 连续写入应显著快于全量归档");
+}
+
+// 删除类别联动清理：只删目标类别的记录，其余原样保留。
+// 回归背景：旧实现用不存在的 cmodel.Id keyPath 过滤（NSPredicate 抛
+// NSUnknownKeyException，删除类别即崩），末段还会把账单列表洗成只剩被删类别。
+- (void)testRemoveBooksWithCategoryIdOnlyDeletesThatCategory {
+    KKBookStore *store = [KKBookStore storeWithPath:_dbPath];
+    NSMutableArray *models = [self makeModels:300 startId:1];   // categoryId = 1+(i%30)
+    [store replaceAllBooks:models];
+
+    NSInteger doomed = 7;
+    NSInteger doomedCount = 0;
+    for (BookDetailModel *m in models) {
+        if (m.categoryId == doomed) doomedCount++;
+    }
+    XCTAssertGreaterThan(doomedCount, 0);
+
+    [store removeBooksWithCategoryId:doomed];
+
+    NSArray<BookDetailModel *> *remain = [store allBooks];
+    XCTAssertEqual(remain.count, models.count - doomedCount, @"只应删掉目标类别的记录");
+    for (BookDetailModel *m in remain) {
+        XCTAssertNotEqual(m.categoryId, doomed, @"目标类别的记录应全部删除");
+    }
 }
 
 // 数据一致性：新老两条路径写入同一批数据后内容一致（bookId/金额/多币种字段）

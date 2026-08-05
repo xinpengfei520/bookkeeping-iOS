@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)replaceAllBooks:(NSArray<BookDetailModel *> *)models;
 /// 按 bookId 删除
 - (void)removeBookId:(NSInteger)bookId;
+/// 删除某个类别下的全部记账（删除类别时联动清理历史记录）
+- (void)removeBooksWithCategoryId:(NSInteger)categoryId;
 /// 清空（退出登录）
 - (void)removeAllBooks;
 
