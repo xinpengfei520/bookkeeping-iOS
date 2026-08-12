@@ -8,6 +8,74 @@
 
 #import "NSDate+Extension.h"
 
+#pragma mark - 进程级缓存（性能关键）
+// NSCalendar / NSDateFormatter 的创建都要过 ICU 初始化，单次数十~数百 µs。
+// 列表与图表的热路径会对每条记录访问 date / weekday / weekOfYear，逐次新建
+// 曾把图表页一次刷新推到数千次 formatter 创建（见 docs/postmortem-home-weekday.md
+// 的遗留 TODO）。二者在 iOS 7+ 均线程安全，进程内共享即可。
+// 注意：从这里拿到的对象是共享的，调用方绝不能改它的属性。
+
+static NSCalendar *KKCurrentCalendar(void) {
+    static NSCalendar *calendar;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        calendar = [NSCalendar currentCalendar];
+    });
+    return calendar;
+}
+
+static NSCalendar *KKGregorianCalendar(void) {
+    static NSCalendar *calendar;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    });
+    return calendar;
+}
+
+// 解析用（公历 + en_US_POSIX + GMT，配置理由见 createDateWithFora:）
+static NSDateFormatter *KKCachedPOSIXFormatter(NSString *format) {
+    static NSMutableDictionary<NSString *, NSDateFormatter *> *cache;
+    static NSLock *lock;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        cache = [NSMutableDictionary dictionary];
+        lock = [[NSLock alloc] init];
+    });
+    [lock lock];
+    NSDateFormatter *fora = cache[format];
+    if (fora == nil) {
+        fora = [[NSDateFormatter alloc] init];
+        fora.calendar = KKGregorianCalendar();
+        fora.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        [fora setDateFormat:format];
+        [fora setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        cache[format] = fora;
+    }
+    [lock unlock];
+    return fora;
+}
+
+// 展示用（跟随设备 locale / 时区）
+static NSDateFormatter *KKCachedLocalFormatter(NSString *format) {
+    static NSMutableDictionary<NSString *, NSDateFormatter *> *cache;
+    static NSLock *lock;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        cache = [NSMutableDictionary dictionary];
+        lock = [[NSLock alloc] init];
+    });
+    [lock lock];
+    NSDateFormatter *fora = cache[format];
+    if (fora == nil) {
+        fora = [[NSDateFormatter alloc] init];
+        [fora setDateFormat:format];
+        cache[format] = fora;
+    }
+    [lock unlock];
+    return fora;
+}
+
 @implementation NSDate (Extension)
 
 - (NSUInteger)day {
@@ -35,7 +103,7 @@
 }
 
 + (NSUInteger)day:(NSDate *)date {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
@@ -48,7 +116,7 @@
 }
 
 + (NSUInteger)month:(NSDate *)date {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
@@ -61,7 +129,7 @@
 }
 
 + (NSUInteger)year:(NSDate *)date {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
@@ -74,7 +142,7 @@
 }
 
 + (NSUInteger)hour:(NSDate *)date {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
@@ -87,7 +155,7 @@
 }
 
 + (NSUInteger)minute:(NSDate *)date {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
@@ -100,7 +168,7 @@
 }
 
 + (NSUInteger)second:(NSDate *)date {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
@@ -172,7 +240,7 @@
 
 - (NSUInteger)weekOfYear {
 //    NSDate *date = [self offsetDays:-1];
-	NSCalendar *greCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSCalendar *greCalendar = KKGregorianCalendar();
 	NSDateComponents *dateComponents = [greCalendar components:NSCalendarUnitWeekOfYear fromDate:self];
 	NSInteger week = [dateComponents weekOfYear];
 	return week;
@@ -196,7 +264,7 @@
 }
 
 + (NSDate *)dateAfterDate:(NSDate *)date day:(NSInteger)day {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 	NSDateComponents *componentsToAdd = [[NSDateComponents alloc] init];
 	[componentsToAdd setDay:day];
 
@@ -209,7 +277,7 @@
 }
 
 + (NSDate *)dateAfterDate:(NSDate *)date month:(NSInteger)month {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 	NSDateComponents *componentsToAdd = [[NSDateComponents alloc] init];
 	[componentsToAdd setMonth:month];
 	NSDate *dateAfterMonth = [calendar dateByAddingComponents:componentsToAdd toDate:date options:0];
@@ -239,7 +307,7 @@
 }
 
 + (NSUInteger)daysAgo:(NSDate *)date {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	NSDateComponents *components = [calendar components:(NSCalendarUnitDay)
@@ -261,8 +329,7 @@
 }
 
 + (NSInteger)weekday:(NSDate *)date {
-	NSCalendar *gregorian = [[NSCalendar alloc]
-	                         initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSCalendar *gregorian = KKGregorianCalendar();
 	NSDateComponents *comps = [gregorian components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday) fromDate:date];
 	NSInteger weekday = [comps weekday];
 	// old: weekday = weekday == 1 ? 7 : weekday - 1;
@@ -283,7 +350,7 @@
 }
 
 - (BOOL)isSameDay:(NSDate *)anotherDate {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSCalendar *calendar = KKCurrentCalendar();
 	NSDateComponents *components1 = [calendar components:(NSCalendarUnitYear
 	                                                      | NSCalendarUnitMonth
 	                                                      | NSCalendarUnitDay)
@@ -304,7 +371,7 @@
 - (NSDate *)dateByAddingDays:(NSUInteger)days {
 	NSDateComponents *c = [[NSDateComponents alloc] init];
 	c.day = days;
-	return [[NSCalendar currentCalendar] dateByAddingComponents:c toDate:self options:0];
+	return [KKCurrentCalendar() dateByAddingComponents:c toDate:self options:0];
 }
 
 
@@ -391,16 +458,12 @@
 }
 
 + (NSDateFormatter *)createDateWithFora:(NSString *)dateFora {
-	NSDateFormatter *fora = [[NSDateFormatter alloc] init];
 	// 强制公历 + en_US_POSIX：否则 formatter 会按「设备日历」解析 yyyy。当用户把
 	// 系统日历设成非公历(中华民国历/佛历/和历…)时，"2026" 会被当成该历的纪年
 	// (例: 民国 2026 年 = 公元 3937 年)，导致解析出的日期、星期全错甚至为 nil。
 	// 这是 NSDateFormatter 不固定 locale/calendar 的经典坑，影响所有 dateWith* 解析。
-	fora.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-	fora.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-	[fora setDateFormat:dateFora];
-	[fora setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-	return fora;
+	// 实例按格式串进程级缓存（创建要过 ICU，热路径逐条新建曾是图表页的性能黑洞）。
+	return KKCachedPOSIXFormatter(dateFora);
 }
 
 
@@ -472,21 +535,11 @@
 }
 
 - (NSString *)stringWithFormat:(NSString *)format {
-	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-	[outputFormatter setDateFormat:format];
-
-	NSString *retStr = [outputFormatter stringFromDate:self];
-
-	return retStr;
+	return [KKCachedLocalFormatter(format) stringFromDate:self];
 }
 
 + (NSDate *)dateWithString:(NSString *)string format:(NSString *)format {
-	NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-	[inputFormatter setDateFormat:format];
-
-	NSDate *date = [inputFormatter dateFromString:string];
-
-	return date;
+	return [KKCachedLocalFormatter(format) dateFromString:string];
 }
 
 - (NSUInteger)daysInMonth:(NSUInteger)month {
@@ -617,8 +670,7 @@
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
-	NSCalendar *gregorian = [[NSCalendar alloc]
-	                         initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSCalendar *gregorian = KKGregorianCalendar();
 #else
 	NSCalendar *gregorian = [[NSCalendar alloc]
 	                         initWithCalendarIdentifier:NSGregorianCalendar];
@@ -644,8 +696,7 @@
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
-	NSCalendar *gregorian = [[NSCalendar alloc]
-	                         initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSCalendar *gregorian = KKGregorianCalendar();
 #else
 	NSCalendar *gregorian = [[NSCalendar alloc]
 	                         initWithCalendarIdentifier:NSGregorianCalendar];
@@ -671,8 +722,7 @@
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
-	NSCalendar *gregorian = [[NSCalendar alloc]
-	                         initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSCalendar *gregorian = KKGregorianCalendar();
 #else
 	NSCalendar *gregorian = [[NSCalendar alloc]
 	                         initWithCalendarIdentifier:NSGregorianCalendar];
@@ -698,8 +748,7 @@
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	// NSDayCalendarUnit
-	NSCalendar *gregorian = [[NSCalendar alloc]
-	                         initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSCalendar *gregorian = KKGregorianCalendar();
 #else
 	NSCalendar *gregorian = [[NSCalendar alloc]
 	                         initWithCalendarIdentifier:NSGregorianCalendar];

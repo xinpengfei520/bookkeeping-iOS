@@ -14,6 +14,18 @@
 
 ---
 
+## [1.0.18] (build 19) — 2026-08-13
+
+### 变更（读路径性能改造，2000 条存量实测）
+- `NSDateFormatter`/`NSCalendar` 进程级缓存（18 处创建点收敛）：日期解析 ×2000 从 228ms → 44ms。
+- 首页月度统计改 SQL 索引直查（`booksWithYear:month:`，用上 `idx_book_ym`）：单次刷新 6.2ms → 0.06ms（109x）。
+- 年账单聚合 26 趟谓词 → 单趟分桶：146ms → 0.03ms（4736x）。
+- 图表日期范围 4 趟遍历 + formatter 风暴 → 单趟整数比较：98ms → 0.02ms（4390x）。
+- `assembleData` 查重去掉 allKeys 复制；`dateNumber` 改纯整数。基准见 `ReadPathBenchmarkTests`。
+
+### 修复
+- **图表页闪退**（NSRangeException，多年数据必现）：`ChartDate` 在后台线程直接重建 UI 数据源，与主线程选中回放竞态 —— 旧下标撞上新数组越界。重建改为后台计算、主线程原子提交；min/max 改组合 setter 消除双重建；图表后台队列串行化；选中路径全部加边界保护。该竞态一直存在，读路径提速后窗口对齐才暴露。
+
 ## [1.0.17] (build 18) — 2026-08-05
 
 ### 修复

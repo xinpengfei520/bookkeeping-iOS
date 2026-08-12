@@ -59,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)saveAllBookList:(NSMutableArray *)array;
 // 获取所有记账列表
 + (NSMutableArray<BookDetailModel *> *)getAllBookList;
+// 按年月获取记账列表（SQL 索引查询，月度统计的热路径）
++ (NSMutableArray<BookDetailModel *> *)getBookListWithYear:(NSInteger)year month:(NSInteger)month;
 // 保存所有备注列表
 + (void)saveAllMarkList:(NSMutableArray *)array;
 // 获取所有备注列表

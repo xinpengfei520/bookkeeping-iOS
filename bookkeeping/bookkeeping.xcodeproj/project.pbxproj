@@ -174,6 +174,7 @@
 		4CEFF8FB52882D2A746AF10E /* KKPendingBookOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE060CE6A76352615F67C /* KKPendingBookOp.m */; };
 		583D79A0068717382A0882E8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66059596F5687DED54592D18 /* SwiftUI.framework */; };
 		62F2584B5D8D13F8291F76E9 /* KKPullToRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A7ADFECE6C196E9719EB4721 /* KKPullToRefreshHeader.m */; };
+		638989C397D163AED91350BF /* ReadPathBenchmarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83572A587C70A436DEB20202 /* ReadPathBenchmarkTests.m */; };
 		679D783E858A69B4D8E5A271 /* KKCurrencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC17C2FBD3E2FDB8A3C4B65 /* KKCurrencyTests.m */; };
 		6B020F37F5DFF1B714EE8671 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98B5E90E69785BEDDA96525 /* Foundation.framework */; };
 		6FDBCC966F78C5EAF687FF8F /* KKI18n.m in Sources */ = {isa = PBXBuildFile; fileRef = F42F7C4278EC0DEC18E0B39D /* KKI18n.m */; };
@@ -587,6 +588,7 @@
 		7D18B97B807F044BE4EFE105 /* KKTheme.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKTheme.m; sourceTree = "<group>"; };
 		7ED72C758DA473D2BF99C752 /* DateWeekdayTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DateWeekdayTests.m; sourceTree = "<group>"; };
 		812070EF94E7B9D53C7F4FE0 /* SettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		83572A587C70A436DEB20202 /* ReadPathBenchmarkTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ReadPathBenchmarkTests.m; sourceTree = "<group>"; };
 		86D9B6BA5DABB02BFA8DA2B5 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		87CC1B96A6FF428454AE3C63 /* SiriShortcutsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SiriShortcutsController.m; sourceTree = "<group>"; };
 		8DFAE060CE6A76352615F67C /* KKPendingBookOp.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKPendingBookOp.m; sourceTree = "<group>"; };
@@ -2035,6 +2037,7 @@
 				02ACF476970C1FEE6C867E38 /* UserInfoTokenTests.m */,
 				DBCEE0A0803C7EECE2B19DE2 /* BookStoreBenchmarkTests.m */,
 				F2C4093EF4E18BC6CD452DE2 /* PendingBookOpTests.m */,
+				83572A587C70A436DEB20202 /* ReadPathBenchmarkTests.m */,
 			);
 			name = bookkeepingTests;
 			path = bookkeepingTests;
@@ -2710,6 +2713,7 @@
 				B3445DDEE4E5D3C5C8FC3EC1 /* UserInfoTokenTests.m in Sources */,
 				F3D515339D63554F9B53FA86 /* BookStoreBenchmarkTests.m in Sources */,
 				D07DE8CE443F4A847C0D1BEE /* PendingBookOpTests.m in Sources */,
+				638989C397D163AED91350BF /* ReadPathBenchmarkTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2950,7 +2954,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.17;
+				MARKETING_VERSION = 1.0.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3002,7 +3006,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.17;
+				MARKETING_VERSION = 1.0.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpf.light.record.BookMonth2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

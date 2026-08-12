@@ -61,6 +61,12 @@
             [self presentModalController:[[SiriShortcutsController alloc] init]];
         });
     }
+    // KK_DEBUG_OPEN=chart 直开图表页
+    else if ([debugOpen isEqualToString:@"chart"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self pushOnHomeTab:[[ChartController alloc] init]];
+        });
+    }
     // KK_DEBUG_OPEN=rate 直开今日汇率页（验证走势布局）
     else if ([debugOpen isEqualToString:@"rate"]) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

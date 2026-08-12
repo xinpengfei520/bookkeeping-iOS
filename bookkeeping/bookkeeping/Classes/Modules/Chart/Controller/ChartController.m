@@ -43,7 +43,9 @@
     self.prefersNavigationBarHidden = YES;
     _navigationIndex = _navIndex;
     _queue = [[NSOperationQueue alloc]init];
-    _queue.maxConcurrentOperationCount = 4;
+    // 串行：updateDataWithAsync 与 updateDateRangeWithAsync 都读写 _minModel/_maxModel
+    // 和 chartDate 的数据源，并发跑会互相踩（读路径提速后竞态窗口对齐过一次，见 ChartDate）
+    _queue.maxConcurrentOperationCount = 1;
     [self setDate:[NSDate date]];
     [self navigation];
     [self segment];
@@ -88,50 +90,32 @@
 }
 
 // 更新时间范围
+// 单趟遍历用 dateNumber（纯整数 y*10000+m*100+d）同时找最早/最晚记录。
+// 旧实现：谓词过滤一趟 + @min.date / @max.date 各触发全量 .date 求值
+// （每条记录新建 NSDateFormatter）+ 两趟补充谓词定位记录 —— 共 4 趟遍历外加
+// formatter 风暴，2000 条时一次刷新要创建数千个 formatter。
 - (void)updateDateRange {
-    NSString *preStr;
-    if (_cmodel) {
-        preStr = [NSString stringWithFormat:@"categoryId == %ld", _cmodel.categoryId];
-    }else{
-        if (_navigationIndex == 1) {
-            preStr = [NSString stringWithFormat:@"categoryId >= %d", 33];
-        }else{
-            preStr = [NSString stringWithFormat:@"categoryId <= %d", 32];
-        }
-    }
-    
+    BOOL byCategory = (_cmodel != nil);
+    NSInteger categoryId = _cmodel.categoryId;
+    BOOL isIncome = (_navigationIndex == 1);
+
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
-    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:bookArr];
-    // 最小时间
-    _minModel = ({
-        NSDate *minDate = [models valueForKeyPath:@"@min.date"];
-        if (minDate) {
-            preStr = [NSString stringWithFormat:@"year == %ld AND month == %02ld AND day == %02ld", minDate.year, minDate.month, minDate.day];
+    BookDetailModel *minModel = nil, *maxModel = nil;
+    NSInteger minNumber = NSIntegerMax, maxNumber = NSIntegerMin;
+    for (BookDetailModel *model in bookArr) {
+        if (byCategory) {
+            if (model.categoryId != categoryId) continue;
+        } else if (isIncome ? (model.categoryId < 33) : (model.categoryId > 32)) {
+            continue;
         }
-        NSMutableArray *arr = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:models];
-        BookDetailModel *model;
-        if (arr.count != 0) {
-            model = arr[0];
-        }
-        model;
-    });
+        NSInteger number = model.dateNumber;
+        if (number < minNumber) { minNumber = number; minModel = model; }
+        if (number > maxNumber) { maxNumber = number; maxModel = model; }
+    }
+    _minModel = minModel;
+    _maxModel = maxModel;
     
-    // 最大时间
-    _maxModel = ({
-        NSDate *maxDate = [models valueForKeyPath:@"@max.date"];
-        if (maxDate) {
-            preStr = [NSString stringWithFormat:@"year == %ld AND month == %02ld AND day == %02ld", maxDate.year, maxDate.month, maxDate.day];
-        }
-        NSMutableArray *arr = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:models];
-        BookDetailModel *model;
-        if (arr.count != 0) {
-            model = arr[0];
-        }
-        model;
-    });
-    
-    _chartDate.minModel = _minModel;
-    _chartDate.maxModel = _maxModel;
+    [_chartDate setMinModel:_minModel maxModel:_maxModel];
 }
 
 - (void)updateDataWithAsync {
@@ -220,15 +204,18 @@
         _segment = [ChartSegmentControl loadCode:CGRectMake(0, NavigationBarHeight, SCREEN_WIDTH, countcoordinatesX(50))];
         [_segment.seg kk_addEventHandler:^(UISegmentedControl *seg) {
             @strongify(self)
-            [self setDate:({
-                NSInteger index = seg.selectedSegmentIndex;
+            // 空数据 / 列表尚未构建完成时 selectIndexs 还是空的，别越界
+            NSInteger index = seg.selectedSegmentIndex;
+            if (index < (NSInteger)self.chartDate.selectIndexs.count &&
+                index < (NSInteger)self.chartDate.sModels.count) {
                 NSIndexPath *indexPath = self.chartDate.selectIndexs[index];
-                ChartSubModel *model = self.chartDate.sModels[index][indexPath.row];
-                NSInteger month = model.month == -1 ? 1 : model.month;
-                NSInteger day = model.day == -1 ? 1 : model.day;
-                NSDate *date = [NSDate dateWithYMD:[NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, month, day]];
-                date;
-            })];
+                if (indexPath.row < (NSInteger)self.chartDate.sModels[index].count) {
+                    ChartSubModel *model = self.chartDate.sModels[index][indexPath.row];
+                    NSInteger month = model.month == -1 ? 1 : model.month;
+                    NSInteger day = model.day == -1 ? 1 : model.day;
+                    [self setDate:[NSDate dateWithYMD:[NSString stringWithFormat:@"%ld-%02ld-%02ld", model.year, month, day]]];
+                }
+            }
             [self setSegmentIndex:seg.selectedSegmentIndex];
             [self updateDataWithAsync];
         } forControlEvents:UIControlEventValueChanged];

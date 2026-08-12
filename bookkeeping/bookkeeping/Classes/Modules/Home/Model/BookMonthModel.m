@@ -67,9 +67,9 @@
  * @param month 月份
  */
 + (NSMutableArray<BookMonthModel *> *)statisticalMonthWithYear:(NSInteger)year month:(NSInteger)month {
-    NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
-    NSString *preStr = [NSString stringWithFormat:@"year == %ld AND month == %ld", year, month];
-    NSMutableArray<BookDetailModel *> *models = [NSMutableArray kk_filteredArrayUsingStringFormat:preStr array:bookArr];
+    // SQL 按 (year, month) 索引直查当月记录。旧实现是全量加载 + NSPredicate
+    // 内存过滤 —— 每次首页刷新都要对全部存量做一遍 KVC 谓词求值。
+    NSMutableArray<BookDetailModel *> *models = [NSUserDefaults getBookListWithYear:year month:month];
     return [self assembleData:models sortType:1];
 }
 
@@ -98,8 +98,9 @@
     NSMutableDictionary *dictm = [NSMutableDictionary dictionary];
     for (BookDetailModel *detailModel in models) {
         NSString *key = [NSString stringWithFormat:@"%ld-%02ld-%02ld", detailModel.year, detailModel.month, detailModel.day];
-        // 初始化
-        if (![[dictm allKeys] containsObject:key]) {
+        // 初始化（直接查字典；旧写法 [[dictm allKeys] containsObject:] 每条记录都要
+        // 把全部 key 复制成新数组再线性扫，整体 O(n·k)）
+        if (dictm[key] == nil) {
             BookMonthModel *monthModel = [[BookMonthModel alloc] init];
             monthModel.year = detailModel.year;
             monthModel.month = detailModel.month;

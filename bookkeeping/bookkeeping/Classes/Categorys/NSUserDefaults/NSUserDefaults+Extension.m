@@ -128,6 +128,10 @@ static NSMutableArray<BKCModel *> *categoryModelList;
     return [[KKBookStore shared] allBooks];
 }
 
++ (NSMutableArray<BookDetailModel *> *)getBookListWithYear:(NSInteger)year month:(NSInteger)month {
+    return [[KKBookStore shared] booksWithYear:year month:month];
+}
+
 + (void)saveAllMarkList:(NSMutableArray *)array {
     [NSUserDefaults setObject:array forKey:All_MARK_LIST];
 }

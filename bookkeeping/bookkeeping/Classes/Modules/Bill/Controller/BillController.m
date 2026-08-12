@@ -99,29 +99,37 @@
 }
 
 - (void)updateData{
+    // 单趟分桶：一次遍历按 (month, 收/支) 累加。
+    // 旧实现对全量记录跑 26 趟 NSPredicate（2 + 12×2）再 @sum KVC 聚合，
+    // 2000 条存量时约 5 万次谓词求值，每次切年份都来一遍。
     NSMutableArray<BookDetailModel *> *bookArr = [NSUserDefaults getAllBookList];
-    
-    NSString *predicate = [NSString stringWithFormat:@"year == %ld AND categoryId >= 33",self.date.year];
-    NSMutableArray<BookDetailModel *> *incomeArr = [NSMutableArray kk_filteredArrayUsingStringFormat:predicate array:bookArr];
-    
-    predicate = [NSString stringWithFormat:@"year == %ld AND categoryId <= 32",self.date.year];
-    NSMutableArray<BookDetailModel *> *payArr = [NSMutableArray kk_filteredArrayUsingStringFormat:predicate array:bookArr];
-    
-    [self.table setIncome:[[incomeArr valueForKeyPath:@"@sum.price.floatValue"] floatValue]];
-    [self.table setPay:[[payArr valueForKeyPath:@"@sum.price.floatValue"] floatValue]];
-    
+
+    CGFloat incomeByMonth[13] = {0};    // 下标 1~12
+    CGFloat payByMonth[13] = {0};
+    CGFloat incomeTotal = 0, payTotal = 0;
+    NSInteger year = self.date.year;
+    for (BookDetailModel *model in bookArr) {
+        if (model.year != year || model.month < 1 || model.month > 12) {
+            continue;
+        }
+        if (model.categoryId >= 33) {
+            incomeByMonth[model.month] += model.price;
+            incomeTotal += model.price;
+        } else {
+            payByMonth[model.month] += model.price;
+            payTotal += model.price;
+        }
+    }
+
+    [self.table setIncome:incomeTotal];
+    [self.table setPay:payTotal];
+
     NSMutableArray *arrm = [NSMutableArray array];
-    
+
     for (NSInteger i=1; i<=12; i++) {
-        NSString *incomeStr = [NSString stringWithFormat:@"year == %ld AND month == %ld AND categoryId >= 33", self.date.year,i];
-        NSMutableArray<BookDetailModel *> *incomeModels = [NSMutableArray kk_filteredArrayUsingStringFormat:incomeStr array:bookArr];
-        
-        NSString *payStr = [NSString stringWithFormat:@"year == %ld AND month == %ld AND categoryId <= 32",self.date.year,i];
-        NSMutableArray<BookDetailModel *> *payModels = [NSMutableArray kk_filteredArrayUsingStringFormat:payStr array:bookArr];
-        
-        CGFloat income = [[incomeModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];
-        CGFloat pay = [[payModels valueForKeyPath:@"@sum.price.floatValue"] floatValue];
-        
+        CGFloat income = incomeByMonth[i];
+        CGFloat pay = payByMonth[i];
+
         NSDictionary *param = @{@"month": [NSString stringWithFormat:KKLocalized(@"%ld月"), i],
                                 @"income": [NSString stringWithFormat:@"%.2f", income],
                                 @"pay": [NSString stringWithFormat:@"%.2f", pay],

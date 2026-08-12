@@ -116,34 +116,61 @@ static NSString * const kLegacyKey = @"All_BOOK_LIST";
 
 #pragma mark - 读
 
+// 列顺序与 kSelectColumns 一致（调用方负责在 self.queue 上）
+static const char *kSelectColumns =
+    "SELECT book_id, category_id, price, year, month, day,"
+    " mark, currency, original_price, exchange_rate FROM book_detail";
+
+static BookDetailModel *KKModelFromStmt(sqlite3_stmt *stmt) {
+    BookDetailModel *m = [[BookDetailModel alloc] init];
+    m.bookId     = sqlite3_column_int64(stmt, 0);
+    m.categoryId = sqlite3_column_int64(stmt, 1);
+    m.price      = sqlite3_column_double(stmt, 2);
+    m.year       = sqlite3_column_int64(stmt, 3);
+    m.month      = sqlite3_column_int64(stmt, 4);
+    m.day        = sqlite3_column_int64(stmt, 5);
+    const char *mark = (const char *)sqlite3_column_text(stmt, 6);
+    m.mark = mark ? [NSString stringWithUTF8String:mark] : @"";
+    const char *currency = (const char *)sqlite3_column_text(stmt, 7);
+    if (currency) {
+        m.currency      = [NSString stringWithUTF8String:currency];
+        m.originalPrice = sqlite3_column_double(stmt, 8);
+        m.exchangeRate  = sqlite3_column_double(stmt, 9);
+    }
+    return m;
+}
+
 - (NSMutableArray<BookDetailModel *> *)allBooks {
     NSMutableArray *result = [NSMutableArray array];
     dispatch_sync(self.queue, ^{
         if (self.db == NULL) return;
         sqlite3_stmt *stmt = NULL;
-        const char *sql = "SELECT book_id, category_id, price, year, month, day,"
-                          " mark, currency, original_price, exchange_rate"
-                          " FROM book_detail ORDER BY rowid;";
-        if (sqlite3_prepare_v2(self.db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"%s ORDER BY rowid;", kSelectColumns];
+        if (sqlite3_prepare_v2(self.db, sql.UTF8String, -1, &stmt, NULL) != SQLITE_OK) {
             return;
         }
         while (sqlite3_step(stmt) == SQLITE_ROW) {
-            BookDetailModel *m = [[BookDetailModel alloc] init];
-            m.bookId     = sqlite3_column_int64(stmt, 0);
-            m.categoryId = sqlite3_column_int64(stmt, 1);
-            m.price      = sqlite3_column_double(stmt, 2);
-            m.year       = sqlite3_column_int64(stmt, 3);
-            m.month      = sqlite3_column_int64(stmt, 4);
-            m.day        = sqlite3_column_int64(stmt, 5);
-            const char *mark = (const char *)sqlite3_column_text(stmt, 6);
-            m.mark = mark ? [NSString stringWithUTF8String:mark] : @"";
-            const char *currency = (const char *)sqlite3_column_text(stmt, 7);
-            if (currency) {
-                m.currency      = [NSString stringWithUTF8String:currency];
-                m.originalPrice = sqlite3_column_double(stmt, 8);
-                m.exchangeRate  = sqlite3_column_double(stmt, 9);
-            }
-            [result addObject:m];
+            [result addObject:KKModelFromStmt(stmt)];
+        }
+        sqlite3_finalize(stmt);
+    });
+    return result;
+}
+
+- (NSMutableArray<BookDetailModel *> *)booksWithYear:(NSInteger)year month:(NSInteger)month {
+    NSMutableArray *result = [NSMutableArray array];
+    dispatch_sync(self.queue, ^{
+        if (self.db == NULL) return;
+        sqlite3_stmt *stmt = NULL;
+        NSString *sql = [NSString stringWithFormat:
+            @"%s WHERE year = ? AND month = ? ORDER BY rowid;", kSelectColumns];
+        if (sqlite3_prepare_v2(self.db, sql.UTF8String, -1, &stmt, NULL) != SQLITE_OK) {
+            return;
+        }
+        sqlite3_bind_int64(stmt, 1, year);
+        sqlite3_bind_int64(stmt, 2, month);
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            [result addObject:KKModelFromStmt(stmt)];
         }
         sqlite3_finalize(stmt);
     });

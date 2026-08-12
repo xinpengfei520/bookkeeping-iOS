@@ -136,7 +136,9 @@
 }
 
 - (NSInteger)dateNumber {
-    return [[NSString stringWithFormat:@"%ld%02ld%02ld", _year, _month, _day] integerValue];
+    // 纯整数拼接。旧写法先 stringWithFormat 再 integerValue —— 谓词对每条记录
+    // 求值一次就分配一个字符串，周图表一次过滤要来 2N 次。
+    return _year * 10000 + _month * 100 + _day;
 }
 
 -(NSString *)priceString{

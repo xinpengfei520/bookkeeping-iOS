@@ -45,6 +45,7 @@ All app source is under `bookkeeping/bookkeeping/Classes/`:
 
 ## Working With This Codebase
 
+- **Never create `NSDateFormatter`/`NSCalendar` in per-record or per-cell code paths** — creation goes through ICU and costs 50-100µs each. `NSDate+Extension.m` keeps process-wide caches (`KKCachedPOSIXFormatter`/`KKCachedLocalFormatter`/`KKGregorianCalendar`); route date work through the existing `dateWith*` / `stringWithFormat:` helpers and treat the returned formatters as immutable. Same spirit: prefer `dateNumber` (pure-int `y*10000+m*100+d`) over `.date` for comparisons, and `booksWithYear:month:` (SQL, uses `idx_book_ym`) over load-all + NSPredicate. Benchmarks live in `ReadPathBenchmarkTests`.
 - Objective-C only — no Swift sources are expected. New files use `.h`/`.m` and follow the `#pragma mark - 声明 / 实现` section pattern seen across modules.
 - When adding a controller/model/category that other modules will reference, register it in `Common.h` under the matching `// =====` section. Failing to do so produces "unknown receiver" errors that look like missing imports but are actually a missing PCH entry.
 - The widget target (`BookMonth`) does **not** see the main target's PCH — duplicate imports in `BookMonth/KKPrefixHeader.pch` if you need shared categories there.

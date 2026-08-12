@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 全量读取（按写入顺序）
 - (NSMutableArray<BookDetailModel *> *)allBooks;
+/// 按年月读取（走 idx_book_ym 索引；首页月度统计的热路径，
+/// 避免"全量加载 + NSPredicate 内存过滤"的老路子）
+- (NSMutableArray<BookDetailModel *> *)booksWithYear:(NSInteger)year month:(NSInteger)month;
 /// 记录条数
 - (NSInteger)count;
 /// 单笔写入（INSERT OR REPLACE，按 bookId 去重，增改同一入口）

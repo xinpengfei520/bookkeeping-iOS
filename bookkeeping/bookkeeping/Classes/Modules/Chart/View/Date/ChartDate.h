@@ -25,6 +25,8 @@ typedef void (^ChartDateComplete)(ChartSubModel *model);
 
 @property (nonatomic, strong) BookDetailModel *minModel;
 @property (nonatomic, strong) BookDetailModel *maxModel;
+/// min/max 成对更新（只触发一次重建；单独 set 也安全，但会各重建一次）
+- (void)setMinModel:(nullable BookDetailModel *)minModel maxModel:(nullable BookDetailModel *)maxModel;
 @property (nonatomic, strong) ChartSubModel *selectModel;
 
 @property (nonatomic, copy  ) ChartDateComplete complete;

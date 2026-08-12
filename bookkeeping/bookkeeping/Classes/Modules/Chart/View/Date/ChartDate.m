@@ -29,127 +29,122 @@
 
 
 #pragma mark - 操作
-// 更新子控件
+// 重建三个维度（周/月/年）的日期列表。
+//
+// 线程模型（2026-08-05 修复崩溃）：本方法可能在 ChartController 的后台
+// NSOperationQueue 上被调用 —— 计算全部写入局部变量，算完后一次性在主线程
+// 提交给 sModels / selectIndexs 并刷新。旧实现直接在后台线程改这两个 UI 数据源，
+// 与主线程的 reload/collectionDidSelect 竞态：主线程拿着旧"周"列表的下标（如 397）
+// 撞上刚被换成的"月"列表（91 个元素）→ NSRangeException 闪退。
+// 以前 formatter/calendar 逐次新建让重建慢几百 ms，竞态窗口错开侥幸不崩；
+// 读路径提速后窗口对齐，必须结构性修复。
 - (void)updateDateRange {
-    if (!_minModel || !_maxModel) {
+    BookDetailModel *minModel = _minModel;
+    BookDetailModel *maxModel = _maxModel;
+    if (!minModel || !maxModel) {
         return;
     }
 
-    [self.selectIndexs removeAllObjects];
-    
-    for (NSInteger i=0; i<3; i++) {
-        [self.selectIndexs addObject:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [self.sModels replaceObjectAtIndex:i withObject:({
-            [NSMutableArray arrayWithObject:({
-                NSDate *date = [NSDate date];
-                date = [date offsetDays:-[date weekday]+1];
-                ChartSubModel *model = [[ChartSubModel alloc] init];
-                model.year = date.year;
-                model.month = date.month;
-                model.day = date.day;
-                model.week = [date weekOfYear];
-                model.selectIndex = i;
-                model;
-            })];
-        })];
+    NSDate *minDate = minModel.date;
+    NSDate *maxDate = maxModel.date;
+    NSDate *today = [NSDate date];
+
+    // ---- 周 ----
+    NSMutableArray<ChartSubModel *> *weekModels = [NSMutableArray array];
+    NSIndexPath *weekSelect = nil;
+    NSInteger weeks = [NSDate compareWeek:minDate withDate:maxDate];
+    for (NSInteger i = 0; i < weeks; i++) {
+        NSDate *newDate = [minDate offsetDays:i * 7];
+        newDate = [newDate offsetDays:-[newDate weekday] + 1];
+        ChartSubModel *submodel = [ChartSubModel init];
+        [submodel setYear:[newDate year]];
+        [submodel setMonth:[newDate month]];
+        [submodel setDay:[newDate day]];
+        [submodel setWeek:[newDate weekOfYear]];
+        [submodel setWeek_day:[newDate weekday]];
+        [submodel setSelectIndex:0];
+        [weekModels addObject:submodel];
+
+        if (weekSelect == nil && [[submodel detail] isEqualToString:KKLocalized(@"本周")]) {
+            weekSelect = [NSIndexPath indexPathForRow:i inSection:0];
+        }
     }
-    
-    [self.selectIndexs removeAllObjects];
-    
-    // 周
-    [self.sModels replaceObjectAtIndex:0 withObject:({
-        NSDate *minDate = _minModel.date;
-        NSDate *maxDate = _maxModel.date;
-        NSMutableArray<ChartSubModel *> *submodels = [[NSMutableArray alloc] init];
-        NSInteger weeks = [NSDate compareWeek:minDate withDate:maxDate];
-        
-        for (NSInteger i=0; i<weeks; i++) {
-            NSDate *newDate = [minDate offsetDays:i * 7];
-            newDate = [newDate offsetDays:-[newDate weekday]+1];
-            ChartSubModel *submodel = [ChartSubModel init];
-            [submodel setYear:[newDate year]];
-            [submodel setMonth:[newDate month]];
-            [submodel setDay:[newDate day]];
-            [submodel setWeek:[newDate weekOfYear]];
-            [submodel setWeek_day:[newDate weekday]];
-            [submodel setSelectIndex:0];
-            [submodels addObject:submodel];
-            
-            if ([[submodel detail] isEqualToString:KKLocalized(@"本周")] && self.selectIndexs.count == 0) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [self.selectIndexs addObject:indexPath];
-            }
-        }
-        
-        if (self.selectIndexs.count == 0) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:submodels.count - 1 inSection:0];
-            [self.selectIndexs addObject:indexPath];
-        }
-        submodels;
-    })];
-    
-    // 月
-    [self.sModels replaceObjectAtIndex:1 withObject:({
-        // 数据整理
-        NSMutableArray<ChartSubModel *> *submodels = [[NSMutableArray alloc] init];
-        for (NSInteger y=_minModel.date.year; y<=_maxModel.date.year; y++) {
-            NSInteger min_month = (y==_minModel.date.year ? _minModel.date.month : 1);
-            NSInteger max_month = (y==_maxModel.date.year ? _maxModel.date.month : 12);
-            for (NSInteger m=min_month; m<=max_month; m++) {
-                ChartSubModel *submodel = [ChartSubModel init];
-                [submodel setYear:y];
-                [submodel setMonth:m];
-                [submodel setSelectIndex:1];
-                [submodels addObject:submodel];
-                
-                NSDate *date = [NSDate date];
-                if (y == date.year && m == date.month && self.selectIndexs.count == 1) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:submodels.count - 1 inSection:0];
-                    [self.selectIndexs addObject:indexPath];
-                }
-            }
-        }
-        if (self.selectIndexs.count == 1) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:submodels.count - 1 inSection:0];
-            [self.selectIndexs addObject:indexPath];
-        }
-        submodels;
-    })];
-    
-    // 年
-    [self.sModels replaceObjectAtIndex:2 withObject:({
-        // 数据整理
-        NSMutableArray<ChartSubModel *> *submodels = [[NSMutableArray alloc] init];
-        for (NSInteger y=_minModel.date.year; y<=_maxModel.date.year; y++) {
+    if (weekSelect == nil && weekModels.count > 0) {
+        weekSelect = [NSIndexPath indexPathForRow:weekModels.count - 1 inSection:0];
+    }
+
+    // ---- 月 ----
+    NSMutableArray<ChartSubModel *> *monthModels = [NSMutableArray array];
+    NSIndexPath *monthSelect = nil;
+    for (NSInteger y = minDate.year; y <= maxDate.year; y++) {
+        NSInteger min_month = (y == minDate.year ? minDate.month : 1);
+        NSInteger max_month = (y == maxDate.year ? maxDate.month : 12);
+        for (NSInteger m = min_month; m <= max_month; m++) {
             ChartSubModel *submodel = [ChartSubModel init];
             [submodel setYear:y];
-            [submodel setSelectIndex:2];
-            [submodels addObject:submodel];
-            if (y == [NSDate date].year && self.selectIndexs.count == 2) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:submodels.count - 1 inSection:0];
-                [self.selectIndexs addObject:indexPath];
+            [submodel setMonth:m];
+            [submodel setSelectIndex:1];
+            [monthModels addObject:submodel];
+
+            if (monthSelect == nil && y == today.year && m == today.month) {
+                monthSelect = [NSIndexPath indexPathForRow:monthModels.count - 1 inSection:0];
             }
         }
-        if (self.selectIndexs.count == 2) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:submodels.count - 1 inSection:0];
-            [self.selectIndexs addObject:indexPath];
+    }
+    if (monthSelect == nil && monthModels.count > 0) {
+        monthSelect = [NSIndexPath indexPathForRow:monthModels.count - 1 inSection:0];
+    }
+
+    // ---- 年 ----
+    NSMutableArray<ChartSubModel *> *yearModels = [NSMutableArray array];
+    NSIndexPath *yearSelect = nil;
+    for (NSInteger y = minDate.year; y <= maxDate.year; y++) {
+        ChartSubModel *submodel = [ChartSubModel init];
+        [submodel setYear:y];
+        [submodel setSelectIndex:2];
+        [yearModels addObject:submodel];
+        if (yearSelect == nil && y == today.year) {
+            yearSelect = [NSIndexPath indexPathForRow:yearModels.count - 1 inSection:0];
         }
-        submodels;
-    })];
-    
-    [self reloadDataOnMainThread];
+    }
+    if (yearSelect == nil && yearModels.count > 0) {
+        yearSelect = [NSIndexPath indexPathForRow:yearModels.count - 1 inSection:0];
+    }
+
+    NSIndexPath *fallback = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSArray *newSelects = @[weekSelect ?: fallback, monthSelect ?: fallback, yearSelect ?: fallback];
+
+    // ---- 主线程原子提交 + 刷新 ----
+    @weakify(self)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        @strongify(self)
+        [self.sModels replaceObjectAtIndex:0 withObject:weekModels];
+        [self.sModels replaceObjectAtIndex:1 withObject:monthModels];
+        [self.sModels replaceObjectAtIndex:2 withObject:yearModels];
+        [self.selectIndexs removeAllObjects];
+        [self.selectIndexs addObjectsFromArray:newSelects];
+        [self.collection reloadData];
+        if (self.segmentIndex < (NSInteger)self.selectIndexs.count) {
+            [self collectionDidSelect:self.selectIndexs[self.segmentIndex] animation:false];
+        }
+    });
 }
 
 
 #pragma mark - set
-- (void)setMinModel:(BookDetailModel *)minModel {
+// min/max 总是成对更新，用组合 setter 只触发一次重建
+- (void)setMinModel:(BookDetailModel *)minModel maxModel:(BookDetailModel *)maxModel {
     _minModel = minModel;
+    _maxModel = maxModel;
     [self updateDateRange];
 }
 
+- (void)setMinModel:(BookDetailModel *)minModel {
+    [self setMinModel:minModel maxModel:_maxModel];
+}
+
 - (void)setMaxModel:(BookDetailModel *)maxModel {
-    _maxModel = maxModel;
-    [self updateDateRange];
+    [self setMinModel:_minModel maxModel:maxModel];
 }
 
 - (void)setSegmentIndex:(NSInteger)segmentIndex {
@@ -202,6 +197,12 @@
 }
 
 - (void)collectionDidSelect:(NSIndexPath *)indexPath animation:(BOOL)animation {
+    // 边界保护：数据源与选中下标都可能在重建间隙里过期，脏下标直接丢弃
+    if (self.segmentIndex >= (NSInteger)self.sModels.count ||
+        self.segmentIndex >= (NSInteger)self.selectIndexs.count ||
+        indexPath.row >= (NSInteger)self.sModels[self.segmentIndex].count) {
+        return;
+    }
     // 移动
     [self.collection scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animation];
     // 刷新
