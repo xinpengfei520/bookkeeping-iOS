@@ -12,6 +12,7 @@ static const CGFloat kBarMaxHeight = 34;
 #pragma mark - 声明
 @interface VoiceRecordView ()
 
+@property (nonatomic, strong) UIVisualEffectView *blurView;  // 全屏磨砂背景
 @property (nonatomic, strong) UIView *card;
 @property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic, strong) UILabel *hintLabel;
@@ -25,12 +26,16 @@ static const CGFloat kBarMaxHeight = 34;
 + (instancetype)showInView:(UIView *)view {
     VoiceRecordView *overlay = [[VoiceRecordView alloc] initWithFrame:view.bounds];
     [view addSubview:overlay];
+
+    // 初始态：磨砂 + 卡片一起从透明淡入
+    overlay.blurView.alpha = 0;
     overlay.card.alpha = 0;
     overlay.card.transform = CGAffineTransformMakeScale(0.9, 0.9);
-    [UIView animateWithDuration:0.18 animations:^{
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        overlay.blurView.alpha = 1;
         overlay.card.alpha = 1;
         overlay.card.transform = CGAffineTransformIdentity;
-    }];
+    } completion:nil];
     return overlay;
 }
 
@@ -44,6 +49,12 @@ static const CGFloat kBarMaxHeight = 34;
 }
 
 - (void)buildSubviews {
+    // 全屏磨砂遮罩：light 模式用 ExtraLight，dark 模式自动反色
+    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemUltraThinMaterial];
+    _blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
+    _blurView.frame = self.bounds;
+    [self addSubview:_blurView];
+
     CGFloat cardW = countcoordinatesX(260);
     CGFloat cardH = countcoordinatesX(150);
     _card = [[UIView alloc] initWithFrame:CGRectMake((self.width - cardW) / 2, (self.height - cardH) / 2 - countcoordinatesX(70), cardW, cardH)];
@@ -120,8 +131,9 @@ static const CGFloat kBarMaxHeight = 34;
 }
 
 - (void)dismiss {
-    [UIView animateWithDuration:0.15 animations:^{
-        self.alpha = 0;
+    [UIView animateWithDuration:0.18 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.blurView.alpha = 0;
+        self.card.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
