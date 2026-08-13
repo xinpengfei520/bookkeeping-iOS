@@ -13,6 +13,10 @@
 #import "ACAListModel.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "LAContextManager.h"
+#import "KKSpeechRecognizer.h"
+#import "KKBookTextParser.h"
+#import "VoiceRecordView.h"
+#import "VoiceConfirmView.h"
 
 #pragma mark - 声明
 @interface HomeController()
@@ -25,6 +29,13 @@
 @property (nonatomic, strong) NSDictionary<NSString *, NSInvocation *> *eventStrategy;
 @property (nonatomic, assign) BOOL replayingFailedBooks;    // 离线队列重放中(防重入)
 @property (nonatomic, assign) BOOL pendingInitialLoad;     // 后台启动时推迟首屏加载
+
+// ============ 语音记账（长按 + 号） ============
+@property (nonatomic, strong) KKSpeechRecognizer *voiceRecognizer;
+@property (nonatomic, strong) VoiceRecordView *voiceRecordView;
+@property (nonatomic, assign) CGPoint voiceStartPoint;      // 长按起点，算上滑取消
+@property (nonatomic, assign) BOOL voiceCancelState;
+@property (nonatomic, assign) CFTimeInterval voiceStartTime;
 
 @end
 
@@ -612,6 +623,112 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushToBookController)];
     [button addGestureRecognizer:tapGesture];
+
+    // 长按语音记账（与点按天然共存：长按识别后 tap 自动失败）
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(voiceLongPressAction:)];
+    longPress.minimumPressDuration = 0.4;
+    [button addGestureRecognizer:longPress];
+}
+
+#pragma mark - 语音记账
+
+- (void)voiceLongPressAction:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (![UserInfo isLogin]) {
+            [self pushToLoginController];
+            return;
+        }
+        self.voiceStartPoint = [gesture locationInView:self.view];
+        self.voiceCancelState = NO;
+        @weakify(self)
+        [KKSpeechRecognizer requestPermission:^(BOOL granted, NSString *message) {
+            @strongify(self)
+            if (!granted) {
+                if (message) [self showTextHUD:message delay:1.5f];
+                return;
+            }
+            // 首次授权的系统弹窗会打断长按手势；授权完成时手指已松开就不再启动录音
+            if (gesture.state != UIGestureRecognizerStateBegan && gesture.state != UIGestureRecognizerStateChanged) return;
+            [self startVoiceRecording];
+        }];
+    }
+    else if (gesture.state == UIGestureRecognizerStateChanged) {
+        if (!self.voiceRecognizer.isRunning) return;
+        CGPoint point = [gesture locationInView:self.view];
+        BOOL cancel = (self.voiceStartPoint.y - point.y) > 60;
+        if (cancel != self.voiceCancelState) {
+            self.voiceCancelState = cancel;
+            [self.voiceRecordView setCancelState:cancel];
+        }
+    }
+    else if (gesture.state == UIGestureRecognizerStateEnded ||
+             gesture.state == UIGestureRecognizerStateCancelled ||
+             gesture.state == UIGestureRecognizerStateFailed) {
+        if (!self.voiceRecognizer.isRunning) return;
+        BOOL tooShort = (CACurrentMediaTime() - self.voiceStartTime) < 0.5;
+        if (self.voiceCancelState || tooShort) {
+            [self.voiceRecognizer cancel];
+            self.voiceRecognizer = nil;
+            [self dismissVoiceRecordView];
+            if (tooShort && !self.voiceCancelState) {
+                [self showTextHUD:KKLocalized(@"按住加号说出一笔账，例如：昨天打车花了35块") delay:1.8f];
+            }
+        } else {
+            [self finishVoiceRecording];
+        }
+    }
+}
+
+- (void)startVoiceRecording {
+    KKSpeechRecognizer *recognizer = [[KKSpeechRecognizer alloc] init];
+    self.voiceRecognizer = recognizer;
+    self.voiceStartTime = CACurrentMediaTime();
+    self.voiceRecordView = [VoiceRecordView showInView:self.navigationController.view ?: self.view];
+    @weakify(self)
+    recognizer.levelHandler = ^(float level) {
+        @strongify(self)
+        [self.voiceRecordView updateLevel:level];
+    };
+    recognizer.interruptedHandler = ^{
+        @strongify(self)
+        self.voiceRecognizer = nil;
+        [self dismissVoiceRecordView];
+    };
+    BOOL started = [recognizer startWithPartial:^(NSString *text) {
+        @strongify(self)
+        [self.voiceRecordView updateText:text];
+    }];
+    if (!started) {
+        self.voiceRecognizer = nil;
+        [self dismissVoiceRecordView];
+        [self showTextHUD:KKLocalized(@"语音识别暂时不可用，请检查麦克风或网络") delay:1.5f];
+    }
+}
+
+- (void)finishVoiceRecording {
+    [self.voiceRecordView showRecognizing];
+    @weakify(self)
+    [self.voiceRecognizer stopWithCompletion:^(NSString *finalText) {
+        @strongify(self)
+        self.voiceRecognizer = nil;
+        [self dismissVoiceRecordView];
+        NSString *text = [finalText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (text.length == 0) {
+            [self showTextHUD:KKLocalized(@"没听清，请再试一次") delay:1.5f];
+            return;
+        }
+        NSArray<BKCModel *> *categories = [KKBookTextParser activeCategories];
+        KKParsedBookEntry *entry = [KKBookTextParser parseText:text categories:categories referenceDate:[NSDate date]];
+        [VoiceConfirmView showWithEntry:entry categories:categories confirm:^(BookDetailModel *model) {
+            // 走和记账键盘完全相同的落库管线（乐观 UI + 在线保存/离线队列）
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
+        }];
+    }];
+}
+
+- (void)dismissVoiceRecordView {
+    [self.voiceRecordView dismiss];
+    self.voiceRecordView = nil;
 }
 
 - (void)pushToBookController{

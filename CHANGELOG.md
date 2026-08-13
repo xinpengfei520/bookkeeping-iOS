@@ -14,6 +14,19 @@
 
 ---
 
+## [1.0.19] (build 20) — 2026-08-13
+
+### 新增（语音记账 v1，纯端上）
+- **长按首页 + 号录音记账**：按住 → 录音浮层（`VoiceRecordView`，实时波形 + 识别文字） → 松手等终稿 → 确认卡片（`VoiceConfirmView`，可编辑金额/类别/日期/备注） → 发 `NOTIFICATION_BOOK_ADD` 走既有落库管线，乐观 UI + 离线队列全部复用。
+- `KKSpeechRecognizer`：Speech.framework + AVAudioEngine 封装，RMS 电平驱动波形，1.5s 超时兜底，来电/Siri 打断自动取消，`duckOthers` 压低背景音乐而不掐断。
+- `KKBookTextParser`：纯 Foundation 规则解析器，流程固定为「日期 → 金额 → 类别 → 备注」。日期：昨天/前天/大前天及「8月3号」/「3号」绝对日期；金额：阿拉伯 + 中文（三十五块八 / 两百块 / 三块半 / 1万2），带单位优先；类别：类别名直接命中或同义词表（30+ 类 130+ 关键词）；备注：剔除金额/日期/填充词后截断到 20 字。
+- `KKChineseNumber`：口语中文数字 → double 转换（支持零到亿）。
+- `Info.plist` 补 `NSMicrophoneUsageDescription`、`NSSpeechRecognitionUsageDescription`。
+- `AppDelegate.m` 加 `KK_DEBUG_OPEN=voice`（模拟器直接走解析 + 确认卡片，跳过录音），可用 `KK_DEBUG_VOICE_TEXT` 换测试话术。
+- `BookTextParserTests`：29 个单测覆盖日期/金额/类别/备注全路径。
+
+---
+
 ## [1.0.18] (build 19) — 2026-08-13
 
 ### 变更（读路径性能改造，2000 条存量实测）
