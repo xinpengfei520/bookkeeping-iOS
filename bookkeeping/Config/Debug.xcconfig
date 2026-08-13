@@ -1,0 +1,10 @@
+// Debug 环境配置
+// 切换测试服务器：把下面两行互换注释，重新 build 即可
+// （xcconfig 不支持 // 行内注释，改行注释在行首加 // 即可）
+
+#include "Pods/Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"
+
+KHOST_URL = https://api.vance.xin
+// 测试服务器（需要时取消注释上面那行，注释掉下一行）
+// KHOST_URL = http://139.224.162.55:80
+

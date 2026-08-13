@@ -73,6 +73,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>KKAPIHost</key>
+	<string>$(KHOST_URL)</string>
 	<key>CFBundleVersion</key>
 	<string>20</string>
 	<key>LSApplicationQueriesSchemes</key>

@@ -624,6 +624,8 @@
 		DBCEE0A0803C7EECE2B19DE2 /* BookStoreBenchmarkTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BookStoreBenchmarkTests.m; sourceTree = "<group>"; };
 		DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookkeeping.release.xcconfig"; path = "Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"; sourceTree = "<group>"; };
+		AACCFG01AABBCC0011223301 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AACCFG01AABBCC0011223302 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		E9C79E52E52605AB39D0C559 /* KKBookTextParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKBookTextParser.m; sourceTree = "<group>"; };
 		EBE3C698EF3F16FA2B60F2FB /* LanguageSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingsController.m; sourceTree = "<group>"; };
 		F0D49F9106F303DB88EF7E3D /* KKBookStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKBookStore.m; sourceTree = "<group>"; };
@@ -820,6 +822,7 @@
 				3219837321C642BB00311885 /* bookkeeping */,
 				32BFA7E921E483F300B926F3 /* BookMonth */,
 				3219837221C642BB00311885 /* Products */,
+				AACCFG01AABBCC0011223300 /* Config */,
 				A1D1082896A0BADABB09EB51 /* Pods */,
 				5BA81AE5E9A23B63357F8783 /* Frameworks */,
 				AC855CEF37D348B847E2B843 /* bookkeepingTests */,
@@ -2048,6 +2051,16 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		AACCFG01AABBCC0011223300 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				AACCFG01AABBCC0011223301 /* Debug.xcconfig */,
+				AACCFG01AABBCC0011223302 /* Release.xcconfig */,
+			);
+			name = Config;
+			path = Config;
+			sourceTree = "<group>";
+		};
 		A1D1082896A0BADABB09EB51 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2909,7 +2922,7 @@
 		};
 		3219838821C642BC00311885 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADB606FFC3A28734EF5B4C6B /* Pods-bookkeeping.debug.xcconfig */;
+			baseConfigurationReference = AACCFG01AABBCC0011223301 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -2941,7 +2954,7 @@
 		};
 		3219838921C642BC00311885 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E76EBA2977C0FF96F8D76960 /* Pods-bookkeeping.release.xcconfig */;
+			baseConfigurationReference = AACCFG01AABBCC0011223302 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;

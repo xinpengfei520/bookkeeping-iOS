@@ -5,11 +5,17 @@
 
 #import <Foundation/Foundation.h>
 
-// 生产环境
-#define KHost @"https://api.vance.xin"
-
-// 测试环境
-//#define KHost @"http://139.224.162.55:80"
+// API host 由 xcconfig 注入 KHOST_URL，通过 Info.plist 的 KKAPIHost 键在运行时读取
+// 切换测试服务器：只需编辑 Config/Debug.xcconfig，不用改这里
+static NSString *KHost(void) {
+    static NSString *host = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        host = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"KKAPIHost"] ?: @"https://api.vance.xin";
+    });
+    return host;
+}
+#define KHost KHost()
 #define kUser  @"kUser"
 #define Request(A) [NSString stringWithFormat:@"%@%@", KHost, A]
 
