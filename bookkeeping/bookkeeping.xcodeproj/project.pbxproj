@@ -57,7 +57,6 @@
 		3219840421C6460100311885 /* UICollectionReusableView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983E421C6460100311885 /* UICollectionReusableView+Extension.m */; };
 		3219840521C6460100311885 /* UICollectionView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983E521C6460100311885 /* UICollectionView+Extension.m */; };
 		3219840621C6460100311885 /* NSAttributedString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983E721C6460100311885 /* NSAttributedString+Extension.m */; };
-		3219840721C6460100311885 /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983E921C6460100311885 /* NSString+Encryption.m */; };
 		3219840821C6460100311885 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EB21C6460100311885 /* NSString+Extension.m */; };
 		3219840921C6460100311885 /* UITableView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983EE21C6460100311885 /* UITableView+Extension.m */; };
 		3219840D21C6460100311885 /* CALayer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 321983F821C6460100311885 /* CALayer+Extension.m */; };
@@ -372,10 +371,8 @@
 		321983E521C6460100311885 /* UICollectionView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Extension.m"; sourceTree = "<group>"; };
 		321983E721C6460100311885 /* NSAttributedString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Extension.m"; sourceTree = "<group>"; };
 		321983E821C6460100311885 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
-		321983E921C6460100311885 /* NSString+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encryption.m"; sourceTree = "<group>"; };
 		321983EA21C6460100311885 /* NSAttributedString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Extension.h"; sourceTree = "<group>"; };
 		321983EB21C6460100311885 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
-		321983EC21C6460100311885 /* NSString+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encryption.h"; sourceTree = "<group>"; };
 		321983EE21C6460100311885 /* UITableView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Extension.m"; sourceTree = "<group>"; };
 		321983EF21C6460100311885 /* UITableView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Extension.h"; sourceTree = "<group>"; };
 		321983F721C6460100311885 /* CALayer+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Extension.h"; sourceTree = "<group>"; };
@@ -1139,8 +1136,6 @@
 				32258E7D21CA29AC0017254D /* NSString+Calculation.m */,
 				321983E821C6460100311885 /* NSString+Extension.h */,
 				321983EB21C6460100311885 /* NSString+Extension.m */,
-				321983EC21C6460100311885 /* NSString+Encryption.h */,
-				321983E921C6460100311885 /* NSString+Encryption.m */,
 				321983EA21C6460100311885 /* NSAttributedString+Extension.h */,
 				321983E721C6460100311885 /* NSAttributedString+Extension.m */,
 			);
@@ -2586,7 +2581,6 @@
 				4BC41CFE21CF930600B397BD /* LoginController.m in Sources */,
 				3219841421C6474600311885 /* UserInfo.m in Sources */,
 				4BF0649B21E11283005F1665 /* BDTable.m in Sources */,
-				3219840721C6460100311885 /* NSString+Encryption.m in Sources */,
 				4BE7846321C6796900B8EC46 /* ChartController.m in Sources */,
 				4BEB732E21CE381D00BEF013 /* InfoTableCell.m in Sources */,
 				321983B821C6459B00311885 /* BaseNavigationController.m in Sources */,
