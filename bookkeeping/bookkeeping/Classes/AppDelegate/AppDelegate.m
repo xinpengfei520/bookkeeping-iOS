@@ -11,6 +11,13 @@
 #import <Bugly/Bugly.h>
 #endif
 
+// 语音记账：KK_DEBUG_OPEN=voice 调试钩子用到的三个类
+// （AppDelegate.m 不走 PCH，需要显式 import；正式录音流程在 HomeController.m）
+#if DEBUG
+#import "KKBookTextParser.h"
+#import "VoiceConfirmView.h"
+#endif
+
 #pragma mark - 声明
 @interface AppDelegate ()
 
