@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0675A59E464A2A6DFADBB3FE /* KKChineseNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C65F222F9FAAD488C7D4F9 /* KKChineseNumber.m */; };
+		C4F8D23A1E5B6907AA2A81C2 /* KKLLMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D23A1E5B6907AA2A81C1 /* KKLLMParser.m */; };
 		07F1D7EA2801F908437450D0 /* BookMonthWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C3C7025353F03E12C31D02 /* BookMonthWidget.swift */; };
 		0B7D06677DD4CD294138E600 /* BookMonthEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99D56E06D97996F59D9E76 /* BookMonthEntryView.swift */; };
 		0F25D8DD8CFFBBAE7FFA1FD6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4969F4527FE3BFE2188BAF /* WidgetKit.framework */; };
@@ -277,6 +278,8 @@
 		0A73D9590EE2D21905618DBF /* KKBookStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKBookStore.h; sourceTree = "<group>"; };
 		0B102249E44177CC286D041C /* ThemeSettingsController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ThemeSettingsController.m; sourceTree = "<group>"; };
 		0E59354938712AABA864BFC0 /* KKChineseNumber.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKChineseNumber.h; sourceTree = "<group>"; };
+		C4F8D23A1E5B6907AA2A81C0 /* KKLLMParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = KKLLMParser.h; sourceTree = "<group>"; };
+		C4F8D23A1E5B6907AA2A81C1 /* KKLLMParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KKLLMParser.m; sourceTree = "<group>"; };
 		0FB1A961A9BE63A5562CDE7A /* ThemeSettingsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ThemeSettingsController.h; sourceTree = "<group>"; };
 		146BD453EA3062D2632AB373 /* BookMonth-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BookMonth-Bridging-Header.h"; sourceTree = "<group>"; };
 		1508FD91CA44BDAED41550B7 /* SiriShortcutsController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SiriShortcutsController.h; sourceTree = "<group>"; };
@@ -2016,6 +2019,8 @@
 				B34C9A2686E0C17A959975C9 /* VoiceRecordView.m */,
 				DACFC0C4650C50EA9114AAC6 /* VoiceConfirmView.h */,
 				BF09423C85F294CD648856BA /* VoiceConfirmView.m */,
+				C4F8D23A1E5B6907AA2A81C0 /* KKLLMParser.h */,
+				C4F8D23A1E5B6907AA2A81C1 /* KKLLMParser.m */,
 			);
 			name = Voice;
 			path = Voice;
@@ -2721,6 +2726,7 @@
 				D387A9515DD089B8743AB7AE /* KKSpeechRecognizer.m in Sources */,
 				2DD29EF832B723E3B2F9E26B /* VoiceRecordView.m in Sources */,
 				3FAFA7C2A981703134D2A132 /* VoiceConfirmView.m in Sources */,
+				C4F8D23A1E5B6907AA2A81C2 /* KKLLMParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

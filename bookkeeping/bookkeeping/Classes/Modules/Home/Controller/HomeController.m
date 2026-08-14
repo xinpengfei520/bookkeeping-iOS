@@ -15,6 +15,7 @@
 #import "LAContextManager.h"
 #import "KKSpeechRecognizer.h"
 #import "KKBookTextParser.h"
+#import "KKLLMParser.h"
 #import "VoiceRecordView.h"
 #import "VoiceConfirmView.h"
 
@@ -711,18 +712,36 @@
     [self.voiceRecognizer stopWithCompletion:^(NSString *finalText) {
         @strongify(self)
         self.voiceRecognizer = nil;
-        [self dismissVoiceRecordView];
         NSString *text = [finalText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (text.length == 0) {
+            [self dismissVoiceRecordView];
             [self showTextHUD:KKLocalized(@"没听清，请再试一次") delay:1.5f];
             return;
         }
         NSArray<BKCModel *> *categories = [KKBookTextParser activeCategories];
         KKParsedBookEntry *entry = [KKBookTextParser parseText:text categories:categories referenceDate:[NSDate date]];
-        [VoiceConfirmView showWithEntry:entry categories:categories confirm:^(BookDetailModel *model) {
-            // 走和记账键盘完全相同的落库管线（乐观 UI + 在线保存/离线队列）
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
-        }];
+
+        // M2：规则解析不完整时走 LLM 兜底（最多等 2 秒，超时/失败均降级用规则结果）
+        if ([KKLLMParser needsLLMForEntry:entry]) {
+            [self.voiceRecordView updateText:KKLocalized(@"正在理解内容…")];
+            @weakify(self)
+            [KKLLMParser fillEntry:entry categories:categories completion:^{
+                @strongify(self)
+                if (!self) return;
+                [self dismissVoiceRecordView];
+                [self showVoiceConfirmWithEntry:entry categories:categories];
+            }];
+        } else {
+            [self dismissVoiceRecordView];
+            [self showVoiceConfirmWithEntry:entry categories:categories];
+        }
+    }];
+}
+
+- (void)showVoiceConfirmWithEntry:(KKParsedBookEntry *)entry categories:(NSArray<BKCModel *> *)categories {
+    [VoiceConfirmView showWithEntry:entry categories:categories confirm:^(BookDetailModel *model) {
+        // 走和记账键盘完全相同的落库管线（乐观 UI + 在线保存/离线队列）
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
     }];
 }
 

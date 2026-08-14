@@ -53,6 +53,8 @@ static NSString *KHost(void) {
 #define ChangePassRequest Request(@"/book/user/password/update")
 // 删除账号
 #define DeleteAccountRequest Request(@"/book/user/delete/account")
+// 语音/文字→结构化记账（M2 LLM 兜底；POST，需登录）
+#define bookParseRequest Request(@"/book/parse")
 
 
 // =================== Web 页面 / 外链 ===================
