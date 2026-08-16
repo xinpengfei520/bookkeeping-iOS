@@ -2,5 +2,6 @@
 
 #include "Pods/Target Support Files/Pods-bookkeeping/Pods-bookkeeping.release.xcconfig"
 
-KHOST_URL = https://api.vance.xin
+// xcconfig 里 // 是注释符，https:// 必须用 $() 空变量转义
+KHOST_URL = https:/$()/api.vance.xin
 

@@ -4,7 +4,8 @@
 
 #include "Pods/Target Support Files/Pods-bookkeeping/Pods-bookkeeping.debug.xcconfig"
 
-KHOST_URL = https://api.vance.xin
-// 测试服务器（需要时取消注释上面那行，注释掉下一行）
-// KHOST_URL = http://139.224.162.55:80
+// xcconfig 里 // 是注释符，https:// 必须用 $() 空变量转义
+// 切换测试服务器：把下面两行互换注释，重新 build 即可
+KHOST_URL = https:/$()/api.vance.xin
+// KHOST_URL = http:/$()/139.224.162.55:80
 
