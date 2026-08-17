@@ -40,6 +40,8 @@ typedef void (^BookMarkChanged)(NSString *mark);
 /// 汇率回填。rate <= 0 表示这次没取到，键盘会退回人民币并提示，绝不静默按 1:1 记账。
 /// @param stale 服务端返回的是缓存中的旧汇率，需要提醒用户确认
 - (void)setExchangeRate:(CGFloat)rate forCurrency:(NSString *)currency stale:(BOOL)stale;
+/// 用 GET /book/rates 的 rates 刷新币种选择器。空 / 解析失败时保持现有列表。
+- (void)setAvailableRates:(nullable NSDictionary<NSString *, NSNumber *> *)rates;
 
 @end
 

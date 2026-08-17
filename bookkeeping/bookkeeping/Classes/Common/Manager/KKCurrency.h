@@ -24,19 +24,29 @@ extern NSString * const KKCurrencyCNY;
 extern NSString * const KKCurrencyUSD;
 extern NSString * const KKCurrencyHKD;
 extern NSString * const KKCurrencySGD;
+extern NSString * const KKCurrencyJPY;
+extern NSString * const KKCurrencyKRW;
+extern NSString * const KKCurrencyGBP;
+extern NSString * const KKCurrencyEUR;
+extern NSString * const KKCurrencyCAD;
 
 @interface KKCurrency : NSObject
 
 #pragma mark - 元数据
-/// 记账页币种选择器的顺序：人民币在最前，默认选中
+/// 已知币种目录，人民币在最前。选择器以 GET /book/rates 的键为准，
+/// 本列表只作汇率返回前的回退，以及名称 / 符号查找的优先顺序。
 + (NSArray<NSString *> *)supportedCodes;
-/// 货币符号：CNY→¥ / USD→US$ / HKD→HK$ / SGD→S$（金额前缀用，如 "US$5.20"）
+/// 从 rates 字典抽出外币代码：合法 ^[A-Z]{3}$、不是 CNY、汇率 > 0。
+/// 已知币种按 supportedCodes 的顺序，其余按字母序接在后面。
++ (NSArray<NSString *> *)foreignCodesFromRates:(nullable NSDictionary *)rates;
+/// 货币符号（金额前缀）：CNY→¥ / USD→US$ / HKD→HK$ / SGD→S$ / JPY→JP¥ / KRW→₩ / GBP→£ / EUR→€ / CAD→CA$
 + (NSString *)symbolForCode:(nullable NSString *)code;
-/// 币种角标，统一的"符号+字母"形式：¥CNY / $USD / $HKD / $SGD
+/// 币种角标，统一的"符号+字母"形式：¥CNY / $USD / ¥JPY / ₩KRW / £GBP / €EUR
 + (NSString *)badgeForCode:(nullable NSString *)code;
-/// 名称：人民币 / 美元 / 港币 / 新加坡元
+/// 名称：人民币 / 美元 / 港币 / 新加坡元 / 日元 / 韩元 / 英镑 / 欧元 / 加拿大元；未知代码回退为代码本身
 + (NSString *)nameForCode:(nullable NSString *)code;
-/// 是否是需要留痕汇率的外币（CNY / 空值 / 不支持的代码都返回 NO）
+/// 是否是需要留痕汇率的外币（CNY / 空值 / 非大写三字母都返回 NO）。
+/// 不绑死已知清单：rates 多出来的 key 老版本忽略，新版本按 ISO 代码即可入账。
 + (BOOL)isForeignCode:(nullable NSString *)code;
 
 #pragma mark - 金额换算

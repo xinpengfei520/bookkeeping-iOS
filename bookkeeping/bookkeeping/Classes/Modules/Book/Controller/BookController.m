@@ -138,16 +138,25 @@
     @weakify(self)
     [AFNManager GET:bookRatesRequest params:params complete:^(APPResult *result) {
         @strongify(self)
+        BOOL requestingForeign = [KKCurrency isForeignCode:currency];
         if (result.status != HttpStatusSuccess || result.code != BIZ_SUCCESS) {
-            // 让键盘退回人民币并提示，而不是静默按 1:1 记账
-            [self.keyboard setExchangeRate:0 forCurrency:currency stale:NO];
-            if (result.msg.length) {
-                [self showTextHUD:result.msg delay:1.5f];
+            // 预拉失败保持人民币选择器回退列表，不弹 HUD。
+            // 用户已选外币才退回人民币并提示，绝不静默按 1:1 记账。
+            if (requestingForeign) {
+                [self.keyboard setExchangeRate:0 forCurrency:currency stale:NO];
+                if (result.msg.length) {
+                    [self showTextHUD:result.msg delay:1.5f];
+                }
             }
             return;
         }
         // rates 的语义是「1 单位外币 = N 人民币」，已按 6 位小数取整，直接用、不要取倒数
-        NSNumber *rate = [KKCurrency ratesFromResponseData:result.data][currency];
+        NSDictionary *rates = [KKCurrency ratesFromResponseData:result.data];
+        [self.keyboard setAvailableRates:rates];
+        if (!requestingForeign) {
+            return;
+        }
+        NSNumber *rate = rates[currency];
         [self.keyboard setExchangeRate:[rate doubleValue]
                            forCurrency:currency
                                  stale:[KKCurrency staleFromResponseData:result.data]];
@@ -374,6 +383,8 @@
             [self.markView selectMarkName:mark];
         }];
         [self.view addSubview:_keyboard];
+        // 预拉最新汇率，币种选择器按 rates 的键渲染；失败静默，选择器回退已知目录
+        [self getRatesRequest:nil date:nil];
     }
     return _keyboard;
 }

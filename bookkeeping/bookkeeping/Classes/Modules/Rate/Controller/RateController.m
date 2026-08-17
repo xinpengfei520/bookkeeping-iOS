@@ -137,6 +137,11 @@
         NSDictionary *data = result.data;
         self.errorMsg = nil;
         self.rates = rates;
+        // 按接口返回的键渲染，后续加币种不用跟版
+        self.codes = [KKCurrency foreignCodesFromRates:rates];
+        if (self.codes.count && ![self.codes containsObject:self.selectedCode]) {
+            self.selectedCode = self.codes.firstObject;
+        }
         self.stale = [KKCurrency staleFromResponseData:data];
         self.effectiveDate = [data[@"effectiveDate"] isKindOfClass:[NSString class]] ? data[@"effectiveDate"] : nil;
         self.source = [data[@"source"] isKindOfClass:[NSString class]] ? data[@"source"] : nil;
@@ -415,17 +420,8 @@
 }
 
 - (NSArray<NSString *> *)codes {
-    if (!_codes) {
-        // 只展示外币；人民币是基准，没有"对自己的汇率"
-        NSMutableArray *arrm = [NSMutableArray array];
-        for (NSString *code in [KKCurrency supportedCodes]) {
-            if ([KKCurrency isForeignCode:code]) {
-                [arrm addObject:code];
-            }
-        }
-        _codes = arrm;
-    }
-    return _codes;
+    // 汇率返回前为空；成功后按 rates 的键填充，不写死 USD/HKD/SGD
+    return _codes ?: @[];
 }
 
 @end

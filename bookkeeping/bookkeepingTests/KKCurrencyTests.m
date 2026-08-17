@@ -14,8 +14,10 @@
 
 @interface KKCurrency : NSObject
 + (NSArray<NSString *> *)supportedCodes;
++ (NSArray<NSString *> *)foreignCodesFromRates:(NSDictionary *)rates;
 + (NSString *)symbolForCode:(NSString *)code;
 + (NSString *)badgeForCode:(NSString *)code;
++ (NSString *)nameForCode:(NSString *)code;
 + (BOOL)isForeignCode:(NSString *)code;
 + (CGFloat)cnyPriceForAmount:(CGFloat)amount rate:(CGFloat)rate;
 + (NSString *)formatAmount:(CGFloat)amount;
@@ -61,6 +63,8 @@
 - (void)testDisplayStrings {
     XCTAssertEqualObjects([KKCurrency displayAmount:5.2 code:@"USD"], @"US$5.20");
     XCTAssertEqualObjects([KKCurrency displayAmount:8 code:@"HKD"], @"HK$8.00");
+    XCTAssertEqualObjects([KKCurrency displayAmount:1000 code:@"JPY"], @"JP¥1000.00");
+    XCTAssertEqualObjects([KKCurrency displayAmount:20 code:@"EUR"], @"€20.00");
     XCTAssertEqualObjects([KKCurrency displayRate:6.75265 code:@"USD"], @"1 USD = 6.752650 CNY");
 }
 
@@ -71,8 +75,13 @@
     XCTAssertEqualObjects([KKCurrency badgeForCode:@"USD"], @"$USD");
     XCTAssertEqualObjects([KKCurrency badgeForCode:@"HKD"], @"$HKD");
     XCTAssertEqualObjects([KKCurrency badgeForCode:@"SGD"], @"$SGD");
-    // 未知/空币种回退人民币
-    XCTAssertEqualObjects([KKCurrency badgeForCode:@"EUR"], @"¥CNY");
+    XCTAssertEqualObjects([KKCurrency badgeForCode:@"JPY"], @"¥JPY");
+    XCTAssertEqualObjects([KKCurrency badgeForCode:@"KRW"], @"₩KRW");
+    XCTAssertEqualObjects([KKCurrency badgeForCode:@"GBP"], @"£GBP");
+    XCTAssertEqualObjects([KKCurrency badgeForCode:@"EUR"], @"€EUR");
+    XCTAssertEqualObjects([KKCurrency badgeForCode:@"CAD"], @"$CAD");
+    // 未知 ISO 代码仍用自身，不伪装成人民币；空值才回退
+    XCTAssertEqualObjects([KKCurrency badgeForCode:@"AUD"], @"$AUD");
     XCTAssertEqualObjects([KKCurrency badgeForCode:nil], @"¥CNY");
 }
 
@@ -80,17 +89,42 @@
     XCTAssertTrue([KKCurrency isForeignCode:@"USD"]);
     XCTAssertTrue([KKCurrency isForeignCode:@"HKD"]);
     XCTAssertTrue([KKCurrency isForeignCode:@"SGD"]);
+    XCTAssertTrue([KKCurrency isForeignCode:@"JPY"]);
+    XCTAssertTrue([KKCurrency isForeignCode:@"KRW"]);
+    XCTAssertTrue([KKCurrency isForeignCode:@"GBP"]);
+    XCTAssertTrue([KKCurrency isForeignCode:@"EUR"]);
+    XCTAssertTrue([KKCurrency isForeignCode:@"CAD"]);
+    XCTAssertTrue([KKCurrency isForeignCode:@"AUD"]);       // rates 多出来的 key 按 ISO 代码认
     XCTAssertFalse([KKCurrency isForeignCode:@"CNY"]);      // 人民币不是"外币"
     XCTAssertFalse([KKCurrency isForeignCode:@"usd"]);      // 服务端要求大写，小写不认
-    XCTAssertFalse([KKCurrency isForeignCode:@"EUR"]);      // 不支持的币种
     XCTAssertFalse([KKCurrency isForeignCode:nil]);
     XCTAssertFalse([KKCurrency isForeignCode:@""]);
 }
 
 - (void)testSupportedCodesOrderCNYFirst {
     NSArray *codes = [KKCurrency supportedCodes];
-    XCTAssertEqual(codes.count, 4);
+    XCTAssertEqual(codes.count, 9);
     XCTAssertEqualObjects(codes.firstObject, @"CNY");   // 选择器默认项
+    NSArray *expected = @[@"CNY", @"USD", @"HKD", @"SGD", @"JPY", @"KRW", @"GBP", @"EUR", @"CAD"];
+    XCTAssertEqualObjects(codes, expected);
+}
+
+- (void)testForeignCodesFromRatesFollowsKeysNotHardcodedList {
+    NSDictionary *rates = @{
+        @"SGD": @5.268982,
+        @"EUR": @7.797879,
+        @"USD": @6.752650,
+        @"AUD": @4.8,          // 接口后续新加的 key
+        @"CNY": @1,            // 基准，不应出现
+        @"usd": @6.75,         // 小写不认
+        @"HKD": @0,            // 汇率无效
+    };
+    NSArray *codes = [KKCurrency foreignCodesFromRates:rates];
+    // 已知币种按目录顺序，其余按字母序接后
+    NSArray *expected = @[@"USD", @"SGD", @"EUR", @"AUD"];
+    XCTAssertEqualObjects(codes, expected);
+    XCTAssertEqual([KKCurrency foreignCodesFromRates:nil].count, 0);
+    XCTAssertEqual([KKCurrency foreignCodesFromRates:@{}].count, 0);
 }
 
 @end

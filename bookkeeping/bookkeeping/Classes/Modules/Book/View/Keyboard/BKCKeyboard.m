@@ -38,6 +38,7 @@
 @property (nonatomic, assign) CGFloat exchangeRate;                     // 当前币种汇率，CNY 时为 0
 @property (nonatomic, assign) BOOL rateLoading;                         // 汇率请求中
 @property (nonatomic, assign) BOOL rateStale;                           // 服务端返回的是缓存旧汇率
+@property (nonatomic, copy  ) NSArray<NSString *> *pickerCodes;         // CNY + rates 键；汇率返回前回退 supportedCodes
 
 @end
 
@@ -281,7 +282,7 @@
     [self reloadCurrencyUI];
 }
 
-// 点击币种：人民币 / 美元 / 港币 / 新加坡元
+// 点击币种：人民币 + GET /book/rates 返回的外币，不写死 USD/HKD/SGD
 - (void)currencyBtnClick {
     UIViewController *vc = self.viewController;
     if (vc == nil) {
@@ -292,7 +293,7 @@
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:KKLocalized(@"选择币种")
                                                                   message:nil
                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-    for (NSString *code in [KKCurrency supportedCodes]) {
+    for (NSString *code in self.pickerCodes) {
         NSString *title = [NSString stringWithFormat:@"%@ %@", [KKCurrency nameForCode:code], [KKCurrency badgeForCode:code]];
         UIAlertAction *action = [UIAlertAction actionWithTitle:title
                                                          style:UIAlertActionStyleDefault
@@ -352,6 +353,24 @@
     if (stale) {
         [self showTextHUD:KKLocalized(@"当前汇率可能不是最新，请确认后再记账") delay:2.f];
     }
+}
+
+- (void)setAvailableRates:(NSDictionary<NSString *, NSNumber *> *)rates {
+    NSArray<NSString *> *foreign = [KKCurrency foreignCodesFromRates:rates];
+    if (foreign.count == 0) {
+        return;
+    }
+    NSMutableArray<NSString *> *codes = [NSMutableArray arrayWithObject:KKCurrencyCNY];
+    [codes addObjectsFromArray:foreign];
+    // 编辑一笔接口暂未给出汇率的外币时，别把当前选中项从选择器里弄丢
+    if ([KKCurrency isForeignCode:_currency] && ![codes containsObject:_currency]) {
+        [codes addObject:_currency];
+    }
+    _pickerCodes = codes;
+}
+
+- (NSArray<NSString *> *)pickerCodes {
+    return _pickerCodes.count ? _pickerCodes : [KKCurrency supportedCodes];
 }
 
 // 币种按钮标题 + 换算提示行
