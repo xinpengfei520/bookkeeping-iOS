@@ -9,6 +9,7 @@
 #import "KKBookTextParser.h"
 #import "KKChineseNumber.h"
 #import "BKCIncomeModel.h"
+#import "MarkModel.h"
 
 #pragma mark - KKParsedBookEntry
 
@@ -312,27 +313,84 @@ static NSInteger KKSingleDigit(NSString *s) {
 
 #pragma mark 备注
 
-+ (NSString *)markFrom:(NSString *)text {
-    NSMutableString *mark = [text mutableCopy];
-    // 语气/动词填充词，全局剔除（长词在前）
-    NSArray *fillers = @[@"人民币", @"块钱", @"一共", @"总共", @"大概", @"大约", @"差不多",
-                         @"花掉了", @"花掉", @"花了", @"花费", @"用掉", @"用了", @"付了",
-                         @"支付了", @"支付", @"消费了", @"消费", @"支出了", @"支出",
-                         @"收到了", @"收到", @"收了", @"记一笔", @"记账", @"帮我记"];
-    for (NSString *filler in fillers) {
++ (NSArray<NSString *> *)markFillers {
+    // 长词在前。含语音口令（记一下 / 帮我记），避免整句掉进备注。
+    return @[@"帮我记一下", @"给我记一下", @"帮我记一笔", @"给我记一笔",
+             @"帮我记账", @"给我记账", @"记一下", @"记一笔", @"记一记",
+             @"帮我记", @"给我记", @"人民币", @"块钱", @"一共", @"总共",
+             @"大概", @"大约", @"差不多",
+             @"花掉了", @"花掉", @"花了", @"花费", @"用掉", @"用了", @"付了",
+             @"支付了", @"支付", @"消费了", @"消费", @"支出了", @"支出",
+             @"收到了", @"收到", @"收了", @"记账", @"记个"];
+}
+
++ (NSString *)keywordFromLeftover:(NSString *)text categoryName:(NSString *)categoryName {
+    NSMutableString *mark = [(text ?: @"") mutableCopy];
+    for (NSString *filler in [self markFillers]) {
         [mark replaceOccurrencesOfString:filler withString:@"" options:0 range:NSMakeRange(0, mark.length)];
     }
-    // 两端修剪：标点、空白、残留的单位/助词
+    if (categoryName.length) {
+        [mark replaceOccurrencesOfString:categoryName withString:@"" options:0 range:NSMakeRange(0, mark.length)];
+    }
     NSMutableCharacterSet *trim = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
     [trim addCharactersInString:@"，。！？、,.!?~；;：:的了我在就还也又都块元毛角"];
     NSString *result = [mark stringByTrimmingCharactersInSet:trim];
-    if (result.length > 20) result = [result substringToIndex:20];
+    // 关键词宜短；确认卡片还能手改。20 是提交上限兜底。
+    if (result.length > 10) result = [result substringToIndex:10];
     return result;
+}
+
+// 优先用该分类下已有备注（原文包含即命中，最长优先）；
+// 否则用本类同义词当关键词；再否则把口令剥掉收成短词。
++ (NSString *)refineMarkFrom:(NSString *)leftover
+                    category:(BKCModel *)category
+                       marks:(NSArray<MarkModel *> *)marks {
+    NSString *haystack = leftover ?: @"";
+    if (haystack.length == 0) return @"";
+
+    NSMutableArray<MarkModel *> *candidates = [NSMutableArray array];
+    for (MarkModel *m in marks) {
+        if (m.markName.length < 2) continue;
+        if (category && m.categoryId != category.Id) continue;
+        if ([haystack containsString:m.markName]) [candidates addObject:m];
+    }
+    if (candidates.count) {
+        [candidates sortUsingComparator:^NSComparisonResult(MarkModel *a, MarkModel *b) {
+            if (a.markName.length != b.markName.length) {
+                return a.markName.length > b.markName.length ? NSOrderedAscending : NSOrderedDescending;
+            }
+            if (a.frequency != b.frequency) {
+                return a.frequency > b.frequency ? NSOrderedAscending : NSOrderedDescending;
+            }
+            return [a.markName compare:b.markName];
+        }];
+        return candidates.firstObject.markName;
+    }
+
+    if (category.name.length) {
+        for (NSArray<NSString *> *pair in [self synonymTable]) {
+            if (![pair[1] isEqualToString:category.name]) continue;
+            if ([pair[0] length] >= 2 && [haystack containsString:pair[0]]) {
+                return pair[0];
+            }
+        }
+    }
+
+    return [self keywordFromLeftover:haystack categoryName:category.name];
 }
 
 #pragma mark 主入口
 
-+ (KKParsedBookEntry *)parseText:(NSString *)text categories:(NSArray<BKCModel *> *)categories referenceDate:(NSDate *)referenceDate {
++ (KKParsedBookEntry *)parseText:(NSString *)text
+                      categories:(NSArray<BKCModel *> *)categories
+                   referenceDate:(NSDate *)referenceDate {
+    return [self parseText:text categories:categories marks:nil referenceDate:referenceDate];
+}
+
++ (KKParsedBookEntry *)parseText:(NSString *)text
+                      categories:(NSArray<BKCModel *> *)categories
+                           marks:(NSArray<MarkModel *> *)marks
+                   referenceDate:(NSDate *)referenceDate {
     KKParsedBookEntry *entry = [[KKParsedBookEntry alloc] init];
     entry.rawText = text ?: @"";
     entry.categoryId = -1;
@@ -373,8 +431,8 @@ static NSInteger KKSingleDigit(NSString *s) {
         entry.isIncome = incomeHint;
     }
 
-    // 4. 备注
-    entry.mark = [self markFrom:work];
+    // 4. 备注：先套该分类下已有备注，套不上再收成关键词
+    entry.mark = [self refineMarkFrom:work category:category marks:marks];
     return entry;
 }
 

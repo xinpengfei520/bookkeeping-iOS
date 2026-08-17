@@ -23,7 +23,8 @@ static const CGFloat kRowHeight = 54;
 @property (nonatomic, strong) UITextField *amountField;
 @property (nonatomic, strong) UIScrollView *chipScroll;
 @property (nonatomic, strong) NSArray<UIButton *> *chips;
-@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIButton *dateBtn;
+@property (nonatomic, strong) NSDate *selectedDate;
 @property (nonatomic, strong) UITextField *markField;
 @property (nonatomic, assign) NSInteger selectedIndex;   // categories 下标
 
@@ -129,20 +130,22 @@ static const CGFloat kRowHeight = 54;
     [self buildChips];
     y += kRowHeight;
 
-    // 日期
+    // 日期：卡片挂在 window 上，系统 Compact UIDatePicker 找不到 VC 弹日历，点了没反应。
+    // 改成可点按钮 + 与记账键盘同一套 BRDatePickerView。
     y = [self addSeparatorAt:y];
     UILabel *dateLabel = [self fieldLabel:KKLocalized(@"日期") y:y];
     [_card addSubview:dateLabel];
-    _datePicker = [[UIDatePicker alloc] init];
-    _datePicker.datePickerMode = UIDatePickerModeDate;
-    _datePicker.preferredDatePickerStyle = UIDatePickerStyleCompact;
     NSDateComponents *comp = [[NSDateComponents alloc] init];
     comp.year = _entry.year; comp.month = _entry.month; comp.day = _entry.day; comp.hour = 12;
-    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:comp];
-    if (date) _datePicker.date = date;
-    [_datePicker sizeToFit];
-    _datePicker.frame = CGRectMake(width - kPadding - _datePicker.width, y + (kRowHeight - _datePicker.height) / 2, _datePicker.width, _datePicker.height);
-    [_card addSubview:_datePicker];
+    _selectedDate = [[NSCalendar currentCalendar] dateFromComponents:comp] ?: [NSDate date];
+    _dateBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _dateBtn.frame = CGRectMake(100, y, width - 100 - kPadding, kRowHeight);
+    _dateBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    _dateBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [_dateBtn setTitleColor:kColor_Text_Black forState:UIControlStateNormal];
+    [_dateBtn addTarget:self action:@selector(dateBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [_card addSubview:_dateBtn];
+    [self reloadDateBtn];
     y += kRowHeight;
 
     // 备注
@@ -235,6 +238,49 @@ static const CGFloat kRowHeight = 54;
 
 #pragma mark - event
 
+- (void)reloadDateBtn {
+    NSString *title = nil;
+    if ([_selectedDate isToday]) {
+        title = KKLocalized(@"今天");
+    } else {
+        NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay
+                                                                     value:-1
+                                                                    toDate:[NSDate date]
+                                                                   options:0];
+        if (yesterday && [_selectedDate isSameDay:yesterday]) {
+            title = KKLocalized(@"昨天");
+        } else {
+            title = [NSString stringWithFormat:@"%ld-%02ld-%02ld",
+                     (long)_selectedDate.year, (long)_selectedDate.month, (long)_selectedDate.day];
+        }
+    }
+    [_dateBtn setTitle:[NSString stringWithFormat:@"%@  ▾", title] forState:UIControlStateNormal];
+}
+
+- (void)dateBtnClick {
+    [self endEditing:YES];
+    NSDate *now = [NSDate date];
+    BRDatePickerView *picker = [[BRDatePickerView alloc] init];
+    BRPickerStyle *style = [[BRPickerStyle alloc] init];
+    style.cancelBtnTitle = KKLocalized(@"取消");
+    style.doneBtnTitle = KKLocalized(@"确定");
+    picker.pickerStyle = style;
+    picker.pickerMode = BRDatePickerModeYMD;
+    picker.title = KKLocalized(@"选择日期");
+    picker.selectDate = _selectedDate;
+    picker.minDate = [NSDate br_setYear:2000 month:1 day:1];
+    picker.maxDate = [NSDate br_setYear:now.year + 3 month:12 day:31];
+    picker.isAutoSelect = NO;
+    @weakify(self)
+    picker.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
+        @strongify(self)
+        if (!selectDate) return;
+        self.selectedDate = selectDate;
+        [self reloadDateBtn];
+    };
+    [picker show];
+}
+
 - (void)chipAction:(UIButton *)chip {
     if (chip.tag == _selectedIndex) return;
     [self styleChip:_chips[_selectedIndex] selected:NO];
@@ -250,7 +296,7 @@ static const CGFloat kRowHeight = 54;
         return;
     }
     BKCModel *category = _categories[_selectedIndex];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:_datePicker.date];
+    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:_selectedDate];
 
     BookDetailModel *model = [[BookDetailModel alloc] init];
     model.bookId = [[BookDetailModel getBookId] integerValue];   // 临时负数 id，同步成功后换服务端 id

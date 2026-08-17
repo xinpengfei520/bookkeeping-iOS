@@ -29,9 +29,20 @@
 @property (nonatomic, assign) BOOL is_income;
 @end
 
+@interface MarkModel : NSObject
+@property (nonatomic, assign) NSInteger markId;
+@property (nonatomic, copy  ) NSString *markName;
+@property (nonatomic, assign) NSInteger frequency;
+@property (nonatomic, assign) NSInteger categoryId;
+@end
+
 @interface KKBookTextParser : NSObject
 + (KKParsedBookEntry *)parseText:(NSString *)text
                       categories:(NSArray *)categories
+                   referenceDate:(NSDate *)referenceDate;
++ (KKParsedBookEntry *)parseText:(NSString *)text
+                      categories:(NSArray *)categories
+                           marks:(NSArray *)marks
                    referenceDate:(NSDate *)referenceDate;
 @end
 
@@ -239,7 +250,53 @@
 
 - (void)testMarkMaxLength {
     KKParsedBookEntry *e = [self parse:@"花了100块买了一堆零零碎碎的东西包括面膜洗面奶护肤水精华乳液防晒霜"];
-    XCTAssertLessThanOrEqual(e.mark.length, 20);
+    XCTAssertLessThanOrEqual(e.mark.length, 10);
+}
+
+- (void)testMarkPrefersExistingCategoryNote {
+    // 「记一下晚饭」原文包含餐饮下已有备注「晚饭」，用已有备注而不是整句
+    MarkModel *m = [[MarkModel alloc] init];
+    m.categoryId = 1;   // 餐饮
+    m.markName = @"晚饭";
+    m.frequency = 3;
+    KKParsedBookEntry *e = [KKBookTextParser parseText:@"记一下晚饭花了38块"
+                                            categories:self.categories
+                                                 marks:@[m]
+                                         referenceDate:self.refDate];
+    XCTAssertEqual(e.categoryId, 1);
+    XCTAssertEqualObjects(e.mark, @"晚饭");
+}
+
+- (void)testMarkPrefersLongestExistingNote {
+    MarkModel *shortMark = [[MarkModel alloc] init];
+    shortMark.categoryId = 1;
+    shortMark.markName = @"晚饭";
+    MarkModel *longMark = [[MarkModel alloc] init];
+    longMark.categoryId = 1;
+    longMark.markName = @"公司晚饭";
+    KKParsedBookEntry *e = [KKBookTextParser parseText:@"记一下公司晚饭花了80块"
+                                            categories:self.categories
+                                                 marks:@[shortMark, longMark]
+                                         referenceDate:self.refDate];
+    XCTAssertEqualObjects(e.mark, @"公司晚饭");
+}
+
+- (void)testMarkIgnoresOtherCategoryNotes {
+    MarkModel *m = [[MarkModel alloc] init];
+    m.categoryId = 2;   // 交通
+    m.markName = @"晚饭";
+    KKParsedBookEntry *e = [KKBookTextParser parseText:@"记一下晚饭花了38块"
+                                            categories:self.categories
+                                                 marks:@[m]
+                                         referenceDate:self.refDate];
+    // 餐饮下没有「晚饭」备注，退回同义词关键词
+    XCTAssertEqual(e.categoryId, 1);
+    XCTAssertEqualObjects(e.mark, @"晚饭");
+}
+
+- (void)testMarkStripsVoiceCommandToKeyword {
+    KKParsedBookEntry *e = [self parse:@"记一下晚饭花了38块"];
+    XCTAssertEqualObjects(e.mark, @"晚饭");
 }
 
 #pragma mark - rawText 保留

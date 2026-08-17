@@ -719,7 +719,11 @@
             return;
         }
         NSArray<BKCModel *> *categories = [KKBookTextParser activeCategories];
-        KKParsedBookEntry *entry = [KKBookTextParser parseText:text categories:categories referenceDate:[NSDate date]];
+        NSArray<MarkModel *> *marks = [NSUserDefaults getAllMarkList];
+        KKParsedBookEntry *entry = [KKBookTextParser parseText:text
+                                                   categories:categories
+                                                        marks:marks
+                                                referenceDate:[NSDate date]];
 
         // M2：规则解析不完整时走 LLM 兜底（最多等 2 秒，超时/失败均降级用规则结果）
         if ([KKLLMParser needsLLMForEntry:entry]) {

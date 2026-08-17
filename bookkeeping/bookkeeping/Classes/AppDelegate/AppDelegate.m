@@ -90,7 +90,11 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSString *text = NSProcessInfo.processInfo.environment[@"KK_DEBUG_VOICE_TEXT"] ?: @"昨天打车花了三十五块八";
             NSArray<BKCModel *> *categories = [KKBookTextParser activeCategories];
-            KKParsedBookEntry *entry = [KKBookTextParser parseText:text categories:categories referenceDate:[NSDate date]];
+            NSArray<MarkModel *> *marks = [NSUserDefaults getAllMarkList];
+            KKParsedBookEntry *entry = [KKBookTextParser parseText:text
+                                                       categories:categories
+                                                            marks:marks
+                                                    referenceDate:[NSDate date]];
             [VoiceConfirmView showWithEntry:entry categories:categories confirm:^(BookDetailModel *model) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
             }];

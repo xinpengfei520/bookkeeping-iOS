@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 @class BKCModel;
+@class MarkModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger year;
 @property (nonatomic, assign) NSInteger month;
 @property (nonatomic, assign) NSInteger day;
-@property (nonatomic, copy  ) NSString *mark;        // 剔除金额/日期后的短备注，可为空串
+@property (nonatomic, copy  ) NSString *mark;        // 优先用分类下已有备注，否则收缩成关键词
 @property (nonatomic, copy  ) NSString *rawText;     // 原始识别文本，确认卡片回显用
 
 @end
@@ -35,6 +36,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// referenceDate 是「今天」的基准（正常传 [NSDate date]，测试传固定日期）。
 + (KKParsedBookEntry *)parseText:(NSString *)text
                       categories:(NSArray<BKCModel *> *)categories
+                   referenceDate:(NSDate *)referenceDate;
+
+/// 带推荐备注的解析。命中分类后，若原文包含该分类下某条 markName（最长优先），
+/// 就用那条已有备注；否则把口令填充词剥掉，收成一个短关键词。
++ (KKParsedBookEntry *)parseText:(NSString *)text
+                      categories:(NSArray<BKCModel *> *)categories
+                           marks:(nullable NSArray<MarkModel *> *)marks
                    referenceDate:(NSDate *)referenceDate;
 
 /// 用户当前启用的类别（系统保留 + 自定义，支出在前收入在后），
