@@ -37,6 +37,10 @@ static const NSTimeInterval kLLMTimeoutSeconds = 2.0;
     // __block 标志确保 completion 只回调一次（超时 or 网络响应，先到先得）
     __block BOOL responded = NO;
     NSString *text = entry.rawText ?: @"";
+    // 后端 BookParseRequest.text 上限 500；OCR 原文可能更长，先截断再发。
+    if (text.length > 500) {
+        text = [text substringToIndex:500];
+    }
 
     // 超时兜底：2 秒后若 LLM 仍未响应，直接用规则解析结果
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kLLMTimeoutSeconds * NSEC_PER_SEC)),

@@ -89,7 +89,7 @@ static const CGFloat kBarMaxHeight = 34;
     _hintLabel.font = [UIFont systemFontOfSize:12];
     _hintLabel.textColor = RGBA(255, 255, 255, 0.6);
     _hintLabel.textAlignment = NSTextAlignmentCenter;
-    _hintLabel.text = KKLocalized(@"松开结束，上滑取消");
+    _hintLabel.text = KKLocalized(@"松开结束，上滑取消，左滑相册");
     [_card addSubview:_hintLabel];
 }
 
@@ -114,10 +114,21 @@ static const CGFloat kBarMaxHeight = 34;
 }
 
 - (void)setCancelState:(BOOL)cancelState {
-    _hintLabel.text = cancelState ? KKLocalized(@"松开取消") : KKLocalized(@"松开结束，上滑取消");
+    _hintLabel.text = cancelState ? KKLocalized(@"松开取消") : KKLocalized(@"松开结束，上滑取消，左滑相册");
     _hintLabel.textColor = cancelState ? kColor_Text_Red : RGBA(255, 255, 255, 0.6);
     _card.layer.borderWidth = cancelState ? 1.5 : 0;
     _card.layer.borderColor = kColor_Text_Red.CGColor;
+}
+
+- (void)setAlbumState:(BOOL)albumState {
+    if (albumState) {
+        _hintLabel.text = KKLocalized(@"松开选择相册");
+        _hintLabel.textColor = kColor_Main_Color;
+        _card.layer.borderWidth = 1.5;
+        _card.layer.borderColor = kColor_Main_Color.CGColor;
+    } else {
+        [self setCancelState:NO];
+    }
 }
 
 - (void)showRecognizing {

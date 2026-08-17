@@ -5,7 +5,7 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>需要访问邮件功能来发送反馈</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>需要访问相册功能来上传头像</string>
+	<string>需要访问相册以选择账单截图记账，以及上传头像</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

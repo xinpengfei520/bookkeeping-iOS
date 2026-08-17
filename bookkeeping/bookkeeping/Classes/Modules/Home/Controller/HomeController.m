@@ -16,11 +16,14 @@
 #import "KKSpeechRecognizer.h"
 #import "KKBookTextParser.h"
 #import "KKLLMParser.h"
+#import "KKOCRRecognizer.h"
 #import "VoiceRecordView.h"
 #import "VoiceConfirmView.h"
+#import "OCRConfirmView.h"
+#import <PhotosUI/PhotosUI.h>
 
 #pragma mark - 声明
-@interface HomeController()
+@interface HomeController() <PHPickerViewControllerDelegate>
 
 @property (nonatomic, strong) HomeNavigation *navigation;
 @property (nonatomic, strong) HomeHeader *header;
@@ -34,8 +37,9 @@
 // ============ 语音记账（长按 + 号） ============
 @property (nonatomic, strong) KKSpeechRecognizer *voiceRecognizer;
 @property (nonatomic, strong) VoiceRecordView *voiceRecordView;
-@property (nonatomic, assign) CGPoint voiceStartPoint;      // 长按起点，算上滑取消
+@property (nonatomic, assign) CGPoint voiceStartPoint;      // 长按起点，算上滑取消 / 左滑相册
 @property (nonatomic, assign) BOOL voiceCancelState;
+@property (nonatomic, assign) BOOL voiceAlbumState;
 @property (nonatomic, assign) CFTimeInterval voiceStartTime;
 
 @end
@@ -641,6 +645,7 @@
         }
         self.voiceStartPoint = [gesture locationInView:self.view];
         self.voiceCancelState = NO;
+        self.voiceAlbumState = NO;
         @weakify(self)
         [KKSpeechRecognizer requestPermission:^(BOOL granted, NSString *message) {
             @strongify(self)
@@ -656,8 +661,15 @@
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         if (!self.voiceRecognizer.isRunning) return;
         CGPoint point = [gesture locationInView:self.view];
-        BOOL cancel = (self.voiceStartPoint.y - point.y) > 60;
-        if (cancel != self.voiceCancelState) {
+        CGFloat up = self.voiceStartPoint.y - point.y;
+        CGFloat left = self.voiceStartPoint.x - point.x;
+        BOOL album = left > 60 && left >= up;
+        BOOL cancel = !album && up > 60;
+        if (album != self.voiceAlbumState) {
+            self.voiceAlbumState = album;
+            [self.voiceRecordView setAlbumState:album];
+        }
+        if (!album && cancel != self.voiceCancelState) {
             self.voiceCancelState = cancel;
             [self.voiceRecordView setCancelState:cancel];
         }
@@ -667,12 +679,17 @@
              gesture.state == UIGestureRecognizerStateFailed) {
         if (!self.voiceRecognizer.isRunning) return;
         BOOL tooShort = (CACurrentMediaTime() - self.voiceStartTime) < 0.5;
-        if (self.voiceCancelState || tooShort) {
+        if (self.voiceAlbumState) {
+            [self.voiceRecognizer cancel];
+            self.voiceRecognizer = nil;
+            [self dismissVoiceRecordView];
+            [self presentOCRPicker];
+        } else if (self.voiceCancelState || tooShort) {
             [self.voiceRecognizer cancel];
             self.voiceRecognizer = nil;
             [self dismissVoiceRecordView];
             if (tooShort && !self.voiceCancelState) {
-                [self showTextHUD:KKLocalized(@"按住加号说出一笔账，例如：昨天打车花了35块") delay:1.8f];
+                [self showTextHUD:KKLocalized(@"按住加号说出一笔账，左滑可选相册") delay:1.8f];
             }
         } else {
             [self finishVoiceRecording];
@@ -752,6 +769,117 @@
 - (void)dismissVoiceRecordView {
     [self.voiceRecordView dismiss];
     self.voiceRecordView = nil;
+}
+
+#pragma mark - 相册 OCR 记账
+
+- (void)presentOCRPicker {
+    PHPickerConfiguration *config = [[PHPickerConfiguration alloc] init];
+    config.filter = [PHPickerFilter imagesFilter];
+    config.selectionLimit = 9;
+    PHPickerViewController *picker = [[PHPickerViewController alloc] initWithConfiguration:config];
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    if (results.count == 0) return;
+
+    NSMutableArray *slots = [NSMutableArray arrayWithCapacity:results.count];
+    for (NSUInteger i = 0; i < results.count; i++) {
+        [slots addObject:[NSNull null]];
+    }
+    dispatch_group_t group = dispatch_group_create();
+    for (NSUInteger i = 0; i < results.count; i++) {
+        NSItemProvider *provider = results[i].itemProvider;
+        if (![provider canLoadObjectOfClass:[UIImage class]]) continue;
+        dispatch_group_enter(group);
+        [provider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading> object, NSError *error) {
+            if ([object isKindOfClass:[UIImage class]]) {
+                @synchronized (slots) {
+                    slots[i] = object;
+                }
+            }
+            dispatch_group_leave(group);
+        }];
+    }
+    @weakify(self)
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        @strongify(self)
+        if (!self) return;
+        NSMutableArray<UIImage *> *images = [NSMutableArray array];
+        for (id obj in slots) {
+            if ([obj isKindOfClass:[UIImage class]]) [images addObject:obj];
+        }
+        [self processOCRImages:images];
+    });
+}
+
+- (void)processOCRImages:(NSArray<UIImage *> *)images {
+    if (images.count == 0) {
+        [self showTextHUD:KKLocalized(@"没读到图片，请再试一次") delay:1.5f];
+        return;
+    }
+    [self showProgressHUD:KKLocalized(@"正在识别账单…")];
+    @weakify(self)
+    [KKOCRRecognizer recognizeImages:images completion:^(NSArray<NSString *> *texts) {
+        @strongify(self)
+        if (!self) return;
+        NSArray<BKCModel *> *categories = [KKBookTextParser activeCategories];
+        NSArray<MarkModel *> *marks = [NSUserDefaults getAllMarkList];
+        NSDate *ref = [NSDate date];
+        NSMutableArray<KKParsedBookEntry *> *entries = [NSMutableArray array];
+        NSMutableArray<NSString *> *chunks = [NSMutableArray array];
+        for (NSString *text in texts) {
+            NSString *trim = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (trim.length == 0) continue;
+            [chunks addObject:trim];
+            NSArray<KKParsedBookEntry *> *parsed = [KKBookTextParser parseReceiptText:trim
+                                                                           categories:categories
+                                                                                marks:marks
+                                                                        referenceDate:ref];
+            if (parsed.count) [entries addObjectsFromArray:parsed];
+        }
+        NSString *combined = [chunks componentsJoinedByString:@"\n"];
+        if (entries.count == 0) {
+            [self hideHUD];
+            if (combined.length == 0) {
+                [self showTextHUD:KKLocalized(@"没识别到文字，请换一张更清晰的账单图") delay:1.8f];
+                return;
+            }
+            KKParsedBookEntry *blank = [[KKParsedBookEntry alloc] init];
+            blank.rawText = combined;
+            blank.categoryId = -1;
+            blank.year = ref.year;
+            blank.month = ref.month;
+            blank.day = ref.day;
+            blank.mark = @"";
+            [entries addObject:blank];
+        }
+        // 单笔且规则没补全时，复用 M2 单条 LLM（后端 multi 尚未上线）
+        if (entries.count == 1 && [KKLLMParser needsLLMForEntry:entries.firstObject]) {
+            [self showProgressHUD:KKLocalized(@"正在理解内容…")];
+            [KKLLMParser fillEntry:entries.firstObject categories:categories completion:^{
+                @strongify(self)
+                if (!self) return;
+                [self hideHUD];
+                [self showOCRConfirmWithEntries:entries categories:categories];
+            }];
+            return;
+        }
+        [self hideHUD];
+        [self showOCRConfirmWithEntries:entries categories:categories];
+    }];
+}
+
+- (void)showOCRConfirmWithEntries:(NSArray<KKParsedBookEntry *> *)entries
+                       categories:(NSArray<BKCModel *> *)categories {
+    [OCRConfirmView showWithEntries:entries categories:categories confirm:^(NSArray<BookDetailModel *> *models) {
+        for (BookDetailModel *model in models) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
+        }
+    }];
 }
 
 - (void)pushToBookController{

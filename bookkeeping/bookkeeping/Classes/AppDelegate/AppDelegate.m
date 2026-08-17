@@ -16,6 +16,7 @@
 #if DEBUG
 #import "KKBookTextParser.h"
 #import "VoiceConfirmView.h"
+#import "OCRConfirmView.h"
 #endif
 
 #pragma mark - 声明
@@ -97,6 +98,24 @@
                                                     referenceDate:[NSDate date]];
             [VoiceConfirmView showWithEntry:entry categories:categories confirm:^(BookDetailModel *model) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
+            }];
+        });
+    }
+    // KK_DEBUG_OPEN=ocr 用固定账单文本走 OCR 解析 + 确认卡（模拟器不挑图）；
+    // KK_DEBUG_OCR_TEXT 可换测试账单
+    else if ([debugOpen isEqualToString:@"ocr"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *text = NSProcessInfo.processInfo.environment[@"KK_DEBUG_OCR_TEXT"] ?:
+                @"2026/08/13  星巴克  38.00\n2026/08/13  滴滴出行  23.50";
+            NSArray<BKCModel *> *categories = [KKBookTextParser activeCategories];
+            NSArray<KKParsedBookEntry *> *entries = [KKBookTextParser parseReceiptText:text
+                                                                            categories:categories
+                                                                                 marks:nil
+                                                                         referenceDate:[NSDate date]];
+            [OCRConfirmView showWithEntries:entries categories:categories confirm:^(NSArray<BookDetailModel *> *models) {
+                for (BookDetailModel *model in models) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BOOK_ADD object:model];
+                }
             }];
         });
     }

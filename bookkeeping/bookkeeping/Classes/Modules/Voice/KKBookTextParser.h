@@ -45,6 +45,14 @@ NS_ASSUME_NONNULL_BEGIN
                            marks:(nullable NSArray<MarkModel *> *)marks
                    referenceDate:(NSDate *)referenceDate;
 
+/// 账单 / 支付截图 OCR 文本 → 0~N 条记账。
+/// 保留换行，按「带日期的列表行 / 合计金额 / 单笔支付」分流；
+/// 后端 /book/parse 的 multi 尚未上线，多条主要靠这一层。
++ (NSArray<KKParsedBookEntry *> *)parseReceiptText:(NSString *)text
+                                        categories:(NSArray<BKCModel *> *)categories
+                                             marks:(nullable NSArray<MarkModel *> *)marks
+                                     referenceDate:(NSDate *)referenceDate;
+
 /// 用户当前启用的类别（系统保留 + 自定义，支出在前收入在后），
 /// 与 BookController 记账键盘展示的集合一致。
 + (NSArray<BKCModel *> *)activeCategories;

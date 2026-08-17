@@ -55,6 +55,36 @@ static NSInteger KKSingleDigit(NSString *s) {
 @implementation KKAmountCandidate
 @end
 
+// 账单 OCR 行上的日期 / 金额
+@interface KKReceiptDateHit : NSObject
+@property (nonatomic, assign) NSInteger year;
+@property (nonatomic, assign) NSInteger month;
+@property (nonatomic, assign) NSInteger day;
+@property (nonatomic, assign) NSRange range;
+@end
+@implementation KKReceiptDateHit
+@end
+
+@interface KKReceiptAmountHit : NSObject
+@property (nonatomic, assign) double value;
+@property (nonatomic, assign) NSRange range;
+@property (nonatomic, assign) BOOL isTotal;
+@property (nonatomic, assign) BOOL hasUnit;
+@end
+@implementation KKReceiptAmountHit
+@end
+
+@interface KKReceiptLine : NSObject
+@property (nonatomic, copy  ) NSString *text;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) KKReceiptDateHit *date;
+@property (nonatomic, strong) KKReceiptAmountHit *amount;
+@property (nonatomic, copy  ) NSString *leftover;
+@property (nonatomic, assign) BOOL isBoilerplate;
+@end
+@implementation KKReceiptLine
+@end
+
 
 #pragma mark - KKBookTextParser
 
@@ -217,8 +247,8 @@ static NSInteger KKSingleDigit(NSString *s) {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         NSDictionary<NSString *, NSArray<NSString *> *> *groups = @{
-            @"餐饮": @[@"早饭", @"早餐", @"早点", @"午饭", @"午餐", @"中饭", @"晚饭", @"晚餐", @"夜宵", @"宵夜", @"外卖", @"吃饭", @"聚餐", @"下馆子", @"咖啡", @"奶茶", @"火锅", @"烧烤", @"食堂", @"麦当劳", @"肯德基"],
-            @"交通": @[@"打车", @"打的", @"滴滴", @"出租车", @"地铁", @"公交", @"高铁", @"火车票", @"机票", @"加油", @"停车", @"过路费", @"共享单车"],
+            @"餐饮": @[@"早饭", @"早餐", @"早点", @"午饭", @"午餐", @"中饭", @"晚饭", @"晚餐", @"夜宵", @"宵夜", @"外卖", @"吃饭", @"聚餐", @"下馆子", @"咖啡", @"奶茶", @"火锅", @"烧烤", @"食堂", @"麦当劳", @"肯德基", @"星巴克", @"瑞幸"],
+            @"交通": @[@"打车", @"打的", @"滴滴出行", @"滴滴", @"出租车", @"地铁", @"公交", @"高铁", @"火车票", @"机票", @"加油", @"停车", @"过路费", @"共享单车"],
             @"购物": @[@"淘宝", @"京东", @"拼多多", @"网购", @"买东西", @"超市", @"商场"],
             @"日用": @[@"纸巾", @"洗发水", @"牙膏", @"洗衣液", @"沐浴露", @"日用品"],
             @"蔬菜": @[@"买菜", @"青菜", @"蔬菜"],
@@ -434,6 +464,364 @@ static NSInteger KKSingleDigit(NSString *s) {
     // 4. 备注：先套该分类下已有备注，套不上再收成关键词
     entry.mark = [self refineMarkFrom:work category:category marks:marks];
     return entry;
+}
+
+#pragma mark 账单 OCR
+
++ (BOOL)receiptLineIsBoilerplate:(NSString *)line {
+    static NSArray<NSString *> *exact;
+    static NSArray<NSString *> *prefixes;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        exact = @[@"支付成功", @"交易成功", @"支付完成", @"已付款", @"微信支付", @"支付宝",
+                  @"收款成功", @"转账成功", @"普通账单", @"账单详情", @"交易详情", @"订单详情",
+                  @"当前状态", @"支付时间", @"交易时间", @"创建时间", @"商品详情", @"查看详情",
+                  @"完成", @"关闭", @"复制", @"优惠券", @"积分", @"礼品卡", @"零钱",
+                  @"银行卡", @"余额宝", @"花呗", @"信用卡"];
+        prefixes = @[@"订单号", @"交易单号", @"商户单号", @"支付方式", @"当前状态"];
+    });
+    if ([exact containsObject:line]) return YES;
+    for (NSString *p in prefixes) {
+        if ([line hasPrefix:p]) return YES;
+    }
+    return NO;
+}
+
++ (NSArray<KKReceiptDateHit *> *)receiptDatesInLine:(NSString *)line {
+    NSMutableArray *hits = [NSMutableArray array];
+    NSRange full = NSMakeRange(0, line.length);
+    // 2026-08-13 / 2026/08/13 / 2026.08.13 / 2026年8月13日
+    [KKRegex(@"(\\d{4})[-/.年](\\d{1,2})[-/.月](\\d{1,2})日?")
+     enumerateMatchesInString:line options:0 range:full usingBlock:^(NSTextCheckingResult *m, NSMatchingFlags f, BOOL *stop) {
+        NSInteger y = [[line substringWithRange:[m rangeAtIndex:1]] integerValue];
+        NSInteger mo = [[line substringWithRange:[m rangeAtIndex:2]] integerValue];
+        NSInteger d = [[line substringWithRange:[m rangeAtIndex:3]] integerValue];
+        if (y < 2000 || y > 2100 || mo < 1 || mo > 12 || d < 1 || d > 31) return;
+        KKReceiptDateHit *hit = [[KKReceiptDateHit alloc] init];
+        hit.year = y; hit.month = mo; hit.day = d; hit.range = m.range;
+        [hits addObject:hit];
+    }];
+    // 8月13日 / 08-13 / 08/13（不用点号，避免 38.00 被当成日期）
+    [KKRegex(@"(?<!\\d)(\\d{1,2})[-/月](\\d{1,2})日?(?!\\d)")
+     enumerateMatchesInString:line options:0 range:full usingBlock:^(NSTextCheckingResult *m, NSMatchingFlags f, BOOL *stop) {
+        for (KKReceiptDateHit *exist in hits) {
+            if (NSIntersectionRange(exist.range, m.range).length > 0) return;
+        }
+        NSInteger mo = [[line substringWithRange:[m rangeAtIndex:1]] integerValue];
+        NSInteger d = [[line substringWithRange:[m rangeAtIndex:2]] integerValue];
+        if (mo < 1 || mo > 12 || d < 1 || d > 31) return;
+        KKReceiptDateHit *hit = [[KKReceiptDateHit alloc] init];
+        hit.year = 0; hit.month = mo; hit.day = d; hit.range = m.range;
+        [hits addObject:hit];
+    }];
+    return hits;
+}
+
++ (double)receiptMoneyValue:(NSString *)raw {
+    NSString *clean = [[raw stringByReplacingOccurrencesOfString:@"," withString:@""]
+                       stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if ([clean hasPrefix:@"-"] || [clean hasPrefix:@"+"]) {
+        clean = [clean substringFromIndex:1];
+    }
+    return [clean doubleValue];
+}
+
++ (BOOL)receiptPrefixLooksLikeTotal:(NSString *)prefix {
+    static NSArray<NSString *> *keys;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        keys = @[@"合计", @"总计", @"共计", @"实付金额", @"应付金额", @"支付金额",
+                 @"收款金额", @"转账金额", @"订单金额", @"消费金额", @"实付", @"应付", @"金额"];
+    });
+    for (NSString *k in keys) {
+        if ([prefix containsString:k]) return YES;
+    }
+    return NO;
+}
+
++ (NSArray<KKReceiptAmountHit *> *)receiptAmountsInLine:(NSString *)line masked:(NSString *)masked {
+    NSMutableArray *hits = [NSMutableArray array];
+    NSRange full = NSMakeRange(0, masked.length);
+    NSMutableIndexSet *used = [NSMutableIndexSet indexSet];
+    void (^add)(double, NSRange, BOOL) = ^(double v, NSRange r, BOOL unit) {
+        if (v <= 0 || v > 99999999) return;
+        if ([used intersectsIndexesInRange:r]) return;
+        // 没带货币符号的 4 位整数很像年份 / 单号，丢掉
+        if (!unit && r.length >= 4 && v == (NSInteger)v && v >= 1000 && v <= 2100) return;
+        if (!unit && r.length >= 8 && v == (NSInteger)v) return;
+        KKReceiptAmountHit *hit = [[KKReceiptAmountHit alloc] init];
+        hit.value = round(v * 100) / 100.0;
+        hit.range = r;
+        hit.hasUnit = unit;
+        NSString *prefix = r.location < line.length ? [line substringToIndex:MIN(r.location, line.length)] : @"";
+        hit.isTotal = [self receiptPrefixLooksLikeTotal:prefix];
+        [hits addObject:hit];
+        [used addIndexesInRange:r];
+    };
+
+    // ¥38.00 / ￥1,280.50 / -¥38
+    [KKRegex(@"[-+]?[¥￥]\\s*(\\d{1,3}(?:,\\d{3})*(?:\\.\\d{1,2})?|\\d+(?:\\.\\d{1,2})?)")
+     enumerateMatchesInString:masked options:0 range:full usingBlock:^(NSTextCheckingResult *m, NSMatchingFlags f, BOOL *stop) {
+        add([self receiptMoneyValue:[masked substringWithRange:[m rangeAtIndex:1]]], m.range, YES);
+    }];
+    // 38.00元 / 38元
+    [KKRegex(@"(\\d{1,3}(?:,\\d{3})*(?:\\.\\d{1,2})?|\\d+(?:\\.\\d{1,2})?)\\s*元")
+     enumerateMatchesInString:masked options:0 range:full usingBlock:^(NSTextCheckingResult *m, NSMatchingFlags f, BOOL *stop) {
+        add([self receiptMoneyValue:[masked substringWithRange:[m rangeAtIndex:1]]], m.range, YES);
+    }];
+    // 独立的 xx.xx（账单最常见）
+    [KKRegex(@"(?<![\\d.])(\\d{1,3}(?:,\\d{3})*\\.\\d{2}|\\d+\\.\\d{2})(?![\\d.])")
+     enumerateMatchesInString:masked options:0 range:full usingBlock:^(NSTextCheckingResult *m, NSMatchingFlags f, BOOL *stop) {
+        add([self receiptMoneyValue:[masked substringWithRange:[m rangeAtIndex:1]]], m.range, NO);
+    }];
+    return hits;
+}
+
++ (NSString *)maskReceiptLine:(NSString *)line dates:(NSArray<KKReceiptDateHit *> *)dates {
+    NSMutableString *masked = [line mutableCopy];
+    // 先盖住时间 14:32 / 14:32:10，避免被当成金额
+    [KKRegex(@"\\d{1,2}:\\d{2}(?::\\d{2})?")
+     enumerateMatchesInString:line options:0 range:NSMakeRange(0, line.length) usingBlock:^(NSTextCheckingResult *m, NSMatchingFlags f, BOOL *stop) {
+        for (NSUInteger i = 0; i < m.range.length; i++) {
+            [masked replaceCharactersInRange:NSMakeRange(m.range.location + i, 1) withString:@" "];
+        }
+    }];
+    for (KKReceiptDateHit *d in dates) {
+        for (NSUInteger i = 0; i < d.range.length && d.range.location + i < masked.length; i++) {
+            [masked replaceCharactersInRange:NSMakeRange(d.range.location + i, 1) withString:@" "];
+        }
+    }
+    return masked;
+}
+
++ (NSString *)leftoverFromReceiptLine:(NSString *)line
+                                dates:(NSArray<KKReceiptDateHit *> *)dates
+                              amounts:(NSArray<KKReceiptAmountHit *> *)amounts {
+    NSMutableString *work = [line mutableCopy];
+    NSMutableArray *ranges = [NSMutableArray array];
+    for (KKReceiptDateHit *d in dates) [ranges addObject:[NSValue valueWithRange:d.range]];
+    for (KKReceiptAmountHit *a in amounts) [ranges addObject:[NSValue valueWithRange:a.range]];
+    [ranges sortUsingComparator:^NSComparisonResult(NSValue *a, NSValue *b) {
+        NSRange ra = a.rangeValue, rb = b.rangeValue;
+        if (ra.location > rb.location) return NSOrderedAscending;
+        if (ra.location < rb.location) return NSOrderedDescending;
+        return NSOrderedSame;
+    }];
+    for (NSValue *v in ranges) {
+        NSRange r = v.rangeValue;
+        if (r.location + r.length <= work.length) {
+            [work replaceCharactersInRange:r withString:@""];
+        }
+    }
+    static NSArray<NSString *> *labels;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        labels = @[@"合计", @"总计", @"共计", @"实付金额", @"应付金额", @"支付金额",
+                   @"收款金额", @"转账金额", @"订单金额", @"消费金额", @"实付", @"应付",
+                   @"金额", @"收款方", @"商户", @"店名", @"向", @"付款"];
+    });
+    for (NSString *lab in labels) {
+        [work replaceOccurrencesOfString:lab withString:@"" options:0 range:NSMakeRange(0, work.length)];
+    }
+    NSMutableCharacterSet *trim = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+    [trim addCharactersInString:@"：:：,，。.-_/\\|"];
+    return [work stringByTrimmingCharactersInSet:trim];
+}
+
++ (KKParsedBookEntry *)receiptEntryWithPrice:(double)price
+                                        year:(NSInteger)year month:(NSInteger)month day:(NSInteger)day
+                                  markSource:(NSString *)markSource
+                                     rawText:(NSString *)rawText
+                                  categories:(NSArray<BKCModel *> *)categories
+                                       marks:(NSArray<MarkModel *> *)marks {
+    KKParsedBookEntry *entry = [[KKParsedBookEntry alloc] init];
+    entry.price = price;
+    entry.year = year;
+    entry.month = month;
+    entry.day = day;
+    entry.categoryId = -1;
+    entry.rawText = rawText ?: @"";
+    NSString *hay = [(markSource.length ? markSource : rawText) ?: @"" copy];
+    BOOL incomeHint = [self incomeHintIn:hay];
+    BKCModel *category = [self matchCategoryIn:hay categories:categories incomeHint:incomeHint];
+    if (!category && rawText.length) {
+        category = [self matchCategoryIn:rawText categories:categories incomeHint:incomeHint];
+    }
+    if (category) {
+        entry.categoryId = category.Id;
+        entry.isIncome = category.is_income;
+    } else {
+        entry.isIncome = incomeHint;
+    }
+    entry.mark = [self refineMarkFrom:hay category:category marks:marks];
+    return entry;
+}
+
++ (NSArray<KKParsedBookEntry *> *)parseReceiptText:(NSString *)text
+                                        categories:(NSArray<BKCModel *> *)categories
+                                             marks:(NSArray<MarkModel *> *)marks
+                                     referenceDate:(NSDate *)referenceDate {
+    if (text.length == 0) return @[];
+    NSMutableString *work = [text mutableCopy];
+    CFStringTransform((__bridge CFMutableStringRef)work, NULL, kCFStringTransformFullwidthHalfwidth, false);
+    NSArray<NSString *> *rawLines = [work componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *refComp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                                            fromDate:referenceDate ?: [NSDate date]];
+
+    NSMutableArray<KKReceiptLine *> *lines = [NSMutableArray array];
+    for (NSUInteger i = 0; i < rawLines.count; i++) {
+        NSString *t = [rawLines[i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (t.length == 0) continue;
+        KKReceiptLine *line = [[KKReceiptLine alloc] init];
+        line.text = t;
+        line.index = (NSInteger)i;
+        line.isBoilerplate = [self receiptLineIsBoilerplate:t];
+        NSArray<KKReceiptDateHit *> *dates = [self receiptDatesInLine:t];
+        line.date = dates.firstObject;
+        NSString *masked = [self maskReceiptLine:t dates:dates];
+        NSArray<KKReceiptAmountHit *> *amounts = [self receiptAmountsInLine:t masked:masked];
+        // 一行多个金额时：带合计标签的优先，否则取最后一个（账单行金额通常在行尾）
+        KKReceiptAmountHit *chosen = nil;
+        for (KKReceiptAmountHit *a in amounts) {
+            if (a.isTotal) { chosen = a; break; }
+        }
+        if (!chosen) chosen = amounts.lastObject;
+        line.amount = chosen;
+        line.leftover = [self leftoverFromReceiptLine:t dates:dates amounts:chosen ? @[chosen] : @[]];
+        [lines addObject:line];
+    }
+
+    // 上一行是「合计/金额」而本行只有数字：把合计标到本行金额上
+    for (NSInteger i = 1; i < (NSInteger)lines.count; i++) {
+        KKReceiptLine *cur = lines[i];
+        KKReceiptLine *prev = lines[i - 1];
+        if (cur.amount && !cur.amount.isTotal && prev.leftover.length == 0 &&
+            [self receiptPrefixLooksLikeTotal:prev.text]) {
+            cur.amount.isTotal = YES;
+        }
+    }
+
+    NSMutableArray<KKReceiptLine *> *datedRows = [NSMutableArray array];
+    NSMutableArray<KKReceiptLine *> *listRows = [NSMutableArray array];
+    KKReceiptLine *totalLine = nil;
+    for (KKReceiptLine *line in lines) {
+        if (!line.amount) continue;
+        if (line.amount.isTotal && !totalLine) totalLine = line;
+        BOOL hasName = line.leftover.length >= 2 && !line.isBoilerplate;
+        if (line.date && (hasName || line.leftover.length > 0)) {
+            [datedRows addObject:line];
+        }
+        if (hasName || line.date) {
+            [listRows addObject:line];
+        }
+    }
+
+    NSMutableArray<KKParsedBookEntry *> *entries = [NSMutableArray array];
+    void (^fillDate)(KKParsedBookEntry *, KKReceiptDateHit *) = ^(KKParsedBookEntry *e, KKReceiptDateHit *d) {
+        e.year = refComp.year;
+        e.month = refComp.month;
+        e.day = refComp.day;
+        if (!d) return;
+        if (d.year > 0) e.year = d.year;
+        e.month = d.month;
+        e.day = d.day;
+    };
+
+    // 多笔账单列表：至少两行各自带日期+金额（微信/支付宝账单页）
+    if (datedRows.count >= 2) {
+        KKReceiptDateHit *carry = nil;
+        for (KKReceiptLine *line in datedRows) {
+            if (line.date) carry = line.date;
+            KKParsedBookEntry *e = [self receiptEntryWithPrice:line.amount.value
+                                                          year:refComp.year month:refComp.month day:refComp.day
+                                                    markSource:line.leftover
+                                                       rawText:line.text
+                                                    categories:categories
+                                                         marks:marks];
+            fillDate(e, line.date ?: carry);
+            [entries addObject:e];
+        }
+        return entries;
+    }
+
+    // 有合计：整张小票记一笔（行项目是明细，不拆）
+    if (totalLine) {
+        KKReceiptDateHit *date = totalLine.date;
+        NSString *merchant = nil;
+        for (KKReceiptLine *line in lines) {
+            if (line.date && !date) date = line.date;
+            if (merchant.length) continue;
+            NSTextCheckingResult *m = [KKRegex(@"(?:收款方|商户|店名)[:：]?\\s*(.+)")
+                                       firstMatchInString:line.text options:0 range:NSMakeRange(0, line.text.length)];
+            if (m && [m rangeAtIndex:1].length) {
+                merchant = [line.text substringWithRange:[m rangeAtIndex:1]];
+                continue;
+            }
+            m = [KKRegex(@"向(.+)付款") firstMatchInString:line.text options:0 range:NSMakeRange(0, line.text.length)];
+            if (m && [m rangeAtIndex:1].length) {
+                merchant = [line.text substringWithRange:[m rangeAtIndex:1]];
+                continue;
+            }
+            if (!line.isBoilerplate && !line.amount && line.leftover.length >= 2) {
+                merchant = line.leftover;
+            }
+        }
+        NSString *markSource = merchant.length ? merchant : (totalLine.leftover ?: @"");
+        KKParsedBookEntry *e = [self receiptEntryWithPrice:totalLine.amount.value
+                                                      year:refComp.year month:refComp.month day:refComp.day
+                                                markSource:markSource
+                                                   rawText:work
+                                                categories:categories
+                                                     marks:marks];
+        fillDate(e, date);
+        return @[e];
+    }
+
+    // 两行以上「商户 + 金额」（没写日期的流水）
+    if (listRows.count >= 2) {
+        KKReceiptDateHit *carry = nil;
+        for (KKReceiptLine *line in listRows) {
+            if (line.date) carry = line.date;
+            KKParsedBookEntry *e = [self receiptEntryWithPrice:line.amount.value
+                                                          year:refComp.year month:refComp.month day:refComp.day
+                                                    markSource:line.leftover
+                                                       rawText:line.text
+                                                    categories:categories
+                                                         marks:marks];
+            fillDate(e, line.date ?: carry);
+            [entries addObject:e];
+        }
+        return entries;
+    }
+
+    // 单笔：取带货币符号的金额，否则最后一个金额
+    KKReceiptLine *single = nil;
+    for (KKReceiptLine *line in lines) {
+        if (!line.amount) continue;
+        if (line.amount.hasUnit) { single = line; break; }
+        single = line;
+    }
+    if (!single) return @[];
+
+    KKReceiptDateHit *date = single.date;
+    NSString *merchant = single.leftover;
+    for (KKReceiptLine *line in lines) {
+        if (line.date && !date) date = line.date;
+        if (merchant.length >= 2) continue;
+        if (!line.isBoilerplate && !line.amount && line.leftover.length >= 2) {
+            merchant = line.leftover;
+        }
+    }
+    KKParsedBookEntry *e = [self receiptEntryWithPrice:single.amount.value
+                                                  year:refComp.year month:refComp.month day:refComp.day
+                                            markSource:merchant
+                                               rawText:work
+                                            categories:categories
+                                                 marks:marks];
+    fillDate(e, date);
+    return @[e];
 }
 
 #pragma mark 类别数据源
