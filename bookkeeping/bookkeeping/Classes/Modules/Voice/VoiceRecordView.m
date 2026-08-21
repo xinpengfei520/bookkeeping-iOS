@@ -17,6 +17,7 @@ static const CGFloat kBarMaxHeight = 34;
 @property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic, strong) UILabel *hintLabel;
 @property (nonatomic, strong) NSArray<UIView *> *bars;
+@property (nonatomic, copy) void (^tapFinishHandler)(void);
 
 @end
 
@@ -89,7 +90,7 @@ static const CGFloat kBarMaxHeight = 34;
     _hintLabel.font = [UIFont systemFontOfSize:12];
     _hintLabel.textColor = RGBA(255, 255, 255, 0.6);
     _hintLabel.textAlignment = NSTextAlignmentCenter;
-    _hintLabel.text = KKLocalized(@"松开结束，上滑取消，左滑相册");
+    _hintLabel.text = KKLocalized(@"松开结束，上滑取消");
     [_card addSubview:_hintLabel];
 }
 
@@ -114,10 +115,24 @@ static const CGFloat kBarMaxHeight = 34;
 }
 
 - (void)setCancelState:(BOOL)cancelState {
-    _hintLabel.text = cancelState ? KKLocalized(@"松开取消") : KKLocalized(@"松开结束，上滑取消，左滑相册");
+    _hintLabel.text = cancelState ? KKLocalized(@"松开取消") : KKLocalized(@"松开结束，上滑取消");
     _hintLabel.textColor = cancelState ? kColor_Text_Red : RGBA(255, 255, 255, 0.6);
     _card.layer.borderWidth = cancelState ? 1.5 : 0;
     _card.layer.borderColor = kColor_Text_Red.CGColor;
+}
+
+- (void)enableTapToFinish:(void (^)(void))handler {
+    self.tapFinishHandler = handler;
+    self.userInteractionEnabled = YES;
+    _hintLabel.text = KKLocalized(@"点击结束");
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFinish)];
+    [self addGestureRecognizer:tap];
+}
+
+- (void)handleTapFinish {
+    void (^block)(void) = self.tapFinishHandler;
+    self.tapFinishHandler = nil;
+    if (block) block();
 }
 
 - (void)setAlbumState:(BOOL)albumState {

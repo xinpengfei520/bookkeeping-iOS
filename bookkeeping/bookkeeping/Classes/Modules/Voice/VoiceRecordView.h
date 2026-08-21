@@ -17,8 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateText:(NSString *)text;        // ASR partial 实时文本
 - (void)updateLevel:(float)level;           // 录音电平 0~1，驱动波形
 - (void)setCancelState:(BOOL)cancelState;   // 上滑越过阈值：提示变红「松开取消」
-- (void)setAlbumState:(BOOL)albumState;     // 左滑越过阈值：提示「松开选择相册」
+- (void)setAlbumState:(BOOL)albumState;     // 兼容旧手势，现已改右侧入口
 - (void)showRecognizing;                    // 松手后等终稿的过渡态
+/// 点按入口：浮层可点，点卡片结束录音。
+- (void)enableTapToFinish:(void (^)(void))handler;
 - (void)dismiss;
 
 @end

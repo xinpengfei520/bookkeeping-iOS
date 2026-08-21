@@ -20,6 +20,7 @@
 #import "VoiceRecordView.h"
 #import "VoiceConfirmView.h"
 #import "OCRConfirmView.h"
+#import "HomeAddBar.h"
 #import <PhotosUI/PhotosUI.h>
 
 #pragma mark - 声明
@@ -34,12 +35,10 @@
 @property (nonatomic, assign) BOOL replayingFailedBooks;    // 离线队列重放中(防重入)
 @property (nonatomic, assign) BOOL pendingInitialLoad;     // 后台启动时推迟首屏加载
 
-// ============ 语音记账（长按 + 号） ============
+// ============ 语音 / 图片记账 ============
+@property (nonatomic, strong) HomeAddBar *addBar;
 @property (nonatomic, strong) KKSpeechRecognizer *voiceRecognizer;
 @property (nonatomic, strong) VoiceRecordView *voiceRecordView;
-@property (nonatomic, assign) CGPoint voiceStartPoint;      // 长按起点，算上滑取消 / 左滑相册
-@property (nonatomic, assign) BOOL voiceCancelState;
-@property (nonatomic, assign) BOOL voiceAlbumState;
 @property (nonatomic, assign) CFTimeInterval voiceStartTime;
 
 @end
@@ -605,96 +604,59 @@
 }
 
 - (void)addButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    // 老布局 y = height-120 时，按钮 frame 底边 = height-40，落在 tab bar
-    // 范围内（TabbarHeight≈83pt），点击下半区会被 tab bar 截走，把人带到
-    // "我的" tab。改为 height-200 让按钮整体挂在 tab bar 上方，并用
-    // setEnlargeEdgeWithTop:... 在视觉 80×80 之外再加 10pt 安全 hit-zone。
-    button.frame = CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height-200, 80, 80);
-    [button setImage:[UIImage imageNamed:@"tabbar_add_n.png"] forState:0];
-    [button setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    [button setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
-    
-    // 设置阴影
-    button.layer.shadowColor = [UIColor grayColor].CGColor;
-    // 阴影的大小，x 往右和 y 往下是正
-    button.layer.shadowOffset = CGSizeMake(5, 5);
-    // 阴影的扩散范围，相当于 blur radius，也是 shadow 的渐变距离，从外围开始，往里渐变 shadowRadius 距离
-    button.layer.shadowRadius = 5;
-    // 阴影的不透明度
-    button.layer.shadowOpacity = 0.5;
-    
-    [self.view addSubview:button];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushToBookController)];
-    [button addGestureRecognizer:tapGesture];
-
-    // 长按语音记账（与点按天然共存：长按识别后 tap 自动失败）
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(voiceLongPressAction:)];
-    longPress.minimumPressDuration = 0.4;
-    [button addGestureRecognizer:longPress];
-}
-
-#pragma mark - 语音记账
-
-- (void)voiceLongPressAction:(UILongPressGestureRecognizer *)gesture {
-    if (gesture.state == UIGestureRecognizerStateBegan) {
+    CGFloat barH = 80;
+    CGFloat y = self.view.bounds.size.height - TabbarHeight - barH - 6;
+    HomeAddBar *bar = [[HomeAddBar alloc] initWithFrame:CGRectMake(16, y, self.view.bounds.size.width - 32, barH)];
+    bar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    @weakify(self)
+    bar.tapBook = ^{
+        @strongify(self)
+        [self pushToBookController];
+    };
+    bar.tapVoice = ^{
+        @strongify(self)
+        [self startVoiceFromBar];
+    };
+    bar.tapPhoto = ^{
+        @strongify(self)
         if (![UserInfo isLogin]) {
             [self pushToLoginController];
             return;
         }
-        self.voiceStartPoint = [gesture locationInView:self.view];
-        self.voiceCancelState = NO;
-        self.voiceAlbumState = NO;
-        @weakify(self)
-        [KKSpeechRecognizer requestPermission:^(BOOL granted, NSString *message) {
-            @strongify(self)
-            if (!granted) {
-                if (message) [self showTextHUD:message delay:1.5f];
+        [self presentOCRPicker];
+    };
+    bar.slideEnded = ^(NSInteger side) {
+        @strongify(self)
+        if (side < 0) [self startVoiceFromBar];
+        else if (side > 0) {
+            if (![UserInfo isLogin]) {
+                [self pushToLoginController];
                 return;
             }
-            // 首次授权的系统弹窗会打断长按手势；授权完成时手指已松开就不再启动录音
-            if (gesture.state != UIGestureRecognizerStateBegan && gesture.state != UIGestureRecognizerStateChanged) return;
-            [self startVoiceRecording];
-        }];
-    }
-    else if (gesture.state == UIGestureRecognizerStateChanged) {
-        if (!self.voiceRecognizer.isRunning) return;
-        CGPoint point = [gesture locationInView:self.view];
-        CGFloat up = self.voiceStartPoint.y - point.y;
-        CGFloat left = self.voiceStartPoint.x - point.x;
-        BOOL album = left > 60 && left >= up;
-        BOOL cancel = !album && up > 60;
-        if (album != self.voiceAlbumState) {
-            self.voiceAlbumState = album;
-            [self.voiceRecordView setAlbumState:album];
-        }
-        if (!album && cancel != self.voiceCancelState) {
-            self.voiceCancelState = cancel;
-            [self.voiceRecordView setCancelState:cancel];
-        }
-    }
-    else if (gesture.state == UIGestureRecognizerStateEnded ||
-             gesture.state == UIGestureRecognizerStateCancelled ||
-             gesture.state == UIGestureRecognizerStateFailed) {
-        if (!self.voiceRecognizer.isRunning) return;
-        BOOL tooShort = (CACurrentMediaTime() - self.voiceStartTime) < 0.5;
-        if (self.voiceAlbumState) {
-            [self.voiceRecognizer cancel];
-            self.voiceRecognizer = nil;
-            [self dismissVoiceRecordView];
             [self presentOCRPicker];
-        } else if (self.voiceCancelState || tooShort) {
-            [self.voiceRecognizer cancel];
-            self.voiceRecognizer = nil;
-            [self dismissVoiceRecordView];
-            if (tooShort && !self.voiceCancelState) {
-                [self showTextHUD:KKLocalized(@"按住加号说出一笔账，左滑可选相册") delay:1.8f];
-            }
-        } else {
-            [self finishVoiceRecording];
         }
+    };
+    [self.view addSubview:bar];
+    self.addBar = bar;
+}
+
+#pragma mark - 语音记账
+
+- (void)startVoiceFromBar {
+    if (![UserInfo isLogin]) {
+        [self pushToLoginController];
+        return;
     }
+    if (self.voiceRecognizer.isRunning) return;
+    @weakify(self)
+    [KKSpeechRecognizer requestPermission:^(BOOL granted, NSString *message) {
+        @strongify(self)
+        if (!granted) {
+            if (message) [self showTextHUD:message delay:1.5f];
+            return;
+        }
+        [self startVoiceRecording];
+    }];
 }
 
 - (void)startVoiceRecording {
@@ -703,6 +665,11 @@
     self.voiceStartTime = CACurrentMediaTime();
     self.voiceRecordView = [VoiceRecordView showInView:self.navigationController.view ?: self.view];
     @weakify(self)
+    [self.voiceRecordView enableTapToFinish:^{
+        @strongify(self)
+        if (!self.voiceRecognizer.isRunning) return;
+        [self finishVoiceRecording];
+    }];
     recognizer.levelHandler = ^(float level) {
         @strongify(self)
         [self.voiceRecordView updateLevel:level];
@@ -724,6 +691,13 @@
 }
 
 - (void)finishVoiceRecording {
+    if ((CACurrentMediaTime() - self.voiceStartTime) < 0.5) {
+        [self.voiceRecognizer cancel];
+        self.voiceRecognizer = nil;
+        [self dismissVoiceRecordView];
+        [self showTextHUD:KKLocalized(@"请再说一次，例如：昨天打车花了35块") delay:1.8f];
+        return;
+    }
     [self.voiceRecordView showRecognizing];
     @weakify(self)
     [self.voiceRecognizer stopWithCompletion:^(NSString *finalText) {

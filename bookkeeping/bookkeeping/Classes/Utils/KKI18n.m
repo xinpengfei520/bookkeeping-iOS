@@ -369,6 +369,10 @@ static NSDictionary<NSString *, NSString *> *KKEnglishTable(void) {
             @"关于": @"About",
 
             // ---- Voice / OCR booking ----
+            @"语音记账": @"Voice",
+            @"图片识别": @"Scan bill",
+            @"点击结束": @"Tap to finish",
+            @"请再说一次，例如：昨天打车花了35块": @"Try again, e.g. taxi 35 yuan yesterday",
             @"请说吧，我在听…": @"Go ahead, I'm listening…",
             @"松开结束，上滑取消": @"Release to finish, slide up to cancel",
             @"松开结束，上滑取消，左滑相册": @"Release to finish · slide up to cancel · left for photos",
